@@ -1,0 +1,138 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - ./Rakefile
+    - ./config.ru
+    - ./Gemfile
+    - bin/**/*
+    - db/**/*
+    - config/**/*
+    - lib/tasks/*.rake
+
+Rails:
+  Enabled: true
+
+# Use &&/|| instead of and/or.
+AndOr:
+  Enabled: false
+
+# Use only ascii symbols in identifiers.
+AsciiComments:
+  Enabled: false
+
+# Document classes and non-namespace modules.
+Documentation:
+  Enabled: false
+
+# Use the lambda method for multi-line lambdas.
+Lambda:
+  Enabled: false
+
+# Limit lines to 79 characters.
+LineLength:
+  Max: 79
+  Enabled: false
+
+MethodLength:
+  Max: 30
+  Enabled: true
+
+# Don't use self where it's not needed.
+RedundantSelf:
+  Enabled: false
+
+# Checks for proper usage of fail and raise.
+SignalException:
+  Enabled: false
+
+# Prefer ' strings when you don't need string interpolation or special symbols.
+StringLiterals:
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+
+# Align block ends correctly.
+BlockAlignment:
+  Enabled: false
+
+# Avoid the use of attr. Use attr_reader and attr_accessor instead.
+Attr:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
+
+UnusedBlockArgument:
+  Enabled: false
+
+UnusedMethodArgument:
+  Enabled: false
+
+MultilineOperationIndentation:
+  Enabled: false
+
+AbcSize:
+  Max: 20
+
+CyclomaticComplexity:
+  Max: 30
+
+RescueModifier:
+  Severity: warning
+  AutoCorrect: false
+
+# node(:id) { |m| m.file_id }
+SymbolProc:
+  Severity: warning
+  AutoCorrect: false
+
+MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+ConditionalAssignment:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/RegexpLiteral:
+  EnforcedStyle: percent_r
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Rails/FilePath:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Exclude:
+    - "**/*_spec.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
