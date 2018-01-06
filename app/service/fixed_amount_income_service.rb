@@ -11,16 +11,15 @@ class FixedAmountIncomeService
     {
       overtime_meals: overtime_meal_subsidy,
       buisness_trip: business_trip_subsidy,
-      overtime: overtime,
       vacation_refund: vacation_refund,
+      overtime: overtime,
     }
   end
 
   private
 
   def overtime
-    # TODO: 加班費需要能處理多筆和假日
-    OvertimeService.new(payroll.overtime_hours, salary).workday
+    payroll.overtimes.map { |ot| OvertimeService.new(ot.hours, salary).send(ot.rate) }.reduce(:+)
   end
 
   def vacation_refund

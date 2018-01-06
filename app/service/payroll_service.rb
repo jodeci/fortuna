@@ -25,10 +25,16 @@ class PayrollService
       period: payment_period,
       notes: {
         leavetime: payroll.leavetime_hours,
-        overtime: payroll.overtime_hours,
-        # vacation: payroll.vacation_refund_hours,
+        overtime: overtime,
+        vacation: payroll.vacation_refund_hours,
       },
     }
+  end
+
+  def overtime
+    payroll.overtimes.map do |ot|
+      { hours: ot.hours, date: ot.date.strftime("%Y-%m-%d") }
+    end
   end
 
   def deductions
@@ -85,6 +91,6 @@ class PayrollService
   end
 
   def payment_period
-    "#{payroll.year} 年 #{payroll.month} 月"
+    "#{payroll.year}-#{sprintf('%02d', payroll.month)}"
   end
 end

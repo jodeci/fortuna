@@ -123,6 +123,12 @@ Style/PercentLiteralDelimiters:
 Style/NumericLiterals:
   Enabled: false
 
+Style/FormatStringToken:
+  Enabled: false
+
+Style/FormatString:
+  Enabled: false
+
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
