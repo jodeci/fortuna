@@ -10,10 +10,10 @@ class FixedAmountIncomeService
   def run
     {
       overtime_meals: overtime_meal_subsidy,
-      buisness_trip: business_trip_subsidy,
+      business_trip: business_trip_subsidy,
       vacation_refund: vacation_refund,
       overtime: overtime,
-    }
+    }.transform_values { |v| v.to_i }
   end
 
   private

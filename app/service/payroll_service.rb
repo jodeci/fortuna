@@ -42,7 +42,7 @@ class PayrollService
       leavetime: leavetime,
       labor_insurance: labor_insurance,
       health_insurance: health_insurance,
-    }
+    }.transform_values { |v| v.to_i }
   end
 
   def monthly_based_income
@@ -68,7 +68,7 @@ class PayrollService
       income: i,
       deduction: d,
       total: i - d,
-    }
+    }.transform_values { |v| v.to_i }
     hash
   end
 
