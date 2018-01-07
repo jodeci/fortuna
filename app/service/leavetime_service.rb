@@ -7,8 +7,12 @@ class LeavetimeService
     @salary = salary
   end
 
-  def run
+  def normal
     hours * hourly_rate
+  end
+
+  def sick
+    (normal * 0.5).round
   end
 
   private

@@ -52,6 +52,7 @@
     %td{colspan: 3}
       %ul
         %li #{@payroll[:meta][:onboard]} 到職
-        %li 本月請假 #{@payroll[:meta][:notes][:leavetime]} 小時
+        %li 扣薪事假 #{@payroll[:meta][:notes][:leavetime]} 小時
+        %li 扣薪病假 #{@payroll[:meta][:notes][:sicktime]} 小時
         - @payroll[:meta][:notes][:overtime].each do |ot|
           %li #{ot[:date]} 加班 #{ot[:hours]} 小時

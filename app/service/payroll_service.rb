@@ -25,6 +25,7 @@ class PayrollService
       period: payment_period,
       notes: {
         leavetime: payroll.leavetime_hours,
+        sicktime: payroll.sicktime_hours,
         overtime: overtime,
         vacation: payroll.vacation_refund_hours,
       },
@@ -39,10 +40,10 @@ class PayrollService
 
   def deductions
     {
-      leavetime: leavetime,
+      leavetime: leavetime + sicktime,
       labor_insurance: labor_insurance,
       health_insurance: health_insurance,
-    }.transform_values { |v| v.to_i }
+    }.transform_values(&:to_i)
   end
 
   def monthly_based_income
@@ -58,7 +59,11 @@ class PayrollService
   end
 
   def leavetime
-    LeavetimeService.new(payroll.leavetime_hours, salary).run
+    LeavetimeService.new(payroll.leavetime_hours, salary).normal
+  end
+
+  def sicktime
+    LeavetimeService.new(payroll.sicktime_hours, salary).sick
   end
 
   def finalize(hash)
@@ -68,7 +73,7 @@ class PayrollService
       income: i,
       deduction: d,
       total: i - d,
-    }.transform_values { |v| v.to_i }
+    }.transform_values(&:to_i)
     hash
   end
 

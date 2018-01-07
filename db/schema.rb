@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180106155844) do
     t.integer "year"
     t.integer "month"
     t.float "leavetime_hours", default: 0.0
+    t.float "sicktime_hours", default: 0.0
     t.float "vacation_refund_hours", default: 0.0
     t.integer "overtime_meals", default: 0
     t.integer "business_trip_days", default: 0
