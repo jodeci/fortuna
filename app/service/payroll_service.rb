@@ -10,9 +10,9 @@ class PayrollService
   def run
     finalize(
       meta: meta,
-      monthly_based_income: monthly_based_income,
-      fixed_amount_income: fixed_amount_income,
-      deductions: deductions
+      gain: gain,
+      loss: loss,
+      notes: notes
     )
   end
 
@@ -23,22 +23,23 @@ class PayrollService
       name: payroll.employee.name,
       onboard: payroll.employee.start_date.strftime("%Y-%m-%d"),
       period: payment_period,
-      notes: {
-        leavetime: payroll.leavetime_hours,
-        sicktime: payroll.sicktime_hours,
-        overtime: overtime,
-        vacation: payroll.vacation_refund_hours,
-      },
     }
   end
 
-  def overtime
-    payroll.overtimes.map do |ot|
-      { hours: ot.hours, date: ot.date.strftime("%Y-%m-%d") }
-    end
+  def notes
+    {
+      leavetime: payroll.leavetime_hours,
+      sicktime: payroll.sicktime_hours,
+      overtime: overtime,
+      vacation: payroll.vacation_refund_hours,
+    }
   end
 
-  def deductions
+  def gain
+    monthly_based_income.merge(fixed_amount_income).transform_values(&:to_i)
+  end
+
+  def loss
     {
       leavetime: leavetime + sicktime,
       labor_insurance: labor_insurance,
@@ -66,14 +67,16 @@ class PayrollService
     LeavetimeService.new(payroll.sicktime_hours, salary).sick
   end
 
+  def overtime
+    payroll.overtimes.map do |ot|
+      { hours: ot.hours, date: ot.date.strftime("%Y-%m-%d") }
+    end
+  end
+
   def finalize(hash)
-    i = sum(hash[:monthly_based_income]) + sum(hash[:fixed_amount_income])
-    d = sum(hash[:deductions])
-    hash[:total] = {
-      income: i,
-      deduction: d,
-      total: i - d,
-    }.transform_values(&:to_i)
+    hash[:meta][:gain] = sum(hash[:gain])
+    hash[:meta][:loss] = sum(hash[:loss])
+    hash[:meta][:total] = hash[:meta][:gain] - hash[:meta][:loss]
     hash
   end
 

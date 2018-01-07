@@ -6,53 +6,53 @@
     %td= @payroll[:meta][:period]
   %tr
     %th 本薪
-    %td= @payroll[:monthly_based_income][:base]
+    %td= @payroll[:gain][:base]
     %th 勞保費
-    %td= @payroll[:deductions][:labor_insurance]
+    %td= @payroll[:loss][:labor_insurance]
   %tr
     %th 午餐費
-    %td= @payroll[:monthly_based_income][:taxfree_lunch]
+    %td= @payroll[:gain][:taxfree_lunch]
     %th 健保費
-    %td= @payroll[:deductions][:health_insurance]
+    %td= @payroll[:loss][:health_insurance]
   %tr
     %th 設備津貼
-    %td= @payroll[:monthly_based_income][:equipment_subsidy]
+    %td= @payroll[:gain][:equipment_subsidy]
     %th 請假扣薪
-    %td= @payroll[:deductions][:leavetime]
-  - if @payroll[:monthly_based_income][:supervisor_allowance] > 0
+    %td= @payroll[:loss][:leavetime]
+  - if @payroll[:gain][:supervisor_allowance] > 0
     %tr
       %th 主管加給
-      %td{colspan: 3}= @payroll[:monthly_based_income][:supervisor_allowance]
-  - if @payroll[:fixed_amount_income][:overtime] > 0
+      %td{colspan: 3}= @payroll[:gain][:supervisor_allowance]
+  - if @payroll[:gain][:overtime] > 0
     %tr
       %th 加班費
-      %td{colspan: 3}= @payroll[:fixed_amount_income][:overtime]
-  - if @payroll[:fixed_amount_income][:overtime_meals] > 0
+      %td{colspan: 3}= @payroll[:gain][:overtime]
+  - if @payroll[:gain][:overtime_meals] > 0
     %tr
       %th 誤餐費
-      %td{colspan: 3}= @payroll[:fixed_amount_income][:overtime_meals]
-  - if @payroll[:fixed_amount_income][:business_trip] > 0
+      %td{colspan: 3}= @payroll[:gain][:overtime_meals]
+  - if @payroll[:gain][:business_trip] > 0
     %tr
       %th 出差津貼
-      %td{colspan: 3}= @payroll[:fixed_amount_income][:business_trip]
-  - if @payroll[:fixed_amount_income][:vacation_refund] > 0
+      %td{colspan: 3}= @payroll[:gain][:business_trip]
+  - if @payroll[:gain][:vacation_refund] > 0
     %tr
       %th 特休折現
-      %td{colspan: 3}= @payroll[:fixed_amount_income][:vacation_refund]
+      %td{colspan: 3}= @payroll[:gain][:vacation_refund]
   %tr.warning
     %th 加項小計
-    %td= @payroll[:total][:income]
+    %td= @payroll[:meta][:gain]
     %th 減項小計
-    %td= @payroll[:total][:deduction]
+    %td= @payroll[:meta][:loss]
   %tr.info
     %th 實發薪資
-    %td{colspan: 3}= @payroll[:total][:total]
+    %td{colspan: 3}= @payroll[:meta][:total]
   %tr
     %th 備註
     %td{colspan: 3}
       %ul
         %li #{@payroll[:meta][:onboard]} 到職
-        %li 扣薪事假 #{@payroll[:meta][:notes][:leavetime]} 小時
-        %li 扣薪病假 #{@payroll[:meta][:notes][:sicktime]} 小時
-        - @payroll[:meta][:notes][:overtime].each do |ot|
+        %li 扣薪事假 #{@payroll[:notes][:leavetime]} 小時
+        %li 扣薪病假 #{@payroll[:notes][:sicktime]} 小時
+        - @payroll[:notes][:overtime].each do |ot|
           %li #{ot[:date]} 加班 #{ot[:hours]} 小時

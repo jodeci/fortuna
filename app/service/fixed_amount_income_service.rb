@@ -13,7 +13,7 @@ class FixedAmountIncomeService
       business_trip: business_trip_subsidy,
       vacation_refund: vacation_refund,
       overtime: overtime,
-    }.transform_values(&:to_i)
+    }
   end
 
   private
