@@ -7,17 +7,6 @@
   %tr.info
     %th.col-md-1 實發薪資
     %td{colspan: 3}= meta[:total]
-  %tr
-    %th 備註
-    %td{colspan: 3}
-      %ul
-        -if notes[:first_month]
-          %li #{meta[:onboard]} 到職
-        - if notes[:final_month]
-          %li #{meta[:leave]} 離職
-        - if notes[:leavetime] > 0
-          %li 扣薪事假 #{notes[:leavetime]} 小時
-        - if notes[:sicktime] > 0
-          %li 扣薪病假 #{notes[:sicktime]} 小時
-        - notes[:overtime].each do |ot|
-          %li #{ot[:date]} 加班 #{ot[:hours]} 小時
+
+  - if meta[:notes]
+    = render "notes", meta: meta

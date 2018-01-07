@@ -1,10 +1,14 @@
 %table.table
+  %tr.warning
+    %th.col-md-1 扣抵項目
+    %td.col-md-2
   %tr
-    %th.col-md-1 勞保費
-    %td.col-md-2= loss[:labor_insurance]
+    %th 勞保費
+    %td= loss[:labor_insurance]
   %tr
     %th 健保費
     %td= loss[:health_insurance]
-  %tr
-    %th 請假扣薪
-    %td= loss[:leavetime]
+  - if loss[:leavetime]
+    %tr
+      %th 請假扣薪
+      %td= loss[:leavetime]

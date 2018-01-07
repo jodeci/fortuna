@@ -11,8 +11,7 @@ class PayrollService
     finalize(
       meta: meta,
       gain: gain,
-      loss: loss,
-      notes: notes
+      loss: loss
     )
   end
 
@@ -24,51 +23,24 @@ class PayrollService
       onboard: payroll.employee.start_date.strftime("%Y-%m-%d"),
       leave: payroll.employee.end_date&.strftime("%Y-%m-%d"),
       period: payment_period,
+      notes: notes,
     }
   end
 
   def gain
-    monthly_based_income.merge(fixed_amount_income).transform_values(&:to_i)
+    cleanup(IncomeService.new(payroll).run)
   end
 
   def loss
-    {
-      leavetime: leavetime + sicktime,
-      labor_insurance: labor_insurance,
-      health_insurance: health_insurance,
-    }.transform_values(&:to_i)
-  end
-
-  def monthly_based_income
-    MonthlyBasedIncomeService.new(salary, working_days).run
-  end
-
-  def fixed_amount_income
-    FixedAmountIncomeService.new(payroll).run
-  end
-
-  def working_days
-    WorkingDaysService.new(payroll).run
-  end
-
-  def labor_insurance
-    LaborInsuranceService.new(salary).run
-  end
-
-  def health_insurance
-    HealthInsuranceService.new(salary).run
-  end
-
-  def leavetime
-    LeavetimeService.new(payroll.leavetime_hours, salary).normal
-  end
-
-  def sicktime
-    LeavetimeService.new(payroll.sicktime_hours, salary).sick
+    cleanup(DeductService.new(payroll).run)
   end
 
   def notes
     PayrollNotesService.new(payroll).run
+  end
+
+  def cleanup(hash)
+    hash.delete_if { |_, v| v.zero? unless v.is_a? Hash }
   end
 
   def finalize(hash)
@@ -78,12 +50,15 @@ class PayrollService
     hash
   end
 
-  def sum(hash_key)
-    hash_key.values.reduce(:+)
-  end
-
-  def bonus
-    # TODO: 獎金需要能處理多筆和自訂項目
+  def sum(hash, i = 0)
+    hash.each_value do |value|
+      if value.is_a?(Hash)
+        i = sum(value, i)
+      else
+        i += value
+      end
+    end
+    i
   end
 
   def payment_period

@@ -1,30 +1,37 @@
 %table.table
+  %tr.warning
+    %th.col-md-1 薪資項目
+    %td.col-md-2
   %tr
-    %th.col-md-1 本薪
-    %td.col-md-2= gain[:base]
+    %th 本薪
+    %td= gain[:base]
   %tr
     %th 午餐費
     %td= gain[:taxfree_lunch]
   %tr
     %th 設備津貼
     %td= gain[:equipment_subsidy]
-  - if gain[:supervisor_allowance] > 0
+  - if gain[:supervisor_allowance]
     %tr
       %th 主管加給
       %td= gain[:supervisor_allowance]
-  - if gain[:overtime] > 0
+  - if gain[:overtime]
     %tr
       %th 加班費
       %td= gain[:overtime]
-  - if gain[:overtime_meals] > 0
+  - if gain[:overtime_meals]
     %tr
       %th 誤餐費
       %td= gain[:overtime_meals]
-  - if gain[:business_trip] > 0
+  - if gain[:business_trip]
     %tr
       %th 出差津貼
       %td= gain[:business_trip]
-  - if gain[:vacation_refund] > 0
+  - if gain[:vacation_refund]
     %tr
       %th 特休折現
       %td= gain[:vacation_refund]
+  - gain[:bonus].each do |key, value|
+    %tr
+      %th= key
+      %td= value

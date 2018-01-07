@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 class MonthlyBasedIncomeService
-  attr_reader :salary, :working_days
+  attr_reader :payroll, :salary
 
-  def initialize(salary, working_days)
-    @salary = salary
-    @working_days = working_days
+  def initialize(payroll)
+    @payroll = payroll
+    @salary = payroll.employee.recent_salary
   end
 
   def run
@@ -18,6 +18,10 @@ class MonthlyBasedIncomeService
   end
 
   private
+
+  def working_days
+    WorkingDaysService.new(payroll).run
+  end
 
   def adjust_for_incomplete_month(amount)
     (amount * working_days / 30)

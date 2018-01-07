@@ -28,8 +28,8 @@ class PayrollNotesService
   end
 
   def overtime
-    payroll.overtimes.map do |ot|
-      { hours: ot.hours, date: ot.date.strftime("%Y-%m-%d") }
+    payroll.overtimes.map do |i|
+      { hours: i.hours, date: i.date.strftime("%Y-%m-%d") }
     end
   end
 end

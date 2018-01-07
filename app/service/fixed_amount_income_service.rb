@@ -13,13 +13,13 @@ class FixedAmountIncomeService
       business_trip: business_trip_subsidy,
       vacation_refund: vacation_refund,
       overtime: overtime,
-    }
+    }.transform_values(&:to_i)
   end
 
   private
 
   def overtime
-    payroll.overtimes.map { |ot| OvertimeService.new(ot.hours, salary).send(ot.rate) }.reduce(:+)
+    payroll.overtimes.map { |i| OvertimeService.new(i.hours, salary).send(i.rate) }.reduce(:+)
   end
 
   def vacation_refund
