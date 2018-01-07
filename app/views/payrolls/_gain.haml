@@ -8,9 +8,10 @@
   %tr
     %th 午餐費
     %td= gain[:taxfree_lunch]
-  %tr
-    %th 設備津貼
-    %td= gain[:equipment_subsidy]
+  - if gain[:equipment_subsidy]
+    %tr
+      %th 設備津貼
+      %td= gain[:equipment_subsidy]
   - if gain[:supervisor_allowance]
     %tr
       %th 主管加給
@@ -35,3 +36,5 @@
     %tr
       %th= key
       %td= value
+  - if rows < 0
+    = render "placeholder_rows", rows: rows.abs

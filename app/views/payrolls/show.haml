@@ -3,9 +3,9 @@
     = render "header", meta: @payroll[:meta]
 .row
   .col-md-3
-    = render "gain", gain: @payroll[:gain]
+    = render "gain", gain: @payroll[:gain], rows: @payroll[:meta][:rows_adjustment]
   .col-md-3
-    = render "loss", loss: @payroll[:loss]
+    = render "loss", loss: @payroll[:loss], rows: @payroll[:meta][:rows_adjustment]
 .row
   .col-md-6
     = render "footer", meta: @payroll[:meta]

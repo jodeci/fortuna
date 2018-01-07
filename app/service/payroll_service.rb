@@ -47,6 +47,7 @@ class PayrollService
     hash[:meta][:gain] = sum(hash[:gain])
     hash[:meta][:loss] = sum(hash[:loss])
     hash[:meta][:total] = hash[:meta][:gain] - hash[:meta][:loss]
+    hash[:meta][:rows_adjustment] = rows_adjustment
     hash
   end
 
@@ -63,5 +64,9 @@ class PayrollService
 
   def payment_period
     "#{payroll.year}-#{sprintf('%02d', payroll.month)}"
+  end
+
+  def rows_adjustment
+    (gain.size - 1 + gain[:bonus].size) - loss.size
   end
 end

@@ -12,3 +12,5 @@
     %tr
       %th 請假扣薪
       %td= loss[:leavetime]
+  - if rows > 0
+    = render "placeholder_rows", rows: rows
