@@ -19,6 +19,16 @@ class WorkingDaysService
     (employee_start <= cycle_end) and (default_end_point >= cycle_start)
   end
 
+  def first_month?
+    return false unless employee_start
+    employee_start.between? cycle_start, cycle_end
+  end
+
+  def final_month?
+    return false unless employee_end
+    employee_end.between? cycle_start, cycle_end
+  end
+
   private
 
   def default_end_point
@@ -33,15 +43,5 @@ class WorkingDaysService
   def period_end
     return false unless on_payroll?
     final_month? ? employee_end.day : 30
-  end
-
-  def first_month?
-    return false unless employee_start
-    employee_start.between? cycle_start, cycle_end
-  end
-
-  def final_month?
-    return false unless employee_end
-    employee_end.between? cycle_start, cycle_end
   end
 end

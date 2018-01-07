@@ -1,58 +1,11 @@
-%table.table
-  %tr
-    %th.col-md-1 姓名
-    %td.col-md-2= @payroll[:meta][:name]
-    %th.col-md-1 計薪月份
-    %td= @payroll[:meta][:period]
-  %tr
-    %th 本薪
-    %td= @payroll[:gain][:base]
-    %th 勞保費
-    %td= @payroll[:loss][:labor_insurance]
-  %tr
-    %th 午餐費
-    %td= @payroll[:gain][:taxfree_lunch]
-    %th 健保費
-    %td= @payroll[:loss][:health_insurance]
-  %tr
-    %th 設備津貼
-    %td= @payroll[:gain][:equipment_subsidy]
-    %th 請假扣薪
-    %td= @payroll[:loss][:leavetime]
-  - if @payroll[:gain][:supervisor_allowance] > 0
-    %tr
-      %th 主管加給
-      %td{colspan: 3}= @payroll[:gain][:supervisor_allowance]
-  - if @payroll[:gain][:overtime] > 0
-    %tr
-      %th 加班費
-      %td{colspan: 3}= @payroll[:gain][:overtime]
-  - if @payroll[:gain][:overtime_meals] > 0
-    %tr
-      %th 誤餐費
-      %td{colspan: 3}= @payroll[:gain][:overtime_meals]
-  - if @payroll[:gain][:business_trip] > 0
-    %tr
-      %th 出差津貼
-      %td{colspan: 3}= @payroll[:gain][:business_trip]
-  - if @payroll[:gain][:vacation_refund] > 0
-    %tr
-      %th 特休折現
-      %td{colspan: 3}= @payroll[:gain][:vacation_refund]
-  %tr.warning
-    %th 加項小計
-    %td= @payroll[:meta][:gain]
-    %th 減項小計
-    %td= @payroll[:meta][:loss]
-  %tr.info
-    %th 實發薪資
-    %td{colspan: 3}= @payroll[:meta][:total]
-  %tr
-    %th 備註
-    %td{colspan: 3}
-      %ul
-        %li #{@payroll[:meta][:onboard]} 到職
-        %li 扣薪事假 #{@payroll[:notes][:leavetime]} 小時
-        %li 扣薪病假 #{@payroll[:notes][:sicktime]} 小時
-        - @payroll[:notes][:overtime].each do |ot|
-          %li #{ot[:date]} 加班 #{ot[:hours]} 小時
+.row
+  .col-md-6
+    = render "header", meta: @payroll[:meta]
+.row
+  .col-md-3
+    = render "gain", gain: @payroll[:gain]
+  .col-md-3
+    = render "loss", loss: @payroll[:loss]
+.row
+  .col-md-6
+    = render "footer", meta: @payroll[:meta], notes: @payroll[:notes]

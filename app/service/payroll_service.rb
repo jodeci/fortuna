@@ -22,16 +22,8 @@ class PayrollService
     {
       name: payroll.employee.name,
       onboard: payroll.employee.start_date.strftime("%Y-%m-%d"),
+      leave: payroll.employee.end_date&.strftime("%Y-%m-%d"),
       period: payment_period,
-    }
-  end
-
-  def notes
-    {
-      leavetime: payroll.leavetime_hours,
-      sicktime: payroll.sicktime_hours,
-      overtime: overtime,
-      vacation: payroll.vacation_refund_hours,
     }
   end
 
@@ -59,6 +51,14 @@ class PayrollService
     WorkingDaysService.new(payroll).run
   end
 
+  def labor_insurance
+    LaborInsuranceService.new(salary).run
+  end
+
+  def health_insurance
+    HealthInsuranceService.new(salary).run
+  end
+
   def leavetime
     LeavetimeService.new(payroll.leavetime_hours, salary).normal
   end
@@ -67,10 +67,8 @@ class PayrollService
     LeavetimeService.new(payroll.sicktime_hours, salary).sick
   end
 
-  def overtime
-    payroll.overtimes.map do |ot|
-      { hours: ot.hours, date: ot.date.strftime("%Y-%m-%d") }
-    end
+  def notes
+    PayrollNotesService.new(payroll).run
   end
 
   def finalize(hash)
@@ -82,16 +80,6 @@ class PayrollService
 
   def sum(hash_key)
     hash_key.values.reduce(:+)
-  end
-
-  def labor_insurance
-    # TODO: 勞保計算
-    441
-  end
-
-  def health_insurance
-    # TODO: 健保計算（家眷）
-    296
   end
 
   def bonus
