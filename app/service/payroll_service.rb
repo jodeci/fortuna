@@ -67,6 +67,6 @@ class PayrollService
   end
 
   def rows_adjustment
-    (gain.size - 1 + gain[:bonus].size) - loss.size
+    (gain.size + gain[:extra].size) - (loss.size + loss[:extra].size)
   end
 end

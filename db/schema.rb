@@ -15,14 +15,6 @@ ActiveRecord::Schema.define(version: 20180107080943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bonusus", force: :cascade do |t|
-    t.string "title"
-    t.integer "amount", default: 0
-    t.integer "payroll_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "employees", force: :cascade do |t|
     t.string "type"
     t.string "name"
@@ -33,6 +25,14 @@ ActiveRecord::Schema.define(version: 20180107080943) do
     t.string "bank_account"
     t.date "start_date"
     t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "extra_entries", force: :cascade do |t|
+    t.string "title"
+    t.integer "amount", default: 0
+    t.integer "payroll_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

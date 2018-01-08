@@ -1,4 +1,4 @@
 # frozen_string_literal: true
-class Bonus < ApplicationRecord
+class ExtraEntry < ApplicationRecord
   belongs_to :payroll
 end

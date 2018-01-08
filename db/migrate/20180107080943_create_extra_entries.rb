@@ -1,6 +1,6 @@
-class CreateBonusus < ActiveRecord::Migration[5.1]
+class CreateExtraEntries < ActiveRecord::Migration[5.1]
   def change
-    create_table :bonusus do |t|
+    create_table :extra_entries do |t|
       t.string :title
       t.integer :amount, default: 0
 

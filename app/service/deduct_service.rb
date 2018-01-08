@@ -12,7 +12,8 @@ class DeductService
       leavetime: leavetime + sicktime,
       labor_insurance: labor_insurance,
       health_insurance: health_insurance,
-    }.transform_values(&:to_i)
+      extra: extra_loss,
+    }
   end
 
   private
@@ -31,5 +32,9 @@ class DeductService
 
   def sicktime
     LeavetimeService.new(payroll.sicktime_hours, salary).sick
+  end
+
+  def extra_loss
+    ExtraEntriesService.new(payroll).loss
   end
 end

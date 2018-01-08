@@ -8,7 +8,7 @@ class LeavetimeService
   end
 
   def normal
-    hours * hourly_rate
+    (hours * hourly_rate).to_i
   end
 
   def sick

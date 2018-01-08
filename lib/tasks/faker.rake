@@ -18,6 +18,6 @@ namespace :faker do
     p = e.payrolls.create year: 2015, month: 8
     p.overtimes.create date: "2015-08-03", hours: 3, rate: "weekday"
     p.overtimes.create date: "2015-08-07", hours: 5.5, rate: "weekend"
-    p.bonuses.create title: "中秋禮金", amount: 1500
+    p.extra_entries.create title: "中秋禮金", amount: 1500
   end
 end

@@ -9,7 +9,7 @@ class IncomeService
 
   def run
     hash = monthly_based.merge(fixed_amount)
-    hash[:bonus] = bonus
+    hash[:extra] = extra_gain
     hash
   end
 
@@ -23,9 +23,7 @@ class IncomeService
     FixedAmountIncomeService.new(payroll, salary).run
   end
 
-  def bonus
-    hash = {}
-    payroll.bonuses.map { |i| hash[i.title] = i.amount }
-    hash
+  def extra_gain
+    ExtraEntriesService.new(payroll).gain
   end
 end

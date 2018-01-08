@@ -12,5 +12,9 @@
     %tr
       %th 請假扣薪
       %td= loss[:leavetime]
+  - loss[:extra].each do |key, value|
+    %tr
+      %th= key
+      %td= value
   - if rows > 0
     = render "placeholder_rows", rows: rows
