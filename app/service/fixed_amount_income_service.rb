@@ -2,9 +2,9 @@
 class FixedAmountIncomeService
   attr_reader :payroll, :salary
 
-  def initialize(payroll)
+  def initialize(payroll, salary)
     @payroll = payroll
-    @salary = payroll.employee.recent_salary
+    @salary = salary
   end
 
   def run

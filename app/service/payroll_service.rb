@@ -4,7 +4,7 @@ class PayrollService
 
   def initialize(payroll)
     @payroll = payroll
-    @salary = payroll.employee.recent_salary
+    @salary = payroll.find_salary
   end
 
   def run
@@ -28,11 +28,11 @@ class PayrollService
   end
 
   def gain
-    cleanup(IncomeService.new(payroll).run)
+    cleanup(IncomeService.new(payroll, salary).run)
   end
 
   def loss
-    cleanup(DeductService.new(payroll).run)
+    cleanup(DeductService.new(payroll, salary).run)
   end
 
   def notes

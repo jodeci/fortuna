@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 class IncomeService
-  attr_reader :payroll
+  attr_reader :payroll, :salary
 
-  def initialize(payroll)
+  def initialize(payroll, salary)
     @payroll = payroll
+    @salary = salary
   end
 
   def run
@@ -15,11 +16,11 @@ class IncomeService
   private
 
   def monthly_based
-    MonthlyBasedIncomeService.new(payroll).run
+    MonthlyBasedIncomeService.new(payroll, salary).run
   end
 
   def fixed_amount
-    FixedAmountIncomeService.new(payroll).run
+    FixedAmountIncomeService.new(payroll, salary).run
   end
 
   def bonus
