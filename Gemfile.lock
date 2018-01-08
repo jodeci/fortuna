@@ -67,6 +67,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
+    database_rewinder (0.8.2)
     erubi (1.7.0)
     execjs (2.7.0)
     factory_bot (4.8.2)
@@ -195,6 +196,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  database_rewinder
   factory_bot_rails (~> 4.0)
   haml
   jbuilder (~> 2.5)
