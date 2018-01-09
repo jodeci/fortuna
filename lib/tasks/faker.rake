@@ -8,7 +8,7 @@ namespace :faker do
     Rake::Task["faker:regular"].execute
   end
 
-  desc "generate fake data"
+  desc "generate fake data for regular employee"
   task regular: :environment do
     e = Employee.create name: "Nao", start_date: "2015-05-13", type: RegularEmployee
     e.salaries.create base: 30000, start_date: "2015-05-13", equipment_subsidy: 800
@@ -21,5 +21,21 @@ namespace :faker do
     p.extra_entries.create title: "中秋禮金", amount: 1500
     p.extra_entries.create title: "誤餐費", amount: 240
     p.extra_entries.create title: "健保補收", amount: -2000
+  end
+
+  desc "generate fake data for contractor"
+  task contractor: :environment do
+    e = Employee.create name: "Hidetoshi", start_date: "2016-07-12", type: ContractorEmployee
+    e.salaries.create base: 50000, start_date: "2016-07-12"
+    e.payrolls.create year: 2016, month: 7
+    e.payrolls.create year: 2016, month: 8
+    e.payrolls.create year: 2016, month: 9, leavetime_hours: 24
+  end
+
+  desc "generate fake date for parttime"
+  task parttime: :environment do
+    e = Employee.create name: "Nino", start_date: "2016-01-20", type: ParttimeEmployee
+    e.salaries.create base: 150, monthly: false
+    e.payrolls.create year: 2016, month: 1, parttime_hours: 55.5
   end
 end

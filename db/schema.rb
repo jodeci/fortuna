@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20180107080943) do
   create_table "payrolls", force: :cascade do |t|
     t.integer "year"
     t.integer "month"
+    t.float "parttime_hours", default: 0.0
     t.float "leavetime_hours", default: 0.0
     t.float "sicktime_hours", default: 0.0
     t.float "vacation_refund_hours", default: 0.0
