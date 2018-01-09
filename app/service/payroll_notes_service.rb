@@ -10,6 +10,7 @@ class PayrollNotesService
     {
       first_month: first_month?,
       final_month: final_month?,
+      parttime: payroll.parttime_hours,
       leavetime: payroll.leavetime_hours,
       sicktime: payroll.sicktime_hours,
       overtime: overtime,

@@ -6,6 +6,8 @@ namespace :faker do
     Rake::Task["db:create"].execute
     Rake::Task["db:migrate"].execute
     Rake::Task["faker:regular"].execute
+    Rake::Task["faker:contractor"].execute
+    Rake::Task["faker:parttime"].execute
   end
 
   desc "generate fake data for regular employee"
@@ -35,7 +37,7 @@ namespace :faker do
   desc "generate fake date for parttime"
   task parttime: :environment do
     e = Employee.create name: "Nino", start_date: "2016-01-20", type: ParttimeEmployee
-    e.salaries.create base: 150, monthly: false
+    e.salaries.create base: 150, monthly: false, start_date: "2016-01-20"
     e.payrolls.create year: 2016, month: 1, parttime_hours: 55.5
   end
 end

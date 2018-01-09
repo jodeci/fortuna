@@ -5,9 +5,10 @@
   %tr
     %th 本薪
     %td= gain[:base]
-  %tr
-    %th 午餐費
-    %td= gain[:taxfree_lunch]
+  - if gain[:taxfree_lunch]
+    %tr
+      %th 午餐費
+      %td= gain[:taxfree_lunch]
   - if gain[:equipment_subsidy]
     %tr
       %th 設備津貼

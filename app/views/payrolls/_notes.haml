@@ -6,6 +6,8 @@
         %li #{meta[:onboard]} 到職
       - if meta[:notes][:final_month]
         %li #{meta[:leave]} 離職
+      - if meta[:notes][:parttime] > 0
+        %li 本月工作時數 #{meta[:notes][:parttime]} 小時
       - if meta[:notes][:leavetime] > 0
         %li 扣薪事假 #{meta[:notes][:leavetime]} 小時
       - if meta[:notes][:sicktime] > 0
