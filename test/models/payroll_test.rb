@@ -4,7 +4,7 @@ require "test_helper"
 class PayrollTest < ActiveSupport::TestCase
   def employee
     # 2015-05: 36000, 2015-09: 40000
-    create(:fulltime_employee, end_date: "2016-07-13")
+    create(:regular_employee, end_date: "2016-07-13")
   end
 
   def test_find_salary_before_onboard

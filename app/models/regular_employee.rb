@@ -1,3 +1,3 @@
 # frozen_string_literal: true
-class FulltimeEmployee < Employee
+class RegularEmployee < Employee
 end

@@ -5,12 +5,12 @@ namespace :faker do
     Rake::Task["db:drop"].execute
     Rake::Task["db:create"].execute
     Rake::Task["db:migrate"].execute
-    Rake::Task["faker:fulltime"].execute
+    Rake::Task["faker:regular"].execute
   end
 
   desc "generate fake data"
-  task fulltime: :environment do
-    e = Employee.create name: "Nao", start_date: "2015-05-13", type: FulltimeEmployee
+  task regular: :environment do
+    e = Employee.create name: "Nao", start_date: "2015-05-13", type: RegularEmployee
     e.salaries.create base: 30000, start_date: "2015-05-13", equipment_subsidy: 800
     e.payrolls.create year: 2015, month: 5
     e.payrolls.create year: 2015, month: 6, leavetime_hours: 5, sicktime_hours: 3

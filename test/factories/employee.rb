@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 FactoryBot.define do
   factory :employee do
-    factory :fulltime_employee do
+    factory :regular_employee do
       name { "John Doe" }
-      type { "fulltime" }
+      type { "regular" }
       start_date { "2015-05-13" }
 
       after(:create) do |employee|
