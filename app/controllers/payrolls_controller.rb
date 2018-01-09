@@ -1,23 +1,32 @@
 # frozen_string_literal: true
 class PayrollsController < ApplicationController
-  def show
-    service = PayrollService.new(Payroll.find(params[:id]))
-    @payroll = service.run
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render(
-          pdf: "#{@payroll[:meta][:name]} #{@payroll[:meta][:period]} 薪資明細",
-          encoding: "utf-8",
-          layout: "pdf",
-          orientation: "Landscape"
-        )
-      end
-    end
+  def show
+    @payroll = PayrollService.new(Payroll.find(params[:id])).run
+    render_pdf filename: @payroll[:meta][:filename]
   end
 
   def edit
     # @payroll = Payroll.find(params[:id])
+  end
+
+  private
+
+  def record_not_found
+  end
+
+  def render_pdf(filename: "filename", orientation: "landscape")
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render(
+          pdf: filename,
+          encoding: "utf-8",
+          layout: "pdf",
+          orientation: orientation
+        )
+      end
+    end
   end
 end

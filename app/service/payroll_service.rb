@@ -24,6 +24,7 @@ class PayrollService
       leave: payroll.employee.end_date&.strftime("%Y-%m-%d"),
       period: payment_period,
       notes: notes,
+      filename: "#{payroll.employee.name} #{payment_period} 薪資明細",
     }
   end
 
