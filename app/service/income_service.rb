@@ -8,7 +8,7 @@ class IncomeService
   end
 
   def run
-    hash = monthly_based.merge(fixed_amount)
+    hash = monthly_based.merge(hourly_based)
     hash[:extra] = extra_gain
     hash
   end
@@ -19,8 +19,8 @@ class IncomeService
     MonthlyBasedIncomeService.new(payroll, salary).run
   end
 
-  def fixed_amount
-    FixedAmountIncomeService.new(payroll, salary).run
+  def hourly_based
+    HourlyBasedIncomeService.new(payroll, salary).run
   end
 
   def extra_gain

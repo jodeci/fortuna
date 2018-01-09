@@ -9,12 +9,12 @@ class ExtraEntriesService
   end
 
   def gain
-    payroll.extra_entries.map { |i| hash[i.title] = i.amount if i.amount > 0 }
+    payroll.extra_entries.map { |i| hash[i.title] = i.amount if i.amount.positive? }
     hash
   end
 
   def loss
-    payroll.extra_entries.map { |i| hash[i.title] = i.amount.abs if i.amount < 0 }
+    payroll.extra_entries.map { |i| hash[i.title] = i.amount.abs if i.amount.negative? }
     hash
   end
 end

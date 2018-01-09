@@ -10,5 +10,7 @@
         %li 扣薪事假 #{meta[:notes][:leavetime]} 小時
       - if meta[:notes][:sicktime] > 0
         %li 扣薪病假 #{meta[:notes][:sicktime]} 小時
+      - if meta[:notes][:vacation_refund] > 0
+        %li 特休折換 #{meta[:notes][:vacation_refund]} 小時
       - meta[:notes][:overtime].each do |i|
         %li #{i[:date]} 加班 #{i[:hours]} 小時

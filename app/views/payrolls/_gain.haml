@@ -20,17 +20,9 @@
     %tr
       %th 加班費
       %td= gain[:overtime]
-  - if gain[:overtime_meals]
-    %tr
-      %th 誤餐費
-      %td= gain[:overtime_meals]
-  - if gain[:business_trip]
-    %tr
-      %th 出差津貼
-      %td= gain[:business_trip]
   - if gain[:vacation_refund]
     %tr
-      %th 特休折現
+      %th 特休折換
       %td= gain[:vacation_refund]
   - gain[:extra].each do |key, value|
     %tr

@@ -13,7 +13,7 @@ class PayrollNotesService
       leavetime: payroll.leavetime_hours,
       sicktime: payroll.sicktime_hours,
       overtime: overtime,
-      vacation: payroll.vacation_refund_hours,
+      vacation_refund: payroll.vacation_refund_hours,
     }
   end
 
