@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class PayrollNotesService
+  include PayrollPeriodCountable
+
   attr_reader :payroll
 
   def initialize(payroll)
@@ -19,14 +21,6 @@ class PayrollNotesService
   end
 
   private
-
-  def first_month?
-    WorkingDaysService.new(payroll).first_month?
-  end
-
-  def final_month?
-    WorkingDaysService.new(payroll).final_month?
-  end
 
   def overtime
     payroll.overtimes.map do |i|

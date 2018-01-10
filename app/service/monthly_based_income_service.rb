@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class MonthlyBasedIncomeService
+  include PayrollPeriodCountable
+
   attr_reader :payroll, :salary
 
   def initialize(payroll, salary)
@@ -18,14 +20,6 @@ class MonthlyBasedIncomeService
   end
 
   private
-
-  def working_days
-    WorkingDaysService.new(payroll).run
-  end
-
-  def adjust_for_incomplete_month(amount)
-    (amount * working_days / 30)
-  end
 
   def base_salary
     salary.base - taxfree_lunch

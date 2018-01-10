@@ -17,10 +17,12 @@ class HourlyBasedIncomeService
   private
 
   def overtime
-    payroll.overtimes.map { |i| OvertimeService.new(i.hours, salary).send(i.rate) }.reduce(:+)
+    payroll.overtimes.map do |i|
+      OvertimeService.new(i.hours, salary, payroll.days_in_month).send(i.rate)
+    end.reduce(:+)
   end
 
   def vacation_refund
-    OvertimeService.new(payroll.vacation_refund_hours, salary).basic
+    OvertimeService.new(payroll.vacation_refund_hours, salary, payroll.days_in_month).basic
   end
 end

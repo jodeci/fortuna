@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 class OvertimeService
-  attr_reader :hours, :salary
+  attr_reader :hours, :salary, :days_in_month
 
-  def initialize(hours, salary)
+  def initialize(hours, salary, days_in_month = 30)
     @hours = hours
     @salary = salary
+    @days_in_month = days_in_month
   end
 
   # 一例一休 平日加班
@@ -38,7 +39,7 @@ class OvertimeService
   private
 
   def hourly_rate
-    ((salary.base + salary.supervisor_allowance) / 30 / 8.0).round
+    ((salary.base + salary.supervisor_allowance) / days_in_month / 8.0).round
   end
 
   def initial_rate
