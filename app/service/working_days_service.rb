@@ -42,6 +42,14 @@ class WorkingDaysService
 
   def period_end
     return false unless on_payroll?
-    final_month? ? employee_end.day : 30
+    final_month? ? period_end_day : 30
+  end
+
+  def period_end_day
+    if employee_end.day == cycle_end.day
+      30
+    else
+      employee_end.day
+    end
   end
 end
