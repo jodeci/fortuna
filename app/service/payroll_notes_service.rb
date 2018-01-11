@@ -23,6 +23,7 @@ class PayrollNotesService
     overtime_notes
     hourly_based_note(payroll.leavetime_hours, "扣薪事假")
     hourly_based_note(payroll.sicktime_hours, "扣薪病假")
+    extra_notes
   end
 
   def hourly_based_note(hours, title)
@@ -38,5 +39,9 @@ class PayrollNotesService
     payroll.overtimes.map do |i|
       notes << "#{i.date.strftime('%Y-%m-%d')} 加班 #{i.hours} 小時"
     end
+  end
+
+  def extra_notes
+    payroll.extra_entries.map { |i| notes << i.note }
   end
 end

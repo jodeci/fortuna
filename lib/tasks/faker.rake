@@ -22,7 +22,6 @@ namespace :faker do
     p.overtimes.create date: "2015-08-07", hours: 5.5, rate: "weekend"
     p.extra_entries.create title: "中秋禮金", amount: 1500
     p.extra_entries.create title: "誤餐費", amount: 240
-    p.extra_entries.create title: "健保補收", amount: -2000
   end
 
   desc "generate fake data for contractor"
@@ -31,7 +30,8 @@ namespace :faker do
     e.salaries.create base: 50000, start_date: "2016-07-12"
     e.payrolls.create year: 2016, month: 7
     e.payrolls.create year: 2016, month: 8
-    e.payrolls.create year: 2016, month: 9, leavetime_hours: 24
+    p = e.payrolls.create year: 2016, month: 9, leavetime_hours: 24
+    p.extra_entries.create title: "健保補收", amount: -2000, note: "2016-08 二代健保費用於本月補收"
   end
 
   desc "generate fake date for parttime"
