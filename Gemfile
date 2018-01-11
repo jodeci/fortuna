@@ -16,6 +16,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'haml'
 gem 'bootstrap-sass'
+
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 

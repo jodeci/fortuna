@@ -18,11 +18,11 @@ class HourlyBasedIncomeService
 
   def overtime
     payroll.overtimes.map do |i|
-      OvertimeService.new(i.hours, salary, payroll.days_in_month).send(i.rate)
+      OvertimeService.new(i.hours, salary, payroll.days_in_cycle).send(i.rate)
     end.reduce(:+)
   end
 
   def vacation_refund
-    OvertimeService.new(payroll.vacation_refund_hours, salary, payroll.days_in_month).basic
+    OvertimeService.new(payroll.vacation_refund_hours, salary, payroll.days_in_cycle).basic
   end
 end

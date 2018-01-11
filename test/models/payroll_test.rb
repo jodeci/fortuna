@@ -31,16 +31,15 @@ class PayrollTest < ActiveSupport::TestCase
     assert_equal payroll.find_salary.base, 40000
   end
 
-  def test_days_in_month_for_regular_employee
-    employee = build(:employee, start_date: "2017-02-21", type: "regular")
+  def test_days_in_cycle_for_regular_employee
+    employee = build(:employee, start_date: "2017-02-21")
     payroll = build(:payroll, year: 2015, month: 2, employee: employee)
-    assert_equal payroll.days_in_month, 30
+    assert_equal payroll.days_in_cycle, 30
   end
 
-  def test_days_in_month_for_contractor
-    skip "to be implemented"
-    employee = build(:employee, start_date: "2017-02-21", type: "contractor")
-    payroll = build(:payroll, year: 2017, month: 2, employee: employee)
-    assert_equal payroll.days_in_month, 15
+  def test_days_in_cycle_for_contractor
+    employee = build(:employee, start_date: "2018-02-21", type: "ContractorEmployee")
+    payroll = build(:payroll, year: 2018, month: 2, employee: employee)
+    assert_equal payroll.days_in_cycle, 15
   end
 end

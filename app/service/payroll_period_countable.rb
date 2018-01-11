@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 module PayrollPeriodCountable
-  def period_length
-    return 0 unless on_payroll?
-    period_end - period_start + 1
+  def adjust_for_incomplete_month(amount)
+    amount * period_length / payroll.days_in_cycle
   end
 
-  def adjust_for_incomplete_month(amount)
-    amount * period_length / payroll.days_in_month
+  def period_length
+    return 0 unless on_payroll?
+    if payroll.employee.contractor?
+      period_by_business_days
+    else
+      period_end - period_start + 1
+    end
   end
 
   def first_month?
@@ -53,14 +57,20 @@ module PayrollPeriodCountable
 
   def period_end
     return false unless on_payroll?
-    final_month? ? period_end_day : payroll.days_in_month
+    final_month? ? period_end_day : payroll.days_in_cycle
   end
 
   def period_end_day
     if employee_end.day == cycle_end.day
-      payroll.days_in_month
+      payroll.days_in_cycle
     else
       employee_end.day
     end
+  end
+
+  def period_by_business_days
+    d1 = Date.new(payroll.year, payroll.month, period_start)
+    d2 = Date.new(payroll.year, payroll.month, default_end_point.day)
+    BusinessCalendarService.new(d1, d2).days
   end
 end

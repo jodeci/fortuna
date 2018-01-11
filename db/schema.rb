@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20180107080943) do
   enable_extension "plpgsql"
 
   create_table "employees", force: :cascade do |t|
-    t.string "type"
+    t.string "type", default: "RegularEmployee"
     t.string "name"
     t.string "company_email"
     t.string "personal_email"

@@ -60,13 +60,13 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
     assert_equal subject(payroll).period_length, 0
   end
 
-  def test_payment_period_30_days_in_february_ongoing_employee_employee
+  def test_payment_period_30_days_in_february_ongoing_employee
     employee = build(:employee, start_date: "2015-05-13")
     payroll = build(:payroll, year: 2016, month: 2, employee: employee)
     assert_equal subject(payroll).period_length, 30
   end
 
-  def test_payment_period_30_days_in_large_month_ongoing_employee_employee
+  def test_payment_period_30_days_in_large_month_ongoing_employee
     employee = build(:employee, start_date: "2015-05-13")
     payroll = build(:payroll, year: 2016, month: 7, employee: employee)
     assert_equal subject(payroll).period_length, 30
@@ -82,5 +82,11 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
     employee = build(:employee, start_date: "2015-05-13", end_date: "2016-07-31")
     payroll = build(:payroll, year: 2016, month: 7, employee: employee)
     assert_equal subject(payroll).period_length, 30
+  end
+
+  def test_payment_period_contractor
+    employee = build(:employee, start_date: "2018-02-21", type: "ContractorEmployee", end_date: "2018-02-28")
+    payroll = build(:payroll, year: 2018, month: 2, employee: employee)
+    assert_equal subject(payroll).period_length, 5
   end
 end
