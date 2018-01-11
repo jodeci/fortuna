@@ -4,7 +4,7 @@ class PayrollsController < ApplicationController
 
   def show
     @payroll = PayrollService.new(Payroll.find(params[:id])).run
-    render_pdf filename: @payroll[:meta][:filename]
+    render_pdf filename: @payroll[:filename]
   end
 
   def edit

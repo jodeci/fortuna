@@ -2,29 +2,41 @@
 class PayrollNotesService
   include PayrollPeriodCountable
 
-  attr_reader :payroll
+  attr_reader :payroll, :notes
 
   def initialize(payroll)
     @payroll = payroll
+    @notes = []
   end
 
   def run
-    {
-      first_month: first_month?,
-      final_month: final_month?,
-      parttime: payroll.parttime_hours,
-      leavetime: payroll.leavetime_hours,
-      sicktime: payroll.sicktime_hours,
-      overtime: overtime,
-      vacation_refund: payroll.vacation_refund_hours,
-    }
+    notes_for_display
+    notes
   end
 
   private
 
-  def overtime
+  def notes_for_display
+    employment_date_notes
+    hourly_based_note(payroll.parttime_hours, "工作時數")
+    hourly_based_note(payroll.vacation_refund_hours, "特休折現")
+    overtime_notes
+    hourly_based_note(payroll.leavetime_hours, "扣薪事假")
+    hourly_based_note(payroll.sicktime_hours, "扣薪病假")
+  end
+
+  def hourly_based_note(hours, title)
+    notes << "#{title} #{hours} 小時" if hours.positive?
+  end
+
+  def employment_date_notes
+    notes << "#{payroll.employee.start_date} 到職" if first_month?
+    notes << "#{payroll.employee.end_date} 離職" if final_month?
+  end
+
+  def overtime_notes
     payroll.overtimes.map do |i|
-      { hours: i.hours, date: i.date.strftime("%Y-%m-%d") }
+      notes << "#{i.date.strftime('%Y-%m-%d')} 加班 #{i.hours} 小時"
     end
   end
 end

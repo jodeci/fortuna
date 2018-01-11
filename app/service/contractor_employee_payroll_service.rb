@@ -5,17 +5,14 @@ class ContractorEmployeePayrollService < RegularEmployeePayrollService
   private
 
   def gain
-    {
-      base: base_salary,
-      extra: extra_gain,
-    }
-  end
-
-  def extra_gain
-    ExtraEntriesService.new(payroll).gain
+    { 薪資: base_salary }.merge(extra_gain)
   end
 
   def base_salary
     adjust_for_incomplete_month(salary.base)
+  end
+
+  def extra_gain
+    ExtraEntriesService.new(payroll).gain
   end
 end

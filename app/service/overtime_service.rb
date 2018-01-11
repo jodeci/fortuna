@@ -31,7 +31,7 @@ class OvertimeService
     hourly_rate * 8 * 2
   end
 
-  # 特休換現金
+  # 特休折現
   def basic
     hourly_rate * hours
   end

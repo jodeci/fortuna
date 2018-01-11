@@ -11,11 +11,10 @@ class MonthlyBasedIncomeService
 
   def run
     {
-      base: base_salary,
-      taxfree_lunch: taxfree_lunch,
-      equipment_subsidy: salary.equipment_subsidy,
-      commuting_subsidy: salary.commuting_subsidy,
-      supervisor_allowance: salary.supervisor_allowance,
+      本薪: base_salary,
+      午餐費: taxfree_lunch,
+      設備津貼: salary.equipment_subsidy,
+      主管加給: salary.supervisor_allowance,
     }.transform_values { |v| adjust_for_incomplete_month(v) }
   end
 

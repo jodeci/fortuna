@@ -1,11 +1,18 @@
 .row
   .col-xs-6
-    = render "header", meta: @payroll[:meta]
-.row
-  .col-xs-3
-    = render "gain", gain: @payroll[:gain], rows: @payroll[:meta][:rows_adjustment]
-  .col-xs-3
-    = render "loss", loss: @payroll[:loss], rows: @payroll[:meta][:rows_adjustment]
-.row
-  .col-xs-6
-    = render "footer", meta: @payroll[:meta]
+    %table.table.table-bordered
+      %tr.active
+        %th.col-xs-1.text-center 姓名
+        %th.col-xs-2.text-center= @payroll[:name]
+        %th.col-xs-1.text-center 計算月份
+        %th.col-xs-2.text-center= @payroll[:period]
+      = render "details", details: @payroll[:details]
+      %tr.warning
+        %th.text-center 小計
+        %td.text-right= number_with_delimiter @payroll[:gain]
+        %th.text-center 小計
+        %td.text-right= number_with_delimiter @payroll[:loss]
+      %tr.info
+        %th.text-center 實發薪資
+        %td.text-right{colspan: 3}= number_with_delimiter @payroll[:total]
+      = render "notes", notes: @payroll[:notes]

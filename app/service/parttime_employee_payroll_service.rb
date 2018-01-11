@@ -3,11 +3,10 @@ class ParttimeEmployeePayrollService < RegularEmployeePayrollService
   private
 
   def gain
-    cleanup(
-      base: total_wage,
-      commuting_subsidy: salary.commuting_subsidy,
-      extra: extra_gain
-    )
+    cleanup({
+      薪資: total_wage,
+      交通津貼: salary.commuting_subsidy,
+    }.merge(extra_gain))
   end
 
   def total_wage

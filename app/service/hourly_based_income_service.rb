@@ -9,8 +9,8 @@ class HourlyBasedIncomeService
 
   def run
     {
-      vacation_refund: vacation_refund,
-      overtime: overtime,
+      加班費: overtime,
+      特休折現: vacation_refund,
     }.transform_values(&:to_i)
   end
 

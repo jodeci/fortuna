@@ -1,0 +1,6 @@
+- details.each do |i|
+  %tr
+    %th.text-center= i[0].keys.first
+    %td.text-right= number_with_delimiter i[0].values.first
+    %th.text-center= i[1].keys.first
+    %td.text-right= number_with_delimiter i[1].values.first

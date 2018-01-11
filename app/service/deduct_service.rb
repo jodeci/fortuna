@@ -9,11 +9,10 @@ class DeductService
 
   def run
     {
-      leavetime: leavetime + sicktime,
-      labor_insurance: labor_insurance,
-      health_insurance: health_insurance,
-      extra: extra_loss,
-    }
+      勞保費: labor_insurance,
+      健保費: health_insurance,
+      請假扣薪: leavetime + sicktime,
+    }.merge(extra_loss)
   end
 
   private

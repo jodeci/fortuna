@@ -1,18 +1,6 @@
 %tr
-  %th 備註
+  %th.text-center 備註
   %td{colspan: 3}
     %ul
-      - if meta[:notes][:first_month]
-        %li #{meta[:onboard]} 到職
-      - if meta[:notes][:final_month]
-        %li #{meta[:leave]} 離職
-      - if meta[:notes][:parttime] > 0
-        %li 本月工作時數 #{meta[:notes][:parttime]} 小時
-      - if meta[:notes][:leavetime] > 0
-        %li 扣薪事假 #{meta[:notes][:leavetime]} 小時
-      - if meta[:notes][:sicktime] > 0
-        %li 扣薪病假 #{meta[:notes][:sicktime]} 小時
-      - if meta[:notes][:vacation_refund] > 0
-        %li 特休折換 #{meta[:notes][:vacation_refund]} 小時
-      - meta[:notes][:overtime].each do |i|
-        %li #{i[:date]} 加班 #{i[:hours]} 小時
+      - notes.each do |note|
+        %li= note

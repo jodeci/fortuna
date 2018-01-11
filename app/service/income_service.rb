@@ -8,9 +8,7 @@ class IncomeService
   end
 
   def run
-    hash = monthly_based.merge(hourly_based)
-    hash[:extra] = extra_gain
-    hash
+    monthly_based.merge(hourly_based).merge(extra_gain)
   end
 
   private
