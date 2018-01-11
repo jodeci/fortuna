@@ -7,6 +7,8 @@ class CreateSalaries < ActiveRecord::Migration[5.1]
       t.integer :equipment_subsidy, default: 0
       t.integer :commuting_subsidy, default: 0
       t.integer :supervisor_allowance, default: 0
+      t.integer :labor_insurance, default: 0
+      t.integer :health_insurance, default: 0
 
       t.integer :employee_id
       t.timestamps

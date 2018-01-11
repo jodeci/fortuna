@@ -11,6 +11,7 @@ class DeductService
     {
       勞保費: labor_insurance,
       健保費: health_insurance,
+      二代健保: second_generation,
       請假扣薪: leavetime + sicktime,
     }.merge(extra_loss)
   end
@@ -18,11 +19,15 @@ class DeductService
   private
 
   def labor_insurance
-    LaborInsuranceService.new(salary).run
+    LaborInsuranceService.new(payroll, salary).run
   end
 
   def health_insurance
-    HealthInsuranceService.new(salary).run
+    HealthInsuranceService.new(payroll, salary).normal
+  end
+
+  def second_generation
+    HealthInsuranceService.new(payroll, salary).second_generation
   end
 
   def leavetime

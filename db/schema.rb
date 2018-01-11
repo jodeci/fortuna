@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20180107080943) do
     t.integer "equipment_subsidy", default: 0
     t.integer "commuting_subsidy", default: 0
     t.integer "supervisor_allowance", default: 0
+    t.integer "labor_insurance", default: 0
+    t.integer "health_insurance", default: 0
     t.integer "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

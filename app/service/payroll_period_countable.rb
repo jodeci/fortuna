@@ -4,12 +4,16 @@ module PayrollPeriodCountable
     amount * period_length / payroll.days_in_cycle
   end
 
+  def adjust_for_incomplete_month_by_30_days(amount)
+    amount * period_by_30_days / 30
+  end
+
   def period_length
     return 0 unless on_payroll?
     if payroll.employee.contractor?
       period_by_business_days
     else
-      period_end - period_start + 1
+      period_by_30_days
     end
   end
 
@@ -57,15 +61,19 @@ module PayrollPeriodCountable
 
   def period_end
     return false unless on_payroll?
-    final_month? ? period_end_day : payroll.days_in_cycle
+    final_month? ? period_end_day : 30
   end
 
   def period_end_day
     if employee_end.day == cycle_end.day
-      payroll.days_in_cycle
+      30
     else
       employee_end.day
     end
+  end
+
+  def period_by_30_days
+    period_end - period_start + 1
   end
 
   def period_by_business_days

@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 class LaborInsuranceService
-  attr_reader :salary, :employee
+  include PayrollPeriodCountable
 
-  def initialize(salary)
+  attr_reader :payroll, :salary
+
+  def initialize(payroll, salary)
+    @payroll = payroll
     @salary = salary
-    @employee = salary.employee
   end
 
   # TODO: 勞保費計算
   def run
-    441
+    adjust_for_incomplete_month_by_30_days(salary.labor_insurance).round
   end
 end
