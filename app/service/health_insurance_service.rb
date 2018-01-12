@@ -1,24 +1,26 @@
 # frozen_string_literal: true
 class HealthInsuranceService
-  include PayrollPeriodCountable
+  include ProfessionalPracticable
 
-  attr_reader :payroll, :salary, :employee
+  attr_reader :payroll, :salary
+
+  # 法規上，正職的健保必須保在公司
+  # 實務上，健保在公司的人一定會有勞保
+  # 健保計算是整月，不足月不做調整
 
   def initialize(payroll, salary)
     @payroll = payroll
-    @employee = payroll.employee
     @salary = salary
   end
 
   # TODO: 健保費計算（含家眷）
   def normal
-    adjust_for_incomplete_month_by_30_days(salary.health_insurance).round
+    salary.health_insurance
   end
 
-  # 二代健保 勞保不在公司，勞務費超過最低薪資
+  # 二代健保 執行業務所得超過最低薪資
   def second_generation
-    return 0 if salary.labor_insurance?
-    return 0 if salary.base < minimum_wage
+    return 0 unless professional_practice?
     (income * rate).round
   end
 
@@ -29,13 +31,5 @@ class HealthInsuranceService
 
   def rate
     0.0191
-  end
-
-  def minimum_wage
-    22000
-  end
-
-  def income
-    IncomeService.new(payroll, salary).run.values.reduce(:+)
   end
 end

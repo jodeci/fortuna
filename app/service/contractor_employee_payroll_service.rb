@@ -15,4 +15,8 @@ class ContractorEmployeePayrollService < RegularEmployeePayrollService
   def extra_gain
     ExtraEntriesService.new(payroll).gain
   end
+
+  def extra_loss
+    ExtraEntriesService.new(payroll).loss
+  end
 end

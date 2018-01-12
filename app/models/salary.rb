@@ -8,8 +8,4 @@ class Salary < ApplicationRecord
       .order(start_date: :asc)
       .last
   end
-
-  def labor_insurance?
-    labor_insurance.positive?
-  end
 end
