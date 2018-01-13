@@ -17,6 +17,7 @@ class PayrollNotesService
     hourly_based_note(payroll.leavetime_hours, "扣薪事假")
     hourly_based_note(payroll.sicktime_hours, "扣薪病假")
     extra_notes
+    notes
   end
 
   private

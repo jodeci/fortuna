@@ -38,11 +38,11 @@ namespace :faker do
     e.payrolls.create year: 2017, month: 3
 
     e = Employee.create name: "Teruyuki", start_date: "2017-02-05", type: "ContractorEmployee"
-    e.salaries.create monthly_wage: 20000, start_date: "2017-02-05", tax_code: "9A"
+    e.salaries.create monthly_wage: 20000, start_date: "2017-02-05", tax_code: "9a"
     e.payrolls.create year: 2017, month: 3
 
     e = Employee.create name: "Yusuke", start_date: "2017-02-05", type: "ContractorEmployee"
-    e.salaries.create monthly_wage: 120000, start_date: "2017-02-05", tax_code: "9A"
+    e.salaries.create monthly_wage: 120000, start_date: "2017-02-05", tax_code: "9a"
     e.payrolls.create year: 2017, month: 3
   end
 
@@ -54,6 +54,6 @@ namespace :faker do
 
     e = Employee.create name: "Masaki", start_date: "2016-01-20", type: "ParttimeEmployee"
     e.salaries.create hourly_wage: 150, start_date: "2016-01-20"
-    e.payrolls.create year: 2016, month: 1, parttime_hours: 100
+    e.payrolls.create year: 2016, month: 1, parttime_hours: 200
   end
 end

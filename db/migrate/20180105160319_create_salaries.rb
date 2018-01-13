@@ -1,8 +1,6 @@
 class CreateSalaries < ActiveRecord::Migration[5.1]
   def change
     create_table :salaries do |t|
-      # t.boolean :monthly, default: true
-      # t.integer :base, default: 0
       t.string :tax_code, default: 50
       t.integer :monthly_wage, default: 0
       t.integer :hourly_wage, default: 0

@@ -39,11 +39,11 @@ class RegularEmployeePayrollService
   end
 
   def sum_gain
-    gain.values.reduce(:+)
+    gain.values.reduce(:+) || 0
   end
 
   def sum_loss
-    loss.values.reduce(:+)
+    loss.values.reduce(:+) || 0
   end
 
   def details_for_view
