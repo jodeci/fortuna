@@ -38,7 +38,7 @@ class PayrollTest < ActiveSupport::TestCase
   end
 
   def test_days_in_cycle_for_contractor
-    employee = build(:employee, start_date: "2018-02-21", type: "ContractorEmployee")
+    employee = build(:employee, start_date: "2018-02-21", role: "contractor")
     payroll = build(:payroll, year: 2018, month: 2, employee: employee)
     assert_equal payroll.days_in_cycle, 15
   end

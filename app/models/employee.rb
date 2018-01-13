@@ -4,14 +4,14 @@ class Employee < ApplicationRecord
   has_many :payrolls, dependent: :destroy
 
   def regular?
-    type == "RegularEmployee"
+    role == "regular"
   end
 
   def contractor?
-    type == "ContractorEmployee"
+    role == "contractor"
   end
 
   def parttime?
-    type == "ParttimeEmployee"
+    role == "parttime"
   end
 end

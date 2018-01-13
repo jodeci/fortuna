@@ -85,7 +85,7 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
   end
 
   def test_payment_period_contractor
-    employee = build(:employee, start_date: "2018-02-21", type: "ContractorEmployee", end_date: "2018-02-28")
+    employee = build(:employee, start_date: "2018-02-21", role: "contractor", end_date: "2018-02-28")
     payroll = build(:payroll, year: 2018, month: 2, employee: employee)
     assert_equal subject(payroll).period_length, 5
   end

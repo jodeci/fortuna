@@ -32,8 +32,7 @@ class IncomeService
   end
 
   def total
-    type = payroll.employee.type.gsub(%r{Employee}, "").downcase
-    send(type).values.reduce(:+) || 0
+    send(payroll.employee.role).values.reduce(:+) || 0
   end
 
   private

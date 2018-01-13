@@ -21,18 +21,14 @@ class PayrollService
   end
 
   def gain
-    cleanup(IncomeService.new(payroll, salary).send(employee_type))
+    cleanup(IncomeService.new(payroll, salary).send(payroll.employee.role))
   end
 
   def loss
-    cleanup(DeductService.new(payroll, salary).send(employee_type))
+    cleanup(DeductService.new(payroll, salary).send(payroll.employee.role))
   end
 
   private
-
-  def employee_type
-    payroll.employee.type.gsub(%r{Employee}, "").downcase
-  end
 
   def notes
     PayrollNotesService.new(payroll).run
