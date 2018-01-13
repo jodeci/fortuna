@@ -1,0 +1,12 @@
+%table.table
+  %tr
+    %th.col-xs-1 #
+    %th.col-xs-2 生效日期
+    %th.col-xs-3 薪資
+    %th.col-xs-6 操作
+  - salaries.each_with_index do |i, idx|
+    %tr
+      %td= idx + 1
+      %td= i.start_date
+      %td= "#{i.wage_type} #{i.wage} 元"
+      %td TODO

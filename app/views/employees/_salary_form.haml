@@ -1,0 +1,29 @@
+%h2 為新員工建立起薪資料
+- @employee.salaries.each do |salary|
+  %table.table
+    = simple_fields_for :salaries, salary do |ff|
+      %tr
+        %th.col-xs-1= ff.label "起薪日期"
+        %td.col-xs-2= ff.input_field :start_date, type: :date
+        %th.col-xs-1= ff.label "所得稅別"
+        %td.col-xs-2= ff.input_field :tax_code, collection: { "薪資": "50", "執行專業所得": "9a" }
+      %tr
+        %th= ff.label "月薪"
+        %td= ff.input_field :hourly_wage
+        %th
+        %td
+      %tr
+        %th= ff.label "時薪"
+        %td= ff.input_field :monthly_wage
+        %th= ff.label "交通津貼"
+        %td= ff.input_field :commuting_subsidy
+      %tr
+        %th= ff.label "設備津貼"
+        %td= ff.input_field :equipment_subsidy
+        %th= ff.label "主管加給"
+        %td= ff.input_field :supervisor_allowance
+      %tr
+        %th= ff.label "勞保"
+        %td= ff.input_field :labor_insurance
+        %th= ff.label "健保"
+        %td= ff.input_field :health_insurance

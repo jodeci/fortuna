@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 class PayrollsController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  before_action :prepare, only: [:show, :edit]
+
+  def new
+  end
 
   def show
     @payroll = PayrollService.new(Payroll.find(params[:id])).run
@@ -8,12 +11,16 @@ class PayrollsController < ApplicationController
   end
 
   def edit
-    # @payroll = Payroll.find(params[:id])
   end
 
   private
 
-  def record_not_found
+  def prepare
+    @payroll = PayrollService.new(prepare_payroll).run
+  end
+
+  def prepare_payroll
+    Payroll.find_by(id: params[:id]) or not_found
   end
 
   def render_pdf(filename: "filename", orientation: "landscape")

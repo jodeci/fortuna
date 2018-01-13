@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'haml'
 gem 'bootstrap-sass'
 gem 'simple_form'
+gem 'active_decorator'
 
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'

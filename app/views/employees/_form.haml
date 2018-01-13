@@ -1,2 +1,31 @@
 = simple_form_for employee do |f|
-  = f.input :name
+  %table.table
+    %tr
+      %th.col-xs-1= f.label "姓名"
+      %td.col-xs-2= f.input_field :name
+      %th.col-xs-1= f.label "身份"
+      %td.col-xs-2= f.input_field :role, collection: { "正職": "regular", "約聘": "contractor", "實習/工讀": "parttime" }
+    %tr
+      %th= f.label "身分證字號"
+      %td= f.input_field :id_number
+      %th= f.label "出生年月日"
+      %td= f.input_field :birthday, start_year: Date.today.year - 65, end_year: Date.today.year - 18, include_blank: true
+    %tr
+      %th= f.label "公司信箱"
+      %td= f.input_field :company_email
+      %th= f.label "私人信箱"
+      %td= f.input_field :personal_email
+    %tr
+      %th= f.label "到職日期"
+      %td= f.input_field :start_date
+      %th= f.label "離職日期"
+      %td= f.input_field :end_date, include_blank: true
+    %tr
+      %th= f.label "銀行帳戶"
+      %td{colspan: 3}= f.input_field :bank_account
+
+  - if params[:action] == "new"
+    = render "salary_form"
+
+  .text-center
+    = f.submit "送出"

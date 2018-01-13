@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class Employee < ApplicationRecord
   has_many :salaries, dependent: :destroy
+  accepts_nested_attributes_for :salaries
+
   has_many :payrolls, dependent: :destroy
 
   def regular?
