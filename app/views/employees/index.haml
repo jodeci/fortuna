@@ -1,0 +1,20 @@
+%h1 員工列表
+%table.table
+  %tr
+    %th #
+    %th 姓名
+    %th 到職日期
+    %th 身份
+    %th 操作
+  - @employees.each do |employee|
+    %tr
+      %td= employee.id
+      %td= employee.name
+      %td= employee.start_date
+      %td= employee.role_name
+      %td
+        = link_to "檢視", employee_path(employee), class: "btn btn-xs btn-default"
+        = link_to "修改", edit_employee_path(employee), class: "btn btn-xs btn-default"
+        = link_to "刪除", employee_path(employee), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-xs btn-danger"
+
+= link_to "新增員工", new_employee_path, class: "btn btn-sm btn-primary"

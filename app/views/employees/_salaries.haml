@@ -4,9 +4,11 @@
     %th.col-xs-2 生效日期
     %th.col-xs-3 薪資
     %th.col-xs-6 操作
-  - salaries.each_with_index do |i, idx|
+  - salaries.each_with_index do |salary, idx|
     %tr
       %td= idx + 1
-      %td= i.start_date
-      %td= "#{i.wage_type} #{i.wage} 元"
-      %td TODO
+      %td= salary.start_date
+      %td= "#{salary.wage_type} #{salary.wage} 元"
+      %td
+        = link_to "修改", edit_employee_salary_path(salary.employee), class: "btn btn-xs btn-default"
+        = link_to "刪除", employee_salary_path(salary), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-xs btn-danger"

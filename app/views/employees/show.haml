@@ -1,31 +1,11 @@
 %h1 員工資料
-%table.table
-  %tr
-    %th.col-xs-1 姓名
-    %td.col-xs-2= @employee.name
-    %th.col-xs-1 受僱身份
-    %td.col-xs-2= @employee.role_name
-  %tr
-    %th 身分證字號
-    %td= @employee.id_number
-    %th 出生年月日
-    %td= @employee.birthday
-  %tr
-    %th 公司信箱
-    %td= @employee.company_email
-    %th 私人信箱
-    %td= @employee.personal_email
-  %tr
-    %th 到職日期
-    %td= @employee.start_date
-    %th 離職日期
-    %td= @employee.end_date
-  %tr
-    %th 銀行帳戶
-    %td{colspan: 3}= @employee.bank_account
+= render "info", employee: @employee
+= link_to "修改員工資料", edit_employee_path(@employee), class: "btn btn-default btn-sm"
+= link_to "刪除員工資料", employee_path(@employee), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-danger btn-sm"
 
-%h2 薪資資料
+%h2 薪資紀錄
 - if @employee.salaries.any?
   = render "salaries", salaries: @employee.salaries
+  %p= link_to "新增薪資", new_employee_salary_path(@employee), class: "btn btn-sm btn-primary"
 - else
-  %p 尚無薪資資料
+  %p= link_to "設定起薪", new_employee_salary_path(@employee), class: "btn btn-sm btn-primary"

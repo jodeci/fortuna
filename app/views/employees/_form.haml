@@ -24,8 +24,5 @@
       %th= f.label "銀行帳戶"
       %td{colspan: 3}= f.input_field :bank_account
 
-  - if params[:action] == "new"
-    = render "salary_form"
-
   .text-center
     = f.submit "送出"

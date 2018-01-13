@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 class EmployeesController < ApplicationController
-  before_action :prepare, only: [:show, :edit, :update]
+  before_action :prepare, only: [:show, :edit, :update, :destroy]
 
   def index
+    @employees = Employee.active
   end
 
   def new
     @employee = Employee.new
-    @employee.salaries.build
   end
 
   def create
     @employee = Employee.new(employee_params)
-    @employee.salaries.build
     if @employee.save
       redirect_to @employee
     else
@@ -35,6 +34,8 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
+    @employee.destroy
+    redirect_to employees_path
   end
 
   private

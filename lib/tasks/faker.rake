@@ -5,6 +5,10 @@ namespace :faker do
     Rake::Task["db:drop"].execute
     Rake::Task["db:create"].execute
     Rake::Task["db:migrate"].execute
+  end
+
+  desc "fake data"
+  task seed: :environment do
     Rake::Task["faker:regular"].execute
     Rake::Task["faker:contractor"].execute
     Rake::Task["faker:parttime"].execute
