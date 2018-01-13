@@ -11,11 +11,6 @@ class HealthInsuranceService
     @salary = salary
   end
 
-  # TODO: 健保費計算（含家眷）
-  def normal
-    salary.health_insurance
-  end
-
   # 二代健保
   #   執行業務所得 單次給付超過兩萬元
   #   兼職薪資所得 單次給付超過最低薪資

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class DeductService
+  include PayrollPeriodCountable
+
   attr_reader :payroll, :salary
 
   def initialize(payroll, salary)
@@ -48,11 +50,12 @@ class DeductService
   end
 
   def labor_insurance
-    LaborInsuranceService.new(payroll, salary).run
+    # LaborInsuranceService.new(payroll, salary).run
+    scale_for_30_days(salary.labor_insurance).round
   end
 
   def health_insurance
-    HealthInsuranceService.new(payroll, salary).normal
+    salary.health_insurance
   end
 
   def supplement_premium

@@ -20,14 +20,15 @@ namespace :faker do
     p = e.payrolls.create year: 2015, month: 8
     p.overtimes.create date: "2015-08-03", hours: 3, rate: "weekday"
     p.overtimes.create date: "2015-08-07", hours: 5.5, rate: "weekend"
-    p.extra_entries.create title: "中秋禮金", amount: 1500
+    p.extra_entries.create title: "中秋禮金", amount: 1500, taxable: true
     p.extra_entries.create title: "誤餐費", amount: 240
+    p.extra_entries.create title: "業績獎金", amount: 80000, taxable: true
   end
 
   desc "generate fake data for contractor"
   task contractor: :environment do
     e = Employee.create name: "Hidetoshi", start_date: "2016-07-12", type: "ContractorEmployee"
-    e.salaries.create monthly_wage: 50000, start_date: "2016-07-12"
+    e.salaries.create monthly_wage: 80000, start_date: "2016-07-12"
     e.payrolls.create year: 2016, month: 7
     e.payrolls.create year: 2016, month: 8
     p = e.payrolls.create year: 2016, month: 9, leavetime_hours: 24
@@ -53,7 +54,7 @@ namespace :faker do
     e.payrolls.create year: 2016, month: 1, parttime_hours: 55.5
 
     e = Employee.create name: "Masaki", start_date: "2016-01-20", type: "ParttimeEmployee"
-    e.salaries.create hourly_wage: 150, start_date: "2016-01-20"
+    e.salaries.create hourly_wage: 500, start_date: "2016-01-20"
     e.payrolls.create year: 2016, month: 1, parttime_hours: 200
   end
 end

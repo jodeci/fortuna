@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180107080943) do
   create_table "extra_entries", force: :cascade do |t|
     t.string "title"
     t.integer "amount", default: 0
+    t.boolean "taxable", default: false
     t.string "note"
     t.integer "payroll_id"
     t.datetime "created_at", null: false

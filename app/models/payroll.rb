@@ -8,6 +8,12 @@ class Payroll < ApplicationRecord
     Salary.by_payroll(employee, cycle_start, cycle_end)
   end
 
+  def taxable_irregular_income
+    extra_entries
+      .where("taxable = true and amount > 0")
+      .sum(:amount)
+  end
+
   def days_in_cycle
     employee.contractor? ? BusinessCalendarService.new(cycle_start, cycle_end).days : 30
   end

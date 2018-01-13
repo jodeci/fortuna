@@ -9,11 +9,6 @@ class IncomeService
     @salary = salary
   end
 
-  def total
-    type = payroll.employee.type.gsub(%r{Employee}, "").downcase
-    send(type).values.reduce(:+) || 0
-  end
-
   def regular
     {
       本薪: scale_for_cycle(base_salary),
@@ -34,6 +29,11 @@ class IncomeService
       薪資: total_wage,
       交通津貼: salary.commuting_subsidy,
     }.merge(extra_gain)
+  end
+
+  def total
+    type = payroll.employee.type.gsub(%r{Employee}, "").downcase
+    send(type).values.reduce(:+) || 0
   end
 
   private
