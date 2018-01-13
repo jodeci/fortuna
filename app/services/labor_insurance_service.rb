@@ -11,6 +11,6 @@ class LaborInsuranceService
 
   # TODO: 勞保費計算
   def run
-    adjust_for_incomplete_month_by_30_days(salary.labor_insurance).round
+    scale_for_30_days(salary.labor_insurance).round
   end
 end

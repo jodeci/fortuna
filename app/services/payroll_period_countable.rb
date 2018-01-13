@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 module PayrollPeriodCountable
-  def adjust_for_incomplete_month(amount)
+  def scale_for_cycle(amount)
     amount * period_length / payroll.days_in_cycle
   end
 
-  def adjust_for_incomplete_month_by_30_days(amount)
+  def scale_for_30_days(amount)
     amount * period_by_30_days / 30
   end
 

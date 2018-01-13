@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class IncomeService
+  include PayrollPeriodCountable
+
   attr_reader :payroll, :salary
 
   def initialize(payroll, salary)
@@ -7,18 +9,63 @@ class IncomeService
     @salary = salary
   end
 
-  def run
-    monthly_based.merge(hourly_based).merge(extra_gain)
+  def total
+    type = payroll.employee.type.gsub(%r{Employee}, "").downcase
+    send(type).values.reduce(:+) || 0
+  end
+
+  def regular
+    {
+      本薪: scale_for_cycle(base_salary),
+      伙食費: scale_for_cycle(taxfree_lunch),
+      設備津貼: scale_for_cycle(salary.equipment_subsidy),
+      主管加給: scale_for_cycle(salary.supervisor_allowance),
+      加班費: overtime.to_i,
+      特休折現: vacation_refund.to_i,
+    }
+  end
+
+  def contractor
+    { "#{salary_label}": scale_for_cycle(actual_salary) }.merge(extra_gain)
+  end
+
+  def parttime
+    {
+      薪資: total_wage,
+      交通津貼: salary.commuting_subsidy,
+    }.merge(extra_gain)
   end
 
   private
 
-  def monthly_based
-    MonthlyBasedIncomeService.new(payroll, salary).run
+  def salary_label
+    salary.professional_service? ? "開發費" : "薪資"
   end
 
-  def hourly_based
-    HourlyBasedIncomeService.new(payroll, salary).run
+  def actual_salary
+    salary.monthly_wage
+  end
+
+  def base_salary
+    salary.monthly_wage - taxfree_lunch
+  end
+
+  def taxfree_lunch
+    payroll.year >= 2015 ? 2400 : 1800
+  end
+
+  def total_wage
+    (payroll.parttime_hours * salary.hourly_wage).round
+  end
+
+  def overtime
+    payroll.overtimes.map do |i|
+      OvertimeService.new(i.hours, salary, payroll.days_in_cycle).send(i.rate)
+    end.reduce(:+)
+  end
+
+  def vacation_refund
+    OvertimeService.new(payroll.vacation_refund_hours, salary, payroll.days_in_cycle).basic
   end
 
   def extra_gain

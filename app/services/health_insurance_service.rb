@@ -20,7 +20,6 @@ class HealthInsuranceService
   #   執行業務所得 單次給付超過兩萬元
   #   兼職薪資所得 單次給付超過最低薪資
   def supplement_premium
-    Rails.logger.info "Income: #{income}"
     return 0 unless eligible_for_nhi2g?
     (income * supplement_premium_rate).round
   end
@@ -45,7 +44,7 @@ class HealthInsuranceService
   end
 
   def income
-    IncomeService.new(payroll, salary).run.values.reduce(:+)
+    IncomeService.new(payroll, salary).total
   end
 
   def supplement_premium_rate

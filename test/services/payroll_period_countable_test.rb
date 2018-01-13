@@ -3,7 +3,7 @@ require "test_helper"
 
 class PayrollPeriodCountableTest < ActiveSupport::TestCase
   def subject(payroll)
-    MonthlyBasedIncomeService.new(payroll, nil)
+    IncomeService.new(payroll, nil)
   end
 
   def test_first_month_true

@@ -7,7 +7,12 @@ class DeductService
     @salary = salary
   end
 
-  def run
+  def total
+    type = payroll.employee.type.gsub(%r{Employee}, "").downcase
+    send(type).values.reduce(:+) || 0
+  end
+
+  def regular
     {
       勞保費: labor_insurance,
       健保費: health_insurance,
@@ -16,7 +21,30 @@ class DeductService
     }.merge(extra_loss)
   end
 
+  def contractor
+    {
+      勞保費: labor_insurance,
+      健保費: health_insurance,
+      二代健保: supplement_premium,
+      所得稅: income_tax_9a,
+      請假扣薪: leavetime,
+    }.merge(extra_loss)
+  end
+
+  def parttime
+    {
+      勞保費: labor_insurance,
+      健保費: health_insurance,
+      二代健保: supplement_premium,
+    }.merge(extra_loss)
+  end
+
   private
+
+  # TODO: todo
+  def income_tax_9a
+    0
+  end
 
   def labor_insurance
     LaborInsuranceService.new(payroll, salary).run
