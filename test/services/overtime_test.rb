@@ -3,7 +3,7 @@ require "test_helper"
 
 class OvertimeTest < ActiveSupport::TestCase
   def salary
-    build(:salary, base: 36000)
+    build(:salary, monthly_wage: 36000)
   end
 
   def test_weekday_initial_rate

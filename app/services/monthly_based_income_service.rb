@@ -12,7 +12,7 @@ class MonthlyBasedIncomeService
   def run
     {
       本薪: base_salary,
-      午餐費: taxfree_lunch,
+      伙食費: taxfree_lunch,
       設備津貼: salary.equipment_subsidy,
       主管加給: salary.supervisor_allowance,
     }.transform_values { |v| adjust_for_incomplete_month(v) }
@@ -21,10 +21,10 @@ class MonthlyBasedIncomeService
   private
 
   def base_salary
-    salary.base - taxfree_lunch
+    salary.monthly_wage - taxfree_lunch
   end
 
   def taxfree_lunch
-    1800
+    payroll.year >= 2015 ? 2400 : 1800
   end
 end

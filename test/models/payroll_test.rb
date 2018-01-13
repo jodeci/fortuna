@@ -16,19 +16,19 @@ class PayrollTest < ActiveSupport::TestCase
 
   def employee_with_salaries
     build(:employee, start_date: "2015-05-13") do |employee|
-      create(:salary, base: 36000, start_date: "2015-05-13", employee: employee)
-      create(:salary, base: 40000, start_date: "2015-09-01", employee: employee)
+      create(:salary, monthly_wage: 36000, start_date: "2015-05-13", employee: employee)
+      create(:salary, monthly_wage: 40000, start_date: "2015-09-01", employee: employee)
     end
   end
 
   def test_find_salary_1
     payroll = build(:payroll, year: 2015, month: 5, employee: employee_with_salaries)
-    assert_equal payroll.find_salary.base, 36000
+    assert_equal payroll.find_salary.monthly_wage, 36000
   end
 
   def test_find_salary_2
     payroll = build(:payroll, year: 2015, month: 9, employee: employee_with_salaries)
-    assert_equal payroll.find_salary.base, 40000
+    assert_equal payroll.find_salary.monthly_wage, 40000
   end
 
   def test_days_in_cycle_for_regular_employee

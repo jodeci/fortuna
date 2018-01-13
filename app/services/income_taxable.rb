@@ -1,12 +1,20 @@
 # frozen_string_literal: true
-module ProfessionalPracticable
-  def professional_practice?
+module IncomeTaxable
+  # TODO: 需能區分 薪資所得 兼職薪資所得 執行業務所得
+  # 薪資所得：employee.regular?
+  # 兼職薪資所得：
+  # 執行業務所得：income_9a?
+
+  def income_9a?
     return false if payroll.employee.regular?
     return false if insuranced?
-    income > minimum_wage
+    income > 20000
   end
 
-  def tax
+  def income_50?
+  end
+
+  def tax_9a
     (income * tax_rate).round
   end
 
@@ -20,7 +28,7 @@ module ProfessionalPracticable
     IncomeService.new(payroll, salary).run.values.reduce(:+)
   end
 
-  def tax_rate
+  def tax_9a_rate
     0.1
   end
 

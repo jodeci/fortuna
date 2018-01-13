@@ -9,7 +9,7 @@ class ContractorEmployeePayrollService < RegularEmployeePayrollService
   end
 
   def base_salary
-    adjust_for_incomplete_month(salary.base)
+    adjust_for_incomplete_month(salary.monthly_wage)
   end
 
   def extra_gain

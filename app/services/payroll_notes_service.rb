@@ -10,13 +10,6 @@ class PayrollNotesService
   end
 
   def run
-    notes_for_display
-    notes
-  end
-
-  private
-
-  def notes_for_display
     employment_date_notes
     hourly_based_note(payroll.parttime_hours, "工作時數")
     hourly_based_note(payroll.vacation_refund_hours, "特休折現")
@@ -25,6 +18,8 @@ class PayrollNotesService
     hourly_based_note(payroll.sicktime_hours, "扣薪病假")
     extra_notes
   end
+
+  private
 
   def hourly_based_note(hours, title)
     notes << "#{title} #{hours} 小時" if hours.positive?
@@ -42,6 +37,8 @@ class PayrollNotesService
   end
 
   def extra_notes
-    payroll.extra_entries.map { |i| notes << i.note }
+    payroll.extra_entries.map do |i|
+      notes << i.note if i.note.present?
+    end
   end
 end

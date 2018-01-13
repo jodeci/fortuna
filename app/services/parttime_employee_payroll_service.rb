@@ -10,7 +10,7 @@ class ParttimeEmployeePayrollService < RegularEmployeePayrollService
   end
 
   def total_wage
-    (payroll.parttime_hours * salary.base).round
+    (payroll.parttime_hours * salary.hourly_wage).round
   end
 
   def extra_gain

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class HealthInsuranceService
-  include ProfessionalPracticable
+  include IncomeTaxable
 
   attr_reader :payroll, :salary
 
@@ -14,13 +14,15 @@ class HealthInsuranceService
   end
 
   # TODO: 健保費計算（含家眷）
+  # DB 應該存投保薪資+家眷人數?
   def normal
     salary.health_insurance
   end
 
-  # 二代健保 執行業務所得超過最低薪資
+  # 二代健保 執行業務所得 單次給付超過20000元
+  # 二代健保 兼職薪資所得 單次給付超過最低薪資
   def second_generation
-    return 0 unless professional_practice?
+    return 0 unless income_9A?
     (income * rate).round
   end
 
