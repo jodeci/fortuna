@@ -22,7 +22,7 @@ class IncomeService
       主管加給: scale_for_cycle(salary.supervisor_allowance),
       加班費: overtime.to_i,
       特休折現: vacation_refund.to_i,
-    }
+    }.merge(extra_gain)
   end
 
   def contractor

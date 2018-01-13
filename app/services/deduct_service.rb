@@ -17,6 +17,7 @@ class DeductService
       勞保費: labor_insurance,
       健保費: health_insurance,
       二代健保: supplement_premium,
+      所得稅: income_tax,
       請假扣薪: leavetime + sicktime,
     }.merge(extra_loss)
   end
@@ -26,7 +27,7 @@ class DeductService
       勞保費: labor_insurance,
       健保費: health_insurance,
       二代健保: supplement_premium,
-      所得稅: income_tax_9a,
+      所得稅: income_tax,
       請假扣薪: leavetime,
     }.merge(extra_loss)
   end
@@ -36,14 +37,14 @@ class DeductService
       勞保費: labor_insurance,
       健保費: health_insurance,
       二代健保: supplement_premium,
+      所得稅: income_tax,
     }.merge(extra_loss)
   end
 
   private
 
-  # TODO: todo
-  def income_tax_9a
-    0
+  def income_tax
+    TaxService.new(payroll, salary).run
   end
 
   def labor_insurance
