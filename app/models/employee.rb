@@ -9,6 +9,13 @@ class Employee < ApplicationRecord
     Employee.where("end_date >= now() OR end_date is NULL").order(id: :desc)
   end
 
+  def self.on_payroll(cycle_start, cycle_end)
+    Employee
+      .where("start_date <= ?", cycle_end)
+      .where("end_date >= ? OR end_date is NULL", cycle_start)
+      .order(id: :desc)
+  end
+
   def regular?
     role == "regular"
   end

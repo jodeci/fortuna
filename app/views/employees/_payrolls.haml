@@ -1,0 +1,12 @@
+%table.table
+  %tr
+    %th 計算期間
+    %th 操作
+  - payrolls.each do |payroll|
+    %tr
+      %td= payroll.payment_period
+      %td
+        - if payroll.statement
+          = link_to "薪資明細", statement_path(payroll), class: "btn btn-xs btn-info"
+        - else
+          = link_to "設定明細", edit_payroll_path(payroll), class: "btn btn-xs btn-warning"

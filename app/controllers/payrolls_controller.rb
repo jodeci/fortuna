@@ -7,6 +7,11 @@ class PayrollsController < ApplicationController
     @payrolls = @q.result(distinct: true).order(year: :desc, month: :desc)
   end
 
+  def init
+    PayrollsInitService.new(params[:year].to_i, params[:month].to_i).run
+    redirect_to_date(params[:year], params[:month])
+  end
+
   def new
   end
 
@@ -22,7 +27,7 @@ class PayrollsController < ApplicationController
   def update
     if @payroll.update_attributes(payroll_params)
       create_or_update_statement
-      redirect_to action: :index, q: { year_eq: @payroll.year, month_eq: @payroll.month }
+      redirect_to_date(@payroll.year, @payroll.month)
     else
       render :edit
     end
@@ -69,5 +74,9 @@ class PayrollsController < ApplicationController
         )
       end
     end
+  end
+
+  def redirect_to_date(year, month)
+    redirect_to action: :index, q: { year_eq: year, month_eq: month }
   end
 end

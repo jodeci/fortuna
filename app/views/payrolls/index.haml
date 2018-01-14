@@ -1,4 +1,4 @@
-%h1 薪資明細
+%h1 薪資單產生器
 
 = search_form_for @q do |f|
   = f.search_field :year_eq
@@ -6,6 +6,8 @@
   = f.search_field :month_eq
   = f.label "月"
   = f.submit "查詢"
+
+= render "initiate_link"
 
 - if @payrolls
   %table.table
@@ -23,6 +25,9 @@
         %td= payroll.payment_period
         %td
           = link_to "員工資料", employee_path(payroll.employee), class: "btn btn-xs btn-default"
-          = link_to "設定當月明細", edit_payroll_path(payroll), class: "btn btn-xs btn-default"
-          = link_to "薪資單", statement_path(payroll), class: "btn btn-xs btn-info"
-          = link_to "PDF", statement_path(payroll, format: :pdf), class: "btn btn-xs btn-info"
+          - if payroll.statement
+            = link_to "修改明細", edit_payroll_path(payroll), class: "btn btn-xs btn-default"
+            = link_to "薪資單", statement_path(payroll), class: "btn btn-xs btn-info"
+            = link_to "PDF", statement_path(payroll, format: :pdf), class: "btn btn-xs btn-info"
+          - else
+            = link_to "設定明細", edit_payroll_path(payroll), class: "btn btn-xs btn-warning"

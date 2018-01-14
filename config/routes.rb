@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   end
 
   get "payrolls/:id/statement", to: "payrolls#statement", as: :statement
+  get "payrolls/init/:year/:month", to: "payrolls#init", as: :init_payrolls, constraints: { year: /\d{4}/, month: /\d{1,2}/ }
+
   resources :payrolls do
     resources :extra_entries
     resources :overtimes

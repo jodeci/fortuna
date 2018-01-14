@@ -32,6 +32,7 @@ class BusinessCalendarService
   end
 
   def select_dates(type)
+    return [] unless table[type]
     table[type].select { |i| i == month }.values.flatten(2).map { |i| Date.new(year, month, i) }
   end
 
