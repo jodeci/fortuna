@@ -20,6 +20,8 @@ class StatementService
     }
   end
 
+  private
+
   def gain
     cleanup(IncomeService.new(payroll, salary).send(payroll.employee.role))
   end
@@ -27,8 +29,6 @@ class StatementService
   def loss
     cleanup(DeductService.new(payroll, salary).send(payroll.employee.role))
   end
-
-  private
 
   def notes
     StatementNotesService.new(payroll).run

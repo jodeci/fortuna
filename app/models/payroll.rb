@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class Payroll < ApplicationRecord
   belongs_to :employee
+  has_one :statement, dependent: :destroy
 
   has_many :overtimes, dependent: :destroy
   accepts_nested_attributes_for :overtimes, allow_destroy: true

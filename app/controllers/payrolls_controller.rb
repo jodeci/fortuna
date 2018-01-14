@@ -25,6 +25,7 @@ class PayrollsController < ApplicationController
 
   def update
     if @payroll.update_attributes(payroll_params)
+      create_or_update_statement
       redirect_to action: :index_by_date, year: @payroll.year, month: @payroll.month
     else
       render :edit
@@ -51,6 +52,13 @@ class PayrollsController < ApplicationController
 
   def prepare_payroll
     @payroll = Payroll.find_by(id: params[:id]) or not_found
+  end
+
+  def create_or_update_statement
+    statement = Statement.find_or_initialize_by(payroll_id: @payroll.id)
+    service = StatementService.new(@payroll).run
+    statement.amount = service[:total]
+    statement.save
   end
 
   def render_pdf(filename: "filename", orientation: "landscape")
