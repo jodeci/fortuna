@@ -3,12 +3,8 @@ class PayrollsController < ApplicationController
   before_action :prepare_payroll, only: [:show, :edit, :update, :destroy, :statement]
 
   def index
-    @payrolls = Payroll.all
-  end
-
-  def index_by_date
-    @payrolls = Payroll.by_date(params[:year], params[:month])
-    render :index
+    @q = Payroll.ransack(params[:q])
+    @payrolls = @q.result(distinct: true).order(year: :desc, month: :desc)
   end
 
   def new
@@ -26,7 +22,7 @@ class PayrollsController < ApplicationController
   def update
     if @payroll.update_attributes(payroll_params)
       create_or_update_statement
-      redirect_to action: :index_by_date, year: @payroll.year, month: @payroll.month
+      redirect_to action: :index, q: { year_eq: @payroll.year, month_eq: @payroll.month }
     else
       render :edit
     end

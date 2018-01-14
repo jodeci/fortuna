@@ -1,15 +1,28 @@
-%h1 #{params[:year]} 年 #{params[:month]} 月
-%table.table
-  %tr
-    %th #
-    %th 員工
-    %th 操作
-  - @payrolls.each do |payroll|
+%h1 薪資明細
+
+= search_form_for @q do |f|
+  = f.search_field :year_eq
+  = f.label "年"
+  = f.search_field :month_eq
+  = f.label "月"
+  = f.submit "查詢"
+
+- if @payrolls
+  %table.table
     %tr
-      %td= payroll.id
-      %td #{payroll.employee.name}（#{payroll.employee.role_name}）
-      %td
-        = link_to "員工資料", employee_path(payroll.employee), class: "btn btn-xs btn-default"
-        = link_to "設定當月明細", edit_payroll_path(payroll), class: "btn btn-xs btn-default"
-        = link_to "薪資單", statement_path(payroll), class: "btn btn-xs btn-info"
-        = link_to "PDF", statement_path(payroll, format: :pdf), class: "btn btn-xs btn-info"
+      %th #
+      %th 員工
+      %th 身份
+      %th 計算期間 
+      %th 操作
+    - @payrolls.each do |payroll|
+      %tr
+        %td= payroll.id
+        %td= payroll.employee.name
+        %td= payroll.employee.role_name
+        %td= payroll.payment_period
+        %td
+          = link_to "員工資料", employee_path(payroll.employee), class: "btn btn-xs btn-default"
+          = link_to "設定當月明細", edit_payroll_path(payroll), class: "btn btn-xs btn-default"
+          = link_to "薪資單", statement_path(payroll), class: "btn btn-xs btn-info"
+          = link_to "PDF", statement_path(payroll, format: :pdf), class: "btn btn-xs btn-info"
