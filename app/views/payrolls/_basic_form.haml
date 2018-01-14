@@ -1,0 +1,12 @@
+%h2 基本項目
+%table.table
+  %tr
+    %th.col-sm-1= f.label "工作時數"
+    %td= f.input_field :parttime_hours
+    %th= f.label "扣薪事假時數"
+    %td= f.input_field :leavetime_hours
+  %tr
+    %th= f.label "扣薪病假時數"
+    %td= f.input_field :sicktime_hours
+    %th= f.label "特薪折換時數"
+    %td= f.input_field :vacation_refund_hours

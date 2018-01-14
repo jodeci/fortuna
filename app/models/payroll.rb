@@ -1,8 +1,16 @@
 # frozen_string_literal: true
 class Payroll < ApplicationRecord
   belongs_to :employee
+
   has_many :overtimes, dependent: :destroy
+  accepts_nested_attributes_for :overtimes, allow_destroy: true
+
   has_many :extra_entries, dependent: :destroy
+  accepts_nested_attributes_for :extra_entries, allow_destroy: true
+
+  def self.by_date(year, month)
+    Payroll.where(year: year, month: month).order(employee_id: :desc)
+  end
 
   def find_salary
     Salary.by_payroll(employee, cycle_start, cycle_end)

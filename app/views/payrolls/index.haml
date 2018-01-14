@@ -1,0 +1,14 @@
+%h1 #{params[:year]} #{params[:month]}
+%table.table
+  %tr
+    %th #
+    %th 員工
+    %th 操作
+  - @payrolls.each do |payroll|
+    %tr
+      %td= payroll.id
+      %td #{payroll.employee.name}（#{payroll.employee.role_name}）
+      %td
+        = link_to "員工資料", employee_path(payroll.employee), class: "btn btn-xs btn-default"
+        = link_to "設定當月明細", edit_payroll_path(payroll), class: "btn btn-xs btn-default"
+        = link_to "薪資單", payroll_path(payroll), class: "btn btn-xs btn-info"

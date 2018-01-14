@@ -1,0 +1,13 @@
+%h2 加班紀錄
+%table.table
+  %tr
+    %th.col-sm-2 加班日期
+    %th.col-sm-2 加班時數
+    %th.col-sm-2 適用費率
+    %th.col-sm-4 操作
+  = f.simple_fields_for :overtimes do |ff|
+    %tr
+      %td= ff.input_field :date
+      %td= ff.input_field :hours
+      %td= ff.input_field :rate, collection: { "平日": "weekday", "週末": "weekend", "假日": "holiday" }
+      %td= link_to "刪除", payroll_overtime_path(ff), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-xs btn-danger"
