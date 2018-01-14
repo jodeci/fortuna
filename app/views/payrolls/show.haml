@@ -3,16 +3,16 @@
     %table.table.table-bordered
       %tr.active
         %th.col-xs-1.text-center 姓名
-        %th.col-xs-2.text-center= @payroll[:name]
+        %th.col-xs-2.text-center= @statement[:name]
         %th.col-xs-1.text-center 計算月份
-        %th.col-xs-2.text-center= @payroll[:period]
-      = render "details", details: @payroll[:details]
+        %th.col-xs-2.text-center= @statement[:period]
+      = render "details", details: @statement[:details]
       %tr.warning
         %th.text-center 小計
-        %td.text-right= number_with_delimiter @payroll[:gain]
+        %td.text-right= number_with_delimiter @statement[:gain]
         %th.text-center 小計
-        %td.text-right= number_with_delimiter @payroll[:loss]
+        %td.text-right= number_with_delimiter @statement[:loss]
       %tr.info
         %th.text-center 總計
-        %td.text-right{colspan: 3}= number_with_delimiter @payroll[:total]
-      = render "notes", notes: @payroll[:notes]
+        %td.text-right{colspan: 3}= number_with_delimiter @statement[:total]
+      = render "notes", notes: @statement[:notes]

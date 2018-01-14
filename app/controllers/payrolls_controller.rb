@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class PayrollsController < ApplicationController
-  # before_action :prepare_service, only: [:show]
-  # before_action :prepare_payroll, only: [:edit]
+  before_action :prepare_payroll, only: [:show, :edit, :update]
 
   def index
     @payrolls = Payroll.all
@@ -18,19 +17,15 @@ class PayrollsController < ApplicationController
   def create
   end
 
-  # TODO: refactor variable naming
   def show
-    payroll_object = Payroll.find_by(id: params[:id]) or not_found
-    @payroll = PayrollService.new(payroll_object).run
-    render_pdf filename: @payroll[:filename]
+    @statement = StatementService.new(@payroll).run
+    render_pdf filename: @statement[:filename]
   end
 
   def edit
-    @payroll = Payroll.find_by(id: params[:id]) or not_found
   end
 
   def update
-    @payroll = Payroll.find_by(id: params[:id]) or not_found
     if @payroll.update_attributes(payroll_params)
       redirect_to action: :index_by_date, year: @payroll.year, month: @payroll.month
     else
@@ -51,10 +46,8 @@ class PayrollsController < ApplicationController
     )
   end
 
-  def prepare_service
-  end
-
   def prepare_payroll
+    @payroll = Payroll.find_by(id: params[:id]) or not_found
   end
 
   def render_pdf(filename: "filename", orientation: "landscape")

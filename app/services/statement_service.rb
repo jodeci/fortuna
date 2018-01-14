@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class PayrollService
+class StatementService
   attr_reader :payroll, :salary
 
   def initialize(payroll)
