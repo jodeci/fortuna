@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class PayrollsController < ApplicationController
-  before_action :prepare_payroll, only: [:show, :edit, :update]
+  before_action :prepare_payroll, only: [:show, :edit, :update, :destroy, :statement]
 
   def index
     @payrolls = Payroll.all
@@ -18,8 +18,6 @@ class PayrollsController < ApplicationController
   end
 
   def show
-    @statement = StatementService.new(@payroll).run
-    render_pdf filename: @statement[:filename]
   end
 
   def edit
@@ -34,6 +32,11 @@ class PayrollsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def statement
+    @statement = StatementService.new(@payroll).run
+    render_pdf filename: @statement[:filename]
   end
 
   private
