@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class PayrollNotesService
+class StatementNotesService
   include PayrollPeriodCountable
 
   attr_reader :payroll, :notes

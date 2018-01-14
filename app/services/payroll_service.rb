@@ -31,7 +31,7 @@ class PayrollService
   private
 
   def notes
-    PayrollNotesService.new(payroll).run
+    StatementNotesService.new(payroll).run
   end
 
   def sum_gain
