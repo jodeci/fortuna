@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class ExtraEntriesService
-  attr_reader :payroll
-  attr_accessor :hash
+  attr_reader :payroll, :hash
 
   def initialize(payroll)
     @payroll = payroll
@@ -9,12 +8,12 @@ class ExtraEntriesService
   end
 
   def gain
-    payroll.extra_entries.map { |i| hash[i.title] = i.amount if i.amount.positive? }
+    payroll.extra_entries.map { |entry| hash[entry.title] = entry.amount if entry.amount.positive? }
     hash
   end
 
   def loss
-    payroll.extra_entries.map { |i| hash[i.title] = i.amount.abs if i.amount.negative? }
+    payroll.extra_entries.map { |entry| hash[entry.title] = entry.amount.abs if entry.amount.negative? }
     hash
   end
 end

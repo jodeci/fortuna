@@ -52,18 +52,18 @@ class StatementService
   end
 
   def cleanup(hash)
-    hash.delete_if { |_, v| v.zero? }
+    hash.delete_if { |_, value| value.zero? }
   end
 
   def details_for_view
-    a1 = hash_to_array(gain)
-    a2 = hash_to_array(loss)
-    if a1.size > a2.size
-      a2.fill(a2.size..a1.size - 1) { { "": nil } }
+    left = hash_to_array(gain)
+    right = hash_to_array(loss)
+    if left.size > right.size
+      right.fill(right.size..left.size - 1) { { "": nil } }
     else
-      a1.fill(a1.size..a2.size - 1) { { "": nil } }
+      left.fill(left.size..right.size - 1) { { "": nil } }
     end
-    a1.zip(a2)
+    left.zip(right)
   end
 
   def hash_to_array(hash)

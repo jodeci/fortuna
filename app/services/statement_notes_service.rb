@@ -32,14 +32,14 @@ class StatementNotesService
   end
 
   def overtime_notes
-    payroll.overtimes.map do |i|
-      notes << "#{i.date.strftime('%Y-%m-%d')} 加班 #{i.hours} 小時"
+    payroll.overtimes.map do |overtime|
+      notes << "#{overtime.date.strftime('%Y-%m-%d')} 加班 #{overtime.hours} 小時"
     end
   end
 
   def extra_notes
-    payroll.extra_entries.map do |i|
-      notes << i.note if i.note.present?
+    payroll.extra_entries.map do |extra_entry|
+      notes << extra_entry.note if extra_entry.note.present?
     end
   end
 end

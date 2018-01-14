@@ -24,11 +24,11 @@ class BusinessCalendarService
   end
 
   def weekends_in_cycle
-    days_in_cycle.select { |i| [0, 6].include?(i.wday) }.size
+    days_in_cycle.select { |day| [0, 6].include?(day.wday) }.size
   end
 
   def dates_in_cycle(type)
-    days_in_cycle.select { |i| select_dates(type).include? i }.size
+    days_in_cycle.select { |day| select_dates(type).include? day }.size
   end
 
   def select_dates(type)

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 module PayrollsHelper
   def init_year
-    q_year.between?(2014, Time.zone.today.year + 1) ? q_year : Time.zone.today.year
+    q_year.between?(2014, this_year + 1) ? q_year : this_year
   end
 
   def init_month
-    q_month.between?(1, 12) ? q_month : Time.zone.today.month
+    q_month.between?(1, 12) ? q_month : this_month
   end
 
   def init_button_text
@@ -13,6 +13,14 @@ module PayrollsHelper
   end
 
   private
+
+  def this_year
+    Time.zone.today.year
+  end
+
+  def this_month
+    Time.zone.today.month
+  end
 
   def q_year
     params.dig(:q, :year_eq).to_i

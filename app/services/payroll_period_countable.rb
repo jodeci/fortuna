@@ -77,8 +77,8 @@ module PayrollPeriodCountable
   end
 
   def period_by_business_days
-    d1 = Date.new(payroll.year, payroll.month, period_start)
-    d2 = Date.new(payroll.year, payroll.month, default_end_point.day)
-    BusinessCalendarService.new(d1, d2).days
+    start_date = Date.new(payroll.year, payroll.month, period_start)
+    end_date = Date.new(payroll.year, payroll.month, default_end_point.day)
+    BusinessCalendarService.new(start_date, end_date).days
   end
 end

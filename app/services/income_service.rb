@@ -58,8 +58,8 @@ class IncomeService
   end
 
   def overtime
-    payroll.overtimes.map do |i|
-      OvertimeService.new(i.hours, salary, payroll.days_in_cycle).send(i.rate)
+    payroll.overtimes.map do |overtime|
+      OvertimeService.new(overtime.hours, salary, payroll.days_in_cycle).send(overtime.rate)
     end.reduce(:+)
   end
 
