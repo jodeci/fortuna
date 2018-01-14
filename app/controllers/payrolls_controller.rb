@@ -4,7 +4,9 @@ class PayrollsController < ApplicationController
 
   def index
     @q = Payroll.ransack(params[:q])
-    @payrolls = @q.result(distinct: true).order(year: :desc, month: :desc)
+    @payrolls = @q.result(distinct: true)
+      .order(year: :desc, month: :desc)
+      .includes(:employee, :statement)
   end
 
   def init
