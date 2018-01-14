@@ -16,8 +16,13 @@ class StatementService
       notes: notes,
       gain: sum_gain,
       loss: sum_loss,
-      total: sum_gain - sum_loss,
+      total: total,
     }
+  end
+
+  def sync
+    statement = Statement.find_or_initialize_by(payroll_id: payroll.id)
+    statement.update amount: total, year: payroll.year, month: payroll.month
   end
 
   private
@@ -40,6 +45,10 @@ class StatementService
 
   def sum_loss
     DeductService.new(payroll, salary).total
+  end
+
+  def total
+    sum_gain - sum_loss
   end
 
   def cleanup(hash)

@@ -1,0 +1,18 @@
+.row
+  .col-xs-6
+    %table.table.table-bordered
+      %tr.active
+        %th.col-xs-1.text-center 姓名
+        %th.col-xs-2.text-center= @details[:name]
+        %th.col-xs-1.text-center 計算月份
+        %th.col-xs-2.text-center= @details[:period]
+      = render "details", details: @details[:details]
+      %tr.warning
+        %th.text-center 小計
+        %td.text-right= number_with_delimiter @details[:gain]
+        %th.text-center 小計
+        %td.text-right= number_with_delimiter @details[:loss]
+      %tr.info
+        %th.text-center 總計
+        %td.text-right{colspan: 3}= number_with_delimiter @details[:total]
+      = render "notes", notes: @details[:notes]

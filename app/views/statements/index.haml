@@ -1,0 +1,24 @@
+= search_form_for @q do |f|
+  = f.search_field :year_eq
+  = f.label "年"
+  = f.search_field :month_eq
+  = f.label "月"
+  = f.submit "查詢"
+
+- if @statements
+  %table.table
+    %tr
+      %th 姓名
+      %th 身份
+      %th 計算期間 
+      %th 實發薪資
+      %th 操作
+    - @statements.each do |statement|
+      %tr
+        %td= statement.payroll.employee.name
+        %td= statement.payroll.employee.role_name
+        %td= statement.payroll.payment_period
+        %td= statement.amount
+        %td
+          = link_to "薪資單", statement_path(statement), class: "btn btn-xs btn-info"
+          = link_to "PDF", statement_path(statement, format: :pdf), class: "btn btn-xs btn-info"

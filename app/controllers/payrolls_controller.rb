@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class PayrollsController < ApplicationController
-  before_action :prepare_payroll, only: [:show, :edit, :update, :destroy, :statement]
+  before_action :prepare_payroll, only: [:show, :edit, :update, :destroy]
 
   def index
     @q = Payroll.ransack(params[:q])
@@ -26,7 +26,7 @@ class PayrollsController < ApplicationController
 
   def update
     if @payroll.update_attributes(payroll_params)
-      create_or_update_statement
+      StatementService.new(@payroll).sync
       redirect_to_date(@payroll.year, @payroll.month)
     else
       render :edit
@@ -34,11 +34,6 @@ class PayrollsController < ApplicationController
   end
 
   def destroy
-  end
-
-  def statement
-    @statement = StatementService.new(@payroll).run
-    render_pdf filename: @statement[:filename]
   end
 
   private
@@ -53,27 +48,6 @@ class PayrollsController < ApplicationController
 
   def prepare_payroll
     @payroll = Payroll.find_by(id: params[:id]) or not_found
-  end
-
-  def create_or_update_statement
-    statement = Statement.find_or_initialize_by(payroll_id: @payroll.id)
-    service = StatementService.new(@payroll).run
-    statement.amount = service[:total]
-    statement.save
-  end
-
-  def render_pdf(filename: "filename", orientation: "landscape")
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render(
-          pdf: filename,
-          encoding: "utf-8",
-          layout: "pdf",
-          orientation: orientation
-        )
-      end
-    end
   end
 
   def redirect_to_date(year, month)
