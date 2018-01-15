@@ -4,7 +4,7 @@ class StatementsController < ApplicationController
     @q = Statement.ransack(params[:q])
     @statements = @q.result(distinct: true)
       .order(year: :desc, month: :desc)
-      .includes(:payroll, { payroll: :employee })
+      .includes(:payroll, payroll: :employee)
   end
 
   def show

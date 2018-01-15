@@ -17,7 +17,7 @@
       %td= statement.payroll.employee.name
       %td= statement.payroll.employee.role_name
       %td= statement.payroll.payment_period
-      %td= statement.amount
+      %td= number_with_delimiter(statement.amount)
       %td
         = link_to "薪資單", statement_path(statement), class: "btn btn-xs btn-info"
         = link_to "PDF", statement_path(statement, format: :pdf), class: "btn btn-xs btn-info"

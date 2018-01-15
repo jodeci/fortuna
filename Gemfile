@@ -20,6 +20,9 @@ gem 'simple_form'
 gem 'active_decorator'
 gem 'ransack'
 
+gem 'jquery-rails'
+gem 'cocoon'
+
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 

@@ -1,4 +1,4 @@
-%h2 自訂項目 TODO: cocoon
+%h2 自訂項目
 %table.table
   %tr
     %th.col-sm-1 項目名稱
@@ -6,10 +6,8 @@
     %th.col-sm-1 應稅
     %th.col-sm-2 備註
     %th.col-sm-4 操作
-  = f.simple_fields_for :extra_entries do |ff|
-    %tr
-      %td= ff.input_field :title
-      %td= ff.input_field :amount
-      %td= ff.input_field :taxable
-      %td= ff.input_field :note
-      %td= link_to "刪除", payroll_extra_entry_path(ff), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-xs btn-danger"
+  %tbody#extra_entry_items
+    = f.simple_fields_for :extra_entries do |extra_entry|
+      = render "extra_entry_fields", f: extra_entry
+
+= link_to_add_association "新增自訂項目", f, :extra_entries, class: "btn btn-sm btn-primary", data: { "association-insertion-node": "tbody#extra_entry_items", "association-insertion-method": "append" }
