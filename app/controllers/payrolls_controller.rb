@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class PayrollsController < ApplicationController
-  before_action :prepare_payroll, only: [:show, :edit, :update, :destroy]
+  before_action :prepare_payroll, only: [:edit, :update, :destroy]
 
   def index
     @q = Payroll.ransack(params[:q])
@@ -12,15 +12,6 @@ class PayrollsController < ApplicationController
   def init
     PayrollsInitService.new(params[:year].to_i, params[:month].to_i).run
     redirect_to_date(params[:year], params[:month])
-  end
-
-  def new
-  end
-
-  def create
-  end
-
-  def show
   end
 
   def edit
