@@ -1,0 +1,33 @@
+%h1 員工資料
+= render "/employees/info", employee: @salary.employee
+
+%h1 薪資資料
+%table.table
+  %tr
+    %th.col-xs-1 起薪日期
+    %td.col-xs-2= @salary.start_date
+    %th.col-xs-1 所得稅別
+    %td.col-xs-2= @salary.tax_code
+  %tr
+    %th 月薪
+    %td= @salary.monthly_wage
+    %th
+    %td
+  %tr
+    %th 時薪
+    %td= @salary.hourly_wage
+    %th 交通津貼
+    %td= @salary.commuting_subsidy
+  %tr
+    %th 設備津貼
+    %td= @salary.equipment_subsidy
+    %th 主管加給
+    %td= @salary.supervisor_allowance
+  %tr
+    %th 勞保費
+    %td= @salary.labor_insurance
+    %th 健保費
+    %td= @salary.health_insurance
+
+= link_to "修改薪資資料", edit_employee_salary_path(@employee), class: "btn btn-sm btn-default"
+= link_to "刪除薪資資料", employee_salary_path(@employee), method: :delete, data: { confirm: "確認刪除？" }, class: "btn btn-sm btn-danger"

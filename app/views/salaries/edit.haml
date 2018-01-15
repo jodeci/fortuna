@@ -1,8 +1,8 @@
 %h1 修改薪資資料
 
-= simple_form_for @employee, url: employee_salary_path(@employee), method: :put do |f|
+= simple_form_for @salary, url: employee_salary_path(@employee), method: :put do |f|
   = render "/employees/info", employee: @employee
-  = render "form", salary: @salary
+  = render "form", f: f
 
   .text-center
     = f.submit "送出"

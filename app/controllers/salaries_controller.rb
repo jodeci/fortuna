@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 class SalariesController < ApplicationController
   before_action :prepare_employee, except: :index
-  before_action :prepare_salary, only: [:update, :destroy]
-  before_action :build_salary, only: [:new, :edit]
+  before_action :prepare_salary, only: [:show, :edit, :update, :destroy]
 
   def index
   end
 
   def new
+    @salary = @employee.salaries.build
   end
 
   def create
@@ -23,7 +23,6 @@ class SalariesController < ApplicationController
   end
 
   def edit
-    @salary = @employee.salaries.build
   end
 
   def update
@@ -55,9 +54,5 @@ class SalariesController < ApplicationController
 
   def prepare_salary
     @salary = Salary.find_by(id: params[:id]) or not_found
-  end
-
-  def build_salary
-    @salary = @employee.salaries.build
   end
 end

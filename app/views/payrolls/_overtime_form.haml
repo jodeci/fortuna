@@ -1,11 +1,10 @@
 %h2 加班紀錄
 %table.table
-  %thead
-    %tr
-      %th.col-sm-2 加班日期
-      %th.col-sm-2 加班時數
-      %th.col-sm-2 適用費率
-      %th.col-sm-4 操作
+  %tr
+    %th.col-sm-2 加班日期
+    %th.col-sm-2 加班時數
+    %th.col-sm-2 適用費率
+    %th.col-sm-4 操作
   %tbody#overtime_items
     = f.simple_fields_for :overtimes do |overtime|
       = render "overtime_fields", f: overtime

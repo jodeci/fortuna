@@ -1,5 +1,5 @@
 %h1 #{@payroll.payment_period} 薪資單明細設定
-= link_to "#{@payroll.employee.name}", employee_path(@payroll.employee), class: "btn btn-sm btn-info"
+= link_to "員工資料：#{@payroll.employee.name}", employee_path(@payroll.employee), class: "btn btn-sm btn-info"
 
 = simple_form_for @payroll do |f|
   = render "basic_form", f: f
