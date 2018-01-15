@@ -16,8 +16,7 @@ class PayrollsInitService
 
   def find_or_create_payrolls_for_employees
     @employees.map do |employee|
-      payroll = Payroll.find_or_initialize_by(year: year, month: month, employee_id: employee.id)
-      payroll.save
+      Payroll.find_or_initialize_by(year: year, month: month, employee_id: employee.id).save
     end
   end
 

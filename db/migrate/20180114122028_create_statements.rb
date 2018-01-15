@@ -4,6 +4,7 @@ class CreateStatements < ActiveRecord::Migration[5.1]
       t.integer :amount, default: 0
       t.integer :year
       t.integer :month
+      t.integer :page, default: 0
 
       t.integer :payroll_id
       t.timestamps

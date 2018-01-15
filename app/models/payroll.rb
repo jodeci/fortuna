@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class Payroll < ApplicationRecord
   belongs_to :employee
-  has_one :statement, dependent: :destroy
 
   has_many :overtimes, dependent: :destroy
   accepts_nested_attributes_for :overtimes, allow_destroy: true
@@ -9,7 +8,10 @@ class Payroll < ApplicationRecord
   has_many :extra_entries, dependent: :destroy
   accepts_nested_attributes_for :extra_entries, allow_destroy: true
 
-  after_update :sync_to_statement
+  has_many :statements, dependent: :destroy
+  accepts_nested_attributes_for :statements, allow_destroy: true
+
+  after_update :build_statements
 
   def self.by_date(year, month)
     Payroll.where(year: year, month: month).order(employee_id: :desc)
@@ -31,8 +33,8 @@ class Payroll < ApplicationRecord
 
   private
 
-  def sync_to_statement
-    StatementService.new(self).sync
+  def build_statements
+    StatementBuilderService.new(self).run
   end
 
   def cycle_start

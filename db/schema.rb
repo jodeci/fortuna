@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20180114122028) do
     t.integer "amount", default: 0
     t.integer "year"
     t.integer "month"
+    t.integer "page", default: 0
     t.integer "payroll_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
