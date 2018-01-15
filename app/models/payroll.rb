@@ -9,6 +9,8 @@ class Payroll < ApplicationRecord
   has_many :extra_entries, dependent: :destroy
   accepts_nested_attributes_for :extra_entries, allow_destroy: true
 
+  after_update :sync_to_statement
+
   def self.by_date(year, month)
     Payroll.where(year: year, month: month).order(employee_id: :desc)
   end
@@ -28,6 +30,10 @@ class Payroll < ApplicationRecord
   end
 
   private
+
+  def sync_to_statement
+    StatementService.new(self).sync
+  end
 
   def cycle_start
     Date.new(year, month, 1)

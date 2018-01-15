@@ -19,7 +19,6 @@ class PayrollsController < ApplicationController
 
   def update
     if @payroll.update_attributes(payroll_params)
-      StatementService.new(@payroll).sync
       redirect_to_date(@payroll.year, @payroll.month)
     else
       render :edit
