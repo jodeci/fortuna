@@ -15,7 +15,7 @@ class StatementDetailsService
   def normal
     {
       name: payroll.employee.name,
-      split_label: split_label,
+      period: payment_period,
       filename: "#{payroll.employee.name} #{payment_period} 薪資明細",
       details: details_for_view,
       notes: notes,
@@ -30,7 +30,7 @@ class StatementDetailsService
     {
       name: payroll.employee.name,
       period: payment_period,
-      filename: "#{payroll.employee.name} #{payment_period} 勞務報酬明細",
+      filename: "#{payroll.employee.name} #{payment_period} 薪資明細",
       splits: statement.splits,
       notes: notes,
       total: statement.splits.reduce(:+),

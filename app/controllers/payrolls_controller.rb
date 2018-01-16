@@ -6,7 +6,7 @@ class PayrollsController < ApplicationController
     @q = Payroll.ransack(params[:q])
     @payrolls = @q.result(distinct: true)
       .order(year: :desc, month: :desc)
-      .includes(:employee, :statements)
+      .includes(:employee, :statement)
   end
 
   def init

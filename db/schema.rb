@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(version: 20180114122028) do
     t.integer "amount", default: 0
     t.integer "year"
     t.integer "month"
-    t.integer "page", default: 0
     t.integer "splits", array: true
     t.integer "payroll_id"
     t.datetime "created_at", null: false

@@ -12,10 +12,10 @@
       - @details[:splits].each_with_index do |split, idx|
         %tr
           %td.text-center ##{idx + 1}
-          %td.text-right{colspan: 3}= split
+          %td.text-right{colspan: 3}= number_with_delimiter split
       %tr.info
         %th.text-center 總計
-        %td.text-right{colspan: 3}= @details[:total]
+        %td.text-right{colspan: 3}= number_with_delimiter @details[:total]
       %tr
         %th.text-center 備註
         %td{colspan: 3}

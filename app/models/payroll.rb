@@ -8,10 +8,8 @@ class Payroll < ApplicationRecord
   has_many :extra_entries, dependent: :destroy
   accepts_nested_attributes_for :extra_entries, allow_destroy: true
 
-  has_many :statements, dependent: :destroy
-  accepts_nested_attributes_for :statements, allow_destroy: true
-
-  after_update :build_statements
+  has_one :statement, dependent: :destroy
+  after_update :build_statement
 
   def self.by_date(year, month)
     Payroll.where(year: year, month: month).order(employee_id: :desc)
@@ -33,7 +31,7 @@ class Payroll < ApplicationRecord
 
   private
 
-  def build_statements
+  def build_statement
     StatementService.new(self).build
   end
 
