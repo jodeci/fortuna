@@ -3,7 +3,7 @@ class EmployeesController < ApplicationController
   before_action :prepare, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employees = Employee.active
+    @employees = Employee.active.page(params[:page])
   end
 
   def new

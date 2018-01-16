@@ -7,6 +7,7 @@ class PayrollsController < ApplicationController
     @payrolls = @q.result(distinct: true)
       .order(year: :desc, month: :desc)
       .includes(:employee, :statement)
+      .page(params[:page])
   end
 
   def init

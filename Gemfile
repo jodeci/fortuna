@@ -19,6 +19,7 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'active_decorator'
 gem 'ransack'
+gem 'kaminari'
 
 gem 'jquery-rails'
 gem 'cocoon'

@@ -5,6 +5,7 @@ class StatementsController < ApplicationController
     @statements = @q.result(distinct: true)
       .order(year: :desc, month: :desc)
       .includes(:payroll, payroll: :employee)
+      .page(params[:page])
   end
 
   def show

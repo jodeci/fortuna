@@ -1,3 +1,5 @@
+%h1 發薪紀錄
+
 = search_form_for @q do |f|
   = f.search_field :year_eq
   = f.label "年"
@@ -21,3 +23,5 @@
       %td
         = link_to "薪資單", statement_path(statement), class: "btn btn-xs btn-info"
         = link_to "PDF", statement_path(statement, format: :pdf), class: "btn btn-xs btn-info"
+
+= paginate @statements

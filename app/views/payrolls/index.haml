@@ -23,3 +23,5 @@
       %td= payroll.employee.role_name
       %td= payroll.payment_period
       %td= render "statements", payroll: payroll
+
+= paginate @payrolls
