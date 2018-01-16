@@ -34,7 +34,7 @@ class Payroll < ApplicationRecord
   private
 
   def build_statements
-    StatementBuilderService.new(self).run
+    StatementService.new(self).build
   end
 
   def cycle_start

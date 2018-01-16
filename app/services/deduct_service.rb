@@ -13,6 +13,10 @@ class DeductService
     send(payroll.employee.role).values.reduce(:+) || 0
   end
 
+  def before_withholdings
+    leavetime + sicktime + extra_loss.values.reduce(:+).to_i
+  end
+
   def regular
     {
       勞保費: labor_insurance,
@@ -49,7 +53,6 @@ class DeductService
   end
 
   def labor_insurance
-    # LaborInsuranceService.new(payroll, salary).run
     scale_for_30_days(salary.labor_insurance).round
   end
 

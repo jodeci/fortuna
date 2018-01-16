@@ -1,0 +1,24 @@
+.row
+  .col-xs-6
+    %table.table.table-bordered
+      %tr.active
+        %th.col-xs-1.text-center 姓名
+        %th.col-xs-2.text-center= @details[:name]
+        %th.col-xs-1.text-center 計算月份
+        %th.col-xs-2.text-center= @details[:period]
+      %tr.warning
+        %th.text-center 期數
+        %th.text-right{colspan: 3} 金額
+      - @details[:splits].each_with_index do |split, idx|
+        %tr
+          %td.text-center ##{idx + 1}
+          %td.text-right{colspan: 3}= split
+      %tr.info
+        %th.text-center 總計
+        %td.text-right{colspan: 3}= @details[:total]
+      %tr
+        %th.text-center 備註
+        %td{colspan: 3}
+          %ul 
+            - @details[:notes].each do |note|
+              %li= note
