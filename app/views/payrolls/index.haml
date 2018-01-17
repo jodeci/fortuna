@@ -9,19 +9,5 @@
 
 = render "initiate_link"
 
-%table.table
-  %tr
-    %th #
-    %th 員工
-    %th 身份
-    %th 計算期間 
-    %th 操作
-  - @payrolls.each do |payroll|
-    %tr
-      %td= payroll.id
-      %td= payroll.employee.name
-      %td= payroll.role
-      %td= payroll.payment_period
-      %td= render "statements", payroll: payroll
-
-= paginate @payrolls
+- if params[:q]
+  = render "list", payrolls: @payrolls
