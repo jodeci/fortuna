@@ -22,7 +22,7 @@ class HealthInsuranceService
   private
 
   def eligible_for_nhi2g?
-    return false if salary.regular?
+    return false if salary.regular_income?
     service_income_eligible? or parttime_income_eligible?
   end
 
@@ -35,7 +35,7 @@ class HealthInsuranceService
   end
 
   def parttime_income_eligible?
-    income > minimum_wage if salary.parttime?
+    income > minimum_wage if salary.parttime_income?
   end
 
   def income

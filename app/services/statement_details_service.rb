@@ -5,7 +5,7 @@ class StatementDetailsService
   def initialize(statement)
     @statement = statement
     @payroll = statement.payroll
-    @salary = payroll.find_salary
+    @salary = payroll.salary
   end
 
   def run
@@ -41,15 +41,15 @@ class StatementDetailsService
   private
 
   def gain
-    cleanup(IncomeService.new(payroll, salary).send(payroll.employee.role))
+    cleanup(IncomeService.new(payroll, salary).send(payroll.salary.role))
   end
 
   def loss
-    cleanup(DeductService.new(payroll, salary).send(payroll.employee.role))
+    cleanup(DeductService.new(payroll, salary).send(payroll.salary.role))
   end
 
   def notes
-    StatementNotesService.new(payroll).run
+    StatementNotesService.new(payroll, salary).run
   end
 
   def sum_gain

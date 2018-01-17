@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20180114122028) do
 
   create_table "employees", force: :cascade do |t|
     t.string "name"
-    t.string "role"
     t.string "company_email"
     t.string "personal_email"
     t.string "id_number"
@@ -61,6 +60,7 @@ ActiveRecord::Schema.define(version: 20180114122028) do
   end
 
   create_table "salaries", force: :cascade do |t|
+    t.string "role"
     t.string "tax_code", default: "50"
     t.integer "monthly_wage", default: 0
     t.integer "hourly_wage", default: 0

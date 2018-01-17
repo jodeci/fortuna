@@ -17,7 +17,7 @@
   - @statements.each do |statement|
     %tr
       %td= statement.payroll.employee.name
-      %td= statement.payroll.employee.role_name
+      %td= statement.payroll.role
       %td= statement.payroll.payment_period
       %td= number_with_delimiter(statement.amount)
       %td

@@ -4,7 +4,7 @@ class StatementService
 
   def initialize(payroll)
     @payroll = payroll
-    @salary = payroll.find_salary
+    @salary = payroll.salary
     @statement = Statement.find_or_initialize_by(payroll_id: payroll.id)
   end
 

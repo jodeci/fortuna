@@ -15,16 +15,4 @@ class Employee < ApplicationRecord
       .where("end_date >= ? OR end_date is NULL", cycle_start)
       .order(id: :desc)
   end
-
-  def regular?
-    role == "regular"
-  end
-
-  def contractor?
-    role == "contractor"
-  end
-
-  def parttime?
-    role == "parttime"
-  end
 end

@@ -9,21 +9,25 @@ class Salary < ApplicationRecord
   end
 
   # 一般薪資所得
-  def regular?
+  def regular_income?
     tax_code == "50" and insuranced?
   end
 
-  # 兼職薪資所得（適用二代健保）
-  def parttime?
+  # 兼職薪資所得
+  def parttime_income?
     tax_code == "50" and !insuranced?
   end
 
-  # 執行業務所得（適用二代健保、需預扣 10% 所得稅）
+  # 執行業務所得
   def professional_service?
     tax_code == "9a"
   end
 
   def insuranced?
     labor_insurance.positive?
+  end
+
+  def contractor?
+    role == "contractor"
   end
 end

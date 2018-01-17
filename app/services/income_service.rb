@@ -32,7 +32,7 @@ class IncomeService
   end
 
   def total
-    send(payroll.employee.role).values.reduce(:+) || 0
+    send(payroll.salary.role).values.reduce(:+) || 0
   end
 
   private
@@ -59,12 +59,12 @@ class IncomeService
 
   def overtime
     payroll.overtimes.map do |overtime|
-      OvertimeService.new(overtime.hours, salary, payroll.days_in_cycle).send(overtime.rate)
+      OvertimeService.new(overtime.hours, salary, days_in_cycle).send(overtime.rate)
     end.reduce(:+)
   end
 
   def vacation_refund
-    OvertimeService.new(payroll.vacation_refund_hours, salary, payroll.days_in_cycle).basic
+    OvertimeService.new(payroll.vacation_refund_hours, salary, days_in_cycle).basic
   end
 
   def extra_gain

@@ -4,14 +4,12 @@
     %th #
     %th 姓名
     %th 到職日期
-    %th 身份
     %th 操作
   - @employees.each do |employee|
     %tr
       %td= employee.id
       %td= employee.name
       %td= employee.start_date
-      %td= employee.role_name
       %td
         = link_to "檢視", employee_path(employee), class: "btn btn-xs btn-default"
         = link_to "修改", edit_employee_path(employee), class: "btn btn-xs btn-default"

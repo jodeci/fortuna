@@ -2,8 +2,8 @@
   %tr
     %th.col-xs-1 姓名
     %td.col-xs-2= employee.name
-    %th.col-xs-1 受僱身份
-    %td.col-xs-2= employee.role_name
+    %th.col-xs-1 銀行帳戶
+    %td.col-xs-2= employee.bank_account
   %tr
     %th 身分證字號
     %td= employee.id_number
@@ -19,6 +19,3 @@
     %td= employee.start_date
     %th 離職日期
     %td= employee.end_date
-  %tr
-    %th 銀行帳戶
-    %td{colspan: 3}= employee.bank_account

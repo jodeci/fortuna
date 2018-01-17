@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 module SalaryDecorator
+  def role_name
+    case role
+    when "regular" then "正職"
+    when "contractor" then "約聘"
+    when "parttime" then "實習/工讀"
+    end
+  end
+
   def tax_type
     case tax_code
     when "50" then "薪資"

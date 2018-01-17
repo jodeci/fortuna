@@ -10,7 +10,7 @@ class DeductService
   end
 
   def total
-    send(payroll.employee.role).values.reduce(:+) || 0
+    send(payroll.salary.role).values.reduce(:+) || 0
   end
 
   def before_withholdings
@@ -65,11 +65,11 @@ class DeductService
   end
 
   def leavetime
-    LeavetimeService.new(payroll.leavetime_hours, salary, payroll.days_in_cycle).normal
+    LeavetimeService.new(payroll.leavetime_hours, salary, days_in_cycle).normal
   end
 
   def sicktime
-    LeavetimeService.new(payroll.sicktime_hours, salary, payroll.days_in_cycle).sick
+    LeavetimeService.new(payroll.sicktime_hours, salary, days_in_cycle).sick
   end
 
   def extra_loss

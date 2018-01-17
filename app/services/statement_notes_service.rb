@@ -2,10 +2,11 @@
 class StatementNotesService
   include PayrollPeriodCountable
 
-  attr_reader :payroll, :notes
+  attr_reader :payroll, :salary, :notes
 
-  def initialize(payroll)
+  def initialize(payroll, salary)
     @payroll = payroll
+    @salary = salary
     @notes = []
   end
 

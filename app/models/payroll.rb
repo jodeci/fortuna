@@ -15,7 +15,7 @@ class Payroll < ApplicationRecord
     Payroll.where(year: year, month: month).order(employee_id: :desc)
   end
 
-  def find_salary
+  def salary
     Salary.by_payroll(employee, cycle_start, cycle_end)
   end
 
@@ -23,10 +23,6 @@ class Payroll < ApplicationRecord
     extra_entries
       .where("taxable = true and amount > 0")
       .sum(:amount)
-  end
-
-  def days_in_cycle
-    employee.contractor? ? BusinessCalendarService.new(cycle_start, cycle_end).days : 30
   end
 
   private
