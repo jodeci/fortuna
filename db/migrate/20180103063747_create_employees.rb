@@ -5,6 +5,7 @@ class CreateEmployees < ActiveRecord::Migration[5.1]
       t.string :company_email
       t.string :personal_email
       t.string :id_number
+      t.string :residence_address
       t.date :birthday
       t.string :bank_account
       t.date :start_date

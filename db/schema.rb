@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20180114122028) do
     t.string "company_email"
     t.string "personal_email"
     t.string "id_number"
+    t.string "residence_address"
     t.date "birthday"
     t.string "bank_account"
     t.date "start_date"

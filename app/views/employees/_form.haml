@@ -20,6 +20,9 @@
       %td= f.input_field :start_date
       %th= f.label "離職日期"
       %td= f.input_field :end_date, include_blank: true
+    %tr
+      %th= f.label "戶籍地址"
+      %td{colspan: 3}= f.input_field :residence_address, size: 50
 
   .text-center
     = f.submit "送出"
