@@ -1,7 +1,7 @@
 %table.table
   %tr
     %th.col-xs-1= f.label "起薪日期"
-    %td.col-xs-2= f.input_field :start_date, type: :date
+    %td.col-xs-2= f.input_field :effective_date, type: :date
     %th.col-xs-1= f.label "身份"
     %td.col-xs-2= f.input_field :role, collection: { "正職": "regular", "約聘": "contractor", "實習/工讀": "parttime" }
   %tr

@@ -16,8 +16,8 @@ class PayrollTest < ActiveSupport::TestCase
 
   def employee_with_salaries
     build(:employee, start_date: "2015-05-13") do |employee|
-      create(:salary, monthly_wage: 36000, start_date: "2015-05-13", employee: employee, role: "regular")
-      create(:salary, monthly_wage: 40000, start_date: "2015-09-01", employee: employee, role: "regular")
+      create(:salary, monthly_wage: 36000, effective_date: "2015-05-13", employee: employee, role: "regular")
+      create(:salary, monthly_wage: 40000, effective_date: "2015-09-01", employee: employee, role: "regular")
     end
   end
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Salary < ApplicationRecord
-  default_scope { order(start_date: :desc) }
+  default_scope { order(effective_date: :desc) }
   belongs_to :employee
 
   # TODO: validations
@@ -19,7 +19,7 @@ class Salary < ApplicationRecord
 
   def self.by_payroll(employee, cycle_start, cycle_end)
     return if employee.end_date and employee.end_date < cycle_start
-    find_by("employee_id = ? AND start_date < ?", employee.id, cycle_end)
+    find_by("employee_id = ? AND effective_date < ?", employee.id, cycle_end)
   end
 
   # 一般薪資所得

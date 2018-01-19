@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20180114122028) do
     t.string "tax_code", default: "50"
     t.integer "monthly_wage", default: 0
     t.integer "hourly_wage", default: 0
-    t.date "start_date"
+    t.date "effective_date"
     t.integer "equipment_subsidy", default: 0
     t.integer "commuting_subsidy", default: 0
     t.integer "supervisor_allowance", default: 0
