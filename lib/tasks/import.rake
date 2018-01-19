@@ -14,7 +14,7 @@ namespace :import do
         birthday: data[:birthday],
         company_email: data[:company_email],
         personal_email: data[:personal_email],
-        bank_acount: data[:bank_account],
+        bank_account: data[:bank_account],
       }
       salary = {
         role: data[:role],

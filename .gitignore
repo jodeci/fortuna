@@ -23,4 +23,7 @@
 /config/database.yml
 /config/secrets.yml
 
+/lib/tasks/5xruby.rake
+/lib/tasks/5xruby.csv
+
 .byebug_history

@@ -44,4 +44,8 @@ class Salary < ApplicationRecord
   def contractor?
     role == "contractor"
   end
+
+  def absent?
+    role == "absent"
+  end
 end

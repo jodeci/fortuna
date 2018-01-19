@@ -28,6 +28,7 @@ class Payroll < ApplicationRecord
   private
 
   def build_statement
+    return if salary.absent?
     StatementService.new(self).build
   end
 

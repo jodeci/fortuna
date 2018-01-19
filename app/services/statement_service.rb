@@ -27,9 +27,12 @@ class StatementService
     array = []
     ratio.times { array << split_threshold }
     array << split_base - ratio * split_threshold
+    array.delete 0
+    array
   end
 
   def split?
+    Rails.logger.info "payroll #{payroll.id}"
     salary.professional_service? and split_base > split_threshold
   end
 
