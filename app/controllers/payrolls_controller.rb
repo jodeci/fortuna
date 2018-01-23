@@ -34,8 +34,8 @@ class PayrollsController < ApplicationController
   def payroll_params
     params.require(:payroll).permit(
       :parttime_hours, :leavetime_hours, :sicktime_hours, :vacation_refund_hours,
-      overtimes_attributes: [:date, :rate, :hours],
-      extra_entries_attributes: [:title, :amount, :taxable, :note]
+      overtimes_attributes: [:date, :rate, :hours, :_destroy, :id],
+      extra_entries_attributes: [:title, :amount, :taxable, :note, :_destroy, :id]
     )
   end
 

@@ -1,0 +1,27 @@
+%h1 薪資資料
+%table.table
+  %tr
+    %th.col-xs-1 起薪日期
+    %td.col-xs-2= salary.effective_date
+    %th.col-xs-1 所得稅別
+    %td.col-xs-2= salary.tax_type
+  %tr
+    %th 月薪
+    %td= salary.monthly_wage
+    %th 身份
+    %td= salary.role_name
+  %tr
+    %th 時薪
+    %td= salary.hourly_wage
+    %th 交通津貼
+    %td= salary.commuting_subsidy
+  %tr
+    %th 設備津貼
+    %td= salary.equipment_subsidy
+    %th 主管加給
+    %td= salary.supervisor_allowance
+  %tr
+    %th 勞保費
+    %td= salary.labor_insurance
+    %th 健保費
+    %td= salary.health_insurance

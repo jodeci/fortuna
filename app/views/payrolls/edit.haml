@@ -1,9 +1,12 @@
 %h1 #{@payroll.payment_period} 薪資單明細設定
-= link_to "員工資料：#{@payroll.employee.name}", employee_path(@payroll.employee), class: "btn btn-sm btn-info"
+
+= render "/employees/info", employee: @payroll.employee
+= render "/salaries/info", salary: @payroll.salary
 
 = simple_form_for @payroll do |f|
   = render "basic_form", f: f
-  = render "overtime_form", f: f
+  - if @payroll.salary.regular?
+    = render "overtime_form", f: f
   = render "extra_entry_form", f: f
 
   .text-center
