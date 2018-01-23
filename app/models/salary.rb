@@ -38,11 +38,24 @@ class Salary < ApplicationRecord
   end
 
   def insuranced?
+    return true if boss?
     labor_insurance.positive?
+  end
+
+  def boss?
+    role == "boss"
+  end
+
+  def regular?
+    role == "regular"
   end
 
   def contractor?
     role == "contractor"
+  end
+
+  def parttime?
+    role == "parttime"
   end
 
   def absent?

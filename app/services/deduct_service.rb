@@ -17,6 +17,10 @@ class DeductService
     leavetime + sicktime + extra_loss.values.reduce(:+).to_i
   end
 
+  def boss
+    { 所得稅: income_tax }.merge(extra_loss)
+  end
+
   def regular
     {
       勞保費: labor_insurance,

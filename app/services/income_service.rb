@@ -9,6 +9,13 @@ class IncomeService
     @salary = salary
   end
 
+  def boss
+    {
+      本薪: scale_for_cycle(base_salary),
+      伙食費: scale_for_cycle(taxfree_lunch),
+    }.merge(extra_gain)
+  end
+
   def regular
     {
       本薪: scale_for_cycle(base_salary),
