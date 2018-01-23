@@ -1,0 +1,17 @@
+%table.table
+  %tr
+    %th #
+    %th 期間
+    %th 身份
+    %th 金額
+    %th 操作
+  - payrolls.each do |payroll|
+    - if payroll.statement
+      %tr
+        %td= payroll.id
+        %td= payroll.payment_period
+        %td= payroll.role
+        %td= payroll.statement.amount
+        %td
+          = link_to "修改明細", edit_payroll_path(payroll), class: "btn btn-xs btn-default"
+          = link_to "薪資單", statement_path(payroll.statement), class: "btn btn-xs btn-info"
