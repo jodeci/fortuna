@@ -4,6 +4,12 @@ class EmployeesController < ApplicationController
 
   def index
     @employees = Employee.active.page(params[:page])
+    respond_to do |f|
+      f.html
+      f.json do
+        render json: @employees.to_json
+      end
+    end
   end
 
   def new
