@@ -20,6 +20,7 @@ class EmployeesController < ApplicationController
   end
 
   def show
+    @payrolls = @employee.payrolls.includes(:statement)
   end
 
   def edit
