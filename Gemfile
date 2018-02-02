@@ -31,6 +31,9 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'taiwanese_id_validator'
+  gem 'factory_bot_rails', '~> 4.0'
+  gem 'faker'
 end
 
 group :development do
@@ -42,9 +45,6 @@ group :development do
 end
 
 group :test do
-  gem 'factory_bot_rails', '~> 4.0'
   gem 'database_rewinder'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'time_difference'

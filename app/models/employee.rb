@@ -4,6 +4,11 @@ class Employee < ApplicationRecord
   accepts_nested_attributes_for :salaries, allow_destroy: true
 
   has_many :payrolls, dependent: :destroy
+  has_many :statements, through: :payrolls, source: :statement
+  
+  def calculate_until
+    end_date || Date.today
+  end
 
   def self.active
     Employee.where("end_date >= now() OR end_date is NULL").order(id: :desc)

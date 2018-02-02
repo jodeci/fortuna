@@ -15,8 +15,7 @@
 - 以上 XD
 
 #### 測試資料
-- `rake faker:reset` 資料庫砍掉重練
-- `rake faker:seed` 產生測試資料
+- `rake db:seed`
 
 #### 匯入資料
 
