@@ -11,7 +11,9 @@ class Employee < ApplicationRecord
   end
 
   def self.active
-    Employee.where("end_date >= now() OR end_date is NULL").order(id: :desc)
+    Employee.where(end_date: nil)
+      .or(Employee.where(end_date: Date.today.at_beginning_of_month..Date.today.at_end_of_month))
+      .order(id: :desc)
   end
 
   def self.on_payroll(cycle_start, cycle_end)
