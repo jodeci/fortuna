@@ -5,10 +5,6 @@ class Employee < ApplicationRecord
 
   has_many :payrolls, dependent: :destroy
   has_many :statements, through: :payrolls, source: :statement
-  
-  def calculate_until
-    end_date || Date.today
-  end
 
   def self.active
     Employee.where(end_date: nil)
@@ -21,5 +17,21 @@ class Employee < ApplicationRecord
       .where("start_date <= ?", cycle_end)
       .where("end_date >= ? OR end_date is NULL", cycle_start)
       .order(id: :desc)
+  end
+
+  def calculate_until
+    end_date || Date.today
+  end
+
+  def email
+    if resigned? or company_email.nil?
+      personal_email
+    else
+      company_email
+    end
+  end
+
+  def resigned?
+    return true if end_date
   end
 end

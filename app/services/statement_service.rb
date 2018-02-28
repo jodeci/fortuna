@@ -32,7 +32,6 @@ class StatementService
   end
 
   def split?
-    Rails.logger.info "payroll #{payroll.id}"
     salary.professional_service? and split_base > split_threshold
   end
 
