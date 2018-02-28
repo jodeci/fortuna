@@ -1,4 +1,7 @@
-require 'taiwanese_id_validator/twid_generator'
+# frozen_string_literal: true
+
+require "taiwanese_id_validator/twid_generator"
+
 FactoryBot.define do
   factory :employee do
     name do
@@ -30,7 +33,6 @@ FactoryBot.define do
       end
     end
 
-
     factory :employee_with_payrolls do
       after :create do |emp, ev|
         create :salary, employee: emp, monthly_wage: ev.month_salary, effective_date: emp.start_date, role: ev.role
@@ -42,7 +44,6 @@ FactoryBot.define do
     end
 
     factory :parttime_employee_with_payrolls do
-
       start_date do
         Date.today - rand(90..365)
       end
@@ -56,10 +57,8 @@ FactoryBot.define do
         TimeDifference.between(emp.start_date, emp.calculate_until).in_months.round.times do |i|
           d = emp.start_date.months_since(i)
           create :payroll, year: d.year, month: d.month, employee: emp, parttime_hours: ev.parttime_hours.to_a.sample
-
         end
       end
     end
-
   end
 end

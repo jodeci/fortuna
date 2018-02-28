@@ -7,7 +7,7 @@ AllCops:
     - bin/**/*
     - db/**/*
     - config/**/*
-    - lib/tasks/*.rake
+    - test/factories/*
 
 Rails:
   Enabled: true
@@ -138,7 +138,14 @@ Rails/FilePath:
 Metrics/ModuleLength:
   Exclude:
     - "**/*_spec.rb"
+    - "**/*_test.rb"
 
 Metrics/BlockLength:
   Exclude:
+    - "lib/tasks/*.rake"
     - "**/*_spec.rb"
+    - "**/*_test.rb"
+
+# turned off because this app doesn't care about timezone
+Rails/Date:
+  Enabled: false

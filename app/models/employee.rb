@@ -24,11 +24,8 @@ class Employee < ApplicationRecord
   end
 
   def email
-    if resigned? or company_email.nil?
-      personal_email
-    else
-      company_email
-    end
+    return personal_email if resigned?
+    company_email || personal_email
   end
 
   def resigned?

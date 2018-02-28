@@ -16,8 +16,8 @@ namespace :export do
     statements["contractor"].concat statements["parttime"]
     statements.delete "parttime"
 
-    statements.each do |role, statements|
-      builder = EsunBankCSVBuilder.new(statements)
+    statements.each do |role, grouped_statements|
+      builder = EsunBankCSVBuilder.new(grouped_statements)
       File.write(
         "#{ENV['path']}/#{ENV['year']}#{sprintf('%02d', ENV['month'])}_#{role}.csv",
         builder.csv_rows,
@@ -35,7 +35,7 @@ class EsunBankCSVBuilder
   end
 
   def csv_rows
-    @rows = Array.new
+    @rows = []
     statements.each { |statement| build_row(statement) }
     @rows.map(&:to_csv).join
   end
@@ -61,7 +61,7 @@ class EsunBankCSVRowBuilder
   end
 
   def to_row(amount: statement.amount)
-    row = Array.new
+    row = []
     row.push employee.bank_account.slice(4, 13)
     row.push employee.name
     row.push amount

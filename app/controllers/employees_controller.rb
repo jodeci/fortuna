@@ -4,9 +4,9 @@ class EmployeesController < ApplicationController
 
   def index
     @employees = Employee.active.page(params[:page])
-    respond_to do |f|
-      f.html
-      f.json do
+    respond_to do |format|
+      format.html
+      format.json do
         render json: @employees.to_json
       end
     end
@@ -60,7 +60,7 @@ class EmployeesController < ApplicationController
     [
       :tax_code, :effective_date, :monthly_wage, :hourly_wage,
       :equipment_subsidy, :commuting_subsidy, :supervisor_allowance,
-      :labor_insurance, :health_insurance, :_destroy, :id
+      :labor_insurance, :health_insurance, :_destroy, :id,
     ]
   end
 
