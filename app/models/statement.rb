@@ -7,8 +7,4 @@ class Statement < ApplicationRecord
   def self.by_payroll(year, month)
     Statement.where(year: year, month: month)
   end
-
-  def split?
-    payroll.salary.tax_code == "9a" and amount > 20000
-  end
 end
