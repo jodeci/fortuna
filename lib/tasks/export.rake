@@ -48,7 +48,7 @@ namespace :export do
     end
 
     Statement.by_payroll(ENV["year"], ENV["month"]).each do |statement|
-      # StatementMailer.notify_email(statement).deliver
+      StatementMailer.notify_email(statement).deliver
     end
   end
 end
