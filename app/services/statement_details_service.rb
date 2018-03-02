@@ -16,7 +16,7 @@ class StatementDetailsService
     {
       name: payroll.employee.name,
       period: payment_period,
-      filename: "#{payroll.employee.name} #{payment_period} 薪資明細",
+      filename: "#{payment_period} 薪資明細-#{payroll.employee.name}",
       details: details_for_view,
       notes: notes,
       gain: sum_gain,
@@ -30,7 +30,7 @@ class StatementDetailsService
     {
       name: payroll.employee.name,
       period: payment_period,
-      filename: "#{payroll.employee.name} #{payment_period} 薪資明細",
+      filename: "#{payment_period} 薪資明細-#{payroll.employee.name}",
       splits: statement.splits,
       notes: notes,
       total: statement.splits.reduce(:+),
