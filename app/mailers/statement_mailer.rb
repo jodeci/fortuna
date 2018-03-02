@@ -2,10 +2,12 @@
 
 class StatementMailer < ApplicationMailer
   def notify_email(statement)
-    @statement = statement
+    builder = StatementPDFService.new(statement)
+    attachments[builder.filename] = builder.generate_pdf
     mail(
       to: statement.employee.email,
-      subject: "#{statement.year}-#{sprintf('%02d', statement.month)} 薪資明細"
+      bcc: ["core@5xruby.tw"],
+      subject: builder.email_subject
     )
   end
 end

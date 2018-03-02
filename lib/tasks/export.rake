@@ -43,6 +43,12 @@ namespace :export do
 
   desc "send pdf as attachment to employee"
   task email: :environment do
-    # StatementMailer.notify_email(statement).deliver
+    unless ENV["year"] and ENV["month"]
+      abort "usage: rake export:email year=2018 month=2"
+    end
+
+    Statement.by_payroll(ENV["year"], ENV["month"]).each do |statement|
+      # StatementMailer.notify_email(statement).deliver
+    end
   end
 end

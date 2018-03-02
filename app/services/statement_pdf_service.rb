@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 class StatementPDFService
-  attr_reader :details, :renderer
+  attr_reader :statement, :details, :renderer
 
   def initialize(statement)
-    @renderer = StatementsController.renderer.new
+    @statement = statement
     @details = StatementDetailsService.new(statement).run
+    @renderer = StatementsController.renderer.new
   end
 
   def generate_pdf
@@ -16,10 +17,18 @@ class StatementPDFService
   end
 
   def filename
-    "#{statement.year}-#{sprintf('%02d', statement.month)} 薪資明細-#{statement.employee.name}.pdf"
+    "#{filename_prefix}-#{statement.employee.name}.pdf"
+  end
+
+  def email_subject
+    filename_prefix
   end
 
   private
+
+  def filename_prefix
+    "#{statement.year}-#{sprintf('%02d', statement.month)} 薪資明細"
+  end
 
   def html_content
     renderer.render(
