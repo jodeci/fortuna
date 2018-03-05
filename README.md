@@ -45,6 +45,15 @@
 - 薪資狀態變動時，要用新建而非修改（目前全是動態計算，所以改舊資料會讓報表失真）
 - 除了到職月份以外，之後的調薪薪資起始日期請設在每月一日，且暫不支援同月份內多次調薪
 
+#### PDF 相關
+
+PDF 加密的操作需要安裝 [PDFtk](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/)，OSX 上轉檔卡住的話，請參考[本篇解法](https://stackoverflow.com/questions/39750883/pdftk-hanging-on-macos-sierra)。由於加密需要操作實體檔案，請自行建立以下目錄：
+
+```
+tmp/pdfs/source
+tmp/pdfs/encrypted
+``` 
+
 ## 可以做到的事情
 - CSV 匯入初始資料（員工 + 薪水）
 - 一次產生當月的全部薪資單及 PDF
