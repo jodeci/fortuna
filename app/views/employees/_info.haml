@@ -2,8 +2,8 @@
   %tr
     %th.col-xs-1 姓名
     %td.col-xs-2= employee.name
-    %th.col-xs-1 銀行帳戶
-    %td.col-xs-2= employee.bank_account
+    %th.col-xs-1 戶籍地址
+    %td.col-xs-2= employee.residence_address
   %tr
     %th 身分證字號
     %td= employee.id_number
@@ -20,5 +20,7 @@
     %th 離職日期
     %td= employee.end_date
   %tr
-    %th 戶籍地址
-    %td{colspan: 3}= employee.residence_address
+    %th 銀行帳戶
+    %td= employee.bank_account
+    %th 轉帳方式
+    %td= employee.bank_transfer

@@ -51,7 +51,7 @@ class EmployeesController < ApplicationController
     params.require(:employee).permit(
       :name, :role, :id_number, :birthday,
       :company_email, :personal_email, :residence_address,
-      :start_date, :end_date, :bank_account,
+      :start_date, :end_date, :bank_account, :bank_transfer_type,
       salaries_attributes: salaries_attributes
     )
   end
