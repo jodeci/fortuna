@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 class ApplicationMailer < ActionMailer::Base
-  default from: "salary@5xruby.tw"
+  default from: ENV["email_sender"]
   layout "mailer"
 end

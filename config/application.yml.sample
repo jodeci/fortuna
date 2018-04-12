@@ -1,1 +1,3 @@
-company_bank_account: ""
+company_bank_account: "1234567890123"
+email_sender: "test@example.com"
+statement_bcc: "bob@example.com, alice@example.com"
