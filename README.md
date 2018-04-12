@@ -12,6 +12,7 @@
 ### 使用方法
 - 先到 http://localhost:3000/employees/ 建員工資料和薪資資料
 - 再到 http://localhost:3000/payrolls/ 產生薪資單
+- 基本資料設定在 `config/application.yml`
 - 以上 XD
 
 #### 測試資料
@@ -27,7 +28,7 @@
 
 匯出給網路銀行用的轉帳資料（請依自己需求修改）：
 
-`$ rake export:csv year=2018 month=1 path=path/to/export`
+`$ rake export:csv year=2018 month=1 path=path/to/export paydate=yyyymmdd`
 
 匯出當月份的全部薪資明細表：
 
@@ -68,7 +69,10 @@ tmp/pdfs/encrypted
 - 可以計算每月實際工作日
 - 依年月查詢當期發薪紀錄
 - 支援實習生轉正職等不同階段薪資計算
-- 自動產生匯入網銀用的發薪設定檔（此功能極度個人化，有需要的人請自己 fork 回去客製）
+- 自動產生匯入網銀用的發薪設定檔
+	- 本版本僅支援玉山銀行格式
+	- 同時支援薪資轉帳和一般台幣轉帳（皆需事先設定為約定帳戶）
+	- 此功能極度個人化，有需要的人請自己 fork 回去客製
 - 發薪後自動將以身份證字號加密的 PDF 寄給同事
 
 ## 還做不到的事情

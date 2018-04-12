@@ -25,7 +25,7 @@ namespace :export do
         encoding: "big5"
       )
     end
-    
+
     # 台幣轉帳
     filename = "#{ENV['year']}#{sprintf('%02d', ENV['month'])}_ntd_transfer.csv"
     File.write(

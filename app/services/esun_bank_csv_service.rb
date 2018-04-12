@@ -44,13 +44,10 @@ class EsunBankCSVRowBuilder
   # 補滿至 18 欄
   def to_salary(amount: statement.amount)
     row = []
-    row.push ENV["company_bank_account"]
-    row.push payment_date
-    row.push employee.bank_account.slice(4, 16)
-    row.push employee.name
-    row.push amount
-    row.push "2"
-    row.push employee.email
+    row.push(
+      ENV["company_bank_account"], payment_date, employee.bank_account.slice(4, 16),
+      employee.name, amount, 2, employee.email
+    )
     11.times { row.push nil }
     row
   end
@@ -62,15 +59,10 @@ class EsunBankCSVRowBuilder
   # 補滿至 16 欄
   def to_ntd(amount: statement.amount)
     row = []
-    row.push ENV["company_bank_account"]
-    row.push payment_date
-    row.push employee.bank_account.slice(0, 3)
-    row.push employee.bank_account.slice(4, 16)
-    row.push employee.name
-    row.push amount
-    row.push "0"
-    row.push "2"
-    row.push employee.email
+    row.push(
+      ENV["company_bank_account"], payment_date, employee.bank_account.slice(0, 3),
+      employee.bank_account.slice(4, 16), employee.name, amount, 0, 2, employee.email
+    )
     7.times { row.push nil }
     row
   end
