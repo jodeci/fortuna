@@ -24,8 +24,8 @@ class Employee < ApplicationRecord
   end
 
   def email
-    return personal_email if resigned?
-    company_email || personal_email
+    return personal_email if resigned? or company_email.blank?
+    company_email
   end
 
   def resigned?

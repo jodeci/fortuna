@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'active_decorator'
 gem 'ransack'
 gem 'kaminari'
+gem 'figaro'
 
 gem 'jquery-rails'
 gem 'cocoon'
