@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :export do
-  # 依玉山銀行薪EASY自訂格式設計
+  # 依玉山銀行 系統管理>檔案上傳自訂格式 設計
   desc "export statement to csv for bank transfer"
   task csv: :environment do
     unless ENV["year"] and ENV["month"] and ENV["path"]
