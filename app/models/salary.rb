@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Salary < ApplicationRecord
-  default_scope { order(effective_date: :desc) }
   belongs_to :employee
 
   # TODO: validations
@@ -17,9 +16,13 @@ class Salary < ApplicationRecord
   #   限制 supervisor_allowance: 0, equipment_subsidy: 0, monthly_wage: 0
   #   可填 commuting_subsidy
 
+  scope :ordered, -> { order(effective_date: :desc) }
+
   def self.by_payroll(employee, cycle_start, cycle_end)
     return if employee.end_date and employee.end_date < cycle_start
-    find_by("employee_id = ? AND effective_date < ?", employee.id, cycle_end)
+    where("employee_id = ? AND effective_date < ?", employee.id, cycle_end)
+      .ordered
+      .take
   end
 
   # 一般薪資所得

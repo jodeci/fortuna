@@ -11,9 +11,7 @@ class Payroll < ApplicationRecord
   has_one :statement, dependent: :destroy
   after_update :build_statement
 
-  def self.by_date(year, month)
-    Payroll.where(year: year, month: month).order(employee_id: :desc)
-  end
+  scope :ordered, -> { order(year: :desc, month: :desc) }
 
   def salary
     Salary.by_payroll(employee, cycle_start, cycle_end)

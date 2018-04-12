@@ -5,10 +5,10 @@
 
 %h2 薪資紀錄
 - if @employee.salaries.any?
-  = render "salaries", salaries: @employee.salaries
+  = render "salaries", salaries: @employee.salaries.ordered
   %p= link_to "新增薪資", new_employee_salary_path(@employee), class: "btn btn-sm btn-primary"
 - else
   %p= link_to "設定起薪", new_employee_salary_path(@employee), class: "btn btn-sm btn-primary"
 
 %h2 薪資單
-= render "payrolls", payrolls: @payrolls
+= render "payrolls", payrolls: @payrolls.ordered
