@@ -1,21 +1,6 @@
 # frozen_string_literal: true
 class Salary < ApplicationRecord
   belongs_to :employee
-
-  # TODO: validations
-  # role.regular
-  #   必填 monthly_wage, health_insurance, labor_insurance
-  #   限制 commuting_subsidy: 0, tax_code: 50, hourly_wage: 0
-  #   可填 equipment_subsidy, supervisor_allowance
-  # role.contractor
-  #   必填 monthly_wage
-  #   條件 tax_code: 9a => labor_insurance: 0, health_insurance: 0
-  #   限制 commuting_subsidy: 0, supervisor_allowance: 0, equipment_subsidy: 0, hourly_wage: 0
-  # role.parttime
-  #   必填 hourly_wage
-  #   限制 supervisor_allowance: 0, equipment_subsidy: 0, monthly_wage: 0
-  #   可填 commuting_subsidy
-
   scope :ordered, -> { order(effective_date: :desc) }
 
   def self.by_payroll(employee, cycle_start, cycle_end)
@@ -41,8 +26,7 @@ class Salary < ApplicationRecord
   end
 
   def insuranced?
-    return true if boss?
-    labor_insurance.positive?
+    insured_for_labor.positive?
   end
 
   def boss?
@@ -59,6 +43,10 @@ class Salary < ApplicationRecord
 
   def parttime?
     role == "parttime"
+  end
+
+  def advisor?
+    role == "advisor"
   end
 
   def absent?
