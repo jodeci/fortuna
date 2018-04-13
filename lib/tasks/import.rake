@@ -15,6 +15,7 @@ namespace :import do
         company_email: data[:company_email],
         personal_email: data[:personal_email],
         bank_account: data[:bank_account],
+        bank_transfer_type: data[:bank_transfer_type],
       }
       salary = {
         role: data[:role],
@@ -27,6 +28,8 @@ namespace :import do
         supervisor_allowance: data[:supervisor_allowance],
         health_insurance: data[:health_insurance],
         labor_insurance: data[:labor_insurance],
+        insured_for_health: data[:insured_for_health],
+        insured_for_labor: data[:insured_for_labor],
       }
       Employee.create(employee).salaries.create(salary)
     end
