@@ -30,7 +30,7 @@ class StatementDetailsService
     {
       name: payroll.employee.name,
       period: payment_period,
-      filename: "#{payment_period} 薪資明細-#{payroll.employee.name}",
+      filename: "#{payment_period} 勞務報酬明細-#{payroll.employee.name}",
       splits: statement.splits,
       notes: notes,
       total: statement.splits.reduce(:+),
