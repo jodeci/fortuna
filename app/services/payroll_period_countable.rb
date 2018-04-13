@@ -10,7 +10,7 @@ module PayrollPeriodCountable
 
   def period_length
     return 0 unless on_payroll?
-    if salary.contractor?
+    if salary.business_calendar?
       period_by_business_days
     else
       period_by_30_days
@@ -18,7 +18,7 @@ module PayrollPeriodCountable
   end
 
   def days_in_cycle
-    salary.contractor? ? BusinessCalendarService.new(cycle_start, cycle_end).days : 30
+    salary.business_calendar? ? BusinessCalendarService.new(cycle_start, cycle_end).days : 30
   end
 
   def first_month?

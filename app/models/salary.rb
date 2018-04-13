@@ -25,6 +25,10 @@ class Salary < ApplicationRecord
     tax_code == "9a"
   end
 
+  def business_calendar?
+    cycle == "business"
+  end
+
   def insuranced?
     insured_for_labor.positive?
   end

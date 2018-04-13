@@ -42,7 +42,7 @@ class SalariesController < ApplicationController
 
   def salary_params
     params.require(:salary).permit(
-      :role, :tax_code, :effective_date, :monthly_wage, :hourly_wage,
+      :role, :tax_code, :effective_date, :monthly_wage, :hourly_wage, :cycle,
       :equipment_subsidy, :commuting_subsidy, :supervisor_allowance,
       :labor_insurance, :health_insurance, :insured_for_labor, :insured_for_health
     )

@@ -30,6 +30,7 @@ namespace :import do
         labor_insurance: data[:labor_insurance],
         insured_for_health: data[:insured_for_health],
         insured_for_labor: data[:insured_for_labor],
+        cycle: data[:cycle],
       }
       Employee.create(employee).salaries.create(salary)
     end

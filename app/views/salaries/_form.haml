@@ -29,3 +29,8 @@
     %td= f.input_field :insured_for_health
     %th= f.label "健保費"
     %td= f.input_field :health_insurance
+  %tr
+    %th= f.label "計算周期"
+    %td= f.input_field :cycle, collection: { "一般": "normal", "工作天": "business" }
+    %th
+    %td

@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 module SalaryDecorator
+  def cycle_name
+    case cycle
+    when "normal" then "一般"
+    when "business" then "工作天"
+    end
+  end
+
   def role_name
     case role
     when "boss" then "老闆"
