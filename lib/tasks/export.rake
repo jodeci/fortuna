@@ -8,14 +8,18 @@ namespace :export do
       abort "usage: rake export:csv year=2018 month=2 path=tmp paydate=yyyymmdd"
     end
 
-    statements = Statement.by_payroll(ENV["year"], ENV["month"]).group_by do |statement|
+    statements = Statement.by_payroll(ENV["year"], ENV["month"]).paid.group_by do |statement|
       statement.employee.bank_transfer_type
     end
 
     # 薪資轉帳
     salary_transfers = statements["salary"].group_by { |statement| statement.payroll.salary.role }
-    salary_transfers["contractor"].concat salary_transfers["parttime"]
-    salary_transfers.delete "parttime"
+    %w(parttime advisor).each do |key|
+      if salary_transfers[key]
+        salary_transfers["contractor"].concat salary_transfers[key]
+        salary_transfers.delete key
+      end
+    end
 
     salary_transfers.each do |role, grouped_statements|
       filename = "#{ENV['year']}#{sprintf('%02d', ENV['month'])}_#{role}.csv"
@@ -27,12 +31,14 @@ namespace :export do
     end
 
     # 台幣轉帳
-    filename = "#{ENV['year']}#{sprintf('%02d', ENV['month'])}_ntd_transfer.csv"
-    File.write(
-      File.join(ENV["path"], filename),
-      EsunBankCSVService.new(statements["ntd"], "ntd", ENV["paydate"]).csv_rows,
-      encoding: "big5"
-    )
+    if statements["ntd"]
+      filename = "#{ENV['year']}#{sprintf('%02d', ENV['month'])}_ntd_transfer.csv"
+      File.write(
+        File.join(ENV["path"], filename),
+        EsunBankCSVService.new(statements["ntd"], "ntd", ENV["paydate"]).csv_rows,
+        encoding: "big5"
+      )
+    end
   end
 
   desc "export statements to pdf"
@@ -41,7 +47,7 @@ namespace :export do
       abort "usage: rake export:pdf year=2018 month=2 path=tmp"
     end
 
-    Statement.by_payroll(ENV["year"], ENV["month"]).each do |statement|
+    Statement.by_payroll(ENV["year"], ENV["month"]).paid.each do |statement|
       builder = StatementPDFService.new(statement)
       File.write(
         File.join(ENV["path"], builder.filename),
@@ -57,7 +63,7 @@ namespace :export do
       abort "usage: rake export:email year=2018 month=2"
     end
 
-    Statement.by_payroll(ENV["year"], ENV["month"]).each do |statement|
+    Statement.by_payroll(ENV["year"], ENV["month"]).paid.each do |statement|
       StatementMailer.notify_email(statement).deliver
     end
   end

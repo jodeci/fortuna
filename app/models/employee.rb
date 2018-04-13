@@ -23,6 +23,10 @@ class Employee < ApplicationRecord
     end_date || Date.today
   end
 
+  def role
+    ActiveDecorator::Decorator.instance.decorate(salaries.last).role_name
+  end
+
   def email
     return personal_email if resigned? or company_email.blank?
     company_email

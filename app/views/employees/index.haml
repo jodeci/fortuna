@@ -3,12 +3,14 @@
   %tr
     %th #
     %th 姓名
+    %th 身份
     %th 到職日期
     %th 操作
   - @employees.each do |employee|
     %tr
       %td= employee.id
       %td= employee.name
+      %td= employee.role
       %td= employee.start_date
       %td
         = link_to "檢視", employee_path(employee), class: "btn btn-xs btn-default"
