@@ -38,6 +38,10 @@ class SalariesController < ApplicationController
     redirect_to employee_path(@employee)
   end
 
+  def recent
+    @recent_salary = @employee.salaries.last
+  end
+
   private
 
   def salary_params

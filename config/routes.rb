@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :employees do
     resources :salaries
+    get "salaries/recent/:employee_id", to: "salaries#recent", as: :salaries_recent
   end
 
   resources :payrolls, except: [:new, :create, :show]
