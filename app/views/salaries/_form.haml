@@ -3,7 +3,7 @@
     %th.col-xs-1= f.label "起薪日期"
     %td.col-xs-2= f.input_field :effective_date, type: :date
     %th.col-xs-1= f.label "身份"
-    %td.col-xs-2= f.input_field :role, collection: { "老闆": "boss", "正職": "regular", "約聘": "contractor", "實習/工讀": "parttime", "留職停薪": "absent" }
+    %td.col-xs-2= f.input_field :role, collection: { "老闆": "boss", "正職": "regular", "約聘": "contractor", "實習/工讀": "parttime", "顧問/講師": "advisor", "留職停薪": "absent" }
   %tr
     %th= f.label "月薪"
     %td= f.input_field :monthly_wage

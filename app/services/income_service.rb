@@ -38,6 +38,10 @@ class IncomeService
     }.merge(extra_gain)
   end
 
+  def advisor
+    { 服務費用: total_wage }.merge(extra_gain)
+  end
+
   def total
     send(payroll.salary.role).values.reduce(:+) || 0
   end

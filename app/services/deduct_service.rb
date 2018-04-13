@@ -50,6 +50,13 @@ class DeductService
     }.merge(extra_loss)
   end
 
+  def advisor
+    {
+      二代健保: supplement_premium,
+      所得稅: income_tax,
+    }.merge(extra_loss)
+  end
+
   private
 
   def income_tax

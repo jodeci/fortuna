@@ -15,7 +15,7 @@ class StatementService
   private
 
   def build_statement
-    statement.update amount: total, year: payroll.year, month: payroll.month
+    statement.update amount: total, year: payroll.year, month: payroll.month, splits: nil
   end
 
   def split_statement

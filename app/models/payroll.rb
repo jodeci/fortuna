@@ -23,6 +23,10 @@ class Payroll < ApplicationRecord
       .sum(:amount)
   end
 
+  def role
+    ActiveDecorator::Decorator.instance.decorate(salary).role_name
+  end
+
   private
 
   def build_statement

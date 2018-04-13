@@ -3,7 +3,7 @@ class StatementsController < ApplicationController
   def index
     @q = Statement.ransack(params[:q])
     @statements = @q.result(distinct: true)
-      .order(year: :desc, month: :desc)
+      .order(id: :desc)
       .includes(:payroll, payroll: :employee)
       .page(params[:page])
   end

@@ -5,6 +5,7 @@ module SalaryDecorator
     when "boss" then "老闆"
     when "regular" then "正職"
     when "contractor" then "約聘"
+    when "advisor" then "顧問/講師"
     when "parttime" then "實習/工讀"
     when "absent" then "留職停薪"
     end
