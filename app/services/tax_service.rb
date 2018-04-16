@@ -57,8 +57,16 @@ class TaxService
     20000
   end
 
+  # 薪資所得扣繳稅額表無配偶及受扶養親屬者之起扣標準（也太長）
   def irregular_income_tax_threshold
-    payroll.year >= 2017 ? 73500 : 73000
+    date = Date.new(payroll.year, payroll.month, 1)
+    if date >= Date.new(2018, 1, 1)
+      84500
+    elsif date >= Date.new(2017, 1, 1)
+      73500
+    else
+      73000 # 再往下寫沒意義
+    end
   end
 
   def professional_service_income_tax_rate
