@@ -4,12 +4,12 @@
     %th.col-xs-1 起薪日期
     %td.col-xs-2= salary.effective_date
     %th.col-xs-1 所得稅別
-    %td.col-xs-2= salary.tax_type
+    %td.col-xs-2= salary.given_tax_code
   %tr
     %th 月薪
     %td= salary.monthly_wage
     %th 身份
-    %td= salary.role_name
+    %td= salary.given_role
   %tr
     %th 時薪
     %td= salary.hourly_wage
@@ -32,6 +32,6 @@
     %td= salary.health_insurance
   %tr
     %th 計算周期
-    %td= salary.cycle_name
+    %td= salary.given_cycle
     %th
     %td

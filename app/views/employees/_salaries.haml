@@ -10,7 +10,7 @@
       %td= salary.id
       %td= salary.effective_date
       %td= "#{salary.wage_type} #{salary.wage} 元"
-      %td= salary.role_name
+      %td= salary.given_role
       %td
         = link_to "檢視", employee_salary_path(employee_id: salary.employee.id, id: salary.id), class: "btn btn-xs btn-default"
         = link_to "修改", edit_employee_salary_path(employee_id: salary.employee.id, id: salary.id), class: "btn btn-xs btn-default"

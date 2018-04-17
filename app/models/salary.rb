@@ -1,7 +1,21 @@
 # frozen_string_literal: true
 class Salary < ApplicationRecord
+  include Givenable
+
   belongs_to :employee
   scope :ordered, -> { order(effective_date: :desc) }
+
+  ROLE = {
+    "老闆": "boss",
+    "正職": "regular",
+    "約聘": "contractor",
+    "實習/工讀": "parttime",
+    "顧問/講師": "advisor",
+    "留職停薪": "absent",
+  }.freeze
+
+  TAX_CODE = { "薪資": "50", "執行專業所得": "9a" }.freeze
+  CYCLE = { "一般": "normal", "工作天": "business" }.freeze
 
   def self.by_payroll(employee, cycle_start, cycle_end)
     return if employee.end_date and employee.end_date < cycle_start

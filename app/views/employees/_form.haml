@@ -24,7 +24,7 @@
       %th= f.label "銀行帳戶"
       %td= f.input_field :bank_account
       %th= f.label "轉帳方式"
-      %td= f.input_field :bank_transfer_type, collection: { "薪資轉帳": "salary", "台幣轉帳": "ntd" }
+      %td= f.input_field :bank_transfer_type, Employee::BANK_TRANSFER_TYPE
 
   .text-center
     = f.submit "送出"

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class Payroll < ApplicationRecord
+  include Givenable
+
   belongs_to :employee
 
   has_many :overtimes, dependent: :destroy
@@ -21,10 +23,6 @@ class Payroll < ApplicationRecord
     extra_entries
       .where("taxable = true and amount > 0")
       .sum(:amount)
-  end
-
-  def role
-    ActiveDecorator::Decorator.instance.decorate(salary).role_name
   end
 
   private

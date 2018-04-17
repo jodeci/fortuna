@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 class Employee < ApplicationRecord
+  include Givenable
+
   has_many :salaries, dependent: :destroy
   accepts_nested_attributes_for :salaries, allow_destroy: true
 
   has_many :payrolls, dependent: :destroy
   has_many :statements, through: :payrolls, source: :statement
+
+  BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "ntd" }.freeze
 
   def self.active
     Employee.where(end_date: nil)
@@ -21,10 +25,6 @@ class Employee < ApplicationRecord
 
   def calculate_until
     end_date || Date.today
-  end
-
-  def role
-    ActiveDecorator::Decorator.instance.decorate(salaries.last).role_name
   end
 
   def email
