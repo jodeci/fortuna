@@ -34,5 +34,5 @@
   %tr
     %th= f.label "計算周期"
     %td= f.input_field :cycle, collection: Salary::CYCLE
-    %th
-    %td
+    %th= f.label "兼職調整", title: "每週天數 / 5", class: "tip"
+    %td= f.input_field :monthly_wage_adjustment

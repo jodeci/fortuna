@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module HourlyRateable
   def hourly_rate
-    (income_with_subsidies / days_in_month / 8.0).round
+    (income_with_subsidies / days_in_month / 8.0 / salary.monthly_wage_adjustment).round
   end
 
   private
