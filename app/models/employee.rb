@@ -8,7 +8,7 @@ class Employee < ApplicationRecord
   has_many :payrolls, dependent: :destroy
   has_many :statements, through: :payrolls, source: :statement
 
-  BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "ntd" }.freeze
+  BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "normal" }.freeze
 
   def self.active
     Employee.where(end_date: nil)

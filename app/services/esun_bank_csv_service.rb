@@ -57,7 +57,7 @@ class EsunBankCSVRowBuilder
   # 1. 付款帳號, 2: 付款日期(YYYYMMDD), 3: 收款總行, 4: 收款帳號, 5: 收款戶名
   # 6: 付款金額, 7. 手續費負擔別(0), 8: 通知方式(2), 9: 收款通知Email
   # 補滿至 16 欄
-  def to_ntd(amount: statement.amount)
+  def to_normal(amount: statement.amount)
     row = []
     row.push(
       ENV["company_bank_account"], payment_date, employee.bank_account.slice(0, 3),

@@ -31,11 +31,11 @@ namespace :export do
     end
 
     # 台幣轉帳
-    if statements["ntd"]
-      filename = "#{ENV['year']}#{sprintf('%02d', ENV['month'])}_ntd_transfer.csv"
+    if statements["normal"]
+      filename = "#{ENV['year']}#{sprintf('%02d', ENV['month'])}_normal_transfer.csv"
       File.write(
         File.join(ENV["path"], filename),
-        EsunBankCSVService.new(statements["ntd"], "ntd", ENV["paydate"]).csv_rows,
+        EsunBankCSVService.new(statements["normal"], "normal", ENV["paydate"]).csv_rows,
         encoding: "big5"
       )
     end
