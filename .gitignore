@@ -16,6 +16,10 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+
+!/tmp/pdfs
+tmp/pdfs/*
+
 /coverage/*
 
 /node_modules
