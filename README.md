@@ -48,7 +48,7 @@
 
 #### PDF 相關
 
-PDF 加密的操作需要安裝 [PDFtk](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/)，OSX 上轉檔卡住的話，請參考[本篇解法](https://stackoverflow.com/questions/39750883/pdftk-hanging-on-macos-sierra)。由於加密需要操作實體檔案，請自行建立以下目錄：
+PDF 加密的操作需要安裝 [PDFtk](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/)，OSX 上轉檔卡住的話，請參考[本篇解法](https://stackoverflow.com/questions/39750883/pdftk-hanging-on-macos-sierra)。由於加密需要操作實體檔案，請確認有建立以下目錄：
 
 ```
 tmp/pdfs/source

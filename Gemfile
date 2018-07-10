@@ -36,6 +36,7 @@ group :development, :test do
   gem 'taiwanese_id_validator'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'faker'
+  gem 'time_difference'
 end
 
 group :development do
@@ -48,5 +49,5 @@ end
 
 group :test do
   gem 'database_rewinder'
+  gem 'simplecov', require: false
 end
-gem 'time_difference'
