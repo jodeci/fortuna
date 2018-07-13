@@ -77,6 +77,8 @@
     enabled: false
   UtilityFunction:
     enabled: false
+  TooManyMethods:
+    enabled: false
 
 "app/helpers":
   IrresponsibleModule:
