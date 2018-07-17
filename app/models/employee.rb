@@ -12,7 +12,7 @@ class Employee < ApplicationRecord
 
   def self.active
     Employee.where(end_date: nil)
-      .or(Employee.where(end_date: Date.today.at_beginning_of_month..Date.today.at_end_of_month))
+      .or(Employee.where("end_date > ?", Date.today.at_beginning_of_month))
       .order(id: :desc)
   end
 
