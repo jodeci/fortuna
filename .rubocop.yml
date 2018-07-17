@@ -135,6 +135,11 @@ Lint/AmbiguousBlockAssociation:
 Rails/FilePath:
   Enabled: false
 
+Metrics/ClassLength:
+  Exclude:
+    - "**/*_spec.rb"
+    - "**/*_test.rb"
+
 Metrics/ModuleLength:
   Exclude:
     - "**/*_spec.rb"

@@ -55,7 +55,11 @@ module PayrollPeriodCountable
   end
 
   def default_end_point
-    employee_end || cycle_end
+    if employee_end.nil? or employee_end > cycle_end
+      cycle_end
+    else
+      employee_end
+    end
   end
 
   def period_start
