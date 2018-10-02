@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :employees do
+    get "inactive", on: :collection
+
     resources :salaries
     get "salaries/recent/:employee_id", to: "salaries#recent", as: :salaries_recent
   end
@@ -9,5 +11,5 @@ Rails.application.routes.draw do
 
   resources :statements, only: [:index, :show]
   
-  root to: 'employees#index'
+  root to: "employees#index"
 end

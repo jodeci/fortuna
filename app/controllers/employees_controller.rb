@@ -3,13 +3,18 @@ class EmployeesController < ApplicationController
   before_action :prepare, only: [:show, :edit, :update, :destroy]
 
   def index
-    @employees = Employee.active.page(params[:page])
+    @employees = Employee.active.ordered.page(params[:page])
     respond_to do |format|
       format.html
       format.json do
         render json: @employees.to_json
       end
     end
+  end
+
+  def inactive
+    @employees = Employee.inactive.ordered.page(params[:page])
+    render :index
   end
 
   def new

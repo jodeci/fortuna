@@ -10,17 +10,25 @@ class Employee < ApplicationRecord
 
   BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "normal" }.freeze
 
-  def self.active
-    Employee.where(end_date: nil)
-      .or(Employee.where("end_date > ?", Date.today.at_beginning_of_month))
-      .order(id: :desc)
-  end
+  class << self
+    def ordered
+      Employee.order(id: :desc)
+    end
 
-  def self.on_payroll(cycle_start, cycle_end)
-    Employee
-      .where("start_date <= ?", cycle_end)
-      .where("end_date >= ? OR end_date is NULL", cycle_start)
-      .order(id: :desc)
+    def active
+      Employee.where(end_date: nil)
+        .or(Employee.where("end_date > ?", Date.today.at_beginning_of_month))
+    end
+
+    def inactive
+      Employee.where("end_date < ?", Date.today.at_beginning_of_month)
+    end
+
+    def on_payroll(cycle_start, cycle_end)
+      Employee
+        .where("start_date <= ?", cycle_end)
+        .where("end_date >= ? OR end_date is NULL", cycle_start)
+    end
   end
 
   def calculate_until
