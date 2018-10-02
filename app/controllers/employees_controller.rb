@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class EmployeesController < ApplicationController
   before_action :prepare, only: [:show, :edit, :update, :destroy]
+  before_action :store_location, only: [:show]
 
   def index
     @employees = Employee.active.ordered.page(params[:page])

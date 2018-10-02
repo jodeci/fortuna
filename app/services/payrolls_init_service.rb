@@ -16,7 +16,9 @@ class PayrollsInitService
 
   def find_or_create_payrolls_for_employees
     @employees.map do |employee|
-      Payroll.find_or_initialize_by(year: year, month: month, employee_id: employee.id).save
+      unless employee.salary(cycle_start, cycle_end).absent?
+        Payroll.find_or_initialize_by(year: year, month: month, employee_id: employee.id).save
+      end
     end
   end
 

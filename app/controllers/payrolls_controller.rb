@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class PayrollsController < ApplicationController
   before_action :prepare_payroll, only: [:edit, :update, :destroy]
+  before_action :store_location, only: [:index]
 
   def index
     @q = Payroll.ransack(params[:q])
@@ -20,7 +21,7 @@ class PayrollsController < ApplicationController
 
   def update
     if @payroll.update_attributes(payroll_params)
-      redirect_to_date(@payroll.year, @payroll.month)
+      redirect_to session.delete(:return_to)
     else
       render :edit
     end

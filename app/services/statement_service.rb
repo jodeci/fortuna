@@ -32,7 +32,9 @@ class StatementService
   end
 
   def split?
-    salary.professional_service? and split_base > split_threshold
+    # salary.professional_service? and split_base > split_threshold
+    return false if salary.regular_income?
+    split_base > split_threshold
   end
 
   def total
@@ -51,6 +53,7 @@ class StatementService
     sum_gain - DeductService.new(payroll, salary).before_withholdings
   end
 
+  # TODO: minimum_wage for parttime income
   def split_threshold
     20000
   end

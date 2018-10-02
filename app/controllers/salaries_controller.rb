@@ -39,7 +39,7 @@ class SalariesController < ApplicationController
   end
 
   def recent
-    @recent_salary = @employee.salaries.last
+    @recent_salary = @employee.salaries.ordered.first
   end
 
   private

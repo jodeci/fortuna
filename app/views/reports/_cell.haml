@@ -1,0 +1,7 @@
+- if cell.payroll.present?
+  - if cell.result.zero?
+    %td 0
+  - else
+    %td= link_to number_with_delimiter(cell.result), statement_path(cell.payroll.statement)
+- else
+  %td 0

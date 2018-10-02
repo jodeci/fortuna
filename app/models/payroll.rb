@@ -11,9 +11,19 @@ class Payroll < ApplicationRecord
   accepts_nested_attributes_for :extra_entries, allow_destroy: true
 
   has_one :statement, dependent: :destroy
+  delegate :amount, to: :statement
   after_update :build_statement
 
-  scope :ordered, -> { order(year: :desc, month: :desc) }
+  class << self
+    def ordered
+      order(year: :desc, month: :desc)
+    end
+
+    def service_year(year)
+      where("year = ? and month < 12", year)
+        .or(where("year = ? and month = 12", year - 1))
+    end
+  end
 
   def salary
     Salary.by_payroll(employee, cycle_start, cycle_end)

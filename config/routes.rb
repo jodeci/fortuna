@@ -10,6 +10,14 @@ Rails.application.routes.draw do
   get "payrolls/init/:year/:month", to: "payrolls#init", as: :init_payrolls, constraints: { year: /\d{4}/, month: /\d{1,2}/ }
 
   resources :statements, only: [:index, :show]
+
+  resources :reports, only: [:index] do
+    collection do
+      get "salary/:year", to: "reports#salary", constraints: { year: /\d{4}/ }
+      get "service/:year", to: "reports#service", constraints: { year: /\d{4}/ }
+      get "irregular/:year", to: "reports#irregular", constraints: { year: /\d{4}/ }
+    end
+  end
   
   root to: "employees#index"
 end
