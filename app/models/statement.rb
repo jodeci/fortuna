@@ -4,9 +4,18 @@ class Statement < ApplicationRecord
   has_one :employee, through: :payroll
   delegate :id, to: :employee, prefix: :employee
 
-  scope :paid, -> { where("amount > 0") }
+  class << self
+    def paid
+      Statement.where("amount > 0")
+    end
 
-  def self.by_payroll(year, month)
-    Statement.where(year: year, month: month)
+    def ordered
+      Statement.includes(:payroll, payroll: :employee)
+        .order("payrolls.employee_id DESC")
+    end
+
+    def by_payroll(year, month)
+      Statement.where(year: year, month: month)
+    end
   end
 end

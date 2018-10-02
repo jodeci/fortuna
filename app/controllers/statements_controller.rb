@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 class StatementsController < ApplicationController
   def index
-    @q = Statement.ransack(params[:q])
-    @statements = @q.result(distinct: true)
-      .order(id: :desc)
-      .includes(:payroll, payroll: :employee)
-      .page(params[:page])
+    @q = Statement.paid.ordered.ransack(params[:q])
+    @statements = @q.result(distinct: true).page(params[:page])
   end
 
   def show
