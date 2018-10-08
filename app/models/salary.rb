@@ -3,7 +3,7 @@ class Salary < ApplicationRecord
   include Givenable
 
   belongs_to :employee
-  scope :ordered, -> { order(effective_date: :desc) }
+  after_commit :update_payrolls_on_date_change, if: :saved_change_to_effective_date?
 
   ROLE = {
     "老闆": "boss",
@@ -17,11 +17,17 @@ class Salary < ApplicationRecord
   TAX_CODE = { "薪資": "50", "執行專業所得": "9a" }.freeze
   CYCLE = { "一般": "normal", "工作天": "business" }.freeze
 
-  def self.by_payroll(employee, cycle_start, cycle_end)
-    return if employee.end_date and employee.end_date < cycle_start
-    where("employee_id = ? AND effective_date < ?", employee.id, cycle_end)
-      .ordered
-      .take
+  class << self
+    def by_payroll(employee, cycle_start, cycle_end)
+      return if employee.end_date and employee.end_date < cycle_start
+      where("employee_id = ? AND effective_date < ?", employee.id, cycle_end)
+        .ordered
+        .take
+    end
+
+    def ordered
+      order(effective_date: :desc)
+    end
   end
 
   # 一般薪資所得
@@ -69,5 +75,32 @@ class Salary < ApplicationRecord
 
   def absent?
     role == "absent"
+  end
+
+  private
+
+  def update_payrolls_on_date_change
+    employee.payrolls.between(payroll_start_point, payroll_end_point).map do |payroll|
+      salary = Salary.by_payroll(
+        employee, Date.new(payroll.year, payroll.month, 1), Date.new(payroll.year, payroll.month, -1)
+      )
+      payroll.update(salary: salary)
+    end
+  end
+
+  def payroll_start_point
+    if effective_date > effective_date_before_last_save
+      effective_date_before_last_save
+    else
+      effective_date
+    end
+  end
+
+  def payroll_end_point
+    if effective_date > effective_date_before_last_save
+      effective_date
+    else
+      effective_date_before_last_save
+    end
   end
 end

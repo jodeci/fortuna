@@ -34,11 +34,27 @@ FactoryBot.define do
     end
 
     factory :employee_with_payrolls do
-      after :create do |emp, ev|
-        create :salary, employee: emp, monthly_wage: ev.month_salary, effective_date: emp.start_date, role: ev.role
-        TimeDifference.between(emp.start_date, emp.calculate_until).in_months.round.times do |i|
-          d = emp.start_date.months_since(i)
-          create :payroll, year: d.year, month: d.month, employee: emp, build_statement_immediatedly: ev.build_statement_immediatedly
+      after :create do |employee, ev|
+        salary = create(:salary,
+          {
+            employee: employee,
+            monthly_wage: ev.month_salary,
+            effective_date: employee.start_date,
+            role: ev.role,
+          }
+        )
+
+        TimeDifference.between(employee.start_date, employee.calculate_until).in_months.round.times do |i|
+          d = employee.start_date.months_since(i)
+          create(:payroll,
+            {
+              year: d.year,
+              month: d.month,
+              employee: employee,
+              salary: salary,
+              build_statement_immediatedly: ev.build_statement_immediatedly,
+            }
+          )
         end
       end
     end
@@ -52,11 +68,27 @@ FactoryBot.define do
         parttime_hours [50, 100, 150]
       end
 
-      after :create do |emp, ev|
-        create :salary, employee: emp, hourly_wage: ev.hour_salary, effective_date: emp.start_date, role: "parttime"
-        TimeDifference.between(emp.start_date, emp.calculate_until).in_months.round.times do |i|
-          d = emp.start_date.months_since(i)
-          create :payroll, year: d.year, month: d.month, employee: emp, parttime_hours: ev.parttime_hours.to_a.sample
+      after :create do |employee, ev|
+        salary = create(:salary,
+          {
+            employee: employee,
+            hourly_wage: ev.hour_salary,
+            effective_date: employee.start_date,
+            role: "parttime",
+          }
+        )
+
+        TimeDifference.between(employee.start_date, employee.calculate_until).in_months.round.times do |i|
+          d = employee.start_date.months_since(i)
+          create(:payroll,
+            {
+              year: d.year,
+              month: d.month,
+              employee: employee,
+              salary: salary,
+              parttime_hours: ev.parttime_hours.to_a.sample,
+            }
+          )
         end
       end
     end

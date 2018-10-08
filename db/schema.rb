@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180604064006) do
+ActiveRecord::Schema.define(version: 20181008070814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,25 @@ ActiveRecord::Schema.define(version: 20180604064006) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "health_insurances", force: :cascade do |t|
+    t.date "start_date"
+    t.integer "salary", default: 0
+    t.integer "premium", default: 0
+    t.float "dependants", default: 0.0
+    t.integer "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "labor_insurances", force: :cascade do |t|
+    t.date "start_date"
+    t.integer "salary"
+    t.integer "premium"
+    t.integer "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "overtimes", force: :cascade do |t|
     t.date "date"
     t.string "rate"
@@ -59,6 +78,7 @@ ActiveRecord::Schema.define(version: 20180604064006) do
     t.integer "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "salary_id"
   end
 
   create_table "salaries", force: :cascade do |t|

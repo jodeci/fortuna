@@ -32,7 +32,7 @@ class EmployeesController < ApplicationController
   end
 
   def show
-    @payrolls = @employee.payrolls.includes(:statement)
+    @payrolls = @employee.payrolls.includes(:salary, :statement)
   end
 
   def edit
