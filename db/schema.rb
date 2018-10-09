@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181008070814) do
+ActiveRecord::Schema.define(version: 20181009033016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,5 +110,21 @@ ActiveRecord::Schema.define(version: 20181008070814) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+
+  create_view "reports",  sql_definition: <<-SQL
+      SELECT DISTINCT employees.id AS employee_id,
+      payrolls.id AS payroll_id,
+      statements.id AS statement_id,
+      employees.name,
+      payrolls.year,
+      payrolls.month,
+      salaries.tax_code,
+      statements.amount
+     FROM (((employees
+       JOIN payrolls ON ((employees.id = payrolls.employee_id)))
+       JOIN salaries ON ((salaries.id = payrolls.salary_id)))
+       JOIN statements ON ((payrolls.id = statements.payroll_id)));
+  SQL
 
 end

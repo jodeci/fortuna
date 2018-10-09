@@ -21,6 +21,7 @@ gem 'active_decorator'
 gem 'ransack'
 gem 'kaminari'
 gem 'figaro'
+gem 'scenic'
 
 gem 'jquery-rails'
 gem 'cocoon'
