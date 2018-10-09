@@ -12,7 +12,7 @@ class SalariesController < ApplicationController
 
   def create
     @salary = @employee.salaries.new(salary_params)
-    if @salary.save
+    if SalaryCreateService.call(@employee, @salary, salary_params)
       redirect_to @employee
     else
       render action: :new
@@ -26,7 +26,7 @@ class SalariesController < ApplicationController
   end
 
   def update
-    if @salary.update_attributes(salary_params)
+    if SalaryUpdateService.call(@employee, @salary, salary_params)
       redirect_to @employee
     else
       render action: :edit
@@ -34,12 +34,12 @@ class SalariesController < ApplicationController
   end
 
   def destroy
-    @salary.destroy
+    SalaryDestroyService.call(@employee, @salary, nil)
     redirect_to employee_path(@employee)
   end
 
   def recent
-    @recent_salary = @employee.salaries.ordered.first
+    @recent_salary = Salary.recent_for(@employee)
   end
 
   private
