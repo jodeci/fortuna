@@ -43,25 +43,4 @@ class Employee < ApplicationRecord
   def resigned?
     return true if end_date
   end
-
-  def payroll(year, month)
-    payrolls.find_by(year: year, month: month)
-  end
-
-  def salary_income?(year)
-    payrolls.where(year: year).select do |payroll|
-      payroll.salary.tax_code == "50"
-    end.any?
-  end
-
-  def service_income?(year)
-    payrolls.service_year(year).select do |payroll|
-      payroll.salary.tax_code == "9a"
-    end.any?
-  end
-
-  # TODO
-  def irregular_income?(year)
-    []
-  end
 end

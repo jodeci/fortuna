@@ -8,14 +8,13 @@ class ReportsController < ApplicationController
   end
 
   def salary
-    @report = ReportService.new(params[:year], :salary).call
+    @report = SalaryIncomeReportService.new(params[:year]).call
   end
 
   def service
-    @report = ReportService.new(params[:year], :service).call
+    @report = ServiceIncomeReportService.new(params[:year]).call
   end
 
   def irregular
-    @report = ReportService.new(params[:year], :irregular).call
   end
 end

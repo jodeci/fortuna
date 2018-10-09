@@ -20,11 +20,6 @@ class Payroll < ApplicationRecord
       order(year: :desc, month: :desc)
     end
 
-    def service_year(year)
-      where("year = ? and month < 12", year)
-        .or(where("year = ? and month = 12", year - 1))
-    end
-
     def between(start_point, end_point)
       result = []
       date_range_to_years_and_months(start_point, end_point).map do |date|
