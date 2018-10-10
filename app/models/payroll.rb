@@ -29,4 +29,10 @@ class Payroll < ApplicationRecord
       .where("taxable = true and amount > 0")
       .sum(:amount)
   end
+
+  def taxfree_irregular_income
+    extra_entries
+      .where("taxable = false and amount > 0")
+      .sum(:amount)
+  end
 end

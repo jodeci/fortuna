@@ -11,17 +11,33 @@ class StatementService
   end
 
   def call
-    split? ? split_statement : build_statement
+    statement.update(params)
   end
 
   private
 
-  def build_statement
-    statement.update amount: total, year: payroll.year, month: payroll.month, splits: nil
+  def params
+    split? ? split_params : unsplit_params
   end
 
-  def split_statement
-    statement.update amount: split_base, year: payroll.year, month: payroll.month, splits: splits
+  def unsplit_params
+    {
+      amount: total,
+      year: payroll.year,
+      month: payroll.month,
+      splits: nil,
+      irregular_income: irregular_income,
+    }
+  end
+
+  def split_params
+    {
+      amount: split_base,
+      year: payroll.year,
+      month: payroll.month,
+      splits: splits,
+      irregular_income: irregular_income,
+    }
   end
 
   def splits
@@ -36,6 +52,10 @@ class StatementService
   def split?
     return false if salary.regular_income?
     split_base > split_threshold
+  end
+
+  def irregular_income
+    IncomeService.new(payroll).irregular
   end
 
   def total

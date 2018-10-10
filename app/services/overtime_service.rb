@@ -13,9 +13,9 @@ class OvertimeService
   # 一例一休 平日加班
   def weekday
     if hours <= 2
-      initial_rate * hours
+      (initial_rate * hours).to_i
     else
-      initial_rate * 2 + additional_rate * (hours - 2)
+      (initial_rate * 2 + additional_rate * (hours - 2)).to_i
     end
   end
 
@@ -24,18 +24,18 @@ class OvertimeService
     if hours <= 8
       weekday
     else
-      initial_rate * 2 + additional_rate * 6 + final_rate * (hours - 8)
+      (initial_rate * 2 + additional_rate * 6 + final_rate * (hours - 8)).to_i
     end
   end
 
   # 一例一休 假日加班
   def holiday
-    hourly_rate * 8 * 2
+    (hourly_rate * 8 * 2).to_i
   end
 
   # 特休折現
   def basic
-    hourly_rate * hours
+    (hourly_rate * hours).to_i
   end
 
   private

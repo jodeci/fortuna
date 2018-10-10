@@ -22,8 +22,8 @@ class IncomeService
       伙食費: scale_for_cycle(taxfree_lunch),
       設備津貼: scale_for_cycle(salary.equipment_subsidy),
       主管加給: scale_for_cycle(salary.supervisor_allowance),
-      加班費: overtime.to_i,
-      特休折現: vacation_refund.to_i,
+      加班費: overtime,
+      特休折現: vacation_refund,
     }.merge(extra_gain)
   end
 
@@ -44,6 +44,10 @@ class IncomeService
 
   def total
     send(salary.role).values.reduce(:+) || 0
+  end
+
+  def irregular
+    overtime + vacation_refund + payroll.taxfree_irregular_income
   end
 
   private
@@ -71,7 +75,7 @@ class IncomeService
   def overtime
     payroll.overtimes.map do |overtime|
       OvertimeService.new(overtime.hours, salary, days_in_cycle).send(overtime.rate)
-    end.reduce(:+)
+    end.reduce(:+).to_i
   end
 
   def vacation_refund

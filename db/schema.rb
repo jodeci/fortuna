@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181009033016) do
+ActiveRecord::Schema.define(version: 20181010071005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20181009033016) do
     t.integer "payroll_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "irregular_income", default: 0
   end
 
 
