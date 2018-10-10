@@ -3,6 +3,8 @@
 = render "/employees/info", employee: @payroll.employee
 = render "/salaries/info", salary: @payroll.salary
 
+= link_to "檢視薪資單", statement_path(@payroll.statement), class: "btn btn-sm btn-success"
+
 = simple_form_for @payroll do |f|
   = render "basic_form", f: f
   - if @payroll.salary.regular?
