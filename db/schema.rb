@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181010071005) do
+ActiveRecord::Schema.define(version: 20181010080608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,7 +121,8 @@ ActiveRecord::Schema.define(version: 20181010071005) do
       payrolls.year,
       payrolls.month,
       salaries.tax_code,
-      statements.amount
+      statements.amount,
+      statements.irregular_income
      FROM (((employees
        JOIN payrolls ON ((employees.id = payrolls.employee_id)))
        JOIN salaries ON ((salaries.id = payrolls.salary_id)))
