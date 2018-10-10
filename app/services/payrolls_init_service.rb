@@ -10,28 +10,16 @@ class PayrollsInitService
   end
 
   def call
-    find_or_create_payrolls_for_employees
+    init_payroll_for_employees
   end
 
   private
 
-  def find_or_create_payrolls_for_employees
-    employees_on_payroll.map do |employee|
-      salary = Salary.by_payroll(employee, cycle_start, cycle_end)
-      next if salary.nil? or salary.absent? # FIXME: skip nil for development, should let crash
-      Payroll.find_or_initialize_by(year: year, month: month, employee: employee, salary: salary).save
-    end
+  def init_payroll_for_employees
+    employees_on_payroll.map { |employee| PayrollInitService.call(employee, year, month) }
   end
 
   def employees_on_payroll
-    Employee.on_payroll(cycle_start, cycle_end)
-  end
-
-  def cycle_start
-    Date.new(year, month, 1)
-  end
-
-  def cycle_end
-    Date.new(year, month, -1)
+    Employee.on_payroll(Date.new(year, month, 1), Date.new(year, month, -1))
   end
 end
