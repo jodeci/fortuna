@@ -12,7 +12,6 @@ class Payroll < ApplicationRecord
   accepts_nested_attributes_for :extra_entries, allow_destroy: true
 
   has_one :statement, dependent: :destroy
-  delegate :amount, to: :statement
 
   class << self
     def ordered
