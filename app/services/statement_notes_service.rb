@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 class StatementNotesService
   include PayrollPeriodCountable
+  include Callable
 
   attr_reader :payroll, :salary, :notes
 
-  def initialize(payroll, salary)
+  def initialize(payroll)
     @payroll = payroll
-    @salary = salary
+    @salary = payroll.salary
     @notes = []
   end
 
-  def run
+  def call
     employment_date_notes
     hourly_based_note(payroll.parttime_hours, "工作時數")
     hourly_based_note(payroll.vacation_refund_hours, "特休折現")

@@ -2,6 +2,8 @@
 require "csv"
 
 class EsunBankCSVService
+  include Callable
+
   attr_reader :statements, :transfer_method, :payment_date
 
   def initialize(statements, transfer_type, payment_date)
@@ -10,7 +12,7 @@ class EsunBankCSVService
     @payment_date = payment_date
   end
 
-  def csv_rows
+  def call
     @rows = []
     statements.each { |statement| build_row(statement) }
     @rows.map(&:to_csv).join

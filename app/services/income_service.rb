@@ -4,9 +4,9 @@ class IncomeService
 
   attr_reader :payroll, :salary
 
-  def initialize(payroll, salary)
+  def initialize(payroll)
     @payroll = payroll
-    @salary = salary
+    @salary = payroll.salary
   end
 
   def boss
@@ -43,7 +43,7 @@ class IncomeService
   end
 
   def total
-    send(payroll.salary.role).values.reduce(:+) || 0
+    send(salary.role).values.reduce(:+) || 0
   end
 
   private

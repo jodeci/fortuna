@@ -9,6 +9,6 @@ class StatementSyncService
   end
 
   def call
-    StatementService.new(payroll).build
+    StatementService.call(payroll)
   end
 end

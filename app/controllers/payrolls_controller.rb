@@ -12,7 +12,7 @@ class PayrollsController < ApplicationController
   end
 
   def init
-    PayrollsInitService.new(params[:year].to_i, params[:month].to_i).run
+    PayrollsInitService.call(params[:year].to_i, params[:month].to_i)
     redirect_to_date(params[:year], params[:month])
   end
 

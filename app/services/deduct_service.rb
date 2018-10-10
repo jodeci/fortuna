@@ -4,18 +4,20 @@ class DeductService
 
   attr_reader :payroll, :salary
 
-  def initialize(payroll, salary)
+  def initialize(payroll)
     @payroll = payroll
-    @salary = salary
+    @salary = payroll.salary
   end
 
   def total
-    send(payroll.salary.role).values.reduce(:+) || 0
+    send(salary.role).values.reduce(:+) || 0
   end
 
   def before_withholdings
     leavetime + sicktime + extra_loss.values.reduce(:+).to_i
   end
+
+  private
 
   def boss
     {
@@ -62,10 +64,8 @@ class DeductService
     }.merge(extra_loss)
   end
 
-  private
-
   def income_tax
-    TaxService.new(payroll, salary).run
+    TaxService.call(payroll)
   end
 
   def labor_insurance
@@ -77,7 +77,7 @@ class DeductService
   end
 
   def supplement_premium
-    HealthInsuranceService.new(payroll, salary).supplement_premium
+    SupplementHealthInsuranceService.call(payroll)
   end
 
   def leavetime

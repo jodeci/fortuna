@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-class BusinessCalendarService
+class BusinessCalendarDaysService
+  include Callable
+
   attr_reader :cycle_start, :cycle_end, :year, :month
 
   def initialize(cycle_start, cycle_end)
@@ -9,7 +11,7 @@ class BusinessCalendarService
     @month = cycle_start.month
   end
 
-  def days
+  def call
     days_in_cycle.size - non_working_days
   end
 

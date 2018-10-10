@@ -25,7 +25,7 @@ namespace :export do
       filename = "#{ENV['year']}#{sprintf('%02d', ENV['month'])}_#{role}.csv"
       File.write(
         File.join(ENV["path"], filename),
-        EsunBankCSVService.new(grouped_statements, "salary", ENV["paydate"]).csv_rows,
+        EsunBankCSVService.call(grouped_statements, "salary", ENV["paydate"]),
         encoding: "big5"
       )
     end
@@ -35,7 +35,7 @@ namespace :export do
       filename = "#{ENV['year']}#{sprintf('%02d', ENV['month'])}_normal_transfer.csv"
       File.write(
         File.join(ENV["path"], filename),
-        EsunBankCSVService.new(statements["normal"], "normal", ENV["paydate"]).csv_rows,
+        EsunBankCSVService.call(statements["normal"], "normal", ENV["paydate"]),
         encoding: "big5"
       )
     end

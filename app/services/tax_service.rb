@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 class TaxService
+  include Callable
+
   attr_reader :payroll, :salary
 
-  def initialize(payroll, salary)
+  def initialize(payroll)
     @payroll = payroll
-    @salary = salary
+    @salary = payroll.salary
   end
 
-  def run
+  def call
     professional_service_income_tax + irregular_income_tax + parttime_income_tax
   end
 
@@ -46,7 +48,7 @@ class TaxService
   end
 
   def income
-    IncomeService.new(payroll, salary).total
+    IncomeService.new(payroll).total
   end
 
   def irregular_income

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class ServiceIncomeReportService
+  include Callable
+
   attr_accessor :year
 
   def initialize(year)

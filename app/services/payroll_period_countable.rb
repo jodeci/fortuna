@@ -18,7 +18,7 @@ module PayrollPeriodCountable
   end
 
   def days_in_cycle
-    salary.business_calendar? ? BusinessCalendarService.new(cycle_start, cycle_end).days : 30
+    salary.business_calendar? ? BusinessCalendarDaysService.call(cycle_start, cycle_end) : 30
   end
 
   def first_month?
@@ -87,6 +87,6 @@ module PayrollPeriodCountable
   def period_by_business_days
     start_date = Date.new(payroll.year, payroll.month, period_start)
     end_date = Date.new(payroll.year, payroll.month, default_end_point.day)
-    BusinessCalendarService.new(start_date, end_date).days
+    BusinessCalendarDaysService.call(start_date, end_date)
   end
 end

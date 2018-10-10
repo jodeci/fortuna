@@ -7,7 +7,7 @@ class StatementsController < ApplicationController
 
   def show
     statement = Statement.find_by(id: params[:id]) or not_found
-    @details = StatementDetailsService.new(statement).run
+    @details = StatementDetailsService.call(statement)
     render_statement
   end
 

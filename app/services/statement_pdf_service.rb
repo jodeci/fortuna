@@ -4,7 +4,7 @@ class StatementPDFService
 
   def initialize(statement)
     @statement = statement
-    @details = StatementDetailsService.new(statement).run
+    @details = StatementDetailsService.call(statement)
     @renderer = StatementsController.renderer.new
   end
 

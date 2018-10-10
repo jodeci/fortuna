@@ -1,20 +1,22 @@
 # frozen_string_literal: true
-class HealthInsuranceService
+class SupplementHealthInsuranceService
+  include Callable
+
   attr_reader :payroll, :salary
 
   # 法規上，正職的健保必須保在公司
   # 實務上，健保在公司的人一定會有勞保
   # 健保計算是整月，不足月不做調整
 
-  def initialize(payroll, salary)
+  def initialize(payroll)
     @payroll = payroll
-    @salary = salary
+    @salary = payroll.salary
   end
 
   # 二代健保
   #   執行業務所得 單次給付超過兩萬元
   #   兼職薪資所得 單次給付超過最低薪資
-  def supplement_premium
+  def call
     return 0 unless eligible_for_nhi2g?
     (income * supplement_premium_rate).round
   end
@@ -39,7 +41,7 @@ class HealthInsuranceService
   end
 
   def income
-    IncomeService.new(payroll, salary).total
+    IncomeService.new(payroll).total
   end
 
   def supplement_premium_rate

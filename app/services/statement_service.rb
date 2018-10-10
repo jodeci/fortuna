@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class StatementService
+  include Callable
+
   attr_reader :statement, :payroll, :salary
 
   def initialize(payroll)
@@ -8,7 +10,7 @@ class StatementService
     @statement = Statement.find_or_initialize_by(payroll_id: payroll.id)
   end
 
-  def build
+  def call
     split? ? split_statement : build_statement
   end
 
@@ -32,7 +34,6 @@ class StatementService
   end
 
   def split?
-    # salary.professional_service? and split_base > split_threshold
     return false if salary.regular_income?
     split_base > split_threshold
   end
@@ -42,15 +43,15 @@ class StatementService
   end
 
   def sum_gain
-    IncomeService.new(payroll, salary).total
+    IncomeService.new(payroll).total
   end
 
   def sum_loss
-    DeductService.new(payroll, salary).total
+    DeductService.new(payroll).total
   end
 
   def split_base
-    sum_gain - DeductService.new(payroll, salary).before_withholdings
+    sum_gain - DeductService.new(payroll).before_withholdings
   end
 
   # TODO: minimum_wage for parttime income

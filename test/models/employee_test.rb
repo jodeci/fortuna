@@ -27,7 +27,7 @@ class EmployeeTest < ActiveSupport::TestCase
   end
 
   def test_has_same_amount_between_payrolls_and_statements
-    emp.payrolls.each { |payroll| StatementService.new(payroll).build }
+    emp.payrolls.each { |payroll| StatementService.call(payroll) }
     assert_equal emp.payrolls.length, emp.statements.length
   end
 end

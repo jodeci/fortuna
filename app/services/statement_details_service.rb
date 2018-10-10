@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class StatementDetailsService
+  include Callable
+
   attr_reader :statement, :payroll, :salary
 
   def initialize(statement)
@@ -8,9 +10,11 @@ class StatementDetailsService
     @salary = payroll.salary
   end
 
-  def run
+  def call
     statement.splits ? split : normal
   end
+
+  private
 
   def normal
     {
@@ -38,26 +42,24 @@ class StatementDetailsService
     }
   end
 
-  private
-
   def gain
-    cleanup(IncomeService.new(payroll, salary).send(payroll.salary.role))
+    cleanup(IncomeService.new(payroll).send(salary.role))
   end
 
   def loss
-    cleanup(DeductService.new(payroll, salary).send(payroll.salary.role))
+    cleanup(DeductService.new(payroll).send(salary.role))
   end
 
   def notes
-    StatementNotesService.new(payroll, salary).run
+    StatementNotesService.call(payroll)
   end
 
   def sum_gain
-    IncomeService.new(payroll, salary).total
+    IncomeService.new(payroll).total
   end
 
   def sum_loss
-    DeductService.new(payroll, salary).total
+    DeductService.new(payroll).total
   end
 
   def total
