@@ -40,25 +40,6 @@ ActiveRecord::Schema.define(version: 20181010080608) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "health_insurances", force: :cascade do |t|
-    t.date "start_date"
-    t.integer "salary", default: 0
-    t.integer "premium", default: 0
-    t.float "dependants", default: 0.0
-    t.integer "employee_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "labor_insurances", force: :cascade do |t|
-    t.date "start_date"
-    t.integer "salary"
-    t.integer "premium"
-    t.integer "employee_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "overtimes", force: :cascade do |t|
     t.date "date"
     t.string "rate"
