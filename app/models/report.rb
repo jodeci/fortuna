@@ -17,6 +17,10 @@ class Report < ApplicationRecord
         .or(where("tax_code = '9a' AND year = ? AND month < 12", year))
     end
 
+    def irregular_income(year)
+      where("year = ? AND irregular_income > 0", year)
+    end
+
     def ordered
       order(employee_id: :asc, year: :asc, month: :asc)
     end

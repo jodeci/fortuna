@@ -16,5 +16,6 @@ class ReportsController < ApplicationController
   end
 
   def irregular
+    @report = IrregularIncomeReportService.call(params[:year])
   end
 end

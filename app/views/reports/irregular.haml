@@ -9,6 +9,6 @@
         %th= "#{month} 月"
     - @report.each do |row|
       %tr
-        %td= row[:name]
+        %td= link_to row[:employee][:name], employee_path(row[:employee][:id])
         - 12.times do |month|
-          %td= number_with_delimiter(row[:income][month])
+          = render "irregular_cell", cell: row[:income][month]
