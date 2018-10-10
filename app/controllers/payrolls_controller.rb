@@ -4,11 +4,8 @@ class PayrollsController < ApplicationController
   before_action :store_location, only: [:index]
 
   def index
-    @q = Payroll.ransack(params[:q])
-    @payrolls = @q.result(distinct: true)
-      .order(year: :desc, month: :desc, employee_id: :desc)
-      .includes(:employee, :salary, :statement)
-      .page(params[:page])
+    @q = Payroll.search_result.ransack(params[:q])
+    @payrolls = @q.result(distinct: true).page(params[:page])
   end
 
   def init

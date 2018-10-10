@@ -17,6 +17,19 @@ class Payroll < ApplicationRecord
     def ordered
       order(year: :desc, month: :desc)
     end
+
+    def search_result
+      includes(:employee, :salary, :statement)
+        .order(employee_id: :desc)
+    end
+
+    def personal_history
+      includes(:salary, :statement)
+    end
+
+    def details
+      includes(:salary, :extra_entries, :overtimes)
+    end
   end
 
   def find_salary
