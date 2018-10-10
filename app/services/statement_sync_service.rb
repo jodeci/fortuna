@@ -2,7 +2,7 @@
 class StatementSyncService
   include Callable
 
-  attr_accessor :payroll
+  attr_reader :payroll
 
   def initialize(payroll)
     @payroll = payroll

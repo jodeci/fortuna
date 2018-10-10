@@ -2,7 +2,7 @@
 class IrregularIncomeReportService
   include Callable
 
-  attr_accessor :year
+  attr_reader :year
 
   def initialize(year)
     @year = year.to_i

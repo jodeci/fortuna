@@ -2,7 +2,7 @@
 class SalarySyncService
   include Callable
 
-  attr_accessor :employee, :salary, :params
+  attr_reader :employee, :salary, :params
 
   def initialize(employee, salary, params)
     @employee = employee
