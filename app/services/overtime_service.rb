@@ -33,11 +33,6 @@ class OvertimeService
     (hourly_rate * 8 * 2).to_i
   end
 
-  # 特休折現
-  def basic
-    (hourly_rate * hours).to_i
-  end
-
   private
 
   def initial_rate

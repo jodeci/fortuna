@@ -35,9 +35,4 @@ class OvertimeTest < ActiveSupport::TestCase
     obj = OvertimeService.new(nil, salary)
     assert_equal obj.holiday, (150 * 8 * 2)
   end
-
-  def test_basic_rate
-    obj = OvertimeService.new(5, salary)
-    assert_equal obj.basic, (150 * 5)
-  end
 end

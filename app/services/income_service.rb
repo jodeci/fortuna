@@ -79,7 +79,7 @@ class IncomeService
   end
 
   def vacation_refund
-    OvertimeService.new(payroll.vacation_refund_hours, salary, days_in_cycle).basic
+    VacationRefundService.call(payroll)
   end
 
   def extra_gain
