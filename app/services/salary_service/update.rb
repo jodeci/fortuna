@@ -2,7 +2,7 @@
 module SalaryService
   class Update < Base
     def call
-      salary.update_attributes(params)
+      salary.update(params)
       sync_payroll_relations if effective_date_change?
       sync_statements
     end

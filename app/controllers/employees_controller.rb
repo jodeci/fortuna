@@ -39,7 +39,7 @@ class EmployeesController < ApplicationController
   end
 
   def update
-    if @employee.update_attributes(employee_params)
+    if @employee.update(employee_params)
       redirect_to @employee
     else
       render action: :edit

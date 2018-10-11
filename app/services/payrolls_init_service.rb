@@ -5,8 +5,8 @@ class PayrollsInitService
   attr_reader :year, :month
 
   def initialize(year, month)
-    @year = year
-    @month = month
+    @year = year.to_i
+    @month = month.to_i
   end
 
   def call

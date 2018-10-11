@@ -9,7 +9,7 @@ class PayrollsController < ApplicationController
   end
 
   def init
-    PayrollsInitService.call(params[:year].to_i, params[:month].to_i)
+    PayrollsInitService.call(params[:year], params[:month])
     redirect_to_date(params[:year], params[:month])
   end
 
@@ -17,7 +17,7 @@ class PayrollsController < ApplicationController
   end
 
   def update
-    if @payroll.update_attributes(payroll_params)
+    if @payroll.update(payroll_params)
       StatementSyncService.call(@payroll)
       redirect_to session.delete(:return_to)
     else
