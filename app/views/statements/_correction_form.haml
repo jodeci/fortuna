@@ -1,0 +1,11 @@
+%h2 校正項目
+%table.table
+  %tr
+    %th.col-sm-2 金額
+    %th.col-sm-4 說明
+    %th.col-sm-4 操作
+  %tbody#correction_items
+    = f.simple_fields_for :corrections do |correction|
+      = render "correction_fields", f: correction
+
+= link_to_add_association "新增校正項目", f, :corrections, class: "btn btn-sm btn-primary", data: { "association-insertion-node": "tbody#correction_items", "association-insertion-method": "append" }

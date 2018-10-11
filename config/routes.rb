@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :payrolls, except: [:new, :create, :show]
   get "payrolls/init/:year/:month", to: "payrolls#init", as: :init_payrolls, constraints: { year: /\d{4}/, month: /\d{1,2}/ }
 
-  resources :statements, only: [:index, :show]
+  resources :statements, only: [:index, :show, :edit, :update]
 
   resources :reports, only: [:index] do
     collection do

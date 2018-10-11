@@ -1,17 +1,39 @@
 # frozen_string_literal: true
 class StatementsController < ApplicationController
+  before_action :prepare_statement, only: [:show, :edit, :update]
+
   def index
     @q = Statement.paid.ordered.ransack(params[:q])
     @statements = @q.result(distinct: true).page(params[:page])
   end
 
   def show
-    statement = Statement.find_by(id: params[:id]) or not_found
-    @details = StatementDetailsService.call(statement)
+    @details = StatementDetailsService.call(@statement)
     render_statement
   end
 
+  def edit
+  end
+
+  def update
+    if @statement.update(statement_params)
+      redirect_to session.delete(:return_to)
+    else
+      render :edit
+    end
+  end
+
   private
+
+  def prepare_statement
+    @statement = Statement.find_by(id: params[:id]) or not_found
+  end
+
+  def statement_params
+    params.require(:statement).permit(
+      corrections_attributes: [:description, :amount, :_destroy, :id]
+    )
+  end
 
   def render_statement
     respond_to do |format|

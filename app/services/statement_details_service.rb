@@ -25,6 +25,7 @@ class StatementDetailsService
       notes: notes,
       gain: sum_gain,
       loss: sum_loss,
+      correction: correction,
       total: total,
       template: "statements/show",
     }
@@ -37,6 +38,7 @@ class StatementDetailsService
       filename: "#{payment_period} 勞務報酬明細-#{payroll.employee.name}",
       splits: statement.splits,
       notes: notes,
+      correction: correction,
       total: statement.splits.reduce(:+),
       template: "statements/split",
     }
@@ -60,6 +62,10 @@ class StatementDetailsService
 
   def sum_loss
     DeductService.new(payroll).total
+  end
+
+  def correction
+    statement.correct_by
   end
 
   def total

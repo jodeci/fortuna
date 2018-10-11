@@ -12,7 +12,14 @@
         %td.text-right= number_with_delimiter @details[:gain]
         %th.text-center 小計
         %td.text-right= number_with_delimiter @details[:loss]
+      - unless @details[:correction].zero?
+        %tr
+          %th.text-center 系統結算
+          %td.text-right{colspan: 3}= number_with_delimiter @details[:total]
+        %tr
+          %th.text-center 報表校正
+          %td.text-right{colspan: 3}= number_with_delimiter @details[:correction]
       %tr.info
         %th.text-center 總計
-        %td.text-right{colspan: 3}= number_with_delimiter @details[:total]
+        %td.text-right{colspan: 3}= number_with_delimiter(@details[:total] + @details[:correction])
       = render "notes", notes: @details[:notes]
