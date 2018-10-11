@@ -12,7 +12,7 @@ class SalariesController < ApplicationController
 
   def create
     @salary = @employee.salaries.new(salary_params)
-    if SalaryCreateService.call(@salary, salary_params)
+    if SalaryService::Create.call(@salary, salary_params)
       redirect_to @employee
     else
       render action: :new
@@ -26,7 +26,7 @@ class SalariesController < ApplicationController
   end
 
   def update
-    if SalaryUpdateService.call(@salary, salary_params)
+    if SalaryService::Update.call(@salary, salary_params)
       redirect_to @employee
     else
       render action: :edit
@@ -34,7 +34,7 @@ class SalariesController < ApplicationController
   end
 
   def destroy
-    SalaryDestroyService.call(@salary, nil)
+    SalaryService::Destroy.call(@salary, nil)
     redirect_to employee_path(@employee)
   end
 

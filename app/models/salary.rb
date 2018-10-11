@@ -17,7 +17,7 @@ class Salary < ApplicationRecord
   CYCLE = { "一般": "normal", "工作天": "business" }.freeze
 
   class << self
-    # Salary 更新應透過 SalarySycnService
+    # Salary 更新需要透過 SalaryService 同步關聯資料
     def by_payroll(employee, cycle_start, cycle_end)
       return if employee.end_date and employee.end_date < cycle_start
       where("employee_id = ? AND effective_date < ?", employee.id, cycle_end)
