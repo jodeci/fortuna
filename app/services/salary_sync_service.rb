@@ -2,10 +2,9 @@
 class SalarySyncService
   include Callable
 
-  attr_reader :employee, :salary, :params
+  attr_reader :salary, :params
 
-  def initialize(employee, salary, params)
-    @employee = employee
+  def initialize(salary, params)
     @salary = salary
     @params = params
   end
@@ -17,10 +16,11 @@ class SalarySyncService
   end
 
   def payrolls
-    employee.payrolls.details
+    salary.employee.payrolls.details
   end
 
-  # Salary 和 Payroll 是透過日期重疊的間接關聯，因此起薪日變動後需要補正 Payroll
+  # TODO: 只修正有影響到的部分
+  # Salary 和 Payroll 是透過日期重疊的間接關聯，因此起薪日變動後需要補正與 Payroll 的關聯
   def sync_payroll_relations
     payrolls.map do |payroll|
       matched_salary = payroll.find_salary
@@ -28,6 +28,7 @@ class SalarySyncService
     end
   end
 
+  # TODO: 只修正有影響到的部分
   def sync_statements
     payrolls.map { |payroll| StatementSyncService.call(payroll) }
   end

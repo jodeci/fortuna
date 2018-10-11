@@ -13,6 +13,6 @@ class SalaryCreateService < SalarySyncService
   end
 
   def recent_salary
-    Salary.recent_for(employee)
+    Salary.recent_for(salary.employee)
   end
 end
