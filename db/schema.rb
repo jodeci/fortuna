@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181011084858) do
+ActiveRecord::Schema.define(version: 20181011102527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,11 +113,14 @@ ActiveRecord::Schema.define(version: 20181011084858) do
       payrolls.month,
       salaries.tax_code,
       statements.amount,
-      statements.irregular_income
-     FROM (((employees
+      statements.irregular_income,
+      sum(corrections.amount) AS correction
+     FROM ((((employees
        JOIN payrolls ON ((employees.id = payrolls.employee_id)))
        JOIN salaries ON ((salaries.id = payrolls.salary_id)))
-       JOIN statements ON ((payrolls.id = statements.payroll_id)));
+       JOIN statements ON ((payrolls.id = statements.payroll_id)))
+       LEFT JOIN corrections ON ((statements.id = corrections.statement_id)))
+    GROUP BY employees.id, payrolls.id, statements.id, salaries.tax_code;
   SQL
 
 end

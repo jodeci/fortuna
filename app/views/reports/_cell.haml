@@ -2,6 +2,6 @@
   - if cell.amount.zero?
     %td 0
   - else
-    %td= link_to number_with_delimiter(cell.amount - cell.irregular_income), edit_payroll_path(cell.payroll_id)
+    %td= link_to number_with_delimiter(cell.amount - cell.irregular_income + cell.correction.to_i), edit_payroll_path(cell.payroll_id)
 - else
   %td 0
