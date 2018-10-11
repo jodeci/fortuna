@@ -1,6 +1,7 @@
 %h1 報表校正
 
-= link_to "檢視薪資單", statement_path(@statement), class: "btn btn-sm btn-default"
+= render template: @details[:template], details: @details
+
 = link_to "薪資明細設定", edit_payroll_path(@statement.payroll), class: "btn btn-sm btn-default"
 
 = simple_form_for @statement do |f|

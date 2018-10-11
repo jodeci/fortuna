@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class StatementsController < ApplicationController
   before_action :prepare_statement, only: [:show, :edit, :update]
+  before_action :prepare_details, only: [:show, :edit]
 
   def index
     @q = Statement.paid.ordered.ransack(params[:q])
@@ -8,7 +9,6 @@ class StatementsController < ApplicationController
   end
 
   def show
-    @details = StatementDetailsService.call(@statement)
     render_statement
   end
 
@@ -27,6 +27,10 @@ class StatementsController < ApplicationController
 
   def prepare_statement
     @statement = Statement.find_by(id: params[:id]) or not_found
+  end
+
+  def prepare_details
+    @details = StatementDetailsService.call(@statement)
   end
 
   def statement_params

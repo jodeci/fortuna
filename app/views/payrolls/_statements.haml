@@ -1,7 +1,6 @@
 = link_to "員工資料", employee_path(payroll.employee), class: "btn btn-xs btn-default"
 - if payroll.statement
   = link_to "修改明細", edit_payroll_path(payroll), class: "btn btn-xs btn-default"
-  = link_to "薪資單", statement_path(payroll.statement), class: "btn btn-xs btn-info"
   = link_to "報表校正", edit_statement_path(payroll.statement), class: "btn btn-xs btn-warning"
 - else
   = link_to "設定明細", edit_payroll_path(payroll), class: "btn btn-xs btn-warning"
