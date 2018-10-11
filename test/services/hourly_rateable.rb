@@ -12,7 +12,7 @@ class HourlyRateableTest < ActiveSupport::TestCase
   end
 
   def test_hourly_rate_for_parttime_employee
-    salary = build(:salary, monthly_wage: 36000, monthly_wage_adjustment: 0.6)
-    assert_equal subject(salary).hourly_rate, 250
+    salary = build(:salary, monthly_wage: 24000, equipment_subisdy: 800, monthly_wage_adjustment: 0.6)
+    assert_equal subject(salary).hourly_rate, 170
   end
 end
