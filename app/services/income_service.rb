@@ -83,6 +83,6 @@ class IncomeService
   end
 
   def extra_gain
-    ExtraEntriesService.new(payroll).gain
+    ExtraIncomeService.call(payroll)
   end
 end

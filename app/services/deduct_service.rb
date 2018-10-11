@@ -89,6 +89,6 @@ class DeductService
   end
 
   def extra_loss
-    ExtraEntriesService.new(payroll).loss
+    ExtraDeductService.call(payroll)
   end
 end
