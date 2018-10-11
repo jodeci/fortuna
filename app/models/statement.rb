@@ -4,6 +4,8 @@ class Statement < ApplicationRecord
   has_one :employee, through: :payroll
   delegate :id, to: :employee, prefix: :employee
 
+  has_many :corrections
+
   class << self
     def paid
       Statement.where("amount > 0")
