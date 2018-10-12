@@ -3,7 +3,7 @@ class Payroll < ApplicationRecord
   include Givenable
 
   belongs_to :employee
-  belongs_to :salary # 間接關聯，詳見 SalarySyncService
+  belongs_to :salary # 間接關聯，詳見 SalaryService
 
   has_many :overtimes, dependent: :destroy
   accepts_nested_attributes_for :overtimes, allow_destroy: true
@@ -24,7 +24,7 @@ class Payroll < ApplicationRecord
     end
 
     def personal_history
-      includes(:salary, :statement)
+      includes(:salary, :statement, { statement: :corrections })
     end
 
     def details

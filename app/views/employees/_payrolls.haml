@@ -3,7 +3,8 @@
     %th #
     %th 期間
     %th 身份
-    %th 金額
+    %th 實發薪資
+    %th 申報所得
     %th 操作
   - payrolls.each do |payroll|
     - if payroll.statement
@@ -11,7 +12,8 @@
         %td= payroll.id
         %td= payroll.payment_period
         %td= payroll.role
-        %td= payroll.statement.amount
+        = payroll.statement.paid_amount_cell
+        = payroll.statement.declared_income_cell
         %td
           = link_to "修改明細", edit_payroll_path(payroll), class: "btn btn-xs btn-default"
           = link_to "報表校正", edit_statement_path(payroll.statement), class: "btn btn-xs btn-warning"

@@ -4,19 +4,22 @@
     %th 身份
     %th 計算期間 
     %th 實發薪資
+    %th 申報所得
     %th 操作
   - statements.each do |statement|
     %tr
       %td= statement.payroll.employee.name
       %td= statement.payroll.role
       %td= statement.payroll.payment_period
-      %td= number_with_delimiter(statement.amount)
+      = statement.paid_amount_cell
+      = statement.declared_income_cell
       %td
         = link_to "員工資料", employee_path(statement.payroll.employee), class: "btn btn-xs btn-default"
         = link_to "薪資單", statement_path(statement), class: "btn btn-xs btn-info"
 
   %tr.info
     %th 總額
+    %td
     %td
     %td
     %td= number_with_delimiter statements.map { |statement| statement.amount }.reduce(:+)

@@ -4,16 +4,16 @@ class Statement < ApplicationRecord
   has_one :employee, through: :payroll
   delegate :id, to: :employee, prefix: :employee
 
-  has_many :corrections
+  has_many :corrections, dependent: :destroy
   accepts_nested_attributes_for :corrections, allow_destroy: true
 
   class << self
     def paid
-      Statement.where("amount > 0")
+      Statement.where("statements.amount > 0")
     end
 
     def ordered
-      Statement.includes(:payroll, payroll: :employee)
+      Statement.includes(:payroll, :corrections, payroll: [:salary, :employee])
         .order("payrolls.employee_id DESC")
     end
 
@@ -22,7 +22,15 @@ class Statement < ApplicationRecord
     end
   end
 
+  def corrections?
+    corrections.any?
+  end
+
   def correct_by
     corrections.sum(:amount)
+  end
+
+  def report_amount
+    amount - irregular_income + correct_by
   end
 end
