@@ -4,7 +4,7 @@ class StatementPDFService
 
   def initialize(statement)
     @statement = statement
-    @details = StatementDetailsService.call(statement)
+    @details = FormatService::StatementDetails.call(statement)
     @renderer = StatementsController.renderer.new
   end
 

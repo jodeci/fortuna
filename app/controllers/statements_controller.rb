@@ -30,7 +30,7 @@ class StatementsController < ApplicationController
   end
 
   def prepare_details
-    @details = StatementDetailsService.call(@statement)
+    @details = FormatService::StatementDetails.call(@statement)
   end
 
   def statement_params
