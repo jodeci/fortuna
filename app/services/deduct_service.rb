@@ -81,11 +81,11 @@ class DeductService
   end
 
   def leavetime
-    LeavetimeService.new(payroll.leavetime_hours, salary, days_in_cycle).normal
+    LeavetimeService.call(payroll)
   end
 
   def sicktime
-    LeavetimeService.new(payroll.sicktime_hours, salary, days_in_cycle).sick
+    SicktimeService.call(payroll)
   end
 
   def extra_loss

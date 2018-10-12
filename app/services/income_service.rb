@@ -9,6 +9,16 @@ class IncomeService
     @salary = payroll.salary
   end
 
+  def total
+    send(salary.role).values.reduce(:+) || 0
+  end
+
+  def irregular
+    overtime + vacation_refund + payroll.taxfree_irregular_income
+  end
+
+  private
+
   def boss
     {
       本薪: scale_for_cycle(base_salary),
@@ -41,16 +51,6 @@ class IncomeService
   def advisor
     { 服務費用: total_wage }.merge(extra_gain)
   end
-
-  def total
-    send(salary.role).values.reduce(:+) || 0
-  end
-
-  def irregular
-    overtime + vacation_refund + payroll.taxfree_irregular_income
-  end
-
-  private
 
   def salary_label
     salary.professional_service? ? "開發費" : "薪資"

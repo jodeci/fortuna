@@ -36,6 +36,10 @@ class Salary < ApplicationRecord
     end
   end
 
+  def income_with_subsidies
+    (monthly_wage / monthly_wage_adjustment) + supervisor_allowance + equipment_subsidy + commuting_subsidy
+  end
+
   # 一般薪資所得
   def regular_income?
     tax_code == "50" and insuranced?

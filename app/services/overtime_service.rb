@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class OvertimeService
   include Callable
-  include HourlyRateable
 
   attr_reader :hours, :salary, :rate
 
@@ -14,6 +13,8 @@ class OvertimeService
   def call
     send(rate)
   end
+
+  private
 
   # 一例一休 平日加班
   def weekday
@@ -38,10 +39,8 @@ class OvertimeService
     (hourly_rate * 8 * 2).to_i
   end
 
-  private
-
-  def days_in_month
-    30
+  def hourly_rate
+    (salary.income_with_subsidies / 30 / 8.0).round
   end
 
   def initial_rate

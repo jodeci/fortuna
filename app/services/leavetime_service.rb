@@ -1,20 +1,38 @@
 # frozen_string_literal: true
 class LeavetimeService
-  include HourlyRateable
+  include Callable
 
-  attr_reader :hours, :salary, :days_in_month
+  attr_reader :hours, :salary, :payroll
 
-  def initialize(hours, salary, days_in_month = 30)
-    @hours = hours
-    @salary = salary
-    @days_in_month = days_in_month
+  def initialize(payroll)
+    @hours = payroll.leavetime_hours
+    @salary = payroll.salary
+    @payroll = payroll
   end
 
-  def normal
+  def call
     (hours * hourly_rate).to_i
   end
 
-  def sick
-    (normal * 0.5).round
+  private
+
+  def hourly_rate
+    (salary.income_with_subsidies / days_in_month / 8.0).round
+  end
+
+  def days_in_month
+    if salary.business_calendar?
+      BusinessCalendarDaysService.call(cycle_start, cycle_end)
+    else
+      30
+    end
+  end
+
+  def cycle_start
+    Date.new(payroll.year, payroll.month, 1)
+  end
+
+  def cycle_end
+    Date.new(payroll.year, payroll.month, -1)
   end
 end

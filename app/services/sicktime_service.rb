@@ -1,16 +1,16 @@
 # frozen_string_literal: true
-class VacationRefundService
+class SicktimeService
   include Callable
 
   attr_reader :hours, :salary
 
   def initialize(payroll)
-    @hours = payroll.vacation_refund_hours
+    @hours = payroll.sicktime_hours
     @salary = payroll.salary
   end
 
   def call
-    (hourly_rate * hours).to_i
+    (hours * hourly_rate * 0.5).to_i
   end
 
   private
