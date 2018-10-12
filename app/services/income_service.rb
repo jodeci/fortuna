@@ -13,10 +13,6 @@ class IncomeService
     send(salary.role).values.reduce(:+) || 0
   end
 
-  def irregular
-    overtime + vacation_refund + payroll.taxfree_irregular_income
-  end
-
   private
 
   def boss
@@ -83,6 +79,6 @@ class IncomeService
   end
 
   def extra_gain
-    ExtraIncomeService.call(payroll)
+    FormatService::ExtraIncome.call(payroll)
   end
 end

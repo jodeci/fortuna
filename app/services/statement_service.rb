@@ -55,7 +55,7 @@ class StatementService
   end
 
   def irregular_income
-    IncomeService.new(payroll).irregular
+    CalculationService::IrregularIncome.call(payroll)
   end
 
   def total
@@ -71,7 +71,7 @@ class StatementService
   end
 
   def split_base
-    sum_gain - DeductService.new(payroll).before_withholdings
+    sum_gain - CalculationService::IncomeBeforeWithholdings.call(payroll)
   end
 
   # TODO: minimum_wage for parttime income

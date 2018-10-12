@@ -13,10 +13,6 @@ class DeductService
     send(salary.role).values.reduce(:+) || 0
   end
 
-  def before_withholdings
-    leavetime + sicktime + extra_loss.values.reduce(:+).to_i
-  end
-
   private
 
   def boss
@@ -89,6 +85,6 @@ class DeductService
   end
 
   def extra_loss
-    ExtraDeductService.call(payroll)
+    FormatService::ExtraDeductions.call(payroll)
   end
 end

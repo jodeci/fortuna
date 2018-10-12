@@ -52,4 +52,10 @@ class Payroll < ApplicationRecord
       .where("taxable = false and amount > 0")
       .sum(:amount)
   end
+
+  def extra_deductions
+    extra_entries
+      .where("amount < 0")
+      .sum(:amount)
+  end
 end
