@@ -27,7 +27,7 @@ class PayrollInitService
   end
 
   def skip?
-    salary.nil? or salary.absent?
+    salary.absent?
   end
 
   def generate_payroll
