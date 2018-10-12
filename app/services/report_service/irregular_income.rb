@@ -58,7 +58,7 @@ module ReportService
         name: overtime.payroll.employee.name,
         period: "#{year}-#{sprintf('%02d', overtime.payroll.month)}",
         description: "加班費",
-        amount: OvertimeService.new(overtime.hours, overtime.payroll.salary).send(overtime.rate),
+        amount: OvertimeService.call(overtime),
         payroll_id: overtime.payroll_id,
       }
     end

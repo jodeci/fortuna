@@ -73,9 +73,9 @@ class IncomeService
   end
 
   def overtime
-    payroll.overtimes.map do |overtime|
-      OvertimeService.new(overtime.hours, salary, days_in_cycle).send(overtime.rate)
-    end.reduce(:+).to_i
+    payroll.overtimes.reduce(0) do |sum, overtime|
+      sum + OvertimeService.call(overtime)
+    end
   end
 
   def vacation_refund

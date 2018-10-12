@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 class OvertimeService
+  include Callable
   include HourlyRateable
 
-  attr_reader :hours, :salary, :days_in_month
+  attr_reader :hours, :salary, :rate
 
-  def initialize(hours, salary, days_in_month = 30)
-    @hours = hours
-    @salary = salary
-    @days_in_month = days_in_month
+  def initialize(overtime)
+    @hours = overtime.hours
+    @salary = overtime.payroll.salary
+    @rate = overtime.rate
+  end
+
+  def call
+    send(rate)
   end
 
   # 一例一休 平日加班
@@ -34,6 +39,10 @@ class OvertimeService
   end
 
   private
+
+  def days_in_month
+    30
+  end
 
   def initial_rate
     hourly_rate * 4 / 3
