@@ -2,7 +2,7 @@
 module FormatService
   class Income
     include Callable
-    include PayrollPeriodCountable
+    include Calculatable
 
     attr_reader :payroll, :salary
 
@@ -28,15 +28,15 @@ module FormatService
       {
         本薪: scale_for_cycle(base_salary),
         伙食費: scale_for_cycle(taxfree_lunch),
-        設備津貼: scale_for_cycle(salary.equipment_subsidy),
-        主管加給: scale_for_cycle(salary.supervisor_allowance),
+        設備津貼: equipment_subsidy,
+        主管加給: supervisor_allowance,
         加班費: overtime,
         特休折現: vacation_refund,
       }.merge(extra_gain)
     end
 
     def contractor
-      { "#{salary_label}": scale_for_cycle(actual_salary) }.merge(extra_gain)
+      { "#{salary_label}": monthly_wage }.merge(extra_gain)
     end
 
     def parttime
@@ -54,30 +54,12 @@ module FormatService
       salary.professional_service? ? "開發費" : "薪資"
     end
 
-    def actual_salary
-      salary.monthly_wage
-    end
-
     def base_salary
       salary.monthly_wage - taxfree_lunch
     end
 
     def taxfree_lunch
       payroll.year >= 2015 ? 2400 : 1800
-    end
-
-    def total_wage
-      (payroll.parttime_hours * salary.hourly_wage).round
-    end
-
-    def overtime
-      payroll.overtimes.reduce(0) do |sum, overtime|
-        sum + CalculationService::Overtime.call(overtime)
-      end
-    end
-
-    def vacation_refund
-      CalculationService::VacationRefund.call(payroll)
     end
 
     def extra_gain

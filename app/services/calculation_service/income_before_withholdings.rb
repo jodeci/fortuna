@@ -2,6 +2,7 @@
 module CalculationService
   class IncomeBeforeWithholdings
     include Callable
+    include Calculatable
 
     attr_reader :payroll
 
@@ -11,16 +12,6 @@ module CalculationService
 
     def call
       leavetime + sicktime + payroll.extra_deductions
-    end
-
-    private
-
-    def leavetime
-      CalculationService::Leavetime.call(payroll)
-    end
-
-    def sicktime
-      CalculationService::Sicktime.call(payroll)
     end
   end
 end

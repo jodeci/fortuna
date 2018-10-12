@@ -2,7 +2,7 @@
 module CalculationService
   class TotalDeduction
     include Callable
-    include PayrollPeriodCountable
+    include Calculatable
 
     attr_reader :payroll, :salary
 
@@ -41,28 +41,8 @@ module CalculationService
       supplement_premium + income_tax + payroll.extra_deductions
     end
 
-    def income_tax
-      TaxService.call(payroll)
-    end
-
-    def labor_insurance
-      scale_for_30_days(salary.labor_insurance).round
-    end
-
     def health_insurance
       salary.health_insurance
-    end
-
-    def supplement_premium
-      SupplementHealthInsuranceService.call(payroll)
-    end
-
-    def leavetime
-      CalculationService::Leavetime.call(payroll)
-    end
-
-    def sicktime
-      CalculationService::Sicktime.call(payroll)
     end
   end
 end

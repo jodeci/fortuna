@@ -2,6 +2,7 @@
 module CalculationService
   class IrregularIncome
     include Callable
+    include Calculatable
 
     attr_reader :payroll
 
@@ -11,18 +12,6 @@ module CalculationService
 
     def call
       overtime + vacation_refund + payroll.taxfree_irregular_income
-    end
-
-    private
-
-    def overtime
-      payroll.overtimes.reduce(0) do |sum, overtime|
-        sum + CalculationService::Overtime.call(overtime)
-      end
-    end
-
-    def vacation_refund
-      CalculationService::VacationRefund.call(payroll)
     end
   end
 end

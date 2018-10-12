@@ -2,7 +2,7 @@
 module CalculationService
   class TotalIncome
     include Callable
-    include PayrollPeriodCountable
+    include Calculatable
 
     attr_reader :payroll, :salary
 
@@ -18,16 +18,16 @@ module CalculationService
     private
 
     def boss
-      scale_for_cycle(salary.monthly_wage) + payroll.extra_income
+      monthly_wage + payroll.extra_income
     end
 
     def regular
-      scale_for_cycle(salary.monthly_wage + salary.equipment_subsidy + salary.supervisor_allowance) +
+      monthly_wage + equipment_subsidy + supervisor_allowance +
       overtime + vacation_refund + payroll.extra_income
     end
 
     def contractor
-      scale_for_cycle(salary.monthly_wage) + payroll.extra_income
+      monthly_wage + payroll.extra_income
     end
 
     def parttime
@@ -36,20 +36,6 @@ module CalculationService
 
     def advisor
       total_wage + payroll.extra_income
-    end
-
-    def total_wage
-      (payroll.parttime_hours * salary.hourly_wage).round
-    end
-
-    def overtime
-      payroll.overtimes.reduce(0) do |sum, overtime|
-        sum + CalculationService::Overtime.call(overtime)
-      end
-    end
-
-    def vacation_refund
-      CalculationService::VacationRefund.call(payroll)
     end
   end
 end
