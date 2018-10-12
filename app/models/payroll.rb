@@ -24,11 +24,16 @@ class Payroll < ApplicationRecord
     end
 
     def personal_history
-      includes(:salary, :statement, { statement: :corrections })
+      includes(:salary, :statement, statement: :corrections)
     end
 
     def details
       includes(:salary, :extra_entries, :overtimes)
+    end
+
+    def yearly_vacation_refunds(year)
+      includes(:employee, :salary)
+        .where("vacation_refund_hours > 0 and year = ?", year)
     end
   end
 

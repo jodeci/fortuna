@@ -1,7 +1,0 @@
-- if cell.present?
-  - if cell.irregular_income.zero?
-    %td 0
-  - else
-    %td= link_to number_with_delimiter(cell.irregular_income), edit_payroll_path(cell.payroll_id)
-- else
-  %td 0
