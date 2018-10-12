@@ -47,7 +47,7 @@ module ReportService
         name: payroll.employee.name,
         period: "#{year}-#{sprintf('%02d', payroll.month)}",
         description: "特休折現",
-        amount: VacationRefundService.call(payroll),
+        amount: CalculationService::VacationRefund.call(payroll),
         payroll_id: payroll.id,
       }
     end
@@ -58,7 +58,7 @@ module ReportService
         name: overtime.payroll.employee.name,
         period: "#{year}-#{sprintf('%02d', overtime.payroll.month)}",
         description: "加班費",
-        amount: OvertimeService.call(overtime),
+        amount: CalculationService::Overtime.call(overtime),
         payroll_id: overtime.payroll_id,
       }
     end

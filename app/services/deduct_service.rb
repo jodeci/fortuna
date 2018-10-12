@@ -81,11 +81,11 @@ class DeductService
   end
 
   def leavetime
-    LeavetimeService.call(payroll)
+    CalculationService::Leavetime.call(payroll)
   end
 
   def sicktime
-    SicktimeService.call(payroll)
+    CalculationService::Sicktime.call(payroll)
   end
 
   def extra_loss

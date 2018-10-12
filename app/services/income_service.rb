@@ -74,12 +74,12 @@ class IncomeService
 
   def overtime
     payroll.overtimes.reduce(0) do |sum, overtime|
-      sum + OvertimeService.call(overtime)
+      sum + CalculationService::Overtime.call(overtime)
     end
   end
 
   def vacation_refund
-    VacationRefundService.call(payroll)
+    CalculationService::VacationRefund.call(payroll)
   end
 
   def extra_gain
