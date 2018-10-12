@@ -57,11 +57,11 @@ class StatementDetailsService
   end
 
   def sum_gain
-    IncomeService.new(payroll).total
+    CalculationService::TotalIncome.call(payroll)
   end
 
   def sum_loss
-    DeductService.new(payroll).total
+    CalculationService::TotalDeduction.call(payroll)
   end
 
   def correction

@@ -48,7 +48,7 @@ class TaxService
   end
 
   def income
-    IncomeService.new(payroll).total
+    CalculationService::TotalIncome.call(payroll)
   end
 
   def irregular_income

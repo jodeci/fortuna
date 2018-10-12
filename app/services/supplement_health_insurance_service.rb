@@ -41,7 +41,7 @@ class SupplementHealthInsuranceService
   end
 
   def income
-    IncomeService.new(payroll).total
+    CalculationService::TotalIncome.call(payroll)
   end
 
   def supplement_premium_rate
