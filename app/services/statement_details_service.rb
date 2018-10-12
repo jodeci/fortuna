@@ -45,11 +45,11 @@ class StatementDetailsService
   end
 
   def gain
-    cleanup(IncomeService.new(payroll).send(salary.role))
+    FormatService::Income.call(payroll)
   end
 
   def loss
-    cleanup(DeductService.new(payroll).send(salary.role))
+    FormatService::Deductions.call(payroll)
   end
 
   def notes
@@ -70,10 +70,6 @@ class StatementDetailsService
 
   def total
     sum_gain - sum_loss
-  end
-
-  def cleanup(hash)
-    hash.delete_if { |_, value| value.zero? }
   end
 
   def details_for_view
