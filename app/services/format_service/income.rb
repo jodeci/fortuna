@@ -21,7 +21,8 @@ module FormatService
       {
         本薪: scale_for_cycle(base_salary),
         伙食費: scale_for_cycle(taxfree_lunch),
-      }.merge(extra_gain)
+      }.merge(festival_bonus)
+        .merge(extra_gain)
     end
 
     def regular
@@ -32,7 +33,8 @@ module FormatService
         主管加給: supervisor_allowance,
         加班費: overtime,
         特休折現: vacation_refund,
-      }.merge(extra_gain)
+      }.merge(festival_bonus)
+        .merge(extra_gain)
     end
 
     def contractor
@@ -64,6 +66,10 @@ module FormatService
 
     def extra_gain
       FormatService::ExtraIncome.call(payroll)
+    end
+
+    def festival_bonus
+      FormatService::FestivalBonus.call(payroll)
     end
 
     def cleanup(hash)

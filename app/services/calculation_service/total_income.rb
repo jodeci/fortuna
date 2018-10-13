@@ -18,12 +18,12 @@ module CalculationService
     private
 
     def boss
-      monthly_wage + payroll.extra_income
+      monthly_wage + payroll.extra_income + payroll.festival_bonus
     end
 
     def regular
       monthly_wage + equipment_subsidy + supervisor_allowance +
-      overtime + vacation_refund + payroll.extra_income
+      overtime + vacation_refund + payroll.extra_income + payroll.festival_bonus
     end
 
     def contractor
