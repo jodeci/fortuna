@@ -63,5 +63,6 @@ class Payroll < ApplicationRecord
     extra_entries
       .where("amount < 0")
       .sum(:amount)
+      .abs
   end
 end

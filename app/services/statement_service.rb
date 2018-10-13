@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class StatementService
   include Callable
+  include Calculatable
 
   attr_reader :statement, :payroll, :salary
 
@@ -55,7 +56,7 @@ class StatementService
   end
 
   def irregular_income
-    CalculationService::IrregularIncome.call(payroll)
+    overtime + vacation_refund + payroll.taxfree_irregular_income
   end
 
   def total
@@ -71,7 +72,11 @@ class StatementService
   end
 
   def split_base
-    sum_gain - CalculationService::IncomeBeforeWithholdings.call(payroll)
+    sum_gain - withholdings
+  end
+
+  def withholdings
+    leavetime + sicktime + payroll.extra_deductions
   end
 
   # TODO: minimum_wage for parttime income
