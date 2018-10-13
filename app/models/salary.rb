@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Salary < ApplicationRecord
-  include Givenable
+  include CollectionTranslatable
 
   belongs_to :employee
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Payroll < ApplicationRecord
-  include Givenable
+  include CollectionTranslatable
 
   belongs_to :employee
   belongs_to :salary # 間接關聯，詳見 SalaryService

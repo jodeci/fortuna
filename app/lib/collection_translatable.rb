@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-# 使用方式參考 Salary
-module Givenable
+# 使用方式參考 Salary::ROLE
+module CollectionTranslatable
   def method_missing(method_name)
     if (match = method_name.id2name.match(%r{^given_([\w]+)}))
       "#{model_name}::#{match[1].upcase}".constantize.key(self.send(match[1]))

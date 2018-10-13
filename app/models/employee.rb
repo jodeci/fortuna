@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Employee < ApplicationRecord
-  include Givenable
+  include CollectionTranslatable
 
   has_many :salaries, dependent: :destroy
   accepts_nested_attributes_for :salaries, allow_destroy: true
