@@ -11,9 +11,7 @@ module FormatService
     end
 
     def call
-      if payroll.festival_bonus.positive?
-        hash[title] = payroll.festival_bonus
-      end
+      hash[title] = payroll.festival_bonus if payroll.festival_bonus.positive?
       hash
     end
 

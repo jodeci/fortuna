@@ -23,6 +23,7 @@ module ReportService
             name: row[1][0].name,
           },
           income: format_as_cells(row[1]),
+          festival_bonus: format_festival_bonus(row[1]),
         }
       end
     end
@@ -35,6 +36,19 @@ module ReportService
       cells = []
       1.upto(12) { |month| cells << data.select { |cell| cell.month == month }.first }
       cells
+    end
+
+    def format_festival_bonus(data)
+      hash = {}
+      Payroll::FESTIVAL_BONUS.values.map do |festival_type|
+        hash[festival_type.to_sym] = festival_bonus(data, festival_type)
+      end
+      hash
+    end
+
+    def festival_bonus(data, festival_type)
+      match = data.select { |cell| cell.festival_type == festival_type }.first
+      match ? match.festival_bonus : 0
     end
   end
 end
