@@ -7,8 +7,15 @@
       %th 姓名
       - 1.upto(12) do |month|
         %th= "#{month} 月"
+      %th 端午
+      %th 中秋
+      %th 年終
+
     - @report.each do |row|
       %tr
         %td= link_to row[:employee][:name], employee_path(row[:employee][:id])
         - 12.times do |month|
           = render "cell", cell: row[:income][month]
+        %td
+        %td
+        %td

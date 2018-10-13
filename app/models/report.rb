@@ -22,6 +22,10 @@ class Report < ApplicationRecord
     end
   end
 
+  def adjusted_amount
+    amount - irregular_income - festival_bonus + correction.to_i
+  end
+
   def readonly?
     true
   end
