@@ -33,7 +33,7 @@ module Calculatable
   end
 
   def income_tax
-    TaxService.call(payroll)
+    CalculationService::IncomeTax.call(payroll)
   end
 
   def labor_insurance

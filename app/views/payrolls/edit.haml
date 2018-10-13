@@ -7,7 +7,7 @@
 
 = simple_form_for @payroll do |f|
   = render "basic_form", f: f
-  - if @payroll.salary.regular?
+  - if @payroll.salary.regular_income?
     = render "overtime_form", f: f
   = render "extra_entry_form", f: f
 

@@ -59,31 +59,13 @@ class Salary < ApplicationRecord
     cycle == "business"
   end
 
-  def insuranced?
-    insured_for_labor.positive?
-  end
-
-  def boss?
-    role == "boss"
-  end
-
-  def regular?
-    role == "regular"
-  end
-
-  def contractor?
-    role == "contractor"
-  end
-
-  def parttime?
-    role == "parttime"
-  end
-
-  def advisor?
-    role == "advisor"
-  end
-
   def absent?
     role == "absent"
+  end
+
+  private
+
+  def insuranced?
+    insured_for_labor.positive?
   end
 end
