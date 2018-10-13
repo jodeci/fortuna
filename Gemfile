@@ -28,7 +28,7 @@ gem 'jquery-rails'
 gem 'cocoon'
 
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary', '0.12.3.1' # 0.12.4.0 shrinks text
 gem 'pdf-toolkit'
 
 group :development, :test do
