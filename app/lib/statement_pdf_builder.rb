@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class StatementPDFService
+class StatementPDFBuilder
   attr_reader :statement, :details, :renderer
 
   def initialize(statement)

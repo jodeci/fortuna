@@ -2,7 +2,7 @@
 
 class StatementMailer < ApplicationMailer
   def notify_email(statement)
-    builder = StatementPDFService.new(statement)
+    builder = StatementPDFBuilder.new(statement)
     attachments[builder.filename] = builder.encrypted_pdf
     mail(
       to: statement.employee.email,

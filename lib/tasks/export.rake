@@ -48,7 +48,7 @@ namespace :export do
     end
 
     Statement.by_payroll(ENV["year"], ENV["month"]).paid.each do |statement|
-      builder = StatementPDFService.new(statement)
+      builder = StatementPDFBuilder.new(statement)
       File.write(
         File.join(ENV["path"], builder.filename),
         builder.generate_pdf,
