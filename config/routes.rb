@@ -13,9 +13,9 @@ Rails.application.routes.draw do
 
   resources :reports, only: [:index] do
     collection do
-      get "salary/:year", to: "reports#salary", constraints: { year: /\d{4}/ }
-      get "service/:year", to: "reports#service", constraints: { year: /\d{4}/ }
-      get "irregular/:year", to: "reports#irregular", constraints: { year: /\d{4}/ }
+      get "salary/:year", to: "reports#salary", as: :salary, constraints: { year: /\d{4}/ }
+      get "service/:year", to: "reports#service", as: :service, constraints: { year: /\d{4}/ }
+      get "irregular/:year", to: "reports#irregular", as: :irregular, constraints: { year: /\d{4}/ }
     end
   end
   

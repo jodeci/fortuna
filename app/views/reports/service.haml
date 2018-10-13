@@ -1,6 +1,9 @@
 = render "header"
 
 %h3 #{params[:year]} 年勞務報酬支出表
+
+%p= link_to "匯出 CSV", service_reports_path(params[:year], format: :csv), class: "btn btn-m btn-primary"
+
 - if @report.any?
   %table.table
     %tr
