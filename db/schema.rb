@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181013135559) do
+ActiveRecord::Schema.define(version: 20181013142045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,13 +109,14 @@ ActiveRecord::Schema.define(version: 20181013135559) do
   create_view "reports",  sql_definition: <<-SQL
       SELECT DISTINCT employees.id AS employee_id,
       payrolls.id AS payroll_id,
-      statements.id AS statement_id,
       employees.name,
       payrolls.year,
       payrolls.month,
       salaries.tax_code,
       statements.amount,
       statements.irregular_income,
+      payrolls.festival_bonus,
+      payrolls.festival_type,
       sum(corrections.amount) AS correction
      FROM ((((employees
        JOIN payrolls ON ((employees.id = payrolls.employee_id)))
