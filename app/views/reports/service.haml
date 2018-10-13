@@ -8,10 +8,14 @@
   %table.table
     %tr
       %th 姓名
+      %th.hide 身份證字號
+      %th.hide 戶籍地址
       - 1.upto(12) do |month|
         %th= "#{month} 月"
     - @report.each do |row|
       %tr
         %td= link_to row[:employee][:name], employee_path(row[:employee][:id])
+        %td.hide= row[:employee][:id_number]
+        %td.hide= row[:employee][:address]
         - 12.times do |month|
           = render "cell", cell: row[:income][month]

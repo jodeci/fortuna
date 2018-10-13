@@ -18,10 +18,7 @@ module ReportService
     def generate_report
       income_data.map do |row|
         {
-          employee: {
-            id: row[1][0].employee_id,
-            name: row[1][0].name,
-          },
+          employee: format_employee(row[1][0]),
           income: format_as_cells(row[1]),
           festival_bonus: format_festival_bonus(row[1]),
         }
@@ -30,6 +27,15 @@ module ReportService
 
     def income_data
       Report.salary_income(year).ordered.group_by(&:employee_id)
+    end
+
+    def format_employee(data)
+      {
+        id: data.employee_id,
+        name: data.name,
+        id_number: data.id_number,
+        address: data.residence_address,
+      }
     end
 
     def format_as_cells(data)
