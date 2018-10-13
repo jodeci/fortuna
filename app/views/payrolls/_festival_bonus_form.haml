@@ -1,0 +1,8 @@
+%h2 三節禮金
+%table.table
+  %tr
+    %th.col-sm-1= f.label "名目"
+    %td= f.input_field :festival_type, collection: Payroll::FESTIVAL_BONUS
+  %tr
+    %th.col-sm-1= f.label "金額"
+    %td= f.input_field :festival_bonus

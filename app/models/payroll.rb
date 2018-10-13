@@ -13,6 +13,8 @@ class Payroll < ApplicationRecord
 
   has_one :statement, dependent: :destroy
 
+  FESTIVAL_BONUS = { "端午禮金": "dragonboat", "中秋禮金": "midautumn", "年終獎金": "newyear" }
+
   class << self
     def ordered
       order(year: :desc, month: :desc)
