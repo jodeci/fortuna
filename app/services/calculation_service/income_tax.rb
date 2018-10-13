@@ -54,7 +54,7 @@ module CalculationService
     end
 
     def irregular_income
-      payroll.taxable_irregular_income
+      payroll.taxable_irregular_income + payroll.festival_bonus
     end
 
     def professional_service_income_tax_threshold

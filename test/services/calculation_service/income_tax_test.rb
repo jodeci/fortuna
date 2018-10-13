@@ -33,8 +33,8 @@ class IncomeTaxTest < ActiveSupport::TestCase
   def test_irregular_income_tax
     employee = build(:employee, start_date: "2018-01-01")
     salary = build(:salary, tax_code: "50", monthly_wage: "50000", insured_for_labor: "45800", effective_date: "2018-01-01", employee: employee)
-    payroll = build(:payroll, salary: salary, year: 2018, month: 5, employee: employee) do |pr|
-      create(:extra_entry, taxable: true, amount: 100000, payroll: pr)
+    payroll = build(:payroll, salary: salary, year: 2018, month: 5, festival_bonus: 50000, employee: employee) do |pr|
+      create(:extra_entry, taxable: true, amount: 50000, payroll: pr)
     end
     assert_equal CalculationService::IncomeTax.call(payroll), 5000
   end
