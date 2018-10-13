@@ -18,6 +18,6 @@ Rails.application.routes.draw do
       get "irregular/:year", to: "reports#irregular", as: :irregular, constraints: { year: /\d{4}/ }
     end
   end
-  
+
   root to: "employees#index"
 end

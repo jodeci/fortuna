@@ -42,7 +42,7 @@ module FormatService
 
     def extra_notes
       payroll.extra_entries.map do |extra_entry|
-        notes << extra_entry.note if extra_entry.note.present?
+        notes << extra_entry.note if extra_entry.note?
       end
     end
   end

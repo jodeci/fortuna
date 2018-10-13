@@ -29,8 +29,4 @@ class Statement < ApplicationRecord
   def correct_by
     corrections.sum(:amount)
   end
-
-  def report_amount
-    amount - irregular_income + correct_by
-  end
 end
