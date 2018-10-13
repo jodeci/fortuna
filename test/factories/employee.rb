@@ -21,10 +21,10 @@ FactoryBot.define do
     end
 
     transient do
-      month_salary 50000
-      hour_salary 200
-      build_statement_immediatedly false
-      role "regular"
+      month_salary { 50000 }
+      hour_salary { 200 }
+      build_statement_immediatedly { false }
+      role { "regular" }
     end
 
     factory :resigned_regular_employee do
@@ -65,7 +65,7 @@ FactoryBot.define do
       end
 
       transient do
-        parttime_hours [50, 100, 150]
+        parttime_hours { [50, 100, 150] }
       end
 
       after :create do |employee, ev|

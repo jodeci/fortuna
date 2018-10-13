@@ -2,7 +2,7 @@
 require "simplecov"
 SimpleCov.start
 
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path("../config/environment", __dir__)
 require "rails/test_help"
 
 Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
