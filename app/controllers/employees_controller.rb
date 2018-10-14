@@ -27,7 +27,7 @@ class EmployeesController < ApplicationController
     if @employee.save
       redirect_to @employee
     else
-      render action: :new
+      render :new
     end
   end
 
@@ -42,7 +42,7 @@ class EmployeesController < ApplicationController
     if @employee.update(employee_params)
       redirect_to @employee
     else
-      render action: :edit
+      render :edit
     end
   end
 

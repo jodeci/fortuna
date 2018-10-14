@@ -41,7 +41,7 @@ class StatementsController < ApplicationController
 
   def render_statement
     respond_to do |format|
-      format.html { render template: @details[:template] }
+      format.html { render @details[:template] }
       format.pdf { render_statement_pdf }
     end
   end

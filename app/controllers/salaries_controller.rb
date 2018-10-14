@@ -15,7 +15,7 @@ class SalariesController < ApplicationController
     if SalaryService::Create.call(@salary, salary_params)
       redirect_to @employee
     else
-      render action: :new
+      render :new
     end
   end
 
@@ -29,7 +29,7 @@ class SalariesController < ApplicationController
     if SalaryService::Update.call(@salary, salary_params)
       redirect_to @employee
     else
-      render action: :edit
+      render :edit
     end
   end
 
