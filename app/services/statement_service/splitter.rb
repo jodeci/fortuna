@@ -43,11 +43,7 @@ module StatementService
     end
 
     def paid_amount
-      sum_gain - withholdings
-    end
-
-    def sum_gain
-      CalculationService::TotalIncome.call(payroll)
+      income_before_withholdings
     end
 
     def minimum_wage

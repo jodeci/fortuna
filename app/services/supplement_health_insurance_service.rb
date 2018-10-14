@@ -42,7 +42,7 @@ class SupplementHealthInsuranceService
   end
 
   def income
-    CalculationService::TotalIncome.call(payroll) - withholdings
+    income_before_withholdings
   end
 
   def supplement_premium_rate

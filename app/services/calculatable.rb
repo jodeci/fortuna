@@ -2,16 +2,27 @@
 module Calculatable
   include PayrollPeriodCountable
 
+  # 進項的加總
+  def total_income
+    CalculationService::TotalIncome.call(payroll)
+  end
+
+  # 銷項的加總
+  def total_deduction
+    CalculationService::TotalDeduction.call(payroll)
+  end
+
+  # 扣除代扣所得稅、二代健保之前的淨所得
+  def income_before_withholdings
+    total_income - leavetime - sicktime - payroll.extra_deductions
+  end
+
   def monthly_wage
     scale_for_cycle(payroll.monthly_wage)
   end
 
   def total_wage
     (payroll.parttime_hours * payroll.hourly_wage).round
-  end
-
-  def withholdings
-    leavetime + sicktime + payroll.extra_deductions
   end
 
   def overtime

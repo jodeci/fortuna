@@ -33,7 +33,7 @@ module StatementService
 
     def unsplit_params
       {
-        amount: total,
+        amount: paid_amount,
         year: payroll.year,
         month: payroll.month,
         splits: nil,
@@ -55,16 +55,8 @@ module StatementService
       overtime + vacation_refund + payroll.taxfree_irregular_income
     end
 
-    def total
-      sum_gain - sum_loss
-    end
-
-    def sum_gain
-      CalculationService::TotalIncome.call(payroll)
-    end
-
-    def sum_loss
-      CalculationService::TotalDeduction.call(payroll)
+    def paid_amount
+      total_income - total_deduction
     end
   end
 end

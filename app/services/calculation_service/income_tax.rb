@@ -51,7 +51,7 @@ module CalculationService
     end
 
     def income
-      CalculationService::TotalIncome.call(payroll) - withholdings
+      income_before_withholdings
     end
 
     def irregular_income
