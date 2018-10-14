@@ -4,8 +4,8 @@ class StatementsController < ApplicationController
   before_action :prepare_details, only: [:show, :edit]
 
   def index
-    @q = Statement.paid.ordered.ransack(params[:q])
-    @statements = @q.result(distinct: true).page(params[:page])
+    @query = Statement.paid.ordered.ransack(params[:query])
+    @statements = @query.result(distinct: true).page(params[:page])
   end
 
   def show

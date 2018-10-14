@@ -1,11 +1,11 @@
 %h1 發薪紀錄
 
-= search_form_for @q do |f|
+= search_form_for @query do |f|
   = f.search_field :year_eq
   = f.label "年"
   = f.search_field :month_eq
   = f.label "月"
   = f.submit "查詢"
 
-- if params[:q]
+- if params[:query]
   = render "list", statements: @statements

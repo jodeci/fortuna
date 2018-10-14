@@ -65,6 +65,22 @@
     enabled: false
   FeatureEnvy:
     enabled: false
+  UncommunicativeModuleName:
+    enabled: false
+  UncommunicativeVariableName:
+    enabled: false
+
+"db/views":
+  IrresponsibleModule:
+    enabled: false
+  TooManyStatements:
+    enabled: false
+  DuplicateMethodCall:
+    enabled: false
+  FeatureEnvy:
+    enabled: false
+  UncommunicativeModuleName:
+    enabled: false
   UncommunicativeVariableName:
     enabled: false
 

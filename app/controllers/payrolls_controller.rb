@@ -4,13 +4,13 @@ class PayrollsController < ApplicationController
   before_action :store_location, only: [:index]
 
   def index
-    @q = Payroll.search_result.ransack(params[:q])
-    @payrolls = @q.result(distinct: true).page(params[:page])
+    @query = Payroll.search_result.ransack(params[:query])
+    @payrolls = @query.result(distinct: true).page(params[:page])
   end
 
   def init
-    PayrollsInitService.call(params[:year], params[:month])
-    redirect_to_date(params[:year], params[:month])
+    PayrollsInitService.call(year, month)
+    redirect_to_date
   end
 
   def edit
@@ -43,7 +43,15 @@ class PayrollsController < ApplicationController
     @payroll = Payroll.find_by(id: params[:id]) or not_found
   end
 
-  def redirect_to_date(year, month)
-    redirect_to action: :index, q: { year_eq: year, month_eq: month }
+  def redirect_to_date
+    redirect_to action: :index, query: { year_eq: year, month_eq: month }
+  end
+
+  def year
+    params[:year]
+  end
+
+  def month
+    params[:month]
   end
 end
