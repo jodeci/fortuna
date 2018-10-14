@@ -31,6 +31,14 @@ class Employee < ApplicationRecord
     end
   end
 
+  def find_salary(cycle_start, cycle_end)
+    return if end_date and end_date < cycle_start
+    salaries
+      .where("salaries.effective_date < ?", cycle_end)
+      .ordered
+      .take
+  end
+
   def email
     return personal_email if resigned? or company_email.blank?
     company_email

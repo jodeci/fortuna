@@ -23,7 +23,7 @@ class PayrollInitService
   end
 
   def salary
-    Salary.by_payroll(employee, Date.new(year, month, 1), Date.new(year, month, -1))
+    employee.find_salary(Date.new(year, month, 1), Date.new(year, month, -1))
   end
 
   def skip?
