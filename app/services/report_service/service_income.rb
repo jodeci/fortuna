@@ -39,13 +39,7 @@ module ReportService
 
     def format_as_cells(data)
       cells = []
-      12.times do |month|
-        if month.zero?
-          cells << data.select { |cell| cell.month == 12 and cell.year == year - 1 }.first
-        else
-          cells << data.select { |cell| cell.month == month }.first
-        end
-      end
+      12.times { |month| cells << ReportService::ServiceIncomeCell.call(data, year, month) }
       cells
     end
   end

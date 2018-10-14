@@ -18,7 +18,16 @@ class StatementService
   private
 
   def params
-    split? ? split_params : unsplit_params
+    split_statement? ? split_params : unsplit_params
+  end
+
+  def split_statement?
+    return false if salary.regular_income?
+    splits.present?
+  end
+
+  def splits
+    StatementSplitService.call(payroll)
   end
 
   def unsplit_params
@@ -33,26 +42,12 @@ class StatementService
 
   def split_params
     {
-      amount: split_base,
+      amount: splits.reduce(:+),
       year: payroll.year,
       month: payroll.month,
       splits: splits,
       irregular_income: irregular_income,
     }
-  end
-
-  def splits
-    ratio = split_base / split_threshold
-    array = []
-    ratio.times { array << split_threshold }
-    array << split_base - ratio * split_threshold
-    array.delete 0
-    array
-  end
-
-  def split?
-    return false if salary.regular_income?
-    split_base > split_threshold
   end
 
   def irregular_income
@@ -69,18 +64,5 @@ class StatementService
 
   def sum_loss
     CalculationService::TotalDeduction.call(payroll)
-  end
-
-  def split_base
-    sum_gain - withholdings
-  end
-
-  def withholdings
-    leavetime + sicktime + payroll.extra_deductions
-  end
-
-  # TODO: minimum_wage for parttime income
-  def split_threshold
-    20000
   end
 end

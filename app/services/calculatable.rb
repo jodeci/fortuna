@@ -10,6 +10,10 @@ module Calculatable
     (payroll.parttime_hours * payroll.hourly_wage).round
   end
 
+  def withholdings
+    leavetime + sicktime + payroll.extra_deductions
+  end
+
   def overtime
     payroll.overtimes.reduce(0) do |sum, overtime|
       sum + CalculationService::Overtime.call(overtime)

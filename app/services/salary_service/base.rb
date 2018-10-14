@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# Salary 和 Payroll 是透過日期重疊的間接關聯，因此起薪日變動後需要補正與 Payroll 的關聯
 module SalaryService
   class Base
     include Callable
@@ -21,12 +22,8 @@ module SalaryService
     end
 
     # TODO: 只修正有影響到的部分
-    # Salary 和 Payroll 是透過日期重疊的間接關聯，因此起薪日變動後需要補正與 Payroll 的關聯
     def sync_payroll_relations
-      payrolls.map do |payroll|
-        matched_salary = payroll.find_salary
-        payroll.update(salary: matched_salary) if matched_salary != payroll.salary
-      end
+      payrolls.map { |payroll| SalaryService::SyncPayrollRelations.call(payroll) }
     end
 
     # TODO: 只修正有影響到的部分

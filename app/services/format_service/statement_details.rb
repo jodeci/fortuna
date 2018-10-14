@@ -74,20 +74,7 @@ module FormatService
     end
 
     def details_for_view
-      left = hash_to_array(gain)
-      right = hash_to_array(loss)
-      if left.size > right.size
-        right.fill(right.size..left.size - 1) { { "": nil } }
-      else
-        left.fill(left.size..right.size - 1) { { "": nil } }
-      end
-      left.zip(right)
-    end
-
-    def hash_to_array(hash)
-      array = []
-      hash.map { |key, value| array << { "#{key}": value } }
-      array
+      FormatService::StatementGainLossColumns.call(gain, loss)
     end
 
     def payment_period

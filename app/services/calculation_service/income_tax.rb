@@ -2,6 +2,7 @@
 module CalculationService
   class IncomeTax
     include Callable
+    include Calculatable
 
     attr_reader :payroll, :salary
 
@@ -50,7 +51,7 @@ module CalculationService
     end
 
     def income
-      CalculationService::TotalIncome.call(payroll)
+      CalculationService::TotalIncome.call(payroll) - withholdings
     end
 
     def irregular_income

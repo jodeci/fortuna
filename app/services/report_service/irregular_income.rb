@@ -25,53 +25,20 @@ module ReportService
 
     def vacation_refund
       Payroll.yearly_vacation_refunds(year).reduce([]) do |rows, payroll|
-        rows << format_vacation_refund_cell(payroll)
+        rows << ReportService::VacationRefundCell.call(payroll)
       end
     end
 
     def overtime
       Overtime.yearly_report(year).reduce([]) do |rows, overtime|
-        rows << format_overtime_cell(overtime)
+        rows << ReportService::OvertimeCell.call(overtime)
       end
     end
 
     def extra_entries
       ExtraEntry.yearly_report(year).reduce([]) do |rows, entry|
-        rows << format_extra_entry_cell(entry)
+        rows << ReportService::ExtraEntryCell.call(entry)
       end
-    end
-
-    def format_vacation_refund_cell(payroll)
-      {
-        employee_id: payroll.employee_id,
-        name: payroll.employee_name,
-        period: "#{year}-#{sprintf('%02d', payroll.month)}",
-        description: "特休折現",
-        amount: CalculationService::VacationRefund.call(payroll),
-        payroll_id: payroll.id,
-      }
-    end
-
-    def format_overtime_cell(overtime)
-      {
-        employee_id: overtime.employee_id,
-        name: overtime.employee_name,
-        period: "#{year}-#{sprintf('%02d', overtime.payroll_month)}",
-        description: "加班費",
-        amount: CalculationService::Overtime.call(overtime),
-        payroll_id: overtime.payroll_id,
-      }
-    end
-
-    def format_extra_entry_cell(entry)
-      {
-        employee_id: entry.payroll.employee_id,
-        name: entry.payroll.employee_name,
-        period: "#{year}-#{sprintf('%02d', entry.payroll.month)}",
-        description: entry.title,
-        amount: entry.amount,
-        payroll_id: entry.payroll_id,
-      }
     end
   end
 end
