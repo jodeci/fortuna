@@ -8,7 +8,7 @@
   - payrolls.each do |payroll|
     %tr
       %td= payroll.id
-      %td= payroll.employee.name
+      %td= payroll.employee_name
       %td= payroll.role
       %td= payroll.payment_period
       %td= render "statements", payroll: payroll

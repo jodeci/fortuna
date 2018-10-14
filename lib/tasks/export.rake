@@ -8,9 +8,7 @@ namespace :export do
       abort "usage: rake export:csv year=2018 month=2 path=tmp paydate=yyyymmdd"
     end
 
-    statements = Statement.by_payroll(ENV["year"], ENV["month"]).paid.group_by do |statement|
-      statement.employee.bank_transfer_type
-    end
+    statements = Statement.by_payroll(ENV["year"], ENV["month"]).paid.group_by(&:employee_bank_transfer_type)
 
     # 薪資轉帳
     salary_transfers = statements["salary"].group_by { |statement| statement.payroll.salary.role }

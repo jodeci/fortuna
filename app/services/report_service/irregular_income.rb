@@ -44,7 +44,7 @@ module ReportService
     def format_vacation_refund_cell(payroll)
       {
         employee_id: payroll.employee_id,
-        name: payroll.employee.name,
+        name: payroll.employee_name,
         period: "#{year}-#{sprintf('%02d', payroll.month)}",
         description: "特休折現",
         amount: CalculationService::VacationRefund.call(payroll),
@@ -54,9 +54,9 @@ module ReportService
 
     def format_overtime_cell(overtime)
       {
-        employee_id: overtime.payroll.employee_id,
-        name: overtime.payroll.employee.name,
-        period: "#{year}-#{sprintf('%02d', overtime.payroll.month)}",
+        employee_id: overtime.employee_id,
+        name: overtime.employee_name,
+        period: "#{year}-#{sprintf('%02d', overtime.payroll_month)}",
         description: "加班費",
         amount: CalculationService::Overtime.call(overtime),
         payroll_id: overtime.payroll_id,
@@ -66,7 +66,7 @@ module ReportService
     def format_extra_entry_cell(entry)
       {
         employee_id: entry.payroll.employee_id,
-        name: entry.payroll.employee.name,
+        name: entry.payroll.employee_name,
         period: "#{year}-#{sprintf('%02d', entry.payroll.month)}",
         description: entry.title,
         amount: entry.amount,

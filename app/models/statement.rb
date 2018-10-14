@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 class Statement < ApplicationRecord
   belongs_to :payroll
+
   has_one :employee, through: :payroll
-  delegate :id, to: :employee, prefix: :employee
+  delegate :id, :name, :id_number, :bank_transfer_type, to: :employee, prefix: true
 
   has_many :corrections, dependent: :destroy
   accepts_nested_attributes_for :corrections, allow_destroy: true
@@ -13,7 +14,7 @@ class Statement < ApplicationRecord
     end
 
     def ordered
-      Statement.includes(:payroll, :corrections, payroll: [:salary, :employee])
+      Statement.includes(:payroll, :employee, :corrections, payroll: [:salary, :employee])
         .order("payrolls.employee_id DESC")
     end
 

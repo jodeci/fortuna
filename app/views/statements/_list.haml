@@ -8,7 +8,7 @@
     %th 操作
   - statements.each do |statement|
     %tr
-      %td= statement.payroll.employee.name
+      %td= statement.employee_name
       %td= statement.payroll.role
       %td= statement.payroll.payment_period
       = statement.paid_amount_cell

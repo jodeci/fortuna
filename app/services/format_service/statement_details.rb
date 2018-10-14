@@ -19,9 +19,9 @@ module FormatService
 
     def normal
       {
-        name: payroll.employee.name,
+        name: payroll.employee_name,
         period: payment_period,
-        filename: "#{payment_period} 薪資明細-#{payroll.employee.name}",
+        filename: "#{payment_period} 薪資明細-#{payroll.employee_name}",
         details: details_for_view,
         notes: notes,
         gain: sum_gain,
@@ -34,9 +34,9 @@ module FormatService
 
     def split
       {
-        name: payroll.employee.name,
+        name: payroll.employee_name,
         period: payment_period,
-        filename: "#{payment_period} 勞務報酬明細-#{payroll.employee.name}",
+        filename: "#{payment_period} 勞務報酬明細-#{payroll.employee_name}",
         splits: statement.splits,
         notes: notes,
         correction: correction,

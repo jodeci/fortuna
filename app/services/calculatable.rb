@@ -3,11 +3,11 @@ module Calculatable
   include PayrollPeriodCountable
 
   def monthly_wage
-    scale_for_cycle(payroll.salary.monthly_wage)
+    scale_for_cycle(payroll.monthly_wage)
   end
 
   def total_wage
-    (payroll.parttime_hours * payroll.salary.hourly_wage).round
+    (payroll.parttime_hours * payroll.hourly_wage).round
   end
 
   def overtime
@@ -37,14 +37,14 @@ module Calculatable
   end
 
   def labor_insurance
-    scale_for_30_days(payroll.salary.labor_insurance).round
+    scale_for_30_days(payroll.labor_insurance).round
   end
 
   def equipment_subsidy
-    scale_for_cycle(payroll.salary.equipment_subsidy)
+    scale_for_cycle(payroll.equipment_subsidy)
   end
 
   def supervisor_allowance
-    scale_for_cycle(payroll.salary.supervisor_allowance)
+    scale_for_cycle(payroll.supervisor_allowance)
   end
 end

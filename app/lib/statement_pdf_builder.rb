@@ -28,7 +28,7 @@ class StatementPDFBuilder
   end
 
   def filename
-    "#{filename_prefix}-#{statement.employee.name}.pdf"
+    "#{filename_prefix}-#{statement.employee_name}.pdf"
   end
 
   def email_subject
@@ -42,7 +42,7 @@ class StatementPDFBuilder
   end
 
   def encrypt_pdf
-    PDF::Toolkit.pdftk(pdf_file_path, "output", encrypt_file_path, "user_pw", statement.employee.id_number)
+    PDF::Toolkit.pdftk(pdf_file_path, "output", encrypt_file_path, "user_pw", encrypt_password)
   end
 
   def pdf_file_path
@@ -55,6 +55,10 @@ class StatementPDFBuilder
 
   def temp_dir
     "tmp/pdfs"
+  end
+
+  def encrypt_password
+    statement.employee_id_number
   end
 
   def filename_prefix
