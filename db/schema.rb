@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181013163043) do
+ActiveRecord::Schema.define(version: 2018_10_14_044335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20181013163043) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["statement_id"], name: "index_corrections_on_statement_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -36,6 +37,8 @@ ActiveRecord::Schema.define(version: 20181013163043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "bank_transfer_type", default: "salary"
+    t.index ["end_date"], name: "index_employees_on_end_date"
+    t.index ["start_date"], name: "index_employees_on_start_date"
   end
 
   create_table "extra_entries", force: :cascade do |t|
@@ -46,6 +49,7 @@ ActiveRecord::Schema.define(version: 20181013163043) do
     t.integer "payroll_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["payroll_id"], name: "index_extra_entries_on_payroll_id"
   end
 
   create_table "overtimes", force: :cascade do |t|
@@ -55,6 +59,7 @@ ActiveRecord::Schema.define(version: 20181013163043) do
     t.integer "payroll_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["payroll_id"], name: "index_overtimes_on_payroll_id"
   end
 
   create_table "payrolls", force: :cascade do |t|
@@ -70,7 +75,9 @@ ActiveRecord::Schema.define(version: 20181013163043) do
     t.integer "salary_id"
     t.integer "festival_bonus", default: 0
     t.string "festival_type"
+    t.index ["employee_id"], name: "index_payrolls_on_employee_id"
     t.index ["month"], name: "index_payrolls_on_month"
+    t.index ["salary_id"], name: "index_payrolls_on_salary_id"
     t.index ["year"], name: "index_payrolls_on_year"
   end
 
@@ -92,6 +99,8 @@ ActiveRecord::Schema.define(version: 20181013163043) do
     t.integer "insured_for_labor", default: 0
     t.string "cycle", default: "normal"
     t.float "monthly_wage_adjustment", default: 1.0
+    t.index ["effective_date"], name: "index_salaries_on_effective_date"
+    t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end
 
   create_table "statements", force: :cascade do |t|
@@ -103,6 +112,7 @@ ActiveRecord::Schema.define(version: 20181013163043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "irregular_income", default: 0
+    t.index ["payroll_id"], name: "index_statements_on_payroll_id"
   end
 
 
