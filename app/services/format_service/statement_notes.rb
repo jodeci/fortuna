@@ -13,17 +13,29 @@ module FormatService
     end
 
     def call
-      employment_date_notes
-      hourly_based_note(payroll.parttime_hours, "工作時數")
-      hourly_based_note(payroll.vacation_refund_hours, "特休折現")
-      overtime_notes
-      hourly_based_note(payroll.leavetime_hours, "扣薪事假")
-      hourly_based_note(payroll.sicktime_hours, "扣薪病假")
-      extra_notes
+      generate_notes
       notes
     end
 
     private
+
+    def generate_notes
+      employment_date_notes
+      income_notes
+      deduction_notes
+      extra_notes
+    end
+
+    def income_notes
+      hourly_based_note(payroll.parttime_hours, "工作時數")
+      hourly_based_note(payroll.vacation_refund_hours, "特休折現")
+      overtime_notes
+    end
+
+    def deduction_notes
+      hourly_based_note(payroll.leavetime_hours, "扣薪事假")
+      hourly_based_note(payroll.sicktime_hours, "扣薪病假")
+    end
 
     def hourly_based_note(hours, title)
       notes << "#{title} #{hours} 小時" if hours.positive?

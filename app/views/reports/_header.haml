@@ -1,6 +1,6 @@
 %h1 年度報表
-= simple_form_for :query, url: reports_path, method: :get do |f|
-  = f.input_field :year, collection: Report.years, selected: params[:year] || Time.zone.now.year
-  = f.label "年度", required: false
-  = f.input_field :income_type, collection: Report::INCOME_TYPE, selected: action_name
-  = f.submit "送出"
+= form_tag(reports_path, method: :get) do |f|
+  = select_tag :year, options_for_select(Report.years, (params[:year] || Date.today.year))
+  = label_tag "年度"
+  = select_tag :report_type, options_for_select(Report::INCOME_TYPE, params[:report_type])
+  = submit_tag "送出"
