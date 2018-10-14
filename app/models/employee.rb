@@ -31,10 +31,6 @@ class Employee < ApplicationRecord
     end
   end
 
-  def calculate_until
-    end_date || Date.today
-  end
-
   def email
     return personal_email if resigned? or company_email.blank?
     company_email

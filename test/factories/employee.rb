@@ -44,7 +44,8 @@ FactoryBot.define do
           }
         )
 
-        TimeDifference.between(employee.start_date, employee.calculate_until).in_months.round.times do |i|
+        employee_end_date = employee.end_date || Date.today
+        TimeDifference.between(employee.start_date, employee_end_date).in_months.round.times do |i|
           d = employee.start_date.months_since(i)
           create(:payroll,
             {
@@ -78,7 +79,8 @@ FactoryBot.define do
           }
         )
 
-        TimeDifference.between(employee.start_date, employee.calculate_until).in_months.round.times do |i|
+        employee_end_date = employee.end_date || Date.today
+        TimeDifference.between(employee.start_date, employee_end_date).in_months.round.times do |i|
           d = employee.start_date.months_since(i)
           create(:payroll,
             {
