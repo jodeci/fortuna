@@ -35,6 +35,6 @@ class PayrollInitService
   end
 
   def sync_statement
-    StatementSyncService.call(payroll)
+    StatementService::Builder.call(payroll)
   end
 end

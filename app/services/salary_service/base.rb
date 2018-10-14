@@ -28,7 +28,7 @@ module SalaryService
 
     # TODO: 只修正有影響到的部分
     def sync_statements
-      payrolls.map { |payroll| StatementSyncService.call(payroll) }
+      payrolls.map { |payroll| StatementService::Builder.call(payroll) }
     end
   end
 end

@@ -7,7 +7,7 @@ FactoryBot.define do
     end
 
     after :create do |payroll, ev|
-      StatementService.new(payroll).build if ev.build_statement_immediatedly
+      StatementService::Builder.call(payroll) if ev.build_statement_immediatedly
     end
   end
 end

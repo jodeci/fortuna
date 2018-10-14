@@ -18,7 +18,7 @@ class PayrollsController < ApplicationController
 
   def update
     if @payroll.update(payroll_params)
-      StatementSyncService.call(@payroll)
+      StatementService::Builder.call(@payroll)
       redirect_to session.delete(:return_to)
     else
       render :edit

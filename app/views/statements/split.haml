@@ -13,9 +13,16 @@
         %tr
           %td.text-center ##{idx + 1}
           %td.text-right{colspan: 3}= number_with_delimiter split
+      - unless @details[:correction].zero?
+        %tr
+          %th.text-center 系統結算
+          %td.text-right{colspan: 3}= number_with_delimiter @details[:total]
+        %tr
+          %th.text-center 報表校正
+          %td.text-right{colspan: 3}= number_with_delimiter @details[:correction]
       %tr.info
         %th.text-center 總計
-        %td.text-right{colspan: 3}= number_with_delimiter @details[:total]
+        %td.text-right{colspan: 3}= number_with_delimiter(@details[:total] + @details[:correction])
       %tr
         %th.text-center 備註
         %td{colspan: 3}
