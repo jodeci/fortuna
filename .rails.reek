@@ -95,6 +95,8 @@
     enabled: false
   TooManyMethods:
     enabled: false
+  TooManyStatements:
+    enabled: false
 
 "app/helpers":
   IrresponsibleModule:
