@@ -30,6 +30,10 @@ module CalculationService
       monthly_wage + payroll.extra_income
     end
 
+    def vendor
+      contractor
+    end
+
     def parttime
       total_wage + salary.commuting_subsidy + payroll.extra_income
     end

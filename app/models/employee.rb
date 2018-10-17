@@ -8,7 +8,7 @@ class Employee < ApplicationRecord
   has_many :payrolls, dependent: :destroy
   has_many :statements, through: :payrolls, source: :statement
 
-  BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "normal" }.freeze
+  BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "normal", "ATM/臨櫃": "atm" }.freeze
 
   class << self
     def ordered

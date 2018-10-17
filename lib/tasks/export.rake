@@ -37,6 +37,16 @@ namespace :export do
         encoding: "big5"
       )
     end
+
+    # ATM/臨櫃轉帳
+    if statements["atm"]
+      filename = "#{ENV['year']}#{sprintf('%02d', ENV['month'])}_atm.csv"
+      File.write(
+        File.join(ENV["path"], filename),
+        EsunBankCSVService.call(statements["atm"], "atm", ENV["paydate"]),
+        encoding: "utf-8" # 給人類看的
+      )
+    end
   end
 
   desc "export statements to pdf"
@@ -62,6 +72,7 @@ namespace :export do
     end
 
     Statement.by_payroll(ENV["year"], ENV["month"]).paid.each do |statement|
+      next if statement.employee.email.blank?
       StatementMailer.notify_email(statement).deliver
     end
   end

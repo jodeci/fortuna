@@ -41,6 +41,10 @@ module FormatService
       { "#{salary_label}": monthly_wage }.merge(extra_gain)
     end
 
+    def vendor
+      contractor
+    end
+
     def parttime
       {
         薪資: total_wage,

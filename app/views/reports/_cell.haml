@@ -1,5 +1,5 @@
 - if cell.present?
-  - if cell.amount.zero?
+  - if cell.adjusted_amount.zero?
     %td 0
   - else
     %td= link_to number_with_delimiter(cell.adjusted_amount), edit_payroll_path(cell.payroll_id)

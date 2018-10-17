@@ -46,6 +46,10 @@ module FormatService
       }.merge(extra_loss)
     end
 
+    def vendor
+      contractor
+    end
+
     def parttime
       {
         勞保費: labor_insurance,

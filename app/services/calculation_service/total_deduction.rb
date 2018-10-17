@@ -33,6 +33,10 @@ module CalculationService
       basic + leavetime
     end
 
+    def vendor
+      contractor
+    end
+
     def parttime
       basic
     end

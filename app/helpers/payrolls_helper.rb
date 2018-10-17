@@ -23,10 +23,10 @@ module PayrollsHelper
   end
 
   def q_year
-    params.dig(:q, :year_eq).to_i
+    params.dig(:query, :year_eq).to_i
   end
 
   def q_month
-    params.dig(:q, :month_eq).to_i
+    params.dig(:query, :month_eq).to_i
   end
 end

@@ -68,4 +68,10 @@ class EsunBankCSVRowBuilder
     7.times { row.push nil }
     row
   end
+
+  def to_atm(amount: statement.amount)
+    row = []
+    row.push(employee.bank_account.slice(0, 3), employee.bank_account.slice(4, 16), employee.name, amount)
+    row
+  end
 end

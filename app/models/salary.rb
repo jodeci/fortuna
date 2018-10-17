@@ -9,6 +9,7 @@ class Salary < ApplicationRecord
     "老闆": "boss",
     "正職": "regular",
     "約聘": "contractor",
+    "外包": "vendor",
     "實習/工讀": "parttime",
     "顧問/講師": "advisor",
     "留職停薪": "absent",
@@ -54,6 +55,11 @@ class Salary < ApplicationRecord
 
   def absent?
     role == "absent"
+  end
+
+  # 無僱傭關係的合作對象
+  def partner?
+    role == "vendor" or role == "advisor"
   end
 
   private
