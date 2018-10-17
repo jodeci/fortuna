@@ -25,6 +25,11 @@
       %td= f.input_field :bank_account
       %th= f.label "轉帳方式"
       %td= f.input_field :bank_transfer_type, collection: Employee::BANK_TRANSFER_TYPE
+    %tr
+      %th= f.label "非個人所得"
+      %td{colspan: 3}
+        = f.input_field :b2b
+        付款對象可開立發票，不列入勞務報酬
 
   .text-center
     = f.submit "送出"

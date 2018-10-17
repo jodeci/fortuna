@@ -11,6 +11,13 @@ module IncomeTaxService
     end
 
     def call
+      return 0 if payroll.employee.b2b?
+      dispatch
+    end
+
+    private
+
+    def dispatch
       if salary.professional_service?
         IncomeTaxService::ProfessionalService.call(payroll)
       elsif salary.parttime_income?

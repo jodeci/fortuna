@@ -24,3 +24,7 @@
     %td= employee.bank_account
     %th 轉帳方式
     %td= employee.given_bank_transfer_type
+  -if employee.b2b?
+    %tr
+      %th 非個人所得
+      %td{colspan: 3} 付款對象可開立發票，不列入勞務報酬

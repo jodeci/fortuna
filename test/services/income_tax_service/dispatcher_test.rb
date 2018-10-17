@@ -3,9 +3,17 @@ require "test_helper"
 require "minitest/mock"
 
 class DispatcherTest < ActiveSupport::TestCase
+  def test_bypass_when_business
+    employee = build(:employee, b2b: true)
+    salary = build(:salary)
+    payroll = build(:payroll, salary: salary, employee: employee)
+    assert_equal IncomeTaxService::Dispatcher.call(payroll), 0
+  end
+
   def test_dispatches_to_professional_service
+    employee = build(:employee)
     salary = build(:salary, tax_code: "9a")
-    payroll = build(:payroll, salary: salary)
+    payroll = build(:payroll, salary: salary, employee: employee)
 
     mock = MiniTest::Mock.new
     mock.expect(:call, 0, [payroll])
@@ -18,8 +26,9 @@ class DispatcherTest < ActiveSupport::TestCase
   end
 
   def test_dispatches_to_uninsuranced_salary
+    employee = build(:employee)
     salary = build(:salary, tax_code: "50", insured_for_labor: 0)
-    payroll = build(:payroll, salary: salary)
+    payroll = build(:payroll, salary: salary, employee: employee)
 
     mock = MiniTest::Mock.new
     mock.expect(:call, 0, [payroll])
@@ -32,8 +41,9 @@ class DispatcherTest < ActiveSupport::TestCase
   end
 
   def test_dispatches_to_irregular_income
+    employee = build(:employee)
     salary = build(:salary, tax_code: "50", insured_for_labor: 11100)
-    payroll = build(:payroll, salary: salary)
+    payroll = build(:payroll, salary: salary, employee: employee)
 
     mock = MiniTest::Mock.new
     mock.expect(:call, 0, [payroll])

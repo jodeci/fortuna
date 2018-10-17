@@ -25,7 +25,7 @@ class SupplementHealthInsuranceService
   private
 
   def eligible_for_nhi2g?
-    return false if salary.regular_income?
+    return false if salary.regular_income? or payroll.employee.b2b?
     service_income_eligible? or parttime_income_eligible?
   end
 

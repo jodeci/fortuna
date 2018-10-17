@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_14_044335) do
+ActiveRecord::Schema.define(version: 2018_10_17_081241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_044335) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "bank_transfer_type", default: "salary"
+    t.boolean "b2b", default: false
     t.index ["end_date"], name: "index_employees_on_end_date"
     t.index ["start_date"], name: "index_employees_on_start_date"
   end
@@ -135,6 +136,7 @@ ActiveRecord::Schema.define(version: 2018_10_14_044335) do
        JOIN salaries ON ((salaries.id = payrolls.salary_id)))
        JOIN statements ON ((payrolls.id = statements.payroll_id)))
        LEFT JOIN corrections ON ((statements.id = corrections.statement_id)))
+    WHERE (employees.b2b = false)
     GROUP BY employees.id, payrolls.id, statements.id, salaries.tax_code;
   SQL
 
