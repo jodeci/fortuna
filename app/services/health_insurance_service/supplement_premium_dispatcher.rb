@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-module IncomeTaxService
-  class Dispatcher
+module HealthInsuranceService
+  class SupplementPremiumDispatcher
     include Callable
+    include Calculatable
 
     attr_reader :payroll, :salary
 
@@ -19,11 +20,11 @@ module IncomeTaxService
 
     def dispatch
       if salary.professional_service?
-        IncomeTaxService::ProfessionalService.call(payroll)
-      elsif salary.parttime_income_uninsured_for_labor?
-        IncomeTaxService::UninsurancedSalary.call(payroll)
+        HealthInsuranceService::ProfessionalService.call(payroll)
+      elsif salary.parttime_income_uninsured_for_health?
+        HealthInsuranceService::ParttimeIncome.call(payroll)
       else
-        IncomeTaxService::IrregularIncome.call(payroll)
+        HealthInsuranceService::BonusIncome.call(payroll)
       end
     end
   end

@@ -2,6 +2,7 @@
 module IncomeTaxService
   class IrregularIncome
     include Callable
+    include Calculatable
 
     attr_reader :payroll
 
@@ -22,7 +23,7 @@ module IncomeTaxService
     end
 
     def irregular_income
-      payroll.taxable_irregular_income + payroll.festival_bonus
+      bonus_income + payroll.extra_income_of(:salary)
     end
 
     def exemption

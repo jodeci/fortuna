@@ -2,6 +2,8 @@
 module Calculatable
   include PayrollPeriodCountable
 
+  delegate :extra_income, to: :payroll
+
   # 進項的加總
   def total_income
     CalculationService::TotalIncome.call(payroll)
@@ -15,6 +17,28 @@ module Calculatable
   # 扣除代扣所得稅、二代健保之前的淨所得
   def income_before_withholdings
     total_income - leavetime - sicktime - payroll.extra_deductions
+  end
+
+  def taxable_income
+    income_before_withholdings - subsidy_income
+  end
+
+  # 獎金
+  def bonus_income
+    payroll.extra_income_of(:bonus) + payroll.festival_bonus
+  end
+
+  # 超出健保投保薪資之收入
+  def excess_income
+    return 0 unless salary.insured_for_health.positive?
+    base = (total_income - total_deduction - subsidy_income)
+    gap = base - salary.insured_for_health
+    gap.positive? ? gap : 0
+  end
+
+  # 補助費用（不屬薪資所得）
+  def subsidy_income
+    overtime + vacation_refund + payroll.extra_income_of(:subsidy)
   end
 
   def monthly_wage
@@ -44,7 +68,7 @@ module Calculatable
   end
 
   def supplement_premium
-    SupplementHealthInsuranceService.call(payroll)
+    HealthInsuranceService::SupplementPremiumDispatcher.call(payroll)
   end
 
   def income_tax

@@ -24,7 +24,7 @@ module StatementService
     end
 
     def split_base
-      if salary.parttime_income?
+      if salary.parttime_income_uninsured_for_labor?
         minimum_wage
       else
         professional_service_threshold

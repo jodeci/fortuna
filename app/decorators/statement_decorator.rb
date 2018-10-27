@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module StatementDecorator
   def declared_income
-    amount - irregular_income + correct_by
+    amount - subsidy_income + correct_by
   end
 
   def declared_income_cell
@@ -23,7 +23,7 @@ module StatementDecorator
   private
 
   def declared_income_style
-    irregular_income.positive? ? "highlight" : nil
+    subsidy_income.positive? ? "highlight" : nil
   end
 
   def paid_amount_style

@@ -15,6 +15,7 @@ class Payroll < ApplicationRecord
   accepts_nested_attributes_for :extra_entries, allow_destroy: true
 
   has_one :statement, dependent: :destroy
+  delegate :excess_income, to: :statement
 
   FESTIVAL_BONUS = { "端午禮金": "dragonboat", "中秋禮金": "midautumn", "年終獎金": "newyear" }.freeze
 
@@ -46,15 +47,9 @@ class Payroll < ApplicationRecord
     employee.find_salary(Date.new(year, month, 1), Date.new(year, month, -1))
   end
 
-  def taxable_irregular_income
+  def extra_income_of(income_type)
     extra_entries
-      .where("taxable = true and amount > 0")
-      .sum(:amount)
-  end
-
-  def taxfree_irregular_income
-    extra_entries
-      .where("taxable = false and amount > 0")
+      .where("income_type = ? AND amount > 0", income_type)
       .sum(:amount)
   end
 

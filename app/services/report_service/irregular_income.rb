@@ -36,7 +36,7 @@ module ReportService
     end
 
     def extra_entries
-      ExtraEntry.yearly_report(year).reduce([]) do |rows, entry|
+      ExtraEntry.yearly_subsidy_report(year).reduce([]) do |rows, entry|
         rows << ReportService::ExtraEntryCell.call(entry)
       end
     end

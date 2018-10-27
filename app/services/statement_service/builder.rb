@@ -37,7 +37,8 @@ module StatementService
         year: payroll.year,
         month: payroll.month,
         splits: nil,
-        irregular_income: irregular_income,
+        subsidy_income: subsidy_income,
+        excess_income: excess_income,
       }
     end
 
@@ -47,12 +48,9 @@ module StatementService
         year: payroll.year,
         month: payroll.month,
         splits: splits,
-        irregular_income: irregular_income,
+        subsidy_income: subsidy_income,
+        excess_income: 0,
       }
-    end
-
-    def irregular_income
-      overtime + vacation_refund + payroll.taxfree_irregular_income
     end
 
     def paid_amount

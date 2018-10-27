@@ -13,13 +13,13 @@ module IncomeTaxService
     # 兼職所得超過免稅額 需代扣 5% 所得稅
     def call
       return 0 unless taxable?
-      (income_before_withholdings * rate).round
+      (taxable_income * rate).round
     end
 
     private
 
     def taxable?
-      income_before_withholdings > exemption
+      taxable_income > exemption
     end
 
     def exemption

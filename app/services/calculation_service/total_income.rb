@@ -18,16 +18,16 @@ module CalculationService
     private
 
     def boss
-      monthly_wage + payroll.extra_income + payroll.festival_bonus
+      monthly_wage + extra_income + payroll.festival_bonus
     end
 
     def regular
       monthly_wage + equipment_subsidy + supervisor_allowance +
-      overtime + vacation_refund + payroll.extra_income + payroll.festival_bonus
+      overtime + vacation_refund + extra_income + payroll.festival_bonus
     end
 
     def contractor
-      monthly_wage + payroll.extra_income
+      monthly_wage + extra_income
     end
 
     def vendor
@@ -35,11 +35,11 @@ module CalculationService
     end
 
     def parttime
-      total_wage + salary.commuting_subsidy + payroll.extra_income
+      total_wage + salary.commuting_subsidy + extra_income
     end
 
     def advisor
-      total_wage + payroll.extra_income
+      total_wage + extra_income
     end
   end
 end

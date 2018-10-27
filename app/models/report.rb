@@ -23,6 +23,6 @@ class Report < ApplicationRecord
   end
 
   def adjusted_amount
-    amount - irregular_income - festival_bonus + correction.to_i
+    amount - subsidy_income - festival_bonus + correction.to_i
   end
 end

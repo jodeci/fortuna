@@ -35,7 +35,7 @@ class PayrollsController < ApplicationController
       :parttime_hours, :leavetime_hours, :sicktime_hours,
       :vacation_refund_hours, :festival_bonus, :festival_type,
       overtimes_attributes: [:date, :rate, :hours, :_destroy, :id],
-      extra_entries_attributes: [:title, :amount, :taxable, :note, :_destroy, :id]
+      extra_entries_attributes: [:title, :amount, :income_type, :note, :_destroy, :id]
     )
   end
 

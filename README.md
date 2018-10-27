@@ -38,9 +38,9 @@
 
 `$ rake export:email year=2018 month=1`
 
-#### 代扣所得稅
+#### 所得稅、補充保費（代繳總金額）
 
-`$ rake withholding:tax year=2018 month=1`
+`$ rake gov:payment year=2018 month=1`
 
 ### 注意事項
 - 百廢待舉，還沒有做任何 validation，建資料時請自己注意不要建錯

@@ -45,6 +45,7 @@ module CalculationService
       supplement_premium + income_tax + payroll.extra_deductions
     end
 
+    # 健保費以足月計算，不做天數調整
     def health_insurance
       salary.health_insurance
     end

@@ -36,12 +36,17 @@ class Salary < ApplicationRecord
 
   # 一般薪資所得
   def regular_income?
-    tax_code == "50" and insuranced?
+    tax_code == "50" and insured_for_labor.positive?
   end
 
-  # 兼職薪資所得
-  def parttime_income?
-    tax_code == "50" and !insuranced?
+  # 兼職薪資所得（所得稅用）
+  def parttime_income_uninsured_for_labor?
+    tax_code == "50" and insured_for_labor.zero?
+  end
+
+  # 兼職薪資所得（二代健保用）
+  def parttime_income_uninsured_for_health?
+    tax_code == "50" and insured_for_health.zero?
   end
 
   # 執行業務所得
@@ -60,11 +65,5 @@ class Salary < ApplicationRecord
   # 無僱傭關係的合作對象
   def partner?
     role == "vendor" or role == "advisor"
-  end
-
-  private
-
-  def insuranced?
-    insured_for_labor.positive?
   end
 end

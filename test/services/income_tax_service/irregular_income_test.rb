@@ -3,20 +3,25 @@ require "test_helper"
 
 class IrregularIncomeTest < ActiveSupport::TestCase
   def test_income_tax_over_exemption
-    employee = build(:employee, start_date: "2018-01-01")
-    salary = build(:salary, tax_code: "50", monthly_wage: "50000", insured_for_labor: "45800", effective_date: "2018-01-01", employee: employee)
-    payroll = build(:payroll, salary: salary, year: 2018, month: 5, festival_bonus: 50000, employee: employee) do |pr|
-      create(:extra_entry, taxable: true, amount: 50000, payroll: pr)
-    end
-    assert_equal IncomeTaxService::IrregularIncome.call(payroll), 5000
+    subject = prepare_subject(festival_bonus: 50000, extra_amount: 50000)
+    assert_equal IncomeTaxService::IrregularIncome.call(subject), 5000
   end
 
   def test_income_tax_under_exemption
-    employee = build(:employee, start_date: "2018-01-01")
-    salary = build(:salary, tax_code: "50", monthly_wage: "50000", insured_for_labor: "45800", effective_date: "2018-01-01", employee: employee)
-    payroll = build(:payroll, salary: salary, year: 2018, month: 5, employee: employee) do |pr|
-      create(:extra_entry, taxable: true, amount: 50000, payroll: pr)
-    end
-    assert_equal IncomeTaxService::IrregularIncome.call(payroll), 0
+    subject = prepare_subject(extra_amount: 50000)
+    assert_equal IncomeTaxService::IrregularIncome.call(subject), 0
+  end
+
+  private
+
+  def prepare_subject(festival_bonus: 0, extra_amount: 0)
+    build(
+      :payroll,
+      year: 2018,
+      month: 5,
+      festival_bonus: festival_bonus,
+      salary: build(:salary, monthly_wage: 30000),
+      employee: build(:employee)
+    ) { |payroll| create(:extra_entry, income_type: :salary, amount: extra_amount, payroll: payroll) }
   end
 end

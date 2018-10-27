@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_081241) do
+ActiveRecord::Schema.define(version: 2018_10_28_142154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2018_10_17_081241) do
     t.datetime "updated_at", null: false
     t.string "bank_transfer_type", default: "salary"
     t.boolean "b2b", default: false
+    t.boolean "owner", default: false
     t.index ["end_date"], name: "index_employees_on_end_date"
     t.index ["start_date"], name: "index_employees_on_start_date"
   end
@@ -45,11 +46,11 @@ ActiveRecord::Schema.define(version: 2018_10_17_081241) do
   create_table "extra_entries", force: :cascade do |t|
     t.string "title"
     t.integer "amount", default: 0
-    t.boolean "taxable", default: false
     t.string "note"
     t.integer "payroll_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "income_type", default: "salary"
     t.index ["payroll_id"], name: "index_extra_entries_on_payroll_id"
   end
 
@@ -112,7 +113,8 @@ ActiveRecord::Schema.define(version: 2018_10_17_081241) do
     t.integer "payroll_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "irregular_income", default: 0
+    t.integer "subsidy_income", default: 0
+    t.integer "excess_income", default: 0
     t.index ["payroll_id"], name: "index_statements_on_payroll_id"
   end
 
@@ -127,7 +129,7 @@ ActiveRecord::Schema.define(version: 2018_10_17_081241) do
       payrolls.month,
       salaries.tax_code,
       statements.amount,
-      statements.irregular_income,
+      statements.subsidy_income,
       payrolls.festival_bonus,
       payrolls.festival_type,
       sum(corrections.amount) AS correction
@@ -138,6 +140,26 @@ ActiveRecord::Schema.define(version: 2018_10_17_081241) do
        LEFT JOIN corrections ON ((statements.id = corrections.statement_id)))
     WHERE (employees.b2b = false)
     GROUP BY employees.id, payrolls.id, statements.id, salaries.tax_code;
+  SQL
+
+  create_view "payroll_details",  sql_definition: <<-SQL
+      SELECT DISTINCT employees.id AS employee_id,
+      payrolls.id AS payroll_id,
+      payrolls.year,
+      payrolls.month,
+      salaries.tax_code,
+      salaries.monthly_wage,
+      salaries.insured_for_health,
+      statements.splits,
+      statements.amount,
+      statements.subsidy_income,
+      statements.excess_income,
+      employees.owner
+     FROM (((employees
+       JOIN payrolls ON ((employees.id = payrolls.employee_id)))
+       JOIN salaries ON ((salaries.id = payrolls.salary_id)))
+       JOIN statements ON ((payrolls.id = statements.payroll_id)))
+    WHERE (employees.b2b = false);
   SQL
 
 end
