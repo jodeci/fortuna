@@ -18,7 +18,7 @@ module HealthInsuranceService
     private
 
     def premium
-      PayrollDetail.monthly_bonus(year: year, month: month).reduce(0) do |sum, row|
+      PayrollDetail.monthly_excess_payment(year: year, month: month).reduce(0) do |sum, row|
         sum + HealthInsuranceService::BonusIncome.call(Payroll.find(row.payroll_id))
       end
     end

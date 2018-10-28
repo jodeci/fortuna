@@ -17,7 +17,7 @@ module HealthInsuranceService
     private
 
     def premium_base
-      owner_income + salary_insurance_gaps
+      owner_income + excess_payments
     end
 
     # 負責人薪資全額
@@ -28,14 +28,8 @@ module HealthInsuranceService
     end
 
     # （負責人以外）實發薪資與投保薪資的差額
-    def salary_insurance_gaps
-      PayrollDetail.monthly_salary(year: year, month: month).reduce(0) do |sum, row|
-        sum + salary_insurance_gap(row)
-      end
-    end
-
-    def salary_insurance_gap(row)
-      row.amount - row.subsidy_income - row.insured_for_health
+    def excess_payments
+      PayrollDetail.monthly_excess_payment(year: year, month: month).sum(:excess_income)
     end
 
     def rate
