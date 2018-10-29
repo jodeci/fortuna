@@ -3,7 +3,7 @@
 module CollectionTranslatable
   def method_missing(method_name)
     if (match = method_name.id2name.match(%r{^given_([\w]+)}))
-      "#{model_name}::#{match[1].upcase}".constantize.key(self.send(match[1]))
+      "#{model_name}::#{match[1].upcase}".constantize.key(self.send(match[1])).to_s
     else
       super
     end

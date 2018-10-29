@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 module StatementDecorator
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::NumberHelper
+  include ActionView::Context
+
   def declared_income
     amount - subsidy_income + correct_by
   end
