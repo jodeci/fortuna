@@ -39,6 +39,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.0'
   gem 'faker'
   gem 'time_difference'
+  gem 'timecop'
 end
 
 group :development do

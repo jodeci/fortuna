@@ -227,6 +227,7 @@ GEM
     tilt (2.0.8)
     time_difference (0.7.0)
       activesupport (~> 5.1)
+    timecop (0.9.1)
     turbolinks (5.2.0)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -283,6 +284,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   taiwanese_id_validator
   time_difference
+  timecop
   turbolinks (~> 5)
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
