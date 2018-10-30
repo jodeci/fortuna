@@ -2,10 +2,6 @@
 require "test_helper"
 
 class PayrollPeriodCountableTest < ActiveSupport::TestCase
-  def subject(payroll)
-    CalculationService::TotalIncome.new(payroll)
-  end
-
   def test_first_month_true
     employee = build(:employee, start_date: "2015-05-13", end_date: "2017-10-20")
     payroll = build(:payroll, year: 2015, month: 5, employee: employee)
@@ -126,5 +122,11 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
     salary = create(:salary, effective_date: "2018-02-21", employee: employee, cycle: "business")
     payroll = build(:payroll, year: 2018, month: 2, employee: employee, salary: salary)
     assert_equal subject(payroll).days_in_cycle, 15
+  end
+
+  private
+
+  def subject(payroll)
+    CalculationService::TotalIncome.new(payroll)
   end
 end

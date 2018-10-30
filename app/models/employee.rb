@@ -16,7 +16,8 @@ class Employee < ApplicationRecord
     end
 
     def active
-      Employee.where(end_date: nil)
+      Employee
+        .where(end_date: nil)
         .or(Employee.where("end_date > ?", Date.today.at_beginning_of_month))
     end
 

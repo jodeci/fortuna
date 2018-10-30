@@ -14,7 +14,8 @@ class Statement < ApplicationRecord
     end
 
     def ordered
-      Statement.includes(:payroll, :employee, :corrections, payroll: [:salary, :employee])
+      Statement
+        .includes(:payroll, :employee, :corrections, payroll: [:salary, :employee])
         .order("payrolls.employee_id DESC")
     end
 

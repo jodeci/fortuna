@@ -6,7 +6,8 @@ class ExtraEntry < ApplicationRecord
 
   class << self
     def yearly_subsidy_report(year)
-      ExtraEntry.includes(:payroll, payroll: :employee)
+      ExtraEntry
+        .includes(:payroll, payroll: :employee)
         .where("amount > 0 AND income_type = ?", :subsidy)
         .joins(:payroll)
         .where("payrolls.year = ?", year)

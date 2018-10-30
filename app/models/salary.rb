@@ -20,11 +20,12 @@ class Salary < ApplicationRecord
 
   class << self
     def ordered
-      order(effective_date: :desc)
+      Salary.order(effective_date: :desc)
     end
 
     def recent_for(employee)
-      where(employee_id: employee.id)
+      Salary
+        .where(employee_id: employee.id)
         .ordered
         .take
     end
@@ -36,7 +37,7 @@ class Salary < ApplicationRecord
 
   # 一般薪資所得
   def regular_income?
-    tax_code == "50" and insured_for_labor.positive?
+    tax_code == "50" and insured_for_labor.positive? and insured_for_health.positive?
   end
 
   # 兼職薪資所得（所得稅用）
@@ -64,6 +65,6 @@ class Salary < ApplicationRecord
 
   # 無僱傭關係的合作對象
   def partner?
-    role == "vendor" or role == "advisor"
+    %w(vendor advisor).include? role
   end
 end

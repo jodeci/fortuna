@@ -97,6 +97,10 @@
     enabled: false
   TooManyStatements:
     enabled: false
+  InstanceVariableAssumption:
+    enabled: false
+  NestedIterators:
+    enabled: false
 
 "app/helpers":
   IrresponsibleModule:

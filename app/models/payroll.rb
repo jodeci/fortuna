@@ -21,24 +21,26 @@ class Payroll < ApplicationRecord
 
   class << self
     def ordered
-      order(year: :desc, month: :desc)
+      Payroll.order(year: :desc, month: :desc)
     end
 
     def search_result
-      includes(:employee, :salary, :statement)
+      Payroll
+        .includes(:employee, :salary, :statement)
         .order(employee_id: :desc)
     end
 
     def personal_history
-      includes(:salary, :statement, statement: :corrections)
+      Payroll.includes(:salary, :statement, statement: :corrections)
     end
 
     def details
-      includes(:salary, :extra_entries, :overtimes)
+      Payroll.includes(:salary, :extra_entries, :overtimes)
     end
 
     def yearly_vacation_refunds(year)
-      includes(:employee, :salary)
+      Payroll
+        .includes(:employee, :salary)
         .where("vacation_refund_hours > 0 and year = ?", year)
     end
   end

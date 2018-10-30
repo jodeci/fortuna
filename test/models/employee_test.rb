@@ -39,10 +39,66 @@ class EmployeeTest < ActiveSupport::TestCase
     assert_equal salary.monthly_wage, 40000
   end
 
+  def test_email
+    assert_equal john.email, "john@5xruby.tw"
+    assert_equal jack.email, "jack@gmail.com"
+    assert_equal jane.email, "jane@gmail.com"
+  end
+
+  def test_resigned
+    assert jack.resigned?
+    assert_not john.resigned?
+  end
+
+  def test_scope_on_payroll_201802
+    Timecop.freeze(Date.new(2018, 2, 19)) do
+      assert Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? john
+      assert Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? jack
+      assert_not Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? jane
+    end
+  end
+
+  def test_scope_on_payroll_201805
+    Timecop.freeze(Date.new(2018, 5, 20)) do
+      assert Employee.on_payroll(Date.new(2018, 5, 1), Date.new(2018, 5, -1)).include? john
+      assert_not Employee.on_payroll(Date.new(2018, 5, 1), Date.new(2018, 5, -1)).include? jack
+      assert Employee.on_payroll(Date.new(2018, 5, 1), Date.new(2018, 5, -1)).include? jane
+    end
+  end
+
+  def test_scope_active
+    Timecop.freeze(Date.new(2017, 12, 13)) do
+      assert Employee.active.include? john
+      assert Employee.active.include? jack
+    end
+
+    Timecop.freeze(Date.new(2018, 3, 1)) do
+      assert Employee.active.include? john
+      assert_not Employee.active.include? jack
+    end
+  end
+
+  def test_scope_inactive
+    Timecop.freeze(Date.new(2017, 12, 13)) do
+      assert_not Employee.inactive.include? jack
+      assert_not Employee.inactive.include? john
+    end
+
+    Timecop.freeze(Date.new(2018, 3, 1)) do
+      assert Employee.inactive.include? jack
+      assert_not Employee.inactive.include? john
+    end
+  end
+
+  def test_scope_ordered
+    5.times { create(:employee) }
+    assert Employee.ordered.each_cons(2).all? { |first, second| first.id >= second.id }
+  end
+
   private
 
   def emp
-    @emp ||= FactoryBot.create :employee_with_payrolls, month_salary: 50000, build_statement_immediatedly: false
+    @emp ||= create(:employee_with_payrolls, month_salary: 50000, build_statement_immediatedly: false)
   end
 
   def months_until_now
@@ -54,5 +110,17 @@ class EmployeeTest < ActiveSupport::TestCase
       create(:salary, monthly_wage: 36000, effective_date: "2015-05-13", employee: employee, role: "regular")
       create(:salary, monthly_wage: 40000, effective_date: "2015-09-01", employee: employee, role: "regular")
     end
+  end
+
+  def john
+    @john ||= create(:employee, start_date: "2017-01-01", company_email: "john@5xruby.tw", personal_email: "john@gmail.com")
+  end
+
+  def jack
+    @jack ||= create(:employee, start_date: "2017-10-01", end_date: "2018-02-06", company_email: "jack@5xruby.tw", personal_email: "jack@gmail.com")
+  end
+
+  def jane
+    @jane ||= create(:employee, start_date: "2018-03-01", company_email: nil, personal_email: "jane@gmail.com")
   end
 end
