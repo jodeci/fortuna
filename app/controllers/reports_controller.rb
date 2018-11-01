@@ -53,6 +53,6 @@ class ReportsController < ApplicationController
   end
 
   def filename
-    "#{action_name}_#{params[:year]}.csv"
+    "#{params[:year]}_#{t(action_name, scope: :reports)}.csv"
   end
 end
