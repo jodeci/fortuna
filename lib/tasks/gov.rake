@@ -7,6 +7,11 @@ namespace :gov do
       abort "usage: rake gov:payment year=2018 month=2"
     end
 
+    puts "公司統一編號 #{ENV['company_tax_id']}"
+    puts "勞保投保代號 #{ENV['company_labor_insurance_id']}"
+    puts "健保投保代號 #{ENV['company_health_insurance_id']}"
+    puts "------"
+
     sum = 0
     Payroll.where(year: ENV["year"], month: ENV["month"]).map do |payroll|
       next if payroll.statement.splits?

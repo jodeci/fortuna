@@ -1,3 +1,6 @@
 company_bank_account: "1234567890123"
 email_sender: "test@example.com"
 statement_bcc: "bob@example.com, alice@example.com"
+company_tax_id: ""
+company_labor_insurance_id: ""
+company_health_insurance_id: ""
