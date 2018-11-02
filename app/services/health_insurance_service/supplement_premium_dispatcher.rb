@@ -2,7 +2,6 @@
 module HealthInsuranceService
   class SupplementPremiumDispatcher
     include Callable
-    include Calculatable
 
     attr_reader :payroll, :salary
 
