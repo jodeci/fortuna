@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "test_helper"
 
-class BusinessCalendarDaysTest < ActiveSupport::TestCase
+class BusinessCalendarDaysServiceTest < ActiveSupport::TestCase
   def test_2018_02
     assert_equal BusinessCalendarDaysService.call(Date.new(2018, 2, 1), Date.new(2018, 2, 28)), 15
   end

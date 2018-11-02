@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "test_helper"
 
-class SalaryTest < ActiveSupport::TestCase
+class SalaryDecoratorTest < ActiveSupport::TestCase
   def test_monthly_wage
     subject = decorated_subject(monthly_wage: 50000)
     assert_equal subject.wage_type, "月薪"

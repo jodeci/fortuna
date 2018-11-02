@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "test_helper"
 
-class PayrollTest < ActiveSupport::TestCase
+class PayrollDecoratorTest < ActiveSupport::TestCase
   def test_role
     assert_equal decorated_subject.role, "正職"
   end

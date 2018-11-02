@@ -17,9 +17,13 @@ module IncomeTaxService
     private
 
     def exemption_by_date
-      84500 if date >= Date.new(2018, 1, 1)
-      73500 if date.between? Date.new(2017, 1, 1), Date.new(2017, 12, 31)
-      73000 # 再往下寫沒意義
+      if date >= Date.new(2018, 1, 1)
+        84500
+      elsif date >= Date.new(2017, 1, 1)
+        73500
+      else
+        73000 # 再往下寫沒意義
+      end
     end
   end
 end

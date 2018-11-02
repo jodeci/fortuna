@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "test_helper"
 
-class StatementTest < ActiveSupport::TestCase
+class StatementDecoratorTest < ActiveSupport::TestCase
   def test_declared_income
     subject = decorated_subject(amount: 10000, subsidy: 500, correction: 5)
     assert_equal subject.declared_income, 9505

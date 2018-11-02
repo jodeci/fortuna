@@ -2,11 +2,11 @@
 require "test_helper"
 require "minitest/mock"
 
-module IncomeTaxService
+module HealthInsuranceService
   class DispatcherTest < ActiveSupport::TestCase
     def test_bypass_when_business
       subject = prepare_subject(tax_code: nil, insured: 0, b2b: true)
-      assert_equal IncomeTaxService::Dispatcher.call(subject), 0
+      assert_equal HealthInsuranceService::Dispatcher.call(subject), 0
     end
 
     def test_dispatches_to_professional_service
@@ -14,32 +14,32 @@ module IncomeTaxService
       mock = MiniTest::Mock.new
       mock.expect(:call, 0, [subject])
 
-      IncomeTaxService::ProfessionalService.stub :call, mock do
-        assert IncomeTaxService::Dispatcher.call(subject)
+      HealthInsuranceService::ProfessionalService.stub :call, mock do
+        assert HealthInsuranceService::Dispatcher.call(subject)
       end
 
       assert_mock mock
     end
 
-    def test_dispatches_to_uninsuranced_salary
+    def test_dispatches_to_parttime_income
       subject = prepare_subject(tax_code: 50, insured: 0, b2b: false)
       mock = MiniTest::Mock.new
       mock.expect(:call, 0, [subject])
 
-      IncomeTaxService::UninsurancedSalary.stub :call, mock do
-        assert IncomeTaxService::Dispatcher.call(subject)
+      HealthInsuranceService::ParttimeIncome.stub :call, mock do
+        assert HealthInsuranceService::Dispatcher.call(subject)
       end
 
       assert_mock mock
     end
 
-    def test_dispatches_to_irregular_income
-      subject = prepare_subject(tax_code: 50, insured: 11100, b2b: false)
+    def test_dispatches_to_bonus_income
+      subject = prepare_subject(tax_code: 50, insured: 22000, b2b: false)
       mock = MiniTest::Mock.new
       mock.expect(:call, 0, [subject])
 
-      IncomeTaxService::IrregularIncome.stub :call, mock do
-        assert IncomeTaxService::Dispatcher.call(subject)
+      HealthInsuranceService::BonusIncome.stub :call, mock do
+        assert HealthInsuranceService::Dispatcher.call(subject)
       end
 
       assert_mock mock
@@ -50,7 +50,7 @@ module IncomeTaxService
     def prepare_subject(tax_code:, insured:, b2b:)
       build(
         :payroll,
-        salary: build(:salary, tax_code: tax_code, insured_for_labor: insured),
+        salary: build(:salary, tax_code: tax_code, insured_for_health: insured),
         employee: build(:employee, b2b: b2b)
       )
     end

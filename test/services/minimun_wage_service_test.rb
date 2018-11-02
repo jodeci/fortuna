@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "test_helper"
 
-class MinimumWageTest < ActiveSupport::TestCase
+class MinimumWageServiceTest < ActiveSupport::TestCase
   def test_after_201801
     assert_equal MinimumWageService.call(2018, 1), 22000
   end
