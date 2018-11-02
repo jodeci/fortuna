@@ -43,7 +43,7 @@ class ReportsController < ApplicationController
   def generate_csv_data
     data_table.css("tr").map do |row|
       row.css("td, th").map(&:text).to_csv
-    end.join
+    end.join.encode("big5", undef: :replace, replace: "")
   end
 
   def data_table
