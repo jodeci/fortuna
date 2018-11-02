@@ -10,8 +10,8 @@ end
 
 p4r = Payroll.where(employee_id: regular_employees.map(&:id))
 
-p4r.select{|p| p.month == 9}.each{|p| p.extra_entries.create title: "中秋禮金", amount: 1500, taxable: true }
-p4r.sample(5).each{|p| p.extra_entries.create title: "誤餐費", amount: 240 }
+p4r.select{|p| p.month == 9}.each{|p| p.extra_entries.create title: "中秋禮金", amount: 1500, income_type: "bonus" }
+p4r.sample(5).each{|p| p.extra_entries.create title: "誤餐費", amount: 240, income_type: "subsidy" }
 p4r.sample(4).each do |p|
   d = Date.new(p.year,p.month,1)
   ed = d.end_of_month
