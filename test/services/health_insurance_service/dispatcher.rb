@@ -2,10 +2,10 @@
 require "test_helper"
 require "minitest/mock"
 
-class SupplementPremiumDispatcherTest < ActiveSupport::TestCase
+class DispatcherTest < ActiveSupport::TestCase
   def test_bypass_when_business
     subject = prepare_subject(tax_code: nil, insured_for_health: 0, b2b: true)
-    assert_equal HealthInsuranceService::SupplementPremiumDispatcher.call(subject), 0
+    assert_equal HealthInsuranceService::Dispatcher.call(subject), 0
   end
 
   def test_dispatches_to_professional_service
@@ -14,7 +14,7 @@ class SupplementPremiumDispatcherTest < ActiveSupport::TestCase
     mock.expect(:call, 0, [subject])
 
     HealthInsuranceService::ProfessionalService.stub :call, mock do
-      assert HealthInsuranceService::SupplementPremiumDispatcher.call(subject)
+      assert HealthInsuranceService::Dispatcher.call(subject)
     end
 
     assert_mock mock
@@ -26,7 +26,7 @@ class SupplementPremiumDispatcherTest < ActiveSupport::TestCase
     mock.expect(:call, 0, [subject])
 
     HealthInsuranceService::ParttimeIncome.stub :call, mock do
-      assert HealthInsuranceService::SupplementPremiumDispatcher.call(subject)
+      assert HealthInsuranceService::Dispatcher.call(subject)
     end
 
     assert_mock mock
@@ -38,7 +38,7 @@ class SupplementPremiumDispatcherTest < ActiveSupport::TestCase
     mock.expect(:call, 0, [subject])
 
     HealthInsuranceService::BonusIncome.stub :call, mock do
-      assert HealthInsuranceService::SupplementPremiumDispatcher.call(subject)
+      assert HealthInsuranceService::Dispatcher.call(subject)
     end
 
     assert_mock mock

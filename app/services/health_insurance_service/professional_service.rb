@@ -1,8 +1,30 @@
 # frozen_string_literal: true
 # 二代健保：執行業務所得 單次給付超過兩萬元
 module HealthInsuranceService
-  class ProfessionalService < SupplementPremium
+  class ProfessionalService
+    include Callable
+    include Calculatable
+
+    attr_reader :payroll
+
+    def initialize(payroll)
+      @payroll = payroll
+    end
+
+    def call
+      return 0 unless eligible?
+      premium
+    end
+
     private
+
+    def premium
+      (premium_base * rate).round
+    end
+
+    def rate
+      0.0191
+    end
 
     def eligible?
       taxable_income > exemption

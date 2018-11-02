@@ -68,7 +68,7 @@ module Calculatable
   end
 
   def supplement_premium
-    HealthInsuranceService::SupplementPremiumDispatcher.call(payroll)
+    HealthInsuranceService::Dispatcher.call(payroll)
   end
 
   def income_tax

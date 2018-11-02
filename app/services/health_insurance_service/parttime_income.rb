@@ -1,8 +1,30 @@
 # frozen_string_literal: true
 # 二代健保：兼職薪資所得 單次給付超過最低薪資
 module HealthInsuranceService
-  class ParttimeIncome < SupplementPremium
+  class ParttimeIncome
+    include Callable
+    include Calculatable
+
+    attr_reader :payroll
+
+    def initialize(payroll)
+      @payroll = payroll
+    end
+
+    def call
+      return 0 unless eligible?
+      premium
+    end
+
     private
+
+    def premium
+      (premium_base * rate).round
+    end
+
+    def rate
+      0.0191
+    end
 
     def eligible?
       taxable_income > exemption

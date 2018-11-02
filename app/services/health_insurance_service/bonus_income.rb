@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 # 二代健保：同一年內獎金超過投保薪資四倍
 module HealthInsuranceService
-  class BonusIncome < SupplementPremium
+  class BonusIncome
+    include Callable
+    include Calculatable
+
     attr_reader :payroll, :salary
 
     def initialize(payroll)
@@ -9,7 +12,20 @@ module HealthInsuranceService
       @salary = payroll.salary
     end
 
+    def call
+      return 0 unless eligible?
+      premium
+    end
+
     private
+
+    def premium
+      (premium_base * rate).round
+    end
+
+    def rate
+      0.0191
+    end
 
     def eligible?
       bonus_over_exemption.positive?

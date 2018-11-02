@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module HealthInsuranceService
-  class SupplementPremiumDispatcher
+  class Dispatcher
     include Callable
 
     attr_reader :payroll, :salary
