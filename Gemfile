@@ -40,6 +40,7 @@ group :development, :test do
   gem 'faker'
   gem 'time_difference'
   gem 'timecop'
+  gem 'mocha'
 end
 
 group :development do

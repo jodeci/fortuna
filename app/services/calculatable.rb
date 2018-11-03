@@ -30,9 +30,9 @@ module Calculatable
 
   # 超出健保投保薪資之收入
   def excess_income
-    return 0 unless salary.insured_for_health.positive?
+    return 0 unless payroll.insured_for_health.positive?
     base = (total_income - total_deduction - subsidy_income)
-    gap = base - salary.insured_for_health
+    gap = base - payroll.insured_for_health
     gap.positive? ? gap : 0
   end
 
