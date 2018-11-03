@@ -8,6 +8,7 @@ AllCops:
     - db/**/*
     - config/**/*
     - test/factories/*
+    - lib/**/*
 
 Rails:
   Enabled: true

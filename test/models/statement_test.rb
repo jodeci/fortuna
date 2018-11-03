@@ -45,9 +45,7 @@ class StatementTest < ActiveSupport::TestCase
 
   def prepare_corrected_statement(amount:)
     statement = build(:statement, payroll: build(:payroll))
-    if amount.positive?
-      create(:correction, statement: statement, amount: amount)
-    end
+    create(:correction, statement: statement, amount: amount) if amount.positive?
     statement
   end
 end
