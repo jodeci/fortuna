@@ -1,0 +1,24 @@
+---
+exclude_paths:
+  - config
+  - lib
+  - test
+  - db
+
+detectors:
+  IrresponsibleModule:  
+    enabled: false
+  NestedIterators:
+    max_allowed_nesting: 2
+  DuplicateMethodCall:
+    max_calls: 2
+  UtilityFunction:
+    enabled: false
+  BooleanParameter:
+    exclude:
+      - "CollectionTranslatable#respond_to_missing?" # monkey patch, can't fix
+
+directories:
+  "app/controllers":
+    InstanceVariableAssumption:
+      enabled: false
