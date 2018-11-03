@@ -5,12 +5,12 @@ module IncomeTaxService
   class IrregularIncomeTest < ActiveSupport::TestCase
     def test_income_tax_over_exemption
       subject = prepare_subject(festival_bonus: 50000, extra_amount: 50000)
-      assert_equal IncomeTaxService::IrregularIncome.call(subject), 5000
+      assert_equal 5000, IncomeTaxService::IrregularIncome.call(subject)
     end
 
     def test_income_tax_under_exemption
       subject = prepare_subject(extra_amount: 50000)
-      assert_equal IncomeTaxService::IrregularIncome.call(subject), 0
+      assert_equal 0, IncomeTaxService::IrregularIncome.call(subject)
     end
 
     private

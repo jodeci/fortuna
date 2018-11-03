@@ -6,7 +6,7 @@ module IncomeTaxService
   class DispatcherTest < ActiveSupport::TestCase
     def test_bypass_when_business
       subject = prepare_subject(tax_code: nil, insured: 0, b2b: true)
-      assert_equal IncomeTaxService::Dispatcher.call(subject), 0
+      assert_equal 0, IncomeTaxService::Dispatcher.call(subject)
     end
 
     def test_dispatches_to_professional_service

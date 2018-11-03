@@ -3,7 +3,7 @@ require "test_helper"
 
 class EmployeeDecoratorTest < ActiveSupport::TestCase
   def test_role
-    assert_equal decorated_subject.role, "正職"
+    assert_equal "正職", decorated_subject.role
   end
 
   private

@@ -3,11 +3,11 @@ require "test_helper"
 
 class PayrollDecoratorTest < ActiveSupport::TestCase
   def test_role
-    assert_equal decorated_subject.role, "正職"
+    assert_equal "正職", decorated_subject.role
   end
 
   def test_payment_period
-    assert_equal decorated_subject.payment_period, "2018-09"
+    assert_equal "2018-09", decorated_subject.payment_period
   end
 
   private

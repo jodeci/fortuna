@@ -6,15 +6,15 @@ class SalaryTest < ActiveSupport::TestCase
     employee = create(:employee)
     create(:salary, effective_date: "2018-01-01", employee: employee)
     create(:salary, effective_date: "2018-03-01", employee: employee)
-    assert_equal Salary.recent_for(employee).effective_date, Date.new(2018, 3, 1)
+    assert_equal Date.new(2018, 3, 1), Salary.recent_for(employee).effective_date
   end
 
   def test_adjusted_monthly_wage_for_regular_employee
     fulltime = build(:salary, monthly_wage: 30000, equipment_subsidy: 800)
     parttime = build(:salary, monthly_wage: 30000, equipment_subsidy: 800, monthly_wage_adjustment: 0.6)
 
-    assert_equal fulltime.income_with_subsidies, 30800
-    assert_equal parttime.income_with_subsidies, 50800
+    assert_equal 30800, fulltime.income_with_subsidies
+    assert_equal 50800, parttime.income_with_subsidies
   end
 
   def test_regular_income

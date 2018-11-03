@@ -8,22 +8,22 @@ module HealthInsuranceService
     def test_yearly_premium
       # 全年累計 0, 扣除額 96000
       subject = prepare_subject(month: 1, insured: 24000, bonus: 0)
-      assert_equal HealthInsuranceService::BonusIncome.call(subject), 0
+      assert_equal 0, HealthInsuranceService::BonusIncome.call(subject)
 
       # 全年累計 100000, 扣除額 96000, 獎投差額 4000, 當月獎金 100000
       # 計費基準為 4000
       subject = prepare_subject(month: 2, insured: 24000, bonus: 100000)
-      assert_equal HealthInsuranceService::BonusIncome.call(subject), 76
+      assert_equal 76, HealthInsuranceService::BonusIncome.call(subject)
 
       # 全年累計 120000, 扣除額 100800, 獎投差額 19200, 當月獎金 20000
       # 計費基準為 19200
       subject = prepare_subject(month: 6, insured: 25200, bonus: 20000)
-      assert_equal HealthInsuranceService::BonusIncome.call(subject), 367
+      assert_equal 367, HealthInsuranceService::BonusIncome.call(subject)
 
       # 全年累計 125000, 扣除額 100800, 獎投差額 24200, 當月獎金 5000
       # 計費基準為 5000
       subject = prepare_subject(month: 9, insured: 25200, bonus: 5000)
-      assert_equal HealthInsuranceService::BonusIncome.call(subject), 96
+      assert_equal 96, HealthInsuranceService::BonusIncome.call(subject)
     end
 
     private

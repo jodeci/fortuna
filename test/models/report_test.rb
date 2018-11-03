@@ -7,7 +7,7 @@ class ReportTest < ActiveSupport::TestCase
     prepare_report(year: 2017, month: 1, tax_code: 50)
     prepare_report(year: 2018, month: 1, tax_code: "9a")
 
-    assert_equal Report.years.sort, [2016, 2017, 2018]
+    assert_equal [2016, 2017, 2018], Report.years.sort
   end
 
   def test_scope_salary_income
@@ -15,8 +15,8 @@ class ReportTest < ActiveSupport::TestCase
     prepare_report(year: 2018, month: 1, tax_code: 50)
     prepare_report(year: 2018, month: 2, tax_code: 50)
 
-    assert_equal Report.salary_income(2017).count, 1
-    assert_equal Report.salary_income(2018).count, 2
+    assert_equal 1, Report.salary_income(2017).count
+    assert_equal 2, Report.salary_income(2018).count
   end
 
   def test_scope_service_income
@@ -24,8 +24,8 @@ class ReportTest < ActiveSupport::TestCase
     prepare_report(year: 2018, month: 1, tax_code: "9a")
     prepare_report(year: 2018, month: 2, tax_code: "9a")
 
-    assert_equal Report.service_income(2017).count, 0
-    assert_equal Report.service_income(2018).count, 3
+    assert_equal 0, Report.service_income(2017).count
+    assert_equal 3, Report.service_income(2018).count
   end
 
   def test_scope_ordered
@@ -37,7 +37,7 @@ class ReportTest < ActiveSupport::TestCase
 
   def test_adjusted_amount
     prepare_adjusted_report
-    assert_equal Report.first.adjusted_amount, 19510
+    assert_equal 19510, Report.first.adjusted_amount
   end
 
   private

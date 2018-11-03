@@ -23,8 +23,8 @@ class PayrollTest < ActiveSupport::TestCase
     5.times { prepare_vacations(year: 2017) }
     3.times { prepare_vacations(year: 2018) }
 
-    assert_equal Payroll.yearly_vacation_refunds(2017).count, 5
-    assert_equal Payroll.yearly_vacation_refunds(2018).count, 3
+    assert_equal 5, Payroll.yearly_vacation_refunds(2017).count
+    assert_equal 3, Payroll.yearly_vacation_refunds(2018).count
   end
 
   def test_scope_personal_history
@@ -58,12 +58,12 @@ class PayrollTest < ActiveSupport::TestCase
   def test_extra_entries
     subject = prepare_extra_entries
 
-    assert_equal subject.extra_income_of("bonus"), 100
-    assert_equal subject.extra_income_of("subsidy"), 200
-    assert_equal subject.extra_income_of("salary"), 500
+    assert_equal 100, subject.extra_income_of("bonus")
+    assert_equal 200, subject.extra_income_of("subsidy")
+    assert_equal 500, subject.extra_income_of("salary")
 
-    assert_equal subject.extra_income, 800
-    assert_equal subject.extra_deductions, 10
+    assert_equal 800, subject.extra_income
+    assert_equal 10, subject.extra_deductions
   end
 
   private

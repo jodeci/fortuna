@@ -5,12 +5,12 @@ module IncomeTaxService
   class ProfessionalServiceTest < ActiveSupport::TestCase
     def test_income_tax_over_exemption
       subject = prepare_subject(monthly_wage: 30000)
-      assert_equal IncomeTaxService::ProfessionalService.call(subject), 3000
+      assert_equal 3000, IncomeTaxService::ProfessionalService.call(subject)
     end
 
     def test_income_tax_under_exemption
       subject = prepare_subject(monthly_wage: 20000)
-      assert_equal IncomeTaxService::ProfessionalService.call(subject), 0
+      assert_equal 0, IncomeTaxService::ProfessionalService.call(subject)
     end
 
     private

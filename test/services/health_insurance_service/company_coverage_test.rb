@@ -8,7 +8,7 @@ module HealthInsuranceService
       prepare_employee(excess: 6000)
       prepare_employee(excess: 14000)
       prepare_employee(excess: 0)
-      assert_equal HealthInsuranceService::CompanyCoverage.call(2016, 1), 2292
+      assert_equal 2292, HealthInsuranceService::CompanyCoverage.call(2016, 1)
     end
 
     private

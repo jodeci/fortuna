@@ -5,12 +5,12 @@ module HealthInsuranceService
   class ProfessionalServiceTest < ActiveSupport::TestCase
     def test_premium_over_exemption
       subject = prepare_subject(monthly_wage: 36000)
-      assert_equal HealthInsuranceService::ProfessionalService.call(subject), 688
+      assert_equal 688, HealthInsuranceService::ProfessionalService.call(subject)
     end
 
     def test_premium_under_exemption
       subject = prepare_subject(monthly_wage: 20000)
-      assert_equal HealthInsuranceService::ProfessionalService.call(subject), 0
+      assert_equal 0, HealthInsuranceService::ProfessionalService.call(subject)
     end
 
     private

@@ -6,16 +6,16 @@ class StatementTest < ActiveSupport::TestCase
     3.times { prepare_statement(year: 2018, month: 1, amount: 100) }
     2.times { prepare_statement(year: 2018, month: 3, amount: 0) }
 
-    assert_equal Statement.paid.count, 3
+    assert_equal 3, Statement.paid.count
   end
 
   def test_scope_by_payroll
     2.times { prepare_statement(year: 2018, month: 1) }
     3.times { prepare_statement(year: 2018, month: 2) }
 
-    assert_equal Statement.by_payroll(2017, 1).count, 0
-    assert_equal Statement.by_payroll(2018, 1).count, 2
-    assert_equal Statement.by_payroll(2018, 2).count, 3
+    assert_equal 0, Statement.by_payroll(2017, 1).count
+    assert_equal 2, Statement.by_payroll(2018, 1).count
+    assert_equal 3, Statement.by_payroll(2018, 2).count
   end
 
   def test_scope_ordered

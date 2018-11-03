@@ -4,14 +4,14 @@ require "test_helper"
 class SalaryDecoratorTest < ActiveSupport::TestCase
   def test_monthly_wage
     subject = decorated_subject(monthly_wage: 50000)
-    assert_equal subject.wage_type, "月薪"
-    assert_equal subject.wage, 50000
+    assert_equal "月薪", subject.wage_type
+    assert_equal 50000, subject.wage
   end
 
   def test_hourly_wage
     subject = decorated_subject(hourly_wage: 200)
-    assert_equal subject.wage_type, "時薪"
-    assert_equal subject.wage, 200
+    assert_equal "時薪", subject.wage_type
+    assert_equal 200, subject.wage
   end
 
   private

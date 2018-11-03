@@ -25,15 +25,15 @@ class EmployeeTest < ActiveSupport::TestCase
     salary2 = create(:salary, effective_date: "2015-09-01", employee: employee)
 
     assert_nil employee.find_salary(Date.new(2015, 4, 1), Date.new(2015, 4, -1))
-    assert_equal employee.find_salary(Date.new(2015, 5, 1), Date.new(2015, 5, -1)), salary1
-    assert_equal employee.find_salary(Date.new(2015, 9, 1), Date.new(2015, 9, -1)), salary2
+    assert_equal salary1, employee.find_salary(Date.new(2015, 5, 1), Date.new(2015, 5, -1))
+    assert_equal salary2, employee.find_salary(Date.new(2015, 9, 1), Date.new(2015, 9, -1))
     assert_nil employee.find_salary(Date.new(2016, 12, 1), Date.new(2016, 12, -1))
   end
 
   def test_email
-    assert_equal john.email, "john@5xruby.tw"
-    assert_equal jack.email, "jack@gmail.com"
-    assert_equal jane.email, "jane@gmail.com"
+    assert_equal "john@5xruby.tw", john.email
+    assert_equal "jack@gmail.com", jack.email
+    assert_equal "jane@gmail.com", jane.email
   end
 
   def test_resigned

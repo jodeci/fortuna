@@ -4,14 +4,14 @@ require "test_helper"
 class StatementDecoratorTest < ActiveSupport::TestCase
   def test_declared_income
     subject = decorated_subject(amount: 10000, subsidy: 500, correction: 5)
-    assert_equal subject.declared_income, 9505
-    assert_equal subject.declared_income_cell, '<td class="highlight">9,505</td>'
+    assert_equal 9505, subject.declared_income
+    assert_equal '<td class="highlight">9,505</td>', subject.declared_income_cell
   end
 
   def test_paid_amount
     subject = decorated_subject(amount: 10000, subsidy: 500, correction: 5)
-    assert_equal subject.paid_amount, 10005
-    assert_equal subject.paid_amount_cell, '<td class="highlight">10,005</td>'
+    assert_equal 10005, subject.paid_amount
+    assert_equal '<td class="highlight">10,005</td>', subject.paid_amount_cell
   end
 
   private

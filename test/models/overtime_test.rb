@@ -9,7 +9,7 @@ class OvertimeTest < ActiveSupport::TestCase
   end
 
   def test_yearly_report
-    assert_equal Overtime.yearly_report(2017).count, 1
-    assert_equal Overtime.yearly_report(2018).count, 2
+    assert_equal 1, Overtime.yearly_report(2017).count
+    assert_equal 2, Overtime.yearly_report(2018).count
   end
 end
