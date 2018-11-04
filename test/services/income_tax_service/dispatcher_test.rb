@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "test_helper"
-require "minitest/mock"
+require "mocha/minitest"
 
 module IncomeTaxService
   class DispatcherTest < ActiveSupport::TestCase
@@ -11,38 +11,20 @@ module IncomeTaxService
 
     def test_dispatches_to_professional_service
       subject = prepare_subject(tax_code: "9a", insured: 0, b2b: false)
-      mock = MiniTest::Mock.new
-      mock.expect(:call, 0, [subject])
-
-      IncomeTaxService::ProfessionalService.stub :call, mock do
-        assert IncomeTaxService::Dispatcher.call(subject)
-      end
-
-      assert_mock mock
+      IncomeTaxService::ProfessionalService.expects(:call).returns(true)
+      assert IncomeTaxService::Dispatcher.call(subject)
     end
 
     def test_dispatches_to_uninsuranced_salary
       subject = prepare_subject(tax_code: 50, insured: 0, b2b: false)
-      mock = MiniTest::Mock.new
-      mock.expect(:call, 0, [subject])
-
-      IncomeTaxService::UninsurancedSalary.stub :call, mock do
-        assert IncomeTaxService::Dispatcher.call(subject)
-      end
-
-      assert_mock mock
+      IncomeTaxService::UninsurancedSalary.expects(:call).returns(true)
+      assert IncomeTaxService::Dispatcher.call(subject)
     end
 
     def test_dispatches_to_irregular_income
       subject = prepare_subject(tax_code: 50, insured: 11100, b2b: false)
-      mock = MiniTest::Mock.new
-      mock.expect(:call, 0, [subject])
-
-      IncomeTaxService::IrregularIncome.stub :call, mock do
-        assert IncomeTaxService::Dispatcher.call(subject)
-      end
-
-      assert_mock mock
+      IncomeTaxService::IrregularIncome.expects(:call).returns(true)
+      assert IncomeTaxService::Dispatcher.call(subject)
     end
 
     private

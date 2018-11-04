@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "test_helper"
-require "minitest/mock"
+require "mocha/minitest"
 
 class PayrollTest < ActiveSupport::TestCase
   def test_scope_ordered
@@ -44,15 +44,9 @@ class PayrollTest < ActiveSupport::TestCase
   end
 
   def test_find_salary
-    mock = Minitest::Mock.new
-    mock.expect(:find_salary, true, [Date.new(2018, 1, 1), Date.new(2018, 1, -1)])
-
-    payroll = build(:payroll, year: 2018, month: 1)
-    payroll.stub :employee, mock do
-      assert payroll.find_salary
-    end
-
-    assert_mock mock
+    payroll = build(:payroll, year: 2018, month: 1, employee: build(:employee))
+    payroll.employee.expects(:find_salary).returns(true)
+    assert payroll.find_salary
   end
 
   def test_extra_entries

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "test_helper"
-require "minitest/mock"
+require "mocha/minitest"
 
 module HealthInsuranceService
   class DispatcherTest < ActiveSupport::TestCase
@@ -11,38 +11,20 @@ module HealthInsuranceService
 
     def test_dispatches_to_professional_service
       subject = prepare_subject(tax_code: "9a", insured: 0, b2b: false)
-      mock = MiniTest::Mock.new
-      mock.expect(:call, 0, [subject])
-
-      HealthInsuranceService::ProfessionalService.stub :call, mock do
-        assert HealthInsuranceService::Dispatcher.call(subject)
-      end
-
-      assert_mock mock
+      HealthInsuranceService::ProfessionalService.expects(:call).returns(true)
+      assert HealthInsuranceService::Dispatcher.call(subject)
     end
 
     def test_dispatches_to_parttime_income
       subject = prepare_subject(tax_code: 50, insured: 0, b2b: false)
-      mock = MiniTest::Mock.new
-      mock.expect(:call, 0, [subject])
-
-      HealthInsuranceService::ParttimeIncome.stub :call, mock do
-        assert HealthInsuranceService::Dispatcher.call(subject)
-      end
-
-      assert_mock mock
+      HealthInsuranceService::ParttimeIncome.expects(:call).returns(true)
+      assert HealthInsuranceService::Dispatcher.call(subject)
     end
 
     def test_dispatches_to_bonus_income
       subject = prepare_subject(tax_code: 50, insured: 22000, b2b: false)
-      mock = MiniTest::Mock.new
-      mock.expect(:call, 0, [subject])
-
-      HealthInsuranceService::BonusIncome.stub :call, mock do
-        assert HealthInsuranceService::Dispatcher.call(subject)
-      end
-
-      assert_mock mock
+      HealthInsuranceService::BonusIncome.expects(:call).returns(true)
+      assert HealthInsuranceService::Dispatcher.call(subject)
     end
 
     private
