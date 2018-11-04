@@ -97,8 +97,8 @@ class CalculatableTest < ActiveSupport::TestCase
   end
 
   def test_monthly_wage
-    subject = DummyObject.new(build(:payroll, salary: build(:salary)))
-    subject.stubs(:scale_for_cycle).returns(24000)
+    subject = DummyObject.new(build(:payroll, salary: build(:salary, monthly_wage: 24000)))
+    subject.stubs(:scale_for_cycle).with(subject.payroll.monthly_wage).returns(24000)
     assert_equal 24000, subject.monthly_wage
   end
 
@@ -108,20 +108,20 @@ class CalculatableTest < ActiveSupport::TestCase
   end
 
   def test_labor_insurance
-    subject = DummyObject.new(build(:payroll, salary: build(:salary)))
-    subject.stubs(:scale_for_30_days).returns(233)
+    subject = DummyObject.new(build(:payroll, salary: build(:salary, labor_insurance: 233)))
+    subject.stubs(:scale_for_30_days).with(subject.payroll.labor_insurance).returns(233)
     assert_equal 233, subject.labor_insurance
   end
 
   def test_supervisor_allowance
-    subject = DummyObject.new(build(:payroll, salary: build(:salary)))
-    subject.stubs(:scale_for_cycle).returns(5000)
+    subject = DummyObject.new(build(:payroll, salary: build(:salary, supervisor_allowance: 5000)))
+    subject.stubs(:scale_for_cycle).with(subject.payroll.supervisor_allowance).returns(5000)
     assert_equal 5000, subject.supervisor_allowance
   end
 
   def test_equipment_subsidy
-    subject = DummyObject.new(build(:payroll, salary: build(:salary)))
-    subject.stubs(:scale_for_cycle).returns(800)
+    subject = DummyObject.new(build(:payroll, salary: build(:salary, equipment_subsidy: 800)))
+    subject.stubs(:scale_for_cycle).with(subject.payroll.equipment_subsidy).returns(800)
     assert_equal 800, subject.equipment_subsidy
   end
 
