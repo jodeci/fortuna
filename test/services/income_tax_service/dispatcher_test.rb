@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "test_helper"
-require "mocha/minitest"
 
 module IncomeTaxService
   class DispatcherTest < ActiveSupport::TestCase

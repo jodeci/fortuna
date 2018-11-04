@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "test_helper"
-require "mocha/minitest"
 
 class PayrollPeriodCountableTest < ActiveSupport::TestCase
   def test_first_month_true

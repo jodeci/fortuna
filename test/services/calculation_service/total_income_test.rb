@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "test_helper"
-require "mocha/minitest"
 
 module CalculationService
   class TotalIncomeTest < ActiveSupport::TestCase

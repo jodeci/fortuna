@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "test_helper"
-require "mocha/minitest"
 
 class CalculatableTest < ActiveSupport::TestCase
   def test_total_income
