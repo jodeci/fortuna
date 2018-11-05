@@ -18,7 +18,7 @@ module CalculationService
     private
 
     def basic
-      labor_insurance + health_insurance + supplement_premium + income_tax + payroll.extra_deductions
+      labor_insurance + health_insurance + income_tax + payroll.extra_deductions
     end
 
     def boss
@@ -26,11 +26,11 @@ module CalculationService
     end
 
     def regular
-      basic + leavetime + sicktime
+      basic + supplement_premium + leavetime + sicktime
     end
 
     def contractor
-      basic + leavetime
+      basic + supplement_premium + leavetime
     end
 
     def vendor
@@ -38,7 +38,7 @@ module CalculationService
     end
 
     def parttime
-      basic
+      basic + supplement_premium
     end
 
     def advisor

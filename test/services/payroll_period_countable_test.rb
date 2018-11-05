@@ -55,6 +55,18 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
     assert_equal 20, subject.period_length
   end
 
+  def test_payment_period_in_final_month_business
+    subject = DummyObject.new(
+      year: 2018,
+      month: 8,
+      start_date: "2017-12-18",
+      end_date: "2018-8-16",
+      effective_date: "2017-12-18",
+      cycle: "business"
+    )
+    assert_equal 12, subject.period_length
+  end
+
   def test_payment_period_before_employement
     subject = DummyObject.new(
       year: 2015,

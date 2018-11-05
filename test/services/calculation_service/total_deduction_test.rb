@@ -15,7 +15,7 @@ module CalculationService
 
     def test_boss_role
       subject = prepare_subject(role: "boss")
-      assert_equal 10834, CalculationService::TotalDeduction.call(subject)
+      assert_equal 10643, CalculationService::TotalDeduction.call(subject)
     end
 
     def test_contractor_role
