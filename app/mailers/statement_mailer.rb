@@ -14,6 +14,6 @@ class StatementMailer < ApplicationMailer
   private
 
   def builder
-    StatementPDFBuilder.new(statement)
+    @builder ||= StatementPDFBuilder.new(statement)
   end
 end
