@@ -2,7 +2,7 @@
 module Calculatable
   include PayrollPeriodCountable
 
-  delegate :extra_income, to: :payroll
+  delegate :extra_income, :health_insurance, to: :payroll
 
   # 進項的加總
   def total_income
@@ -16,7 +16,7 @@ module Calculatable
 
   # 扣除代扣所得稅、二代健保之前的淨所得
   def income_before_withholdings
-    total_income - leavetime - sicktime - payroll.extra_deductions
+    total_income - leavetime - sicktime - labor_insurance - health_insurance - payroll.extra_deductions
   end
 
   def taxable_income

@@ -50,12 +50,20 @@ class CalculatableTest < ActiveSupport::TestCase
   end
 
   def test_income_before_withholdings
-    subject = DummyObject.new
+    subject = DummyObject.new(
+      build(
+        :payroll,
+        year: 2018,
+        month: 1,
+        employee: build(:employee),
+        salary: build(:salary, labor_insurance: 1, health_insurance: 1)
+      )
+    )
     subject.payroll.stubs(:extra_deductions).returns(1)
     subject.stubs(:total_income).returns(100)
     subject.stubs(:leavetime).returns(1)
     subject.stubs(:sicktime).returns(1)
-    assert_equal 97, subject.income_before_withholdings
+    assert_equal 95, subject.income_before_withholdings
   end
 
   def test_taxable_income
