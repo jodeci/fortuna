@@ -11,7 +11,6 @@ class PayrollInitService
   end
 
   def call
-    return if skip?
     generate_payroll
     sync_statement
   end
@@ -24,10 +23,6 @@ class PayrollInitService
 
   def salary
     employee.find_salary(Date.new(year, month, 1), Date.new(year, month, -1))
-  end
-
-  def skip?
-    salary.absent?
   end
 
   def generate_payroll

@@ -12,7 +12,6 @@ class Salary < ApplicationRecord
     "外包": "vendor",
     "實習/工讀": "parttime",
     "顧問/講師": "advisor",
-    "留職停薪": "absent",
   }.freeze
 
   TAX_CODE = { "薪資": "50", "執行專業所得": "9a" }.freeze
@@ -57,10 +56,6 @@ class Salary < ApplicationRecord
 
   def business_calendar?
     cycle == "business"
-  end
-
-  def absent?
-    role == "absent"
   end
 
   # 無僱傭關係的合作對象

@@ -53,14 +53,6 @@ class SalaryTest < ActiveSupport::TestCase
     assert_not normal.business_calendar?
   end
 
-  def test_absent
-    normal = build(:salary, role: "regular")
-    absent = build(:salary, role: "absent")
-
-    assert absent.absent?
-    assert_not normal.absent?
-  end
-
   def test_partner
     normal = build(:salary, role: "regular")
     vendor = build(:salary, role: "vendor")
