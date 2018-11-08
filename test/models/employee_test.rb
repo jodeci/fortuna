@@ -1,25 +1,7 @@
 # frozen_string_literal: true
 require "test_helper"
 
-# FIXME: needs to refactor and remove start/end date
 class EmployeeTest < ActiveSupport::TestCase
-  def test_has_least_one_salary_record
-    assert_operator emp.salaries.length, :>, 0
-  end
-
-  def test_has_payrolls_until_next_month
-    assert_equal emp.payrolls.length, months_until_now
-  end
-
-  def test_has_all_payrolls_with_same_salary
-    assert_equal emp.payrolls.map(&:salary).size, emp.payrolls.length
-  end
-
-  def test_has_same_amount_between_payrolls_and_statements
-    emp.payrolls.each { |payroll| StatementService::Builder.call(payroll) }
-    assert_equal emp.payrolls.length, emp.statements.length
-  end
-
   def test_find_salary
     employee = build(:employee)
     create(:term, start_date: "2015-05-13", end_date: "2016-11-15", employee: employee)
@@ -108,14 +90,6 @@ class EmployeeTest < ActiveSupport::TestCase
   end
 
   private
-
-  def emp
-    @emp ||= create(:employee_with_payrolls, month_salary: 50000, build_statement_immediatedly: false)
-  end
-
-  def months_until_now
-    TimeDifference.between(emp.start_date, Date.today).in_months.round
-  end
 
   def john
     @john ||= create(
