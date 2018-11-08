@@ -14,6 +14,7 @@
       %th 端午
       %th 中秋
       %th 年終
+      %th 總計
 
     - @report.each do |row|
       %tr
@@ -25,3 +26,15 @@
         %td= number_with_delimiter row[:festival_bonus][:dragonboat]
         %td= number_with_delimiter row[:festival_bonus][:midautumn]
         %td= number_with_delimiter row[:festival_bonus][:newyear]
+        %td= number_with_delimiter Report.sum_by_employee_salary(year: params[:year], employee_id: row[:employee][:id])
+
+    %tr
+      %td 總計
+      %td.hide
+      %td.hide
+      - 1.upto(12) do |month|
+        %td= number_with_delimiter Report.sum_by_month(year: params[:year], month: month, tax_code: 50)
+      %td= number_with_delimiter Report.sum_by_festival(params[:year], :dragonboat)
+      %td= number_with_delimiter Report.sum_by_festival(params[:year], :midautumn)
+      %td= number_with_delimiter Report.sum_by_festival(params[:year], :newyear)
+      %td

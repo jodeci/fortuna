@@ -21,6 +21,41 @@ class Report < ApplicationRecord
     def ordered
       Report.order(employee_id: :asc, year: :asc, month: :asc)
     end
+
+    def sum_by_festival(year, festival)
+      Report
+        .salary_income(year)
+        .where(festival_type: festival)
+        .sum(:festival_bonus)
+        .to_i
+    end
+
+    def sum_by_employee_salary(year:, employee_id:)
+      Report
+        .salary_income(year)
+        .where(employee_id: employee_id)
+        .sum_amount
+    end
+
+    def sum_by_employee_service(year:, employee_id:)
+      Report
+        .service_income(year)
+        .where(employee_id: employee_id)
+        .sum_amount
+    end
+
+    def sum_by_month(year:, month:, tax_code:)
+      Report
+        .where(tax_code: tax_code, year: year, month: month)
+        .sum_amount
+    end
+
+    def sum_amount
+      Report
+        .pluck("SUM(amount), SUM(correction), SUM(subsidy_income) * -1")
+        .flatten
+        .reduce(0) { |sum, column| sum + column.to_i }
+    end
   end
 
   def adjusted_amount

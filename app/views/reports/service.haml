@@ -11,6 +11,7 @@
       %th.hide 戶籍地址
       - 1.upto(12) do |month|
         %th= "#{month} 月"
+      %th 總計
     - @report.each do |row|
       %tr
         %td= link_to row[:employee][:name], employee_path(row[:employee][:id])
@@ -18,3 +19,12 @@
         %td.hide= row[:employee][:address]
         - 12.times do |month|
           = render "cell", cell: row[:income][month]
+        %td= number_with_delimiter Report.sum_by_employee_service(year: params[:year].to_i, employee_id: row[:employee][:id])
+    %tr
+      %td 總計
+      %td.hide
+      %td.hide
+      %td= number_with_delimiter Report.sum_by_month(year: (params[:year].to_i - 1), month: 12, tax_code: "9a")
+      - 1.upto(11) do |month|
+        %td= number_with_delimiter Report.sum_by_month(year: params[:year], month: month, tax_code: "9a")
+      %td
