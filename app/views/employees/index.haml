@@ -19,7 +19,7 @@
       %td= employee.id
       %td= employee.name
       %td= employee.role
-      %td= employee.start_date
+      %td= employee.recent_term.start_date
       %td
         = link_to "檢視", employee_path(employee), class: "btn btn-xs btn-default"
         = link_to "修改", edit_employee_path(employee), class: "btn btn-xs btn-default"

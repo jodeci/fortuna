@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_28_142154) do
+ActiveRecord::Schema.define(version: 2018_11_06_120752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,17 @@ ActiveRecord::Schema.define(version: 2018_10_28_142154) do
     t.integer "subsidy_income", default: 0
     t.integer "excess_income", default: 0
     t.index ["payroll_id"], name: "index_statements_on_payroll_id"
+  end
+
+  create_table "terms", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_terms_on_employee_id"
+    t.index ["end_date"], name: "index_terms_on_end_date"
+    t.index ["start_date"], name: "index_terms_on_start_date"
   end
 
 

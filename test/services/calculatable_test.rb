@@ -55,8 +55,8 @@ class CalculatableTest < ActiveSupport::TestCase
         :payroll,
         year: 2018,
         month: 1,
-        employee: build(:employee),
-        salary: build(:salary, labor_insurance: 1, health_insurance: 1)
+        salary: build(:salary, labor_insurance: 1, health_insurance: 1),
+        employee: build(:employee)
       )
     )
     subject.payroll.stubs(:extra_deductions).returns(1)

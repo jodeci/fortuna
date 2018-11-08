@@ -15,4 +15,12 @@ namespace :dev do
       StatementService::Builder.call(payroll)
     end
   end
+
+  # 做第一次資料移轉
+  desc "move employee start/end date to terms"
+  task init_term: :environment do
+    Employee.all.map do |employee|
+      Term.create(start_date: employee.start_date, end_date: employee.end_date, employee_id: employee.id)
+    end
+  end
 end

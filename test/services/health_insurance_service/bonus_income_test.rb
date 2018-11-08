@@ -29,7 +29,7 @@ module HealthInsuranceService
     private
 
     def employee
-      @employee ||= build(:employee, start_date: "2016-01-01")
+      @employee ||= build(:employee) { |employee| create(:term, start_date: "2016-01-01", employee: employee) }
     end
 
     def prepare_subject(month:, insured:, bonus:)

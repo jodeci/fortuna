@@ -43,8 +43,8 @@ module FormatService
 
     def employment_date_notes
       return if salary.partner?
-      notes << "#{payroll.employee_start_date} 到職" if first_month?
-      notes << "#{payroll.employee_end_date} 離職" if final_month?
+      notes << "#{payroll.employee_term_start} 到職" if first_month?
+      notes << "#{payroll.employee_term_end} 離職" if final_month?
     end
 
     def overtime_notes

@@ -47,11 +47,11 @@ module PayrollPeriodCountable
   end
 
   def employee_start
-    payroll.employee_start_date
+    payroll.employee_term_start
   end
 
   def employee_end
-    payroll.employee_end_date
+    payroll.employee_term_end
   end
 
   def default_end_point
@@ -63,12 +63,10 @@ module PayrollPeriodCountable
   end
 
   def period_start
-    return false unless on_payroll?
     first_month? ? employee_start.day : 1
   end
 
   def period_end
-    return false unless on_payroll?
     final_month? ? period_end_day : 30
   end
 

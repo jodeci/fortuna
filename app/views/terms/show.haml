@@ -1,0 +1,6 @@
+%h1 員工資料
+= render "/employees/info", employee: @term.employee
+= render "info", term: @term
+
+= link_to "修改合作期間資料", edit_employee_term_path(@employee), class: "btn btn-sm btn-default"
+= link_to "刪除合作期間資料", employee_term_path(@employee), method: :delete, data: { confirm: "確認刪除？" }, class: "btn btn-sm btn-danger"

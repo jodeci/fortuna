@@ -197,17 +197,24 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
         :payroll,
         year: options.fetch(:year, nil),
         month: options.fetch(:month, nil),
-        employee: FactoryBot.build(
-          :employee,
-          start_date: options.fetch(:start_date, nil),
-          end_date: options.fetch(:end_date, nil)
-        ),
+        employee: prepare_employee,
         salary: FactoryBot.build(
           :salary,
           effective_date: options.fetch(:effective_date, nil),
           cycle: options.fetch(:cycle, "normal")
         )
       )
+    end
+
+    def prepare_employee
+      FactoryBot.build(:employee) do |employee|
+        FactoryBot.create(
+          :term,
+          start_date: options.fetch(:start_date, nil),
+          end_date: options.fetch(:end_date, nil),
+          employee: employee
+        )
+      end
     end
   end
 end

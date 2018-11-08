@@ -3,7 +3,7 @@ class Payroll < ApplicationRecord
   include CollectionTranslatable
 
   belongs_to :employee
-  delegate :name, :start_date, :end_date, to: :employee, prefix: true
+  delegate :name, to: :employee, prefix: true
 
   belongs_to :salary # 間接關聯，詳見 SalaryService
   delegate :monthly_wage, :hourly_wage, :labor_insurance, :health_insurance, :equipment_subsidy, :supervisor_allowance, :insured_for_health, to: :salary
@@ -47,6 +47,18 @@ class Payroll < ApplicationRecord
 
   def find_salary
     employee.find_salary(Date.new(year, month, 1), Date.new(year, month, -1))
+  end
+
+  def employee_term
+    employee.term(Date.new(year, month, 1), Date.new(year, month, -1))
+  end
+
+  def employee_term_start
+    employee_term.try(:start_date)
+  end
+
+  def employee_term_end
+    employee_term.try(:end_date)
   end
 
   def extra_income_of(income_type)

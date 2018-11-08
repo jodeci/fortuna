@@ -38,7 +38,7 @@ module StatementService
           insured_for_health: insured,
           insured_for_labor: insured
         ),
-        employee: build(:employee)
+        employee: build(:employee) { |employee| create(:term, start_date: "2018-01-01", employee: employee) }
       )
     end
   end

@@ -21,7 +21,7 @@ module HealthInsuranceService
         year: 2018,
         month: 3,
         salary: build(:salary, monthly_wage: monthly_wage),
-        employee: build(:employee)
+        employee: build(:employee) { |employee| create(:term, start_date: "2018-03-01", employee: employee) }
       )
     end
   end

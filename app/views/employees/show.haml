@@ -3,6 +3,10 @@
 = link_to "修改員工資料", edit_employee_path(@employee), class: "btn btn-default btn-sm"
 = link_to "刪除員工資料", employee_path(@employee), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-danger btn-sm"
 
+%h3 合作期間
+= render "terms", terms: @employee.terms.ordered
+%p= link_to "新增合作期間", new_employee_term_path(@employee), class: "btn btn-sm btn-primary"
+
 %h2 薪資紀錄
 - if @employee.salaries.any?
   = render "salaries", salaries: @employee.salaries.ordered

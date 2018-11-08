@@ -8,6 +8,8 @@ class Employee < ApplicationRecord
   has_many :payrolls, dependent: :destroy
   has_many :statements, through: :payrolls, source: :statement
 
+  has_many :terms, dependent: :destroy
+
   BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "normal", "ATM/臨櫃": "atm" }.freeze
 
   class << self
@@ -15,29 +17,38 @@ class Employee < ApplicationRecord
       Employee.order(id: :desc)
     end
 
-    def active
+    def on_payroll(cycle_start, cycle_end)
       Employee
-        .where(end_date: nil)
-        .or(Employee.where("end_date > ?", Date.today.at_beginning_of_month))
+        .joins(:terms)
+        .where("terms.start_date <= ?", cycle_end)
+        .where("(terms.end_date >= ? OR terms.end_date IS NULL)", cycle_start)
+    end
+
+    def active
+      Employee.on_payroll(Date.today.at_beginning_of_month, Date.today.end_of_month)
     end
 
     def inactive
-      Employee.where("end_date < ?", Date.today.at_beginning_of_month)
+      Employee.where.not(id: active_ids)
     end
 
-    def on_payroll(cycle_start, cycle_end)
-      Employee
-        .where("start_date <= ?", cycle_end)
-        .where("end_date >= ? OR end_date is NULL", cycle_start)
+    private
+
+    def active_ids
+      Employee.active.pluck(:id)
     end
   end
 
   def find_salary(cycle_start, cycle_end)
-    return if end_date and end_date < cycle_start
+    return unless cycle_term_overlaps?(cycle_start, cycle_end)
     salaries
       .where("salaries.effective_date < ?", cycle_end)
       .ordered
       .take
+  end
+
+  def term(cycle_start, cycle_end)
+    terms.find_by("start_date <= ? AND (end_date >= ? OR end_date IS NULL)", cycle_end, cycle_start)
   end
 
   def email
@@ -45,7 +56,27 @@ class Employee < ApplicationRecord
     company_email
   end
 
+  def recent_term
+    terms.ordered.first
+  end
+
+  private
+
+  # 離職當月仍算是在職
   def resigned?
-    return true if end_date
+    return true if current_term.blank?
+    return unless current_term.end_date
+    current_term.end_date < Date.today.beginning_of_month
+  end
+
+  def current_term
+    term(Date.today.at_beginning_of_month, Date.today.at_end_of_month)
+  end
+
+  def cycle_term_overlaps?(cycle_start, cycle_end)
+    this_term = term(cycle_start, cycle_end)
+    return false if this_term.blank?
+    return true unless this_term.end_date
+    return true if cycle_start <= this_term.end_date and cycle_end >= this_term.start_date
   end
 end

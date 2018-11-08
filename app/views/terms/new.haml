@@ -1,0 +1,8 @@
+%h1 建立合作期間資料
+
+= simple_form_for @term, url: employee_terms_path, method: :post do |f|
+  = render "/employees/info", employee: @employee
+  = render "form", f: f, employee: @employee
+
+  .text-center
+    = f.submit "送出"

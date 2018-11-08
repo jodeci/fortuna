@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.5
   Exclude:
     - ./Rakefile
     - ./config.ru
@@ -7,7 +7,7 @@ AllCops:
     - bin/**/*
     - db/**/*
     - config/**/*
-    - test/factories/*
+    - test/**/* # FIXME
     - lib/**/*
 
 Rails:
@@ -144,18 +144,11 @@ Rails/FilePath:
 
 Metrics/ClassLength:
   Exclude:
-    - "**/*_spec.rb"
-    - "**/*_test.rb"
-
-Metrics/ModuleLength:
-  Exclude:
-    - "**/*_spec.rb"
-    - "**/*_test.rb"
+    - "test/**/*"
 
 Metrics/BlockLength:
   Exclude:
     - "lib/tasks/*.rake"
-    - "**/*_spec.rb"
     - "**/*_test.rb"
 
 # turned off because this app doesn't care about timezone

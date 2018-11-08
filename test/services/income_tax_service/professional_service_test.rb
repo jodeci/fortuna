@@ -21,7 +21,7 @@ module IncomeTaxService
         year: 2018,
         month: 5,
         salary: build(:salary, monthly_wage: monthly_wage),
-        employee: build(:employee)
+        employee: build(:employee) { |employee| create(:term, start_date: "2018-05-01", employee: employee) }
       )
     end
   end

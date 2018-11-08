@@ -48,6 +48,19 @@ class PayrollTest < ActiveSupport::TestCase
     assert payroll.find_salary
   end
 
+  def test_employee_term
+    payroll = build(:payroll, year: 2018, month: 1, employee: build(:employee))
+    payroll.employee.expects(:term).returns(true)
+    assert payroll.employee_term
+  end
+
+  def test_employee_term_nil
+    payroll = build(:payroll, year: 2018, month: 1, employee: build(:employee))
+    payroll.stubs(:employee_term).returns(nil)
+    assert_nil payroll.employee_term_start
+    assert_nil payroll.employee_term_end
+  end
+
   def test_extra_entries
     subject = prepare_extra_entries
 
