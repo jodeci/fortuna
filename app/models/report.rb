@@ -52,7 +52,7 @@ class Report < ApplicationRecord
 
     def sum_amount
       Report
-        .pluck("SUM(amount), SUM(correction), SUM(subsidy_income) * -1")
+        .pluck(Arel.sql("SUM(amount), SUM(correction), SUM(subsidy_income) * -1"))
         .flatten
         .reduce(0) { |sum, column| sum + column.to_i }
     end
