@@ -19,6 +19,7 @@ class Salary < ApplicationRecord
 
   scope :ordered, -> { order(effective_date: :desc) }
   scope :recent_for, ->(employee) { where(employee_id: employee.id).ordered.take }
+  scope :effective_by, ->(cycle_end) { where("effective_date < ?", cycle_end).ordered.take }
 
   def income_with_subsidies
     (monthly_wage / monthly_wage_adjustment) + supervisor_allowance + equipment_subsidy + commuting_subsidy

@@ -42,12 +42,6 @@ class PayrollTest < ActiveSupport::TestCase
     assert subject.first.association(:overtimes).loaded?
   end
 
-  def test_find_salary
-    payroll = build(:payroll, year: 2018, month: 1, employee: build(:employee))
-    payroll.employee.expects(:find_salary).returns(true)
-    assert payroll.find_salary
-  end
-
   def test_employee_term
     payroll = build(:payroll, year: 2018, month: 1, employee: build(:employee))
     payroll.employee.expects(:term).returns(true)

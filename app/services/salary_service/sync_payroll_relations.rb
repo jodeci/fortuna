@@ -16,7 +16,15 @@ module SalaryService
     private
 
     def matched_salary
-      payroll.find_salary
+      SalaryService::Finder.call(payroll.employee, cycle_start, cycle_end)
+    end
+
+    def cycle_start
+      Date.new(payroll.year, payroll.month, 1)
+    end
+
+    def cycle_end
+      Date.new(payroll.year, payroll.month, -1)
     end
   end
 end

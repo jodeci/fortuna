@@ -2,21 +2,6 @@
 require "test_helper"
 
 class EmployeeTest < ActiveSupport::TestCase
-  def test_find_salary
-    employee = build(:employee)
-    create(:term, start_date: "2015-05-13", end_date: "2016-11-15", employee: employee)
-    create(:term, start_date: "2018-02-06", end_date: nil, employee: employee)
-    salary1 = create(:salary, effective_date: "2015-05-13", employee: employee)
-    salary2 = create(:salary, effective_date: "2015-09-01", employee: employee)
-    salary3 = create(:salary, effective_date: "2018-02-06", employee: employee)
-
-    assert_nil employee.find_salary(Date.new(2015, 4, 1), Date.new(2015, 4, -1))
-    assert_equal salary1, employee.find_salary(Date.new(2015, 5, 1), Date.new(2015, 5, -1))
-    assert_equal salary2, employee.find_salary(Date.new(2015, 9, 1), Date.new(2015, 9, -1))
-    assert_nil employee.find_salary(Date.new(2016, 12, 1), Date.new(2016, 12, -1))
-    assert_equal salary3, employee.find_salary(Date.new(2018, 2, 1), Date.new(2018, 2, -1))
-  end
-
   def test_scope_on_payroll_201802
     Timecop.freeze(Date.new(2018, 2, 19)) do
       assert Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? john

@@ -29,10 +29,6 @@ class Payroll < ApplicationRecord
       .where("vacation_refund_hours > 0 and year = ?", year)
   }
 
-  def find_salary
-    employee.find_salary(Date.new(year, month, 1), Date.new(year, month, -1))
-  end
-
   def employee_term
     employee.term(Date.new(year, month, 1), Date.new(year, month, -1))
   end

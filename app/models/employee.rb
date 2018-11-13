@@ -21,14 +21,6 @@ class Employee < ApplicationRecord
       .where("(terms.end_date >= ? OR terms.end_date IS NULL)", cycle_start)
   }
 
-  def find_salary(cycle_start, cycle_end)
-    return unless cycle_term_overlaps?(cycle_start, cycle_end)
-    salaries
-      .where("salaries.effective_date < ?", cycle_end)
-      .ordered
-      .take
-  end
-
   def term(cycle_start, cycle_end)
     terms.find_by("start_date <= ? AND (end_date >= ? OR end_date IS NULL)", cycle_end, cycle_start)
   end
@@ -53,12 +45,5 @@ class Employee < ApplicationRecord
 
   def current_term
     term(Date.today.at_beginning_of_month, Date.today.at_end_of_month)
-  end
-
-  def cycle_term_overlaps?(cycle_start, cycle_end)
-    this_term = term(cycle_start, cycle_end)
-    return false if this_term.blank?
-    return true unless this_term.end_date
-    return true if cycle_start <= this_term.end_date and cycle_end >= this_term.start_date
   end
 end

@@ -22,7 +22,7 @@ class PayrollInitService
   end
 
   def salary
-    employee.find_salary(Date.new(year, month, 1), Date.new(year, month, -1))
+    SalaryService::Finder.call(employee, Date.new(year, month, 1), Date.new(year, month, -1))
   end
 
   def generate_payroll
