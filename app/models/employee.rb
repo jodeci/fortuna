@@ -7,37 +7,19 @@ class Employee < ApplicationRecord
 
   has_many :payrolls, dependent: :destroy
   has_many :statements, through: :payrolls, source: :statement
-
   has_many :terms, dependent: :destroy
 
   BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "normal", "ATM/臨櫃": "atm" }.freeze
 
-  class << self
-    def ordered
-      Employee.order(id: :desc)
-    end
+  scope :ordered, -> { order(id: :desc) }
+  scope :active, -> { on_payroll(Date.today.at_beginning_of_month, Date.today.end_of_month) }
+  scope :inactive, -> { where.not(id: active.pluck(:id)) }
 
-    def on_payroll(cycle_start, cycle_end)
-      Employee
-        .joins(:terms)
-        .where("terms.start_date <= ?", cycle_end)
-        .where("(terms.end_date >= ? OR terms.end_date IS NULL)", cycle_start)
-    end
-
-    def active
-      Employee.on_payroll(Date.today.at_beginning_of_month, Date.today.end_of_month)
-    end
-
-    def inactive
-      Employee.where.not(id: active_ids)
-    end
-
-    private
-
-    def active_ids
-      Employee.active.pluck(:id)
-    end
-  end
+  scope :on_payroll, ->(cycle_start, cycle_end) {
+    joins(:terms)
+      .where("terms.start_date <= ?", cycle_end)
+      .where("(terms.end_date >= ? OR terms.end_date IS NULL)", cycle_start)
+  }
 
   def find_salary(cycle_start, cycle_end)
     return unless cycle_term_overlaps?(cycle_start, cycle_end)

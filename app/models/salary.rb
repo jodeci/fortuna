@@ -17,18 +17,8 @@ class Salary < ApplicationRecord
   TAX_CODE = { "薪資": "50", "執行專業所得": "9a" }.freeze
   CYCLE = { "一般": "normal", "工作天": "business" }.freeze
 
-  class << self
-    def ordered
-      Salary.order(effective_date: :desc)
-    end
-
-    def recent_for(employee)
-      Salary
-        .where(employee_id: employee.id)
-        .ordered
-        .take
-    end
-  end
+  scope :ordered, -> { order(effective_date: :desc) }
+  scope :recent_for, ->(employee) { where(employee_id: employee.id).ordered.take }
 
   def income_with_subsidies
     (monthly_wage / monthly_wage_adjustment) + supervisor_allowance + equipment_subsidy + commuting_subsidy

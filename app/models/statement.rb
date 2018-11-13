@@ -8,21 +8,13 @@ class Statement < ApplicationRecord
   has_many :corrections, dependent: :destroy
   accepts_nested_attributes_for :corrections, allow_destroy: true
 
-  class << self
-    def paid
-      Statement.where("statements.amount > 0")
-    end
+  scope :paid, -> { where("statements.amount > 0") }
+  scope :by_payroll, ->(year, month) { where(year: year, month: month) }
 
-    def ordered
-      Statement
-        .includes(:payroll, :employee, :corrections, payroll: [:salary, :employee])
-        .order("payrolls.employee_id DESC")
-    end
-
-    def by_payroll(year, month)
-      Statement.where(year: year, month: month)
-    end
-  end
+  scope :ordered, -> {
+    includes(:payroll, :employee, :corrections, payroll: [:salary, :employee])
+      .order("payrolls.employee_id DESC")
+  }
 
   def corrections?
     corrections.any?

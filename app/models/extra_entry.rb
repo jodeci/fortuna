@@ -4,13 +4,10 @@ class ExtraEntry < ApplicationRecord
 
   INCOME_TYPE = { "薪資": "salary", "補助": "subsidy", "獎金": "bonus" }.freeze
 
-  class << self
-    def yearly_subsidy_report(year)
-      ExtraEntry
-        .includes(:payroll, payroll: :employee)
-        .where("amount > 0 AND income_type = ?", :subsidy)
-        .joins(:payroll)
-        .where("payrolls.year = ?", year)
-    end
-  end
+  scope :yearly_subsidy_report, ->(year) {
+    includes(:payroll, payroll: :employee)
+      .where("amount > 0 AND income_type = ?", :subsidy)
+      .joins(:payroll)
+      .where("payrolls.year = ?", year)
+  }
 end

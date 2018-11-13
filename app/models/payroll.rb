@@ -19,31 +19,15 @@ class Payroll < ApplicationRecord
 
   FESTIVAL_BONUS = { "端午禮金": "dragonboat", "中秋禮金": "midautumn", "年終獎金": "newyear" }.freeze
 
-  class << self
-    def ordered
-      Payroll.order(year: :desc, month: :desc)
-    end
+  scope :ordered, -> { order(year: :desc, month: :desc) }
+  scope :search_result, -> { includes(:employee, :salary, :statement).order(employee_id: :desc) }
+  scope :personal_history, -> { includes(:salary, :statement, statement: :corrections) }
+  scope :details, -> { includes(:salary, :extra_entries, :overtimes) }
 
-    def search_result
-      Payroll
-        .includes(:employee, :salary, :statement)
-        .order(employee_id: :desc)
-    end
-
-    def personal_history
-      Payroll.includes(:salary, :statement, statement: :corrections)
-    end
-
-    def details
-      Payroll.includes(:salary, :extra_entries, :overtimes)
-    end
-
-    def yearly_vacation_refunds(year)
-      Payroll
-        .includes(:employee, :salary)
-        .where("vacation_refund_hours > 0 and year = ?", year)
-    end
-  end
+  scope :yearly_vacation_refunds, ->(year) {
+    includes(:employee, :salary)
+      .where("vacation_refund_hours > 0 and year = ?", year)
+  }
 
   def find_salary
     employee.find_salary(Date.new(year, month, 1), Date.new(year, month, -1))
