@@ -104,7 +104,7 @@ class EmployeeTest < ActiveSupport::TestCase
       :employee,
       company_email: "jack@5xruby.tw",
       personal_email: "jack@gmail.com"
-    ) do |employee| 
+    ) do |employee|
       create(:term, start_date: "2017-10-01", end_date: "2018-02-06", employee: employee)
       create(:term, start_date: "2018-09-13", end_date: nil, employee: employee)
     end

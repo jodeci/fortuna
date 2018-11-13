@@ -7,7 +7,14 @@ class ReportTest < ActiveSupport::TestCase
     prepare_report(year: 2017, month: 1, tax_code: 50)
     prepare_report(year: 2018, month: 1, tax_code: "9a")
 
-    assert_equal [2016, 2017, 2018], Report.years.sort
+    assert_equal [2016, 2017, 2018], Report.years
+  end
+
+  def test_scope_ordered
+    prepare_scope_ordered
+    assert Report.ordered.each_cons(2).all? do |first, second|
+      compare_order(first, second)
+    end
   end
 
   def test_scope_salary_income
@@ -28,11 +35,38 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal 3, Report.service_income(2018).count
   end
 
-  def test_scope_ordered
-    prepare_scope_ordered
-    assert Report.ordered.each_cons(2).all? do |first, second|
-      compare_order(first, second)
-    end
+  def test_scope_sum_by_month
+    prepare_report(year: 2018, month: 1, tax_code: "50")
+    prepare_report(year: 2018, month: 1, tax_code: "50")
+    prepare_report(year: 2018, month: 1, tax_code: "9a")
+
+    assert_equal 60000, Report.sum_by_month(year: 2018, month: 1, tax_code: "50")
+    assert_equal 30000, Report.sum_by_month(year: 2018, month: 1, tax_code: "9a")
+  end
+
+  def test_scope_sum_by_festival
+    prepare_festival_report(month: 6, festival: "dragonboat", amount: 1000)
+    prepare_festival_report(month: 6, festival: "dragonboat", amount: 1000)
+    prepare_festival_report(month: 9, festival: "midautumn", amount: 3000)
+
+    assert_equal 2000, Report.sum_by_festival(2018, :dragonboat)
+    assert_equal 3000, Report.sum_by_festival(2018, :midautumn)
+  end
+
+  def test_scope_sum_salary_income_for
+    prepare_sum_report(month: 1, tax_code: "50", employee: employee)
+    prepare_sum_report(month: 2, tax_code: "50", employee: employee)
+    prepare_sum_report(month: 3, tax_code: "50", employee: employee)
+
+    assert_equal 90000, Report.sum_salary_income_for(2018, employee.id)
+  end
+
+  def test_scope_sum_service_income_for
+    prepare_sum_report(month: 1, tax_code: "9a", employee: employee)
+    prepare_sum_report(month: 2, tax_code: "9a", employee: employee)
+    prepare_sum_report(month: 3, tax_code: "9a", employee: employee)
+
+    assert_equal 90000, Report.sum_service_income_for(2018, employee.id)
   end
 
   def test_adjusted_amount
@@ -65,6 +99,40 @@ class ReportTest < ActiveSupport::TestCase
     ) do |payroll|
       create(:statement, payroll: payroll, amount: 30000, subsidy_income: 500) do |statement|
         create(:correction, statement: statement, amount: 10)
+      end
+    end
+  end
+
+  def employee
+    @employee ||= create(:employee) { |employee| build(:term, employee: employee) }
+  end
+
+  def prepare_sum_report(employee:, month:, tax_code:)
+    create(
+      :payroll,
+      year: 2018,
+      month: month,
+      salary: build(:salary, tax_code: tax_code, employee: employee),
+      employee: employee
+    ) do |payroll|
+      create(:statement, payroll: payroll, amount: 30000) do |statement|
+        create(:correction, statement: statement)
+      end
+    end
+  end
+
+  def prepare_festival_report(month:, festival:, amount:)
+    create(
+      :payroll,
+      year: 2018,
+      month: month,
+      festival_bonus: amount,
+      festival_type: festival,
+      salary: build(:salary, employee: build(:employee)),
+      employee: build(:employee)
+    ) do |payroll|
+      create(:statement, payroll: payroll, amount: 30000) do |statement|
+        create(:correction, statement: statement)
       end
     end
   end

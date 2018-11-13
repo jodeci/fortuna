@@ -19,7 +19,7 @@
         %td.hide= row[:employee][:address]
         - 12.times do |month|
           = render "cell", cell: row[:income][month]
-        %td= number_with_delimiter Report.sum_by_employee_service(year: params[:year].to_i, employee_id: row[:employee][:id])
+        %td= number_with_delimiter Report.sum_service_income_for(params[:year].to_i, row[:employee][:id])
     %tr
       %td 總計
       %td.hide
