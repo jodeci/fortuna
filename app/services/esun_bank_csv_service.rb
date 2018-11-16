@@ -13,19 +13,26 @@ class EsunBankCSVService
   end
 
   def call
-    @rows = []
-    statements.each { |statement| build_row(statement) }
-    @rows.map(&:to_csv).join
+    build_rows
   end
 
   private
 
+  def rows
+    @rows ||= []
+  end
+
+  def build_rows
+    statements.each { |statement| build_row(statement) }
+    rows.map(&:to_csv).join
+  end
+
   def build_row(statement)
     builder = EsunBankCSVRowBuilder.new(statement, payment_date)
     if statement.splits
-      statement.splits.each { |amount| @rows << builder.__send__(transfer_method, amount: amount) }
+      statement.splits.each { |amount| rows << builder.__send__(transfer_method, amount: amount) }
     else
-      @rows << builder.send(transfer_method)
+      rows << builder.send(transfer_method)
     end
   end
 end
