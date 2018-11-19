@@ -19,7 +19,7 @@ module SalaryService
     private
 
     def term
-      employee.term(cycle_start, cycle_end)
+      @term ||= employee.term(cycle_start, cycle_end)
     end
 
     def payroll_period_overlaps_with_term?
