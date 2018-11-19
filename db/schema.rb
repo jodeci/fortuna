@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_08_055027) do
+ActiveRecord::Schema.define(version: 2018_11_19_082055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2018_11_08_055027) do
   create_table "overtimes", force: :cascade do |t|
     t.date "date"
     t.string "rate"
-    t.float "hours", default: 0.0
+    t.decimal "hours", default: "0.0"
     t.integer "payroll_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,10 +63,10 @@ ActiveRecord::Schema.define(version: 2018_11_08_055027) do
   create_table "payrolls", force: :cascade do |t|
     t.integer "year"
     t.integer "month"
-    t.float "parttime_hours", default: 0.0
-    t.float "leavetime_hours", default: 0.0
-    t.float "sicktime_hours", default: 0.0
-    t.float "vacation_refund_hours", default: 0.0
+    t.decimal "parttime_hours", default: "0.0"
+    t.decimal "leavetime_hours", default: "0.0"
+    t.decimal "sicktime_hours", default: "0.0"
+    t.decimal "vacation_refund_hours", default: "0.0"
     t.integer "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2018_11_08_055027) do
     t.integer "insured_for_health", default: 0
     t.integer "insured_for_labor", default: 0
     t.string "cycle", default: "normal"
-    t.float "monthly_wage_adjustment", default: 1.0
+    t.decimal "monthly_wage_adjustment", default: "1.0"
     t.index ["effective_date"], name: "index_salaries_on_effective_date"
     t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end
