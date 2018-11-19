@@ -11,7 +11,12 @@ namespace :dev do
   desc "force update salary/payroll/statement data"
   task fix_data: :environment do
     Payroll.ordered.map do |payroll|
-      payroll.update(salary: payroll.find_salary)
+      salary = SalaryService::Finder.call(
+        payroll.employee,
+        Date.new(payroll.year, payroll.month, 1),
+        Date.new(payroll.year, payroll.month, -1)
+      )
+      payroll.update(salary: salary)
       StatementService::Builder.call(payroll)
     end
   end

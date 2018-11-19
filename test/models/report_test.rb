@@ -3,8 +3,8 @@ require "test_helper"
 
 class ReportTest < ActiveSupport::TestCase
   def test_scope_years
-    prepare_report(year: 2016, month: 1, tax_code: 50)
-    prepare_report(year: 2017, month: 1, tax_code: 50)
+    prepare_report(year: 2016, month: 1, tax_code: "50")
+    prepare_report(year: 2017, month: 1, tax_code: "50")
     prepare_report(year: 2018, month: 1, tax_code: "9a")
 
     assert_equal [2016, 2017, 2018], Report.years
@@ -18,9 +18,9 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   def test_scope_salary_income
-    prepare_report(year: 2017, month: 12, tax_code: 50)
-    prepare_report(year: 2018, month: 1, tax_code: 50)
-    prepare_report(year: 2018, month: 2, tax_code: 50)
+    prepare_report(year: 2017, month: 12, tax_code: "50")
+    prepare_report(year: 2018, month: 1, tax_code: "50")
+    prepare_report(year: 2018, month: 2, tax_code: "50")
 
     assert_equal 1, Report.salary_income(2017).count
     assert_equal 2, Report.salary_income(2018).count
@@ -40,8 +40,8 @@ class ReportTest < ActiveSupport::TestCase
     prepare_report(year: 2018, month: 1, tax_code: "50")
     prepare_report(year: 2018, month: 1, tax_code: "9a")
 
-    assert_equal 60000, Report.sum_by_month(year: 2018, month: 1, tax_code: "50")
-    assert_equal 30000, Report.sum_by_month(year: 2018, month: 1, tax_code: "9a")
+    assert_equal 58000, Report.sum_by_month(year: 2018, month: 1, tax_code: "50")
+    assert_equal 29000, Report.sum_by_month(year: 2018, month: 1, tax_code: "9a")
   end
 
   def test_scope_sum_by_festival
@@ -81,6 +81,7 @@ class ReportTest < ActiveSupport::TestCase
       :payroll,
       year: year,
       month: month,
+      festival_bonus: 1000,
       salary: build(:salary, tax_code: tax_code, employee: build(:employee)),
       employee: build(:employee)
     ) do |payroll|
@@ -112,6 +113,7 @@ class ReportTest < ActiveSupport::TestCase
       :payroll,
       year: 2018,
       month: month,
+      festival_bonus: 1000,
       salary: build(:salary, tax_code: tax_code, employee: employee),
       employee: employee
     ) do |payroll|

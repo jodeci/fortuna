@@ -12,8 +12,9 @@ class Report < ApplicationRecord
       .or(where("tax_code = '9a' AND year = ? AND month < 12", year))
   }
 
+  # 三節獎金屬於「薪資」，但報表上是和當月薪資分開顯示，故單月加總時需排除
   scope :sum_by_month, ->(year:, month:, tax_code:) {
-    where(tax_code: tax_code, year: year, month: month).sum_amount
+    where(tax_code: tax_code, year: year, month: month).sum_amount_without_festival
   }
 
   scope :sum_by_festival, ->(year, festival) {
@@ -30,6 +31,12 @@ class Report < ApplicationRecord
 
   scope :sum_amount, -> {
     pluck(Arel.sql("SUM(amount), SUM(correction), SUM(subsidy_income) * -1"))
+      .flatten
+      .reduce(0) { |sum, column| sum + column.to_i }
+  }
+
+  scope :sum_amount_without_festival, -> {
+    pluck(Arel.sql("SUM(amount), SUM(correction), SUM(subsidy_income) * -1, SUM(festival_bonus) * -1"))
       .flatten
       .reduce(0) { |sum, column| sum + column.to_i }
   }
