@@ -18,14 +18,11 @@ class PayrollInitService
   private
 
   def payroll
-    Payroll.find_or_initialize_by(year: year, month: month, employee: employee, salary: salary)
-  end
-
-  def salary
-    SalaryService::Finder.call(employee, Date.new(year, month, 1), Date.new(year, month, -1))
+    @payroll ||= Payroll.find_or_initialize_by(year: year, month: month, employee: employee)
   end
 
   def generate_payroll
+    payroll.salary = SalaryService::Finder.call(employee, Date.new(year, month, 1), Date.new(year, month, -1))
     payroll.save
   end
 
