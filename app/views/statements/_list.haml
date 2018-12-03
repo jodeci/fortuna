@@ -21,8 +21,8 @@
     %th 總額
     %td
     %td
-    %td
     %td= number_with_delimiter statements.map { |statement| statement.amount }.reduce(:+)
+    %td
     %td
 
 = paginate statements
