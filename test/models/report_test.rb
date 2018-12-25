@@ -7,7 +7,7 @@ class ReportTest < ActiveSupport::TestCase
     prepare_report(year: 2017, month: 1, tax_code: "50")
     prepare_report(year: 2018, month: 1, tax_code: "9a")
 
-    assert_equal [2016, 2017, 2018], Report.years
+    assert_equal [2016, 2017, 2018, 2019], Report.years
   end
 
   def test_scope_ordered
