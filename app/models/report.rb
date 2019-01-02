@@ -2,7 +2,7 @@
 class Report < ApplicationRecord
   INCOME_TYPE = { "薪資+三節獎金": "salary", "勞務報酬": "service", "非經常性給予": "irregular" }.freeze
 
-  scope :years, -> { distinct.pluck(:year).sort << Date.today.year + 1 }
+  scope :years, -> { (distinct.pluck(:year).min..Date.today.year + 1).to_a }
   scope :ordered, -> { order(employee_id: :asc, year: :asc, month: :asc) }
   scope :salary_income, ->(year) { where(tax_code: "50", year: year) }
 

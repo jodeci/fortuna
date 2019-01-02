@@ -4,10 +4,9 @@ require "test_helper"
 class ReportTest < ActiveSupport::TestCase
   def test_scope_years
     prepare_report(year: 2016, month: 1, tax_code: "50")
-    prepare_report(year: 2017, month: 1, tax_code: "50")
-    prepare_report(year: 2018, month: 1, tax_code: "9a")
-
-    assert_equal [2016, 2017, 2018, 2019], Report.years
+    Timecop.freeze(Date.new(2018, 12, 19)) do
+      assert_equal [2016, 2017, 2018, 2019], Report.years
+    end
   end
 
   def test_scope_ordered
