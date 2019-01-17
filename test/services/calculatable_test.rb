@@ -70,7 +70,9 @@ class CalculatableTest < ActiveSupport::TestCase
     subject = DummyObject.new
     subject.stubs(:income_before_withholdings).returns(100)
     subject.stubs(:subsidy_income).returns(20)
-    assert_equal 80, subject.taxable_income
+    subject.stubs(:labor_insurance).returns(1)
+    subject.stubs(:health_insurance).returns(1)
+    assert_equal 82, subject.taxable_income
   end
 
   def test_bonus_income
