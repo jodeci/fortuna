@@ -19,8 +19,9 @@ module Calculatable
     total_income - leavetime - sicktime - labor_insurance - health_insurance - payroll.extra_deductions
   end
 
+  # 薪資所得包括代扣的勞健費在內
   def taxable_income
-    income_before_withholdings - subsidy_income
+    income_before_withholdings - subsidy_income + labor_insurance + health_insurance
   end
 
   # 獎金
