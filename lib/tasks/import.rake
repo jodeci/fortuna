@@ -35,10 +35,9 @@ namespace :import do
         start_date: data[:start_date],
         end_date: data[:end_date] 
       }
-      payroll = {
-        salary_id: data[:salary_id]
-      }
-      Employee.create(employee).salaries.create(salary)
+      tmp = Employee.create(employee)
+      tmp.salaries.create(salary)
+      tmp.terms.create(term)
     end
   end
 end
