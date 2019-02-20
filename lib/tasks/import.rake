@@ -8,14 +8,13 @@ namespace :import do
       data = row.to_hash
       employee = {
         name: data[:name],
-        start_date: data[:start_date],
         id_number: data[:id_number],
         residence_address: data[:residence_address],
         birthday: data[:birthday],
         company_email: data[:company_email],
         personal_email: data[:personal_email],
         bank_account: data[:bank_account],
-        bank_transfer_type: data[:bank_transfer_type],
+        bank_transfer_type: data[:bank_transfer_type]
       }
       salary = {
         role: data[:role],
@@ -30,7 +29,14 @@ namespace :import do
         labor_insurance: data[:labor_insurance],
         insured_for_health: data[:insured_for_health],
         insured_for_labor: data[:insured_for_labor],
-        cycle: data[:cycle],
+        cycle: data[:cycle]
+      }
+      term = {
+        start_date: data[:start_date],
+        end_date: data[:end_date] 
+      }
+      payroll = {
+        salary_id: data[:salary_id]
       }
       Employee.create(employee).salaries.create(salary)
     end
