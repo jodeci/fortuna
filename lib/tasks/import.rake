@@ -3,7 +3,7 @@ require "csv"
 
 namespace :import do
   desc "import csv"
-  task csv: :environment do
+  task :csv => :environment do
     CSV.foreach(ENV["file"], headers: true, header_converters: :symbol) do |row|
       data = row.to_hash
       employee = {
@@ -35,9 +35,10 @@ namespace :import do
         start_date: data[:start_date],
         end_date: data[:end_date] 
       }
-      tmp = Employee.create(employee)
-      tmp.salaries.create(salary)
-      tmp.terms.create(term)
+      Employee.create(employee) do |e|
+        e.salaries.new(salary)
+        e.terms.new(term)
+      end
     end
   end
 end
