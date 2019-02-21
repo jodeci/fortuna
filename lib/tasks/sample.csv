@@ -1,4 +1,4 @@
 name,start_date,end_date,id_number,birthday,residence_address,company_email,personal_email,bank_transfer_type,bank_account,effective_date,role,monthly_wage,hourly_wage,tax_code,commuting_subsidy,equipment_subsidy,supervisor_allowance,labor_insurance,health_insurance,insured_for_labor,insured_for_health,cycle
-王小明,2017-03-01,,A123456789,1991-01-01,,,,salary,,2018-01-01,regular,32000,0,50,0,800,0,700,469,33300,33300,normal
-李小華,2017-03-01,,A987654321,1999-04-04,,,,salary,,2018-01-01,contractor,50000,0,9a,0,0,0,0,0,0,0,business
-陳小花,2017-03-01,,A222111333,2000-03-01,,,,normal,,2018-01-01,parttime,0,150,50,3000,0,0,233,0,11000,0,normal
+王小明,2017-03-01,2017-03-03,A123456789,1991-01-01,,,,salary,,2018-01-01,regular,32000,0,50,0,800,0,700,469,33300,33300,normal
+李小華,2017-03-01,2017-03-03,A987654321,1999-04-04,,,,salary,,2018-01-01,contractor,50000,0,9a,0,0,0,0,0,0,0,business
+陳小花,2017-03-01,2017-03-03,A222111333,2000-03-01,,,,normal,,2018-01-01,parttime,0,150,50,3000,0,0,233,0,11000,0,normal
