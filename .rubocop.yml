@@ -8,7 +8,6 @@ AllCops:
     - db/**/*
     - config/**/*
     - test/**/* # FIXME
-    - lib/**/*
 
 Rails:
   Enabled: true
@@ -135,6 +134,10 @@ Style/FormatStringToken:
 
 Style/FormatString:
   Enabled: false
+
+Style/IfUnlessModifier:
+  Exclude:
+    - "lib/tasks/*.rake"
 
 Lint/AmbiguousBlockAssociation:
   Enabled: false
