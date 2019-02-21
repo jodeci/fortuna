@@ -3,7 +3,7 @@ require "csv"
 
 namespace :import do
   desc "import csv"
-  task :csv => :environment do
+  task csv: :environment do
     CSV.foreach(ENV["file"], headers: true, header_converters: :symbol) do |row|
       data = row.to_hash
       employee = {
