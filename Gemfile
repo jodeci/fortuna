@@ -38,6 +38,7 @@ group :development, :test do
   gem 'taiwanese_id_validator'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'faker'
+  gem 'rubocop', '~> 0.60.0'
   gem 'time_difference'
   gem 'timecop'
   gem 'mocha'
