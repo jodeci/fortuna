@@ -8,6 +8,7 @@ AllCops:
     - db/**/*
     - config/**/*
     - test/**/* # FIXME
+    - vendor/bundle/ruby/**/*
 
 Rails:
   Enabled: true
