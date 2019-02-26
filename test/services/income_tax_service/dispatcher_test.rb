@@ -20,9 +20,9 @@ module IncomeTaxService
       assert IncomeTaxService::Dispatcher.call(subject)
     end
 
-    def test_dispatches_to_irregular_income
+    def test_dispatches_to_insurance_salary
       subject = prepare_subject(tax_code: 50, insured: 11100, b2b: false)
-      IncomeTaxService::IrregularIncome.expects(:call).returns(true)
+      IncomeTaxService::InsuranceSalary.expects(:call).returns(true)
       assert IncomeTaxService::Dispatcher.call(subject)
     end
 

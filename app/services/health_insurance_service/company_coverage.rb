@@ -24,7 +24,7 @@ module HealthInsuranceService
     # FIXME: 負責人有變動的可能
     def owner_income
       row = PayrollDetail.owner_income(year: year, month: month)
-      row.amount - row.subsidy_income
+      row.sum(:amount) - row.sum(:subsidy_income)
     end
 
     # （負責人以外）實發薪資與投保薪資的差額

@@ -42,6 +42,10 @@ module Calculatable
     overtime + vacation_refund + payroll.extra_income_of(:subsidy)
   end
 
+  def insurance_tax
+    payroll.salary.income_tax
+  end
+
   def monthly_wage
     scale_for_cycle(payroll.monthly_wage)
   end
