@@ -16,7 +16,7 @@ namespace :gov do
     Payroll.where(year: ENV["year"], month: ENV["month"]).map do |payroll|
       next if payroll.statement.splits?
       tax = IncomeTaxService::Dispatcher.call(payroll)
-      salary_tax = IncomeTaxService::InsuranceSalary.call(payroll, "salary")
+      salary_tax = IncomeTaxService::InsurancedSalary.call(payroll)
       salary_tax_sum += salary_tax if salary_tax.positive?
       total_sum += tax if tax.positive?
     end

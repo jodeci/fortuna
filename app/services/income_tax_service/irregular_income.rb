@@ -1,24 +1,19 @@
 # frozen_string_literal: true
 module IncomeTaxService
-  class InsuranceSalary
+  class IrregularIncome
     include Callable
     include Calculatable
 
-    attr_reader :payroll, :call_type
+    attr_reader :payroll
 
-    def initialize(payroll, call_type)
+    def initialize(payroll)
       @payroll = payroll
-      @call_type = call_type
     end
 
     # 非經常性給予超過免稅額 需代扣 5% 所得稅
     def call
-      case call_type
-      when "salary"
-        insurance_tax
-      when "both"
-        insurance_tax + (irregular_income * rate).round
-      end
+      return 0 unless taxable?
+      (irregular_income * rate).round
     end
 
     private

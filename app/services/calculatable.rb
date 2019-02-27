@@ -42,7 +42,7 @@ module Calculatable
     overtime + vacation_refund + payroll.extra_income_of(:subsidy)
   end
 
-  def insurance_tax
+  def insuranced_salary_tax
     payroll.salary.income_tax
   end
 

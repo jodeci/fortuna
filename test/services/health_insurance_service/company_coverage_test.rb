@@ -5,11 +5,10 @@ module HealthInsuranceService
   class CompanyCoverageTest < ActiveSupport::TestCase
     def test_premium
       prepare_owner(amount: 100000)
-      prepare_owner(amount: 200000)
       prepare_employee(excess: 6000)
       prepare_employee(excess: 14000)
       prepare_employee(excess: 0)
-      assert_equal 6112, HealthInsuranceService::CompanyCoverage.call(2016, 1)
+      assert_equal 2292, HealthInsuranceService::CompanyCoverage.call(2016, 1)
     end
 
     private

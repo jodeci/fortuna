@@ -23,7 +23,7 @@ module IncomeTaxService
       elsif salary.parttime_income_uninsured_for_labor?
         IncomeTaxService::UninsurancedSalary.call(payroll)
       else
-        IncomeTaxService::InsuranceSalary.call(payroll, "both")
+        IncomeTaxService::InsurancedAndIrregularIncome.call(payroll)
       end
     end
   end
