@@ -2,12 +2,15 @@
 module IncomeTaxService
   class InsurancedSalary
     include Callable
-    include Calculatable
 
-    attr_reader :payroll, :call_type
+    attr_reader :payroll
 
     def initialize(payroll)
       @payroll = payroll
+    end
+
+    def insuranced_salary_tax
+      payroll.salary.fixed_income_tax
     end
 
     def call

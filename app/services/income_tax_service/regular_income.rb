@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 module IncomeTaxService
-  class InsurancedAndIrregularIncome
+  class RegularIncome
     include Callable
-    include Calculatable
 
     attr_reader :payroll
 
