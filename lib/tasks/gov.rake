@@ -11,18 +11,13 @@ namespace :gov do
     puts "健保投保代號 #{ENV['company_health_insurance_id']}"
     puts "------"
 
-    total_sum = 0
-    salary_tax_sum = 0
+    sum = 0
     Payroll.where(year: ENV["year"], month: ENV["month"]).map do |payroll|
       next if payroll.statement.splits?
       tax = IncomeTaxService::Dispatcher.call(payroll)
-      salary_tax = IncomeTaxService::InsurancedSalary.call(payroll)
-      salary_tax_sum += salary_tax if salary_tax.positive?
-      total_sum += tax if tax.positive?
+      sum += tax if tax.positive?
     end
-
-    puts "薪資所得稅: #{salary_tax_sum}"
-    puts "獎金所得稅: #{total_sum - salary_tax_sum}"
+    puts "所得稅公司代扣: #{sum}"
 
     premium = HealthInsuranceService::CompanyCoverage.call(ENV["year"], ENV["month"])
     puts "二代健保公司負擔(61): #{premium}"

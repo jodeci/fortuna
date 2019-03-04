@@ -13,7 +13,7 @@ module IncomeTaxService
         :payroll,
         year: 2018,
         month: 5,
-        salary: build(:salary, monthly_wage: 30000, income_tax: income_tax),
+        salary: build(:salary, monthly_wage: 30000, fixed_income_tax: income_tax),
         employee: build(:employee),
       ) { |payroll| create(:extra_entry, income_type: :salary, payroll: payroll) }
     end

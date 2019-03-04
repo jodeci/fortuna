@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module IncomeTaxService
-  class RegularIncome
+  class RegularEmployee
     include Callable
 
     attr_reader :payroll

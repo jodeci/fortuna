@@ -1,15 +1,15 @@
 require "test_helper"
 
 module IncomeTaxService
-  class RegularIncomeTest < ActiveSupport::TestCase
+  class RegularEmployeeTest < ActiveSupport::TestCase
     def test_has_salary_tax  
       subject = prepare_subject(festival_bonus: 0, extra_amount: 0, income_tax: 3000)
-      assert_equal 3000, IncomeTaxService::RegularIncome.call(subject)
+      assert_equal 3000, IncomeTaxService::RegularEmployee.call(subject)
     end
 
     def test_has_salary_and_bonus_tax
       subject = prepare_subject(festival_bonus: 10000, extra_amount: 100000, income_tax: 3000)
-      assert_equal 8500, IncomeTaxService::RegularIncome.call(subject)
+      assert_equal 8500, IncomeTaxService::RegularEmployee.call(subject)
     end
 
     private
