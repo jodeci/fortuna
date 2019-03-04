@@ -9,12 +9,14 @@ module IncomeTaxService
       @payroll = payroll
     end
 
-    def insuranced_salary_tax
-      payroll.salary.fixed_income_tax
-    end
-
     def call
       insuranced_salary_tax
+    end
+
+    private
+
+    def insuranced_salary_tax
+      payroll.salary.fixed_income_tax
     end
   end
 end
