@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 namespace :gov do
   desc "所得稅、二代健保"
   task payment: :environment do

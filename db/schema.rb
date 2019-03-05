@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_19_082055) do
+ActiveRecord::Schema.define(version: 2019_03_03_142812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 2018_11_19_082055) do
     t.integer "insured_for_labor", default: 0
     t.string "cycle", default: "normal"
     t.decimal "monthly_wage_adjustment", default: "1.0"
+    t.integer "fixed_income_tax", default: 0
     t.index ["effective_date"], name: "index_salaries_on_effective_date"
     t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end
@@ -126,7 +127,7 @@ ActiveRecord::Schema.define(version: 2018_11_19_082055) do
   end
 
 
-  create_view "reports",  sql_definition: <<-SQL
+  create_view "reports", sql_definition: <<-SQL
       SELECT DISTINCT employees.id AS employee_id,
       payrolls.id AS payroll_id,
       employees.name,
@@ -148,8 +149,7 @@ ActiveRecord::Schema.define(version: 2018_11_19_082055) do
     WHERE (employees.b2b = false)
     GROUP BY employees.id, payrolls.id, statements.id, salaries.tax_code;
   SQL
-
-  create_view "payroll_details",  sql_definition: <<-SQL
+  create_view "payroll_details", sql_definition: <<-SQL
       SELECT DISTINCT employees.id AS employee_id,
       payrolls.id AS payroll_id,
       payrolls.year,
@@ -168,5 +168,4 @@ ActiveRecord::Schema.define(version: 2018_11_19_082055) do
        JOIN statements ON ((payrolls.id = statements.payroll_id)))
     WHERE (employees.b2b = false);
   SQL
-
 end

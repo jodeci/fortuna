@@ -32,6 +32,9 @@
     %th= f.label "健保費"
     %td= f.input_field :health_insurance
   %tr
+    %td= f.label "所得稅"
+    %td= f.input_field :fixed_income_tax
+  %tr
     %th= f.label "計算周期"
     %td= f.input_field :cycle, collection: Salary::CYCLE
     %th= f.label "兼職調整", title: "每週天數 / 5", class: "tip"
