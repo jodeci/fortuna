@@ -43,7 +43,7 @@ module StatementService
     end
 
     def paid_amount
-      income_before_withholdings
+      salary.parttime_income_uninsured_for_health? ? income_before_withholdings - IncomeTaxService::InsurancedSalary.call(payroll) : income_before_withholdings
     end
 
     def minimum_wage
