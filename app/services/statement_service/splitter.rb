@@ -42,10 +42,6 @@ module StatementService
       paid_amount / split_interval
     end
 
-    def paid_amount
-      salary.parttime_income_uninsured_for_health? ? income_before_withholdings - IncomeTaxService::InsurancedSalary.call(payroll) : income_before_withholdings
-    end
-
     def minimum_wage
       MinimumWageService.call(payroll.year, payroll.month)
     end

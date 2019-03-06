@@ -49,8 +49,8 @@ class CalculatableTest < ActiveSupport::TestCase
     assert_equal 1000, subject.overtime
   end
 
-  def test_income_before_withholdings
-    subject = DummyObject.new(
+  def test_paid_amount
+    subject_with_both_insured = DummyObject.new(
       build(
         :payroll,
         year: 2018,
@@ -59,16 +59,32 @@ class CalculatableTest < ActiveSupport::TestCase
         employee: build(:employee)
       )
     )
-    subject.payroll.stubs(:extra_deductions).returns(1)
-    subject.stubs(:total_income).returns(100)
-    subject.stubs(:leavetime).returns(1)
-    subject.stubs(:sicktime).returns(1)
-    assert_equal 95, subject.income_before_withholdings
+    subject_with_both_insured.payroll.stubs(:extra_deductions).returns(1)
+    subject_with_both_insured.stubs(:total_income).returns(100)
+    subject_with_both_insured.stubs(:leavetime).returns(1)
+    subject_with_both_insured.stubs(:sicktime).returns(1)
+    assert_equal 95, subject_with_both_insured.paid_amount
+
+    subject_with_unsured_for_health = DummyObject.new(
+      build(
+        :payroll,
+        year: 2018,
+        month: 1,
+        salary: build(:salary, labor_insurance: 1, health_insurance: 0),
+        employee: build(:employee)
+      )
+    )
+    IncomeTaxService::InsurancedSalary.expects(:call).returns(1)
+    subject_with_unsured_for_health.payroll.stubs(:extra_deductions).returns(1)
+    subject_with_unsured_for_health.stubs(:total_income).returns(100)
+    subject_with_unsured_for_health.stubs(:leavetime).returns(1)
+    subject_with_unsured_for_health.stubs(:sicktime).returns(1)
+    assert_equal 95, subject_with_unsured_for_health.paid_amount
   end
 
   def test_taxable_income
     subject = DummyObject.new
-    subject.stubs(:income_before_withholdings).returns(100)
+    subject.stubs(:paid_amount).returns(100)
     subject.stubs(:subsidy_income).returns(20)
     subject.stubs(:labor_insurance).returns(1)
     subject.stubs(:health_insurance).returns(1)

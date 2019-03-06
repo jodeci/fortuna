@@ -14,14 +14,16 @@ module Calculatable
     CalculationService::TotalDeduction.call(payroll)
   end
 
-  # 扣除代扣所得稅、二代健保之前的淨所得
-  def income_before_withholdings
-    total_income - leavetime - sicktime - labor_insurance - health_insurance - payroll.extra_deductions
+  # 扣除代扣所得稅、二代健保之前的淨所得（非約聘）
+  # 已代扣所得稅的淨所得（約聘）
+  def paid_amount
+    income_before_withholdings = total_income - leavetime - sicktime - labor_insurance - health_insurance - payroll.extra_deductions
+    payroll.salary.parttime_income_uninsured_for_health? ? income_before_withholdings - IncomeTaxService::InsurancedSalary.call(payroll) : income_before_withholdings
   end
 
   # 薪資所得包括代扣的勞健費在內
   def taxable_income
-    income_before_withholdings - subsidy_income + labor_insurance + health_insurance
+    paid_amount - subsidy_income + labor_insurance + health_insurance
   end
 
   # 獎金
