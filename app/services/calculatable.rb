@@ -16,14 +16,13 @@ module Calculatable
 
   # 扣除代扣所得稅、二代健保之前的淨所得（非約聘）
   # 已代扣所得稅的淨所得（約聘）
-  def paid_amount
-    income_before_withholdings = total_income - leavetime - sicktime - labor_insurance - health_insurance - payroll.extra_deductions
-    payroll.salary.parttime_income_uninsured_for_health? ? income_before_withholdings - IncomeTaxService::InsurancedSalary.call(payroll) : income_before_withholdings
+  def regular_paid_amount
+    contractor? ? income_after_withholdings : income_before_withholdings
   end
 
   # 薪資所得包括代扣的勞健費在內
   def taxable_income
-    paid_amount - subsidy_income + labor_insurance + health_insurance
+    regular_paid_amount + labor_insurance + health_insurance - subsidy_income
   end
 
   # 獎金
@@ -88,5 +87,23 @@ module Calculatable
 
   def supervisor_allowance
     scale_for_cycle(payroll.supervisor_allowance)
+  end
+
+  private
+
+  def contractor?
+    payroll.salary.role == "contractor"
+  end
+
+  def basic_deduction
+    leavetime + sicktime + labor_insurance + health_insurance + payroll.extra_deductions
+  end
+
+  def income_before_withholdings
+    total_income - basic_deduction
+  end
+
+  def income_after_withholdings
+    income_before_withholdings - income_tax
   end
 end
