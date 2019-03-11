@@ -14,13 +14,9 @@ module StatementDecorator
     end
   end
 
-  def paid_amount
-    amount + correct_by
-  end
-
   def paid_amount_cell
     content_tag :td, class: paid_amount_style do
-      number_with_delimiter(paid_amount)
+      number_with_delimiter(amount + correct_by)
     end
   end
 

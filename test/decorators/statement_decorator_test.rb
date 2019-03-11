@@ -10,7 +10,6 @@ class StatementDecoratorTest < ActiveSupport::TestCase
 
   def test_paid_amount
     subject = decorated_subject(amount: 10000, subsidy: 500, correction: 5)
-    assert_equal 10005, subject.paid_amount
     assert_equal '<td class="highlight">10,005</td>', subject.paid_amount_cell
   end
 

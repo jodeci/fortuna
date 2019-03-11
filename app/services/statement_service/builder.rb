@@ -33,7 +33,7 @@ module StatementService
 
     def unsplit_params
       {
-        amount: paid_amount,
+        amount: total_income - total_deduction,
         year: payroll.year,
         month: payroll.month,
         splits: nil,
@@ -51,10 +51,6 @@ module StatementService
         subsidy_income: subsidy_income,
         excess_income: 0,
       }
-    end
-
-    def paid_amount
-      total_income - total_deduction
     end
   end
 end

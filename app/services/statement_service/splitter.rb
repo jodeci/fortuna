@@ -20,7 +20,7 @@ module StatementService
 
     def split_statement?
       return false if salary.regular_income?
-      regular_paid_amount > split_base
+      paid_amount > split_base
     end
 
     def split_base
@@ -33,13 +33,13 @@ module StatementService
 
     def splits
       ratio.times { array << split_interval }
-      array << regular_paid_amount - ratio * split_interval
+      array << paid_amount - ratio * split_interval
       array.delete 0
       array
     end
 
     def ratio
-      regular_paid_amount / split_interval
+      paid_amount / split_interval
     end
 
     def minimum_wage
