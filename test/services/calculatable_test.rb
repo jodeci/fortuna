@@ -49,47 +49,70 @@ class CalculatableTest < ActiveSupport::TestCase
     assert_equal 1000, subject.overtime
   end
 
-  def test_paid_amount_for_regular_employees
-    subject_for_regular_employees = DummyObject.new(
-      build(
-        :payroll,
-        year: 2018,
-        month: 1,
-        salary: build(:salary, tax_code: 50, labor_insurance: 1, health_insurance: 1, insured_for_health: 1),
-        employee: build(:employee)
-      )
-    )
-    subject_for_regular_employees.payroll.stubs(:extra_deductions).returns(1)
-    subject_for_regular_employees.stubs(:total_income).returns(100)
-    subject_for_regular_employees.stubs(:leavetime).returns(1)
-    subject_for_regular_employees.stubs(:sicktime).returns(1)
-    assert_equal 95, subject_for_regular_employees.paid_amount
+  def test_paid_amount_for_regular_income
+    subject = prepare_subject(tax_code: 50, insured_for_health: 1, insured_for_labor: 1)
+    subject.stubs(:income_before_withholdings).returns(100)
+    subject.stubs(:income_tax).returns(1)
+    assert_equal 100, subject.paid_amount
+  end
+
+  def test_paid_amount_for_parttime_income_uninsured_for_labor
+    subject = prepare_subject(tax_code: 50, insured_for_health: 0, insured_for_labor: 0)
+    subject.stubs(:income_before_withholdings).returns(100)
+    subject.stubs(:income_tax).returns(1)
+    assert_equal 100, subject.paid_amount
   end
 
   def test_paid_amount_for_parttime_income_uninsured_for_health
-    subject_for_parttime_income_uninsured_for_health = DummyObject.new(
-      build(
-        :payroll,
-        year: 2018,
-        month: 1,
-        salary: build(:salary, tax_code: 50, labor_insurance: 1, health_insurance: 0, insured_for_health: 0),
-        employee: build(:employee)
-      )
-    )
-    subject_for_parttime_income_uninsured_for_health.payroll.stubs(:extra_deductions).returns(1)
-    subject_for_parttime_income_uninsured_for_health.stubs(:total_income).returns(100)
-    subject_for_parttime_income_uninsured_for_health.stubs(:leavetime).returns(1)
-    subject_for_parttime_income_uninsured_for_health.stubs(:sicktime).returns(1)
-    subject_for_parttime_income_uninsured_for_health.stubs(:income_tax_for_parttime_income_uninsured_for_health).returns(1)
-    assert_equal 95, subject_for_parttime_income_uninsured_for_health.paid_amount
+    subject = prepare_subject(tax_code: 50, insured_for_health: 0, insured_for_labor: 1)
+    subject.stubs(:income_before_withholdings).returns(100)
+    subject.stubs(:income_tax).returns(1)
+    assert_equal 99, subject.paid_amount
   end
 
-  def test_taxable_income
-    subject = DummyObject.new
+  def test_paid_amount_for_professional_services
+    subject = prepare_subject(tax_code: "9a", insured_for_health: 0, insured_for_labor: 0)
+    subject.stubs(:income_before_withholdings).returns(100)
+    subject.stubs(:income_tax).returns(1)
+    assert_equal 100, subject.paid_amount
+  end
+
+  def test_regular_taxable_income
+    subject = prepare_subject(tax_code: 50, insured_for_health: 1, insured_for_labor: 1)
     subject.stubs(:paid_amount).returns(100)
     subject.stubs(:subsidy_income).returns(20)
     subject.stubs(:labor_insurance).returns(1)
     subject.stubs(:health_insurance).returns(1)
+    assert_equal 82, subject.taxable_income
+  end
+
+  def test_taxable_income_for_parttime_income_uninsured_for_labor
+    subject = prepare_subject(tax_code: 50, insured_for_health: 0, insured_for_labor: 0)
+    subject.stubs(:paid_amount).returns(100)
+    subject.stubs(:labor_insurance).returns(1)
+    subject.stubs(:health_insurance).returns(1)
+    subject.stubs(:subsidy_income).returns(20)
+    subject.stubs(:income_tax).returns(1)
+    assert_equal 82, subject.taxable_income
+  end
+
+  def test_taxable_income_for_parttime_income_uninsured_for_health
+    subject = prepare_subject(tax_code: 50, insured_for_health: 0, insured_for_labor: 1)
+    subject.stubs(:paid_amount).returns(100)
+    subject.stubs(:labor_insurance).returns(1)
+    subject.stubs(:health_insurance).returns(1)
+    subject.stubs(:subsidy_income).returns(20)
+    subject.stubs(:income_tax).returns(1)
+    assert_equal 83, subject.taxable_income
+  end
+
+  def test_taxable_income_for_professional_services
+    subject = prepare_subject(tax_code: "9a", insured_for_health: 0, insured_for_labor: 0)
+    subject.stubs(:paid_amount).returns(100)
+    subject.stubs(:labor_insurance).returns(1)
+    subject.stubs(:health_insurance).returns(1)
+    subject.stubs(:subsidy_income).returns(20)
+    subject.stubs(:income_tax).returns(1)
     assert_equal 82, subject.taxable_income
   end
 
@@ -159,5 +182,20 @@ class CalculatableTest < ActiveSupport::TestCase
     def initialize(payroll = FactoryBot.build(:payroll))
       @payroll = payroll
     end
+  end
+
+  private 
+  
+  def prepare_subject(tax_code:, insured_for_health:, insured_for_labor:)
+    subject = DummyObject.new(
+      build(
+        :payroll,
+        year: 2018,
+        month: 1,
+        salary: build(:salary, tax_code: tax_code, insured_for_health: insured_for_health, insured_for_labor: insured_for_labor),
+        employee: build(:employee)
+      )
+    )
+    subject
   end
 end
