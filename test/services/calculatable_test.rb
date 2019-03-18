@@ -77,43 +77,17 @@ class CalculatableTest < ActiveSupport::TestCase
     assert_equal 100, subject.paid_amount
   end
 
-  def test_regular_taxable_income
-    subject = prepare_subject(tax_code: 50, insured_for_health: 1, insured_for_labor: 1)
-    subject.stubs(:paid_amount).returns(100)
-    subject.stubs(:subsidy_income).returns(20)
-    subject.stubs(:labor_insurance).returns(1)
-    subject.stubs(:health_insurance).returns(1)
-    assert_equal 82, subject.taxable_income
-  end
-
-  def test_taxable_income_for_parttime_income_uninsured_for_labor
-    subject = prepare_subject(tax_code: 50, insured_for_health: 0, insured_for_labor: 0)
-    subject.stubs(:paid_amount).returns(100)
-    subject.stubs(:labor_insurance).returns(1)
-    subject.stubs(:health_insurance).returns(1)
-    subject.stubs(:subsidy_income).returns(20)
-    subject.stubs(:income_tax).returns(1)
-    assert_equal 82, subject.taxable_income
-  end
-
-  def test_taxable_income_for_parttime_income_uninsured_for_health
-    subject = prepare_subject(tax_code: 50, insured_for_health: 0, insured_for_labor: 1)
-    subject.stubs(:paid_amount).returns(100)
-    subject.stubs(:labor_insurance).returns(1)
-    subject.stubs(:health_insurance).returns(1)
-    subject.stubs(:subsidy_income).returns(20)
-    subject.stubs(:income_tax).returns(1)
-    assert_equal 83, subject.taxable_income
-  end
-
-  def test_taxable_income_for_professional_services
-    subject = prepare_subject(tax_code: "9a", insured_for_health: 0, insured_for_labor: 0)
-    subject.stubs(:paid_amount).returns(100)
-    subject.stubs(:labor_insurance).returns(1)
-    subject.stubs(:health_insurance).returns(1)
-    subject.stubs(:subsidy_income).returns(20)
-    subject.stubs(:income_tax).returns(1)
-    assert_equal 82, subject.taxable_income
+  def test_taxable_income
+    subject = DummyObject.new(build(:payroll,
+      salary: build(:salary, 
+        monthly_wage: 100,
+        equipment_subsidy: 1,
+        supervisor_allowance: 1
+        )))
+    subject.payroll.stubs(:extra_income).returns(1)
+    subject.stubs(:deduction).returns(1)
+    subject.stubs(:extra_income_of_bonus_and_subsidy).returns(1)
+    assert_equal 101, subject.taxable_income
   end
 
   def test_bonus_income

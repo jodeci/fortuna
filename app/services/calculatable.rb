@@ -17,7 +17,7 @@ module Calculatable
   # 扣除代扣所得稅、二代健保之前的淨所得（非約聘）
   # 已代扣所得稅的淨所得（約聘）
   def paid_amount
-    if payroll.salary.parttime_income_uninsured_for_health? and payroll.salary.insured_for_labor.positive?
+    if payroll.salary.insured_for_labor_and_uninsured_for_health?
       income_before_withholdings_after_tax
     else
       income_before_withholdings
@@ -26,11 +26,7 @@ module Calculatable
 
   # 薪資所得包括代扣的勞健費在內
   def taxable_income
-    if payroll.salary.parttime_income_uninsured_for_health? and payroll.salary.insured_for_labor.positive?
-      taxable_income_before_tax
-    else
-      regular_taxable_income
-    end
+    payroll.salary.monthly_wage + payroll.salary.equipment_subsidy + payroll.salary.supervisor_allowance + extra_income - deduction - extra_income_of_bonus_and_subsidy
   end
 
   # 獎金
@@ -111,11 +107,11 @@ module Calculatable
     income_before_withholdings - income_tax
   end
 
-  def regular_taxable_income
-    paid_amount + labor_insurance + health_insurance - subsidy_income - bonus_income
+  def extra_income_of_bonus_and_subsidy
+    payroll.extra_income - payroll.extra_income_of(:salary)
   end
 
-  def taxable_income_before_tax
-    regular_taxable_income + income_tax
+  def deduction
+    basic_deduction - labor_insurance - health_insurance
   end
 end

@@ -53,4 +53,8 @@ class Salary < ApplicationRecord
   def partner?
     %w(vendor advisor).include? role
   end
+
+  def insured_for_labor_and_uninsured_for_health?
+    tax_code == "50" and insured_for_health.zero? and insured_for_labor.positive?
+  end
 end
