@@ -11,13 +11,17 @@ namespace :gov do
     puts "健保投保代號 #{ENV['company_health_insurance_id']}"
     puts "------"
 
-    sum = 0
-    Payroll.where(year: ENV["year"], month: ENV["month"]).map do |payroll|
-      next if payroll.statement.splits?
-      tax = IncomeTaxService::Dispatcher.call(payroll)
-      sum += tax if tax.positive?
-    end
-    puts "所得稅公司代扣: #{sum}"
+    employee_sum = CalculationService::TotalEmployee.call(ENV["year"], ENV["month"])
+    taxable_income_sum = SalaryService::TaxableIncomeSum.call(ENV["year"], ENV["month"])
+    taxable_income_tax_sum = IncomeTaxService::TaxableIncomeTaxSum.call(ENV["year"], ENV["month"])
+    irregular_income_sum = SalaryService::IrregularIncomeSum.call(ENV["year"], ENV["month"])
+    irregular_tax_sum = IncomeTaxService::IrregularTaxSum.call(ENV["year"], ENV["month"])
+
+    puts "員工人數: #{employee_sum}"
+    puts "每月給付之薪資給付所得總額: #{taxable_income_sum}"
+    puts "每月給付之薪資給付所得稅代扣總額: #{taxable_income_tax_sum}"
+    puts "非每月給付之薪資給付所得總額: #{irregular_income_sum}"
+    puts "非每月給付之薪資給付所得稅代扣總額: #{irregular_tax_sum}"
 
     premium = HealthInsuranceService::CompanyCoverage.call(ENV["year"], ENV["month"])
     puts "二代健保公司負擔(61): #{premium}"
