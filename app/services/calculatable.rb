@@ -26,7 +26,7 @@ module Calculatable
 
   # 薪資所得包括代扣的勞健費在內
   def taxable_income
-    payroll.salary.monthly_wage + payroll.salary.equipment_subsidy + payroll.salary.supervisor_allowance + extra_income - deduction - extra_income_of_bonus_and_subsidy
+    total_income - basic_deductions - subsidy_income - bonus_income
   end
 
   # 獎金
@@ -95,23 +95,19 @@ module Calculatable
 
   private
 
-  def basic_deduction
-    leavetime + sicktime + labor_insurance + health_insurance + payroll.extra_deductions
+  def withholdings
+    labor_insurance + health_insurance
+  end
+
+  def basic_deductions
+    leavetime + sicktime + payroll.extra_deductions
   end
 
   def income_before_withholdings
-    total_income - basic_deduction
+    total_income - withholdings - basic_deductions
   end
 
   def income_before_withholdings_after_tax
     income_before_withholdings - income_tax
-  end
-
-  def extra_income_of_bonus_and_subsidy
-    payroll.extra_income - payroll.extra_income_of(:salary)
-  end
-
-  def deduction
-    basic_deduction - labor_insurance - health_insurance
   end
 end

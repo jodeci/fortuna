@@ -78,16 +78,12 @@ class CalculatableTest < ActiveSupport::TestCase
   end
 
   def test_taxable_income
-    subject = DummyObject.new(build(:payroll,
-      salary: build(:salary, 
-        monthly_wage: 100,
-        equipment_subsidy: 1,
-        supervisor_allowance: 1
-        )))
-    subject.payroll.stubs(:extra_income).returns(1)
-    subject.stubs(:deduction).returns(1)
-    subject.stubs(:extra_income_of_bonus_and_subsidy).returns(1)
-    assert_equal 101, subject.taxable_income
+    subject = DummyObject.new
+    subject.stubs(:total_income).returns(100)
+    subject.stubs(:basic_deductions).returns(1)
+    subject.stubs(:subsidy_income).returns(1)
+    subject.stubs(:bonus_income).returns(1)
+    assert_equal 97, subject.taxable_income
   end
 
   def test_bonus_income
@@ -161,7 +157,7 @@ class CalculatableTest < ActiveSupport::TestCase
   private 
   
   def prepare_subject(tax_code:, insured_for_health:, insured_for_labor:)
-    subject = DummyObject.new(
+    DummyObject.new(
       build(
         :payroll,
         year: 2018,
@@ -170,6 +166,5 @@ class CalculatableTest < ActiveSupport::TestCase
         employee: build(:employee)
       )
     )
-    subject
   end
 end
