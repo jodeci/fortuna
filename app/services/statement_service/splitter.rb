@@ -42,10 +42,6 @@ module StatementService
       paid_amount / split_interval
     end
 
-    def paid_amount
-      income_before_withholdings
-    end
-
     def minimum_wage
       MinimumWageService.call(payroll.year, payroll.month)
     end
