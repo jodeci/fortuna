@@ -4,10 +4,10 @@ require "test_helper"
 module IncomeTaxService
   class TaxableIncomeTaxSumTest < ActiveSupport::TestCase
     def test_for_salary_tax_sum
-      subject = prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 1, fixed_income_tax: 100 )
-      subject = prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0 , fixed_income_tax: 100)
-      subject = prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0, fixed_income_tax: 0)
-      subject = prepare_subject(tax_code: "9a", insured_for_labor: 1, insured_for_health: 0, fixed_income_tax: 0)
+      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 1, fixed_income_tax: 100 )
+      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0 , fixed_income_tax: 100)
+      prepare_subject(tax_code: 50, insured_for_labor: 0, insured_for_health: 0, fixed_income_tax: 100)
+      prepare_subject(tax_code: "9a", insured_for_labor: 0, insured_for_health: 0, fixed_income_tax: 100)
 
       assert_equal 200, IncomeTaxService::TaxableIncomeTaxSum.call(2019, 3)
     end
@@ -20,7 +20,6 @@ module IncomeTaxService
         :payroll, 
         year: 2019, 
         month: 3,
-        festival_bonus: 100,
         salary: create(
           :salary,
           tax_code: tax_code,
@@ -32,6 +31,5 @@ module IncomeTaxService
         employee: employee
       )
     end
-
   end
 end

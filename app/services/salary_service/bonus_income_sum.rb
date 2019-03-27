@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module SalaryService
-  class IrregularIncomeSum
+  class BonusIncomeSum
     include Callable
 
     attr_reader :year, :month
@@ -13,10 +13,7 @@ module SalaryService
     def call
       sum = 0
       Payroll.where(year: year, month: month).map do |payroll|
-        tax = IncomeTaxService::InsurancedSalary.call(payroll)
-        if tax.positive?
-          sum += SalaryService::IrregularIncome.call(payroll) if payroll.salary.regular_income? or payroll.salary.insured_for_labor_and_uninsured_for_health?
-        end
+        sum += SalaryService::BonusIncome.call(payroll)
       end
       sum
     end

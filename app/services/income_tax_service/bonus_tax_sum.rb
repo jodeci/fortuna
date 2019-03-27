@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module IncomeTaxService
-  class IrregularTaxSum
+  class BonusTaxSum
     include Callable
 
     attr_reader :year, :month
@@ -16,7 +16,7 @@ module IncomeTaxService
         salary_tax = IncomeTaxService::InsurancedSalary.call(payroll)
         next if salary_tax.zero?
         if payroll.salary.regular_income? or payroll.salary.insured_for_labor_and_uninsured_for_health?
-          tax = IncomeTaxService::IrregularIncome.call(payroll)
+          tax = IncomeTaxService::BonusIncome.call(payroll)
           sum += tax if tax.positive?
         end
       end

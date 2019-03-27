@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 require "test_helper"
 module SalaryService
-  class IrregularIncomeSumTest < ActiveSupport::TestCase
+  class BonusIncomeSumTest < ActiveSupport::TestCase
     def test_irregular_income_sum
-      subject = prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 1, fixed_income_tax: 100 )
-      subject = prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0 , fixed_income_tax: 100)
-      subject = prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0, fixed_income_tax: 0)
-      subject = prepare_subject(tax_code: "9a", insured_for_labor: 1, insured_for_health: 0, fixed_income_tax: 0)
+      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 1, fixed_income_tax: 100 )
+      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0 , fixed_income_tax: 100)
+      prepare_subject(tax_code: 50, insured_for_labor: 0, insured_for_health: 0, fixed_income_tax: 100)
+      prepare_subject(tax_code: "9a", insured_for_labor: 0, insured_for_health: 0, fixed_income_tax: 100)
 
-      assert_equal 200, SalaryService::IrregularIncomeSum.call(2019, 3)
+      assert_equal 200, SalaryService::BonusIncomeSum.call(2019, 3)
     end
 
     private

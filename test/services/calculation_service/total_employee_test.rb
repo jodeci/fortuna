@@ -4,10 +4,10 @@ require "test_helper"
 module CalculationService
   class TotalEmployeeTest < ActiveSupport::TestCase
     def test_for_employees_count
-      subject = prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 1, fixed_income_tax: 100 )
-      subject = prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0 , fixed_income_tax: 100)
-      subject = prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0, fixed_income_tax: 0)
-      subject = prepare_subject(tax_code: "9a", insured_for_labor: 1, insured_for_health: 0, fixed_income_tax: 0)
+      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 1, fixed_income_tax: 100 )
+      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0 , fixed_income_tax: 100)
+      prepare_subject(tax_code: 50, insured_for_labor: 0, insured_for_health: 0, fixed_income_tax: 100)
+      prepare_subject(tax_code: "9a", insured_for_labor: 0, insured_for_health: 0, fixed_income_tax: 100)
       
       assert_equal 2, CalculationService::TotalEmployee.call(2019, 3)
     end

@@ -13,10 +13,7 @@ module SalaryService
     def call
       sum = 0
       Payroll.where(year: year, month: month).map do |payroll|
-        tax = IncomeTaxService::InsurancedSalary.call(payroll)
-        if tax.positive?
-          sum += SalaryService::TaxableIncome.call(payroll) if payroll.salary.regular_income? or payroll.salary.insured_for_labor_and_uninsured_for_health?
-        end
+        sum += SalaryService::TaxableIncome.call(payroll)
       end
       sum
     end
