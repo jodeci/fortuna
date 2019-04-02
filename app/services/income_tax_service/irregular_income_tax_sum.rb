@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-module CalculationService
-  class TotalEmployee
+module IncomeTaxService
+  class IrregularIncomeTaxSum
     include Callable
 
     attr_reader :year, :month
@@ -12,7 +12,8 @@ module CalculationService
 
     def call
       Payroll.where(year: year, month: month).inject(0) do |sum, payroll|
-        sum += 1 if payroll.salary.regular_income? or payroll.salary.insured_for_labor_and_uninsured_for_health?
+        tax = IncomeTaxService::IrregularIncome.call(payroll)
+        sum += tax if payroll.salary.regular_income? or payroll.salary.insured_for_labor_and_uninsured_for_health?
         sum
       end
     end

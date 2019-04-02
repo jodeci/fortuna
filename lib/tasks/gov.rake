@@ -14,8 +14,8 @@ namespace :gov do
     employee_sum = CalculationService::TotalEmployee.call(ENV["year"], ENV["month"])
     taxable_income_sum = SalaryService::TaxableIncomeSum.call(ENV["year"], ENV["month"])
     taxable_income_tax_sum = IncomeTaxService::TaxableIncomeTaxSum.call(ENV["year"], ENV["month"])
-    irregular_income_sum = SalaryService::BonusIncomeSum.call(ENV["year"], ENV["month"])
-    irregular_tax_sum = IncomeTaxService::BonusTaxSum.call(ENV["year"], ENV["month"])
+    irregular_income_sum = SalaryService::IrregularIncomeSum.call(ENV["year"], ENV["month"])
+    irregular_tax_sum = IncomeTaxService::IrregularIncomeTaxSum.call(ENV["year"], ENV["month"])
 
     puts "員工人數: #{employee_sum}"
     puts "每月給付之薪資給付所得總額: #{taxable_income_sum}"

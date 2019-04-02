@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module SalaryService
-  class BonusIncomeSum
+  class IrregularIncomeSum
     include Callable
 
     attr_reader :year, :month
@@ -11,11 +11,10 @@ module SalaryService
     end
 
     def call
-      sum = 0
-      Payroll.where(year: year, month: month).map do |payroll|
-        sum += SalaryService::BonusIncome.call(payroll)
+      Payroll.where(year: year, month: month).inject(0) do |sum, payroll|
+        sum += SalaryService::IrregularIncome.call(payroll)
+        sum
       end
-      sum
     end
   end
 end

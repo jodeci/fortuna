@@ -3,10 +3,10 @@ require "test_helper"
 module SalaryService
   class TaxableIncomeSumTest < ActiveSupport::TestCase
     def test_salary_sum  
-      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 1, fixed_income_tax: 100 )
-      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0 , fixed_income_tax: 100)
-      prepare_subject(tax_code: 50, insured_for_labor: 0, insured_for_health: 0, fixed_income_tax: 100)
-      prepare_subject(tax_code: "9a", insured_for_labor: 0, insured_for_health: 0, fixed_income_tax: 100)
+      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 1)
+      prepare_subject(tax_code: 50, insured_for_labor: 1, insured_for_health: 0)
+      prepare_subject(tax_code: 50, insured_for_labor: 0, insured_for_health: 0)
+      prepare_subject(tax_code: "9a", insured_for_labor: 0, insured_for_health: 0)
       SalaryService::TaxableIncome.any_instance.stubs(:taxable_income).returns(100)
     
       assert_equal 200, SalaryService::TaxableIncomeSum.call(2019,3)
@@ -14,7 +14,7 @@ module SalaryService
 
     private
     
-    def prepare_subject(tax_code:, insured_for_labor:, insured_for_health:, fixed_income_tax:) 
+    def prepare_subject(tax_code:, insured_for_labor:, insured_for_health:) 
       employee = create(:employee)
       create(
         :payroll, 
@@ -25,7 +25,6 @@ module SalaryService
           tax_code: tax_code,
           insured_for_health: insured_for_health,
           insured_for_labor: insured_for_labor,
-          fixed_income_tax: fixed_income_tax,
           employee: employee
           ), 
         employee: employee

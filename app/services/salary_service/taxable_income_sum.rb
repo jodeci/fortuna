@@ -11,11 +11,10 @@ module SalaryService
     end
 
     def call
-      sum = 0
-      Payroll.where(year: year, month: month).map do |payroll|
+      Payroll.where(year: year, month: month).inject(0) do |sum, payroll|
         sum += SalaryService::TaxableIncome.call(payroll)
+        sum
       end
-      sum
     end
   end
 end
