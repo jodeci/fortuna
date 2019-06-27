@@ -11,6 +11,8 @@ env:
   global:
     - RAILS_ENV=test
     - DATABASE_URL=postgresql://postgres@localhost/fortuna_test
+before_install:
+  - gem install -v 1.17.3 bundler --no-rdoc --no-ri
 before_script:
   - psql -c 'create database fortuna_test;' -U postgres
   - curl -o- -L https://yarnpkg.com/install.sh | bash
