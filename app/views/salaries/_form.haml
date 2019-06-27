@@ -32,8 +32,10 @@
     %th= f.label "健保費"
     %td= f.input_field :health_insurance
   %tr
-    %td= f.label "所得稅"
+    %th= f.label "所得稅"
     %td= f.input_field :fixed_income_tax
+    %th
+    %td
   %tr
     %th= f.label "計算周期"
     %td= f.input_field :cycle, collection: Salary::CYCLE

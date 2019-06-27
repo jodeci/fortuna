@@ -21,7 +21,6 @@ module FormatService
       {
         勞保費: labor_insurance,
         健保費: health_insurance,
-        二代健保: supplement_premium,
         所得稅: income_tax,
       }.merge(extra_loss)
     end
