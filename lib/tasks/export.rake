@@ -12,7 +12,7 @@ namespace :export do
 
     # 薪資轉帳
     salary_transfers = statements["salary"].group_by { |statement| statement.payroll.salary.role }
-    %w(parttime advisor).each do |key|
+    %w(parttime advisor vendor).each do |key|
       if salary_transfers[key]
         salary_transfers["contractor"].concat salary_transfers[key]
         salary_transfers.delete key
