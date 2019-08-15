@@ -9,7 +9,11 @@ class MinimumWageService
   end
 
   def call
-    if date >= Date.new(2018, 1, 1)
+    if date >= Date.new(2020, 1, 1)
+      23800
+    elsif date >= Date.new(2019, 1, 1)
+      23100
+    elsif date >= Date.new(2018, 1, 1)
       22000
     elsif date >= Date.new(2017, 1, 1)
       21009
