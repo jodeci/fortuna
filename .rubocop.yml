@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.6
   Exclude:
     - ./Rakefile
     - ./config.ru
@@ -122,9 +122,6 @@ Style/PercentLiteralDelimiters:
   Enabled: false
 
 Style/SymbolArray:
-  Enabled: false
-
-Style/PercentLiteralDelimiters:
   Enabled: false
 
 Style/NumericLiterals:
