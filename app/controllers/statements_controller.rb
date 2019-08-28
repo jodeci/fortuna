@@ -26,7 +26,7 @@ class StatementsController < ApplicationController
   private
 
   def prepare_statement
-    @statement = Statement.find_by(id: params[:id]) or not_found
+    (@statement = Statement.find_by(id: params[:id])) || not_found
   end
 
   def prepare_details

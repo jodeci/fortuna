@@ -25,7 +25,7 @@ module SalaryService
     def payroll_period_overlaps_with_term?
       return false if term.blank?
       return true unless term.end_date
-      return true if cycle_start <= term.end_date and cycle_end >= term.start_date
+      return true if (cycle_start <= term.end_date) && (cycle_end >= term.start_date)
     end
   end
 end

@@ -35,7 +35,7 @@ module PayrollPeriodCountable
 
   def on_payroll?
     return false unless employee_start
-    (employee_start <= cycle_end) and (default_end_point >= cycle_start)
+    (employee_start <= cycle_end) && (default_end_point >= cycle_start)
   end
 
   def cycle_start
@@ -55,7 +55,7 @@ module PayrollPeriodCountable
   end
 
   def default_end_point
-    if employee_end and employee_end < cycle_end
+    if employee_end && (employee_end < cycle_end)
       employee_end
     else
       cycle_end

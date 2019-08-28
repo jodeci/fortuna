@@ -72,6 +72,6 @@ class EmployeesController < ApplicationController
   end
 
   def prepare
-    @employee = Employee.find_by(id: params[:id]) or not_found
+    (@employee = Employee.find_by(id: params[:id])) || not_found
   end
 end

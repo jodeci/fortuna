@@ -27,17 +27,17 @@ class Salary < ApplicationRecord
 
   # 一般薪資所得
   def regular_income?
-    tax_code == "50" and insured_for_labor.positive? and insured_for_health.positive?
+    (tax_code == "50") && insured_for_labor.positive? && insured_for_health.positive?
   end
 
   # 兼職薪資所得（所得稅用）
   def parttime_income_uninsured_for_labor?
-    tax_code == "50" and insured_for_labor.zero?
+    (tax_code == "50") && insured_for_labor.zero?
   end
 
   # 兼職薪資所得（二代健保用）
   def parttime_income_uninsured_for_health?
-    tax_code == "50" and insured_for_health.zero?
+    (tax_code == "50") && insured_for_health.zero?
   end
 
   # 執行業務所得
@@ -55,6 +55,6 @@ class Salary < ApplicationRecord
   end
 
   def insured_for_labor_and_uninsured_for_health?
-    tax_code == "50" and insured_for_health.zero? and insured_for_labor.positive?
+    (tax_code == "50") && insured_for_health.zero? && insured_for_labor.positive?
   end
 end

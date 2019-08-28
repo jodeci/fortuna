@@ -22,7 +22,7 @@ module ReportService
     private
 
     def shift_to_previous_year
-      data.select { |cell| cell.month == 12 and cell.year == year - 1 }.first
+      data.select { |cell| (cell.month == 12) && (cell.year == year - 1) }.first
     end
 
     def shift_to_previous_month

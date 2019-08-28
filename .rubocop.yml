@@ -15,7 +15,7 @@ Rails:
 
 # Use &&/|| instead of and/or.
 AndOr:
-  Enabled: false
+  Enabled: true
 
 # Use only ascii symbols in identifiers.
 AsciiComments:

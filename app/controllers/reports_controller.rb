@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
   before_action :store_location, except: [:index]
 
   def index
-    return unless report_type and year
+    return unless report_type && year
     redirect_to action: report_type, year: year
   end
 

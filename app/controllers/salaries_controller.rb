@@ -54,10 +54,10 @@ class SalariesController < ApplicationController
   end
 
   def prepare_employee
-    @employee = Employee.find_by(id: params[:employee_id]) or not_found
+    (@employee = Employee.find_by(id: params[:employee_id])) || not_found
   end
 
   def prepare_salary
-    @salary = Salary.find_by(id: params[:id]) or not_found
+    (@salary = Salary.find_by(id: params[:id])) || not_found
   end
 end

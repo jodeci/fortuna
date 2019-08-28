@@ -2,7 +2,7 @@
 namespace :gov do
   desc "所得稅、二代健保"
   task payment: :environment do
-    unless ENV["year"] and ENV["month"]
+    unless ENV["year"] && ENV["month"]
       abort "usage: rake gov:payment year=2018 month=2"
     end
 

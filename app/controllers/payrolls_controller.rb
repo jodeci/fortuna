@@ -40,7 +40,7 @@ class PayrollsController < ApplicationController
   end
 
   def prepare_payroll
-    @payroll = Payroll.find_by(id: params[:id]) or not_found
+    (@payroll = Payroll.find_by(id: params[:id])) || not_found
   end
 
   def redirect_to_date
