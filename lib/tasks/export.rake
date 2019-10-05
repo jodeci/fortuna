@@ -65,6 +65,20 @@ namespace :export do
     end
   end
 
+  desc "export statment to pdf"
+  task statement: :environment do
+    unless ENV["id"] && ENV["path"]
+      abort "usage: rake export:statement id={statement_id} path=tmp"
+    end
+
+    builder = StatementPDFBuilder.new(Statement.find(ENV["id"]))
+    File.write(
+      File.join(ENV["path"], builder.filename),
+      builder.generate_pdf,
+      mode: "wb"
+    )
+  end
+
   desc "send pdf as attachment to employee"
   task email: :environment do
     unless ENV["year"] && ENV["month"]
