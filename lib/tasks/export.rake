@@ -90,4 +90,16 @@ namespace :export do
       StatementMailer.notify_email(statement).deliver
     end
   end
+
+  desc "send statement to specific employee"
+  task mailto: :environment do
+    unless ENV["id"]
+      abort "usage: rake export:mailto id={statement_id}"
+    end
+
+    statement = Statement.find(ENV["id"])
+    if statement.employee.email.present?
+      StatementMailer.notify_email(statement).deliver
+    end
+  end
 end
