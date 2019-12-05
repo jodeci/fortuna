@@ -1,0 +1,11 @@
+= simple_form_for lunar_year do |f|
+  %table.table
+    %tr
+      %th.col-xs-2= f.label "西曆年度"
+      %td= f.input_field :year
+    %tr
+      %th= f.label "年前最後工作日"
+      %td= f.input_field :last_working_day, start_year: Date.today.year - 2, end_year: Date.today.year + 2, include_blank: true
+
+  .text-center
+    = f.submit "送出"

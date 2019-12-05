@@ -1,0 +1,22 @@
+%h1 #{@lunar_year.year} 年度年終獎金
+
+%p TODO: 特殊狀況請自員工頁面另外設定
+
+%table.table
+  %tr
+    %th #
+    %th 姓名
+    %th 當時身份
+    %th 年終獎金
+    %th 操作
+  - @reciptents.each do |reciptent|
+    %tr
+      %td= reciptent.employee_id
+      %td= link_to reciptent.name, employee_path(reciptent.employee_id)
+      %td= reciptent.role
+      - if reciptent.bonus_id
+        %td= number_with_delimiter(reciptent.total_amount)
+        %td= link_to "修改年終獎金", edit_yearend_bonus_path(reciptent.bonus_id), class: "btn btn-xs btn-default"
+      - else
+        %td -- 
+        %td= link_to "建立年終獎金", new_yearend_bonus_path(employee_id: reciptent.employee_id, lunar_year_id: @lunar_year), class: "btn btn-xs btn-default"

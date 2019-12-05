@@ -13,6 +13,12 @@ Rails.application.routes.draw do
 
   resources :statements, only: [:index, :show, :edit, :update]
 
+  resources :lunar_years, except: [:index, :show, :destroy]
+
+  get "yearend_bonuses/lunar_year/:lunar_year_id", to: "yearend_bonuses#lunar_year", as: :yearend_bonuses_lunar_year
+  get "yearend_bonuses/calculate", to: "yearend_bonuses#calculate", as: :yearend_bonuses_calculate
+  resources :yearend_bonuses, except: [:destroy]
+
   resources :reports, only: [:index] do
     collection do
       get "salary/:year", to: "reports#salary", as: :salary, constraints: { year: /\d{4}/ }

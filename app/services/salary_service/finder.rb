@@ -12,7 +12,7 @@ module SalaryService
     end
 
     def call
-      return unless payroll_period_overlaps_with_term?
+      return NullSalary unless payroll_period_overlaps_with_term?
       employee.salaries.effective_by(cycle_end)
     end
 

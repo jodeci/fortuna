@@ -1,0 +1,34 @@
+= simple_form_for yearend_bonus do |f|
+  = f.input_field :employee_id, hidden: true, value: presenter.employee_id
+  = f.input_field :lunar_year_id, hidden: true, value: presenter.lunar_year_id
+  %table.table
+    %tr
+      %th.col-xs-1 發放年度
+      %td.col-xs-2= presenter.year
+      %th.col-xs-1 年資折算基準日
+      %td.col-xs-2= presenter.last_working_day
+    %tr
+      %th 員工姓名
+      %td= presenter.name
+      %th 當時身份
+      %td= presenter.role
+    %tr
+      %th 平均月薪
+      %td#average_wage= presenter.average_wage
+      %th 年資調整
+      %td#seniority_factor= presenter.seniority_factor
+    %tr
+      %th= f.label "發放月數"
+      %td
+        = f.input_field :multiplier
+        = link_to "計算", yearend_bonuses_calculate_path, class: "btn btn-xs btn-default", remote: true
+      %th= f.label "計算結果"
+      %td= f.input_field :salary_based_bonus, readonly: true
+    %tr
+      %th= f.label "固定金額"
+      %td= f.input_field :fixed_amount
+      %th= f.label "尾牙現金"
+      %td= f.input_field :cash_benefit
+
+  .text-center
+    = f.submit "送出"

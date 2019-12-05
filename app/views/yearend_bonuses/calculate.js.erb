@@ -1,0 +1,5 @@
+var average_wage = Number($("#average_wage").html())
+var multiplier = Number($("#yearend_bonus_multiplier").val())
+var seniority_factor = Number($("#seniority_factor").html())
+var result = Math.round(average_wage * multiplier * seniority_factor)
+$("#yearend_bonus_salary_based_bonus").val(result)

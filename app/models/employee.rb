@@ -8,6 +8,7 @@ class Employee < ApplicationRecord
   has_many :payrolls, dependent: :destroy
   has_many :statements, through: :payrolls, source: :statement
   has_many :terms, dependent: :destroy
+  has_many :yearend_bonuses, dependent: :destroy
 
   BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "normal", "ATM/臨櫃": "atm" }.freeze
 
