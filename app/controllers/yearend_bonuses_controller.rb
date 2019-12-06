@@ -14,7 +14,7 @@ class YearendBonusesController < ApplicationController
   def create
     @yearend_bonus = YearendBonus.new(yearend_bonus_params)
     if @yearend_bonus.save
-      redirect_to yearend_bonuses_lunar_year_path(params[:yearend_bonus][:lunar_year_id])
+      redirect_to edit_yearend_bonus_path(@yearend_bonus)
     else
       render :new
     end
@@ -31,8 +31,8 @@ class YearendBonusesController < ApplicationController
 
   def update
     load_yearend_bonus
-    if @yearend_bonus.update(yearend_bonus_params)
-      redirect_to yearend_bonuses_lunar_year_path(params[:yearend_bonus][:lunar_year_id])
+    if YearendBonusService::UpdateForm.call(@yearend_bonus, yearend_bonus_params)
+      redirect_to edit_yearend_bonus_path(@yearend_bonus)
     else
       render :edit
     end
@@ -43,14 +43,11 @@ class YearendBonusesController < ApplicationController
     @reciptents = YearendBonusService::Reciptents.call(@lunar_year)
   end
 
-  def calculate
-  end
-
   private
 
   def yearend_bonus_params
     params.require(:yearend_bonus).permit(
-      :average_salary, :multiplier, :salary_based_bonus, :fixed_amount, :cash_benefit,
+      :average_salary, :multiplier, :seniority_factor, :salary_based_bonus, :fixed_amount, :cash_benefit,
       :income_tax, :health_insurance, :total, :employee_id, :lunar_year_id
     )
   end

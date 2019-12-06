@@ -14,14 +14,12 @@
       %td= presenter.role
     %tr
       %th 平均月薪
-      %td#average_wage= presenter.average_wage
+      %td= f.input_field :average_salary, value: presenter.average_wage, readonly: true
       %th 年資調整
-      %td#seniority_factor= presenter.seniority_factor
+      %td= f.input_field :seniority_factor, value: presenter.seniority_factor, readonly: true
     %tr
       %th= f.label "發放月數"
-      %td
-        = f.input_field :multiplier
-        = link_to "計算", yearend_bonuses_calculate_path, class: "btn btn-xs btn-default", remote: true
+      %td= f.input_field :multiplier
       %th= f.label "以薪資計算結果"
       %td= f.input_field :salary_based_bonus, readonly: true
     %tr

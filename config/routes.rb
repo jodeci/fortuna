@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   resources :lunar_years, except: [:index, :show, :destroy]
 
   get "yearend_bonuses/lunar_year/:lunar_year_id", to: "yearend_bonuses#lunar_year", as: :yearend_bonuses_lunar_year
-  get "yearend_bonuses/calculate", to: "yearend_bonuses#calculate", as: :yearend_bonuses_calculate
   resources :yearend_bonuses, except: [:destroy]
 
   resources :reports, only: [:index] do
