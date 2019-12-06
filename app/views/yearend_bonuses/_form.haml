@@ -22,13 +22,21 @@
       %td
         = f.input_field :multiplier
         = link_to "計算", yearend_bonuses_calculate_path, class: "btn btn-xs btn-default", remote: true
-      %th= f.label "計算結果"
+      %th= f.label "以薪資計算結果"
       %td= f.input_field :salary_based_bonus, readonly: true
     %tr
       %th= f.label "固定金額"
       %td= f.input_field :fixed_amount
       %th= f.label "尾牙現金"
       %td= f.input_field :cash_benefit
+    %tr
+      %th= f.label "所得稅"
+      %td= f.input_field :income_tax, readonly: true
+      %th= f.label "二代健保"
+      %td= f.input_field :health_insurance, readonly: true
+    %tr
+      %th= f.label "實發金額（含現金）"
+      %td{colspan: 3}= f.input_field :total, readonly: true
 
   .text-center
     = f.submit "送出"

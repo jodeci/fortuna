@@ -6,7 +6,7 @@ module YearendBonusService
     attr_reader :lunar_year
 
     Presenter = Struct.new(
-      :employee_id, :name, :role, :bonus_id, :total_amount, keyword_init: true
+      :employee_id, :name, :role, :bonus_id, :total, keyword_init: true
     )
 
     def initialize(lunar_year)
@@ -50,7 +50,7 @@ module YearendBonusService
         name: employee.name,
         role: salary.given_role,
         bonus_id: bonus.id,
-        total_amount: bonus.total_amount,
+        total: bonus.total,
       }
     end
 

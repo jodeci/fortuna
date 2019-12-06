@@ -51,7 +51,7 @@ class YearendBonusesController < ApplicationController
   def yearend_bonus_params
     params.require(:yearend_bonus).permit(
       :average_salary, :multiplier, :salary_based_bonus, :fixed_amount, :cash_benefit,
-      :employee_id, :lunar_year_id
+      :income_tax, :health_insurance, :total, :employee_id, :lunar_year_id
     )
   end
 

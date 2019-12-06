@@ -4,7 +4,7 @@ class NullYearendBonus
     def id
     end
 
-    def total_amount
+    def total
       0
     end
   end

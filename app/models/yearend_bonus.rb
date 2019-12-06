@@ -11,7 +11,7 @@ class YearendBonus < ApplicationRecord
     end
   end
 
-  def total_amount
-    salary_based_bonus + fixed_amount + cash_benefit
+  def bank_transfer_amount
+    total - cash_benefit
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_073316) do
+ActiveRecord::Schema.define(version: 2019_12_06_074729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,9 @@ ActiveRecord::Schema.define(version: 2019_12_06_073316) do
     t.integer "lunar_year_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "income_tax", default: 0
+    t.integer "health_insurance", default: 0
+    t.integer "total", default: 0
   end
 
 
