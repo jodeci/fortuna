@@ -1,0 +1,3 @@
+%p
+  - lunar_years.each do |lunar_year|
+    = link_to "新建 #{lunar_year.year}", new_yearend_bonus_path(employee_id: employee.id, lunar_year_id: lunar_year.id), class: "btn btn-xs btn-default"

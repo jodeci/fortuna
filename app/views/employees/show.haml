@@ -14,5 +14,9 @@
 - else
   %p= link_to "設定起薪", new_employee_salary_path(@employee), class: "btn btn-sm btn-primary"
 
+%h2 年終獎金
+= render "create_yearend_bonus", employee: @employee, lunar_years: @lunar_years
+= render "yearend_bonuses", yearend_bonuses: @yearend_bonuses
+
 %h2 薪資單
 = render "payrolls", payrolls: @payrolls.ordered

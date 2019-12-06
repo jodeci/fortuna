@@ -33,6 +33,8 @@ class EmployeesController < ApplicationController
 
   def show
     @payrolls = @employee.payrolls.personal_history
+    @yearend_bonuses = @employee.yearend_bonuses.personal_history
+    @lunar_years = YearendBonusService::UncreatedLunarYears.call(@employee)
   end
 
   def edit

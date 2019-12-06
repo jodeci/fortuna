@@ -1,0 +1,12 @@
+%table.table
+  %tr
+    %th.col-xs-1 #
+    %th.col-xs-2 西曆年度
+    %th.col-xs-2 年終獎金
+    %th.col-xs-6 操作
+  - yearend_bonuses.each_with_index do |yearend_bonus|
+    %tr
+      %td= yearend_bonus.id
+      %td= yearend_bonus.lunar_year.year
+      %td= yearend_bonus.total_amount
+      %td= link_to "修改", edit_yearend_bonus_path(yearend_bonus), class: "btn btn-xs btn-default"
