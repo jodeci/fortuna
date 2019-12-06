@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_28_040951) do
+ActiveRecord::Schema.define(version: 2019_12_06_073316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_11_28_040951) do
     t.date "last_working_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "paydate"
     t.index ["year"], name: "index_lunar_years_on_year", unique: true
   end
 

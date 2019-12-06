@@ -30,7 +30,7 @@ class LunarYearsController < ApplicationController
 
   def lunar_year_params
     params.require(:lunar_year).permit(
-      :year, :last_working_day
+      :year, :last_working_day, :paydate
     )
   end
 

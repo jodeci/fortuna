@@ -5,15 +5,17 @@
 
 %table.table
   %tr
-    %th.col-xs-1 #
-    %th.col-xs-1 西曆年度
-    %th.cos-xs-2 年前最後工作日
+    %th #
+    %th 西曆年度
+    %th 年前最後工作日
+    %th 發放日期
     %th 操作
   - @lunar_years.each do |lunar_year|
     %tr
       %td= lunar_year.id
       %td= lunar_year.year
       %td= lunar_year.last_working_day
+      %td= lunar_year.paydate
       %td
         = link_to "修改", edit_lunar_year_path(lunar_year), class: "btn btn-xs btn-default"
         = link_to "年終獎金", yearend_bonuses_lunar_year_path(lunar_year), class: "btn btn-xs btn-default"
