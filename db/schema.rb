@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_074729) do
+ActiveRecord::Schema.define(version: 2019_12_09_070605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_074729) do
   end
 
   create_table "yearend_bonuses", force: :cascade do |t|
-    t.integer "average_salary", default: 0
+    t.integer "average_wage", default: 0
     t.decimal "multiplier", default: "0.0"
     t.integer "salary_based_bonus", default: 0
     t.integer "fixed_amount", default: 0
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_074729) do
     t.integer "income_tax", default: 0
     t.integer "health_insurance", default: 0
     t.integer "total", default: 0
+    t.decimal "seniority_factor", default: "1.0"
   end
 
 

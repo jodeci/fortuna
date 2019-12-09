@@ -13,9 +13,8 @@ module YearendBonusService
 
     private
 
-    # FIXME: average_salary/average_wage
     def salary_based_bonus
-      (params[:average_salary].to_f * params[:multiplier].to_f * params[:seniority_factor].to_f).round
+      (params[:average_wage].to_f * params[:multiplier].to_f * params[:seniority_factor].to_f).round
     end
 
     def total
