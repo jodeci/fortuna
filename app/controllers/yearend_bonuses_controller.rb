@@ -12,8 +12,8 @@ class YearendBonusesController < ApplicationController
   end
 
   def create
-    @yearend_bonus = YearendBonus.new(yearend_bonus_params)
-    if @yearend_bonus.save
+    @yearend_bonus = YearendBonusService::CreateForm.call(YearendBonus.new, yearend_bonus_params)
+    if @yearend_bonus
       redirect_to edit_yearend_bonus_path(@yearend_bonus)
     else
       render :new
