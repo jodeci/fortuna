@@ -11,6 +11,7 @@ namespace :gov do
     puts "健保投保代號 #{ENV['company_health_insurance_id']}"
     puts "------"
 
+    # FIXME: 拆單判斷方式修改 & 需要能分成薪資、執行專業、獎金..等細項
     sum = 0
     Payroll.where(year: ENV["year"], month: ENV["month"]).map do |payroll|
       next if payroll.statement.splits?
@@ -22,7 +23,10 @@ namespace :gov do
     premium = HealthInsuranceService::CompanyCoverage.call(ENV["year"], ENV["month"])
     puts "二代健保公司負擔(61): #{premium}"
 
-    premium = HealthInsuranceService::CompanyWithhold.call(ENV["year"], ENV["month"])
+    premium = HealthInsuranceService::CompanyWithhold.call(ENV["year"], ENV["month"], 62)
     puts "二代健保公司代扣(62): #{premium}"
+
+    premium = HealthInsuranceService::CompanyWithhold.call(ENV["year"], ENV["month"], 65)
+    puts "二代健保公司代扣(65): #{premium}"
   end
 end
