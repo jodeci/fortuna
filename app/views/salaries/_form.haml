@@ -10,7 +10,10 @@
     %th= f.label "月薪"
     %td= f.input_field :monthly_wage
     %th= f.label "所得稅別"
-    %td= f.input_field :tax_code, collection: Salary::TAX_CODE
+    %td
+      = f.input_field :tax_code, collection: Salary::TAX_CODE
+      = f.input_field :split
+      拆單
   %tr
     %th= f.label "時薪"
     %td= f.input_field :hourly_wage

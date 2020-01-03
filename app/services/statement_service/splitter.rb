@@ -19,7 +19,7 @@ module StatementService
     private
 
     def split_statement?
-      return false if salary.regular_income?
+      return false unless salary.split?
       paid_amount > split_base
     end
 

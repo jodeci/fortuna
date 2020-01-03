@@ -7,4 +7,8 @@ module SalaryDecorator
   def wage
     monthly_wage.positive? ? monthly_wage : hourly_wage
   end
+
+  def split_status
+    split? ? "拆單" : "不拆單"
+  end
 end

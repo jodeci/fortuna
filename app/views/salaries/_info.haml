@@ -4,7 +4,7 @@
     %th.col-xs-1 起薪日期
     %td.col-xs-2= salary.effective_date
     %th.col-xs-1 所得稅別
-    %td.col-xs-2= salary.given_tax_code
+    %td.col-xs-2= "#{salary.given_tax_code} (#{salary.split_status})"
   %tr
     %th 月薪
     %td= salary.monthly_wage

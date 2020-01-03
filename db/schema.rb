@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_03_142812) do
+ActiveRecord::Schema.define(version: 2020_01_03_074054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,15 @@ ActiveRecord::Schema.define(version: 2019_03_03_142812) do
     t.datetime "updated_at", null: false
     t.string "income_type", default: "salary"
     t.index ["payroll_id"], name: "index_extra_entries_on_payroll_id"
+  end
+
+  create_table "lunar_years", force: :cascade do |t|
+    t.integer "year"
+    t.date "last_working_day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "paydate"
+    t.index ["year"], name: "index_lunar_years_on_year", unique: true
   end
 
   create_table "overtimes", force: :cascade do |t|
@@ -98,6 +107,7 @@ ActiveRecord::Schema.define(version: 2019_03_03_142812) do
     t.string "cycle", default: "normal"
     t.decimal "monthly_wage_adjustment", default: "1.0"
     t.integer "fixed_income_tax", default: 0
+    t.boolean "split", default: false
     t.index ["effective_date"], name: "index_salaries_on_effective_date"
     t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end
@@ -124,6 +134,22 @@ ActiveRecord::Schema.define(version: 2019_03_03_142812) do
     t.index ["employee_id"], name: "index_terms_on_employee_id"
     t.index ["end_date"], name: "index_terms_on_end_date"
     t.index ["start_date"], name: "index_terms_on_start_date"
+  end
+
+  create_table "yearend_bonuses", force: :cascade do |t|
+    t.integer "average_wage", default: 0
+    t.decimal "multiplier", default: "0.0"
+    t.integer "salary_based_bonus", default: 0
+    t.integer "fixed_amount", default: 0
+    t.integer "cash_benefit", default: 0
+    t.integer "employee_id"
+    t.integer "lunar_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "income_tax", default: 0
+    t.integer "health_insurance", default: 0
+    t.integer "total", default: 0
+    t.decimal "seniority_factor", default: "1.0"
   end
 
 
