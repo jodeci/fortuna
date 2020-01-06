@@ -11,9 +11,10 @@ namespace :gov do
     puts "健保投保代號 #{ENV['company_health_insurance_id']}"
     puts "------"
 
-    tax_a = 0 # 薪資所得（查表）
-    tax_b = 0 # 獎金+兼職所得
-    tax_c = 0 # 執行專業所得
+    tax_a = 0
+    tax_b = 0
+    tax_c = 0
+    health65 = 0
 
     Payroll.where(year: ENV["year"], month: ENV["month"]).map do |payroll|
       next if payroll.employee.b2b?
@@ -26,19 +27,22 @@ namespace :gov do
         tax_a += IncomeTaxService::InsurancedSalary.call(payroll)
         tax_b += IncomeTaxService::IrregularIncome.call(payroll)
       end
+
+      if payroll.salary.professional_service? && !payroll.salary.split?
+        health65 += HealthInsuranceService::ProfessionalService.call(payroll)
+      end
     end
 
     puts "所得稅公司代扣（151 薪資所得）: #{tax_a}"
     puts "所得稅公司代扣（151 兼職/獎金所得）: #{tax_b}"
     puts "所得稅公司代扣（156 執行專業所得）: #{tax_c}"
 
-    premium = HealthInsuranceService::CompanyCoverage.call(ENV["year"], ENV["month"])
-    puts "二代健保公司負擔(61): #{premium}"
+    health61 = HealthInsuranceService::CompanyCoverage.call(ENV["year"], ENV["month"])
+    puts "二代健保公司負擔(61): #{health61}"
 
-    premium = HealthInsuranceService::CompanyWithhold.call(ENV["year"], ENV["month"], 62)
-    puts "二代健保公司代扣(62): #{premium}"
+    health62 = HealthInsuranceService::CompanyWithholdBonus.call(ENV["year"], ENV["month"])
+    puts "二代健保公司代扣(62): #{health62}"
 
-    premium = HealthInsuranceService::CompanyWithhold.call(ENV["year"], ENV["month"], 65)
-    puts "二代健保公司代扣(65): #{premium}"
+    puts "二代健保公司代扣(65): #{health65}"
   end
 end
