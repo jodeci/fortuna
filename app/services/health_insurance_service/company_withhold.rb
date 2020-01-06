@@ -12,6 +12,7 @@ module HealthInsuranceService
       @code = code
     end
 
+    # TODO: 拆成兩個物件
     def call
       send("premium_for_#{code}")
     end

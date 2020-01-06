@@ -10,16 +10,24 @@ module IncomeTaxService
       @payroll = payroll
     end
 
-    # 兼職所得超過免稅額 需代扣 5% 所得稅
+    # 151 繳款書是同一欄所以合併處理
     def call
-      return 0 unless taxable?
-      (taxable_income * rate).round
+      return 0 if payroll.salary.split?
+      salary_tax + bonus_tax
     end
 
     private
 
-    def taxable?
-      taxable_income > exemption
+    # 兼職所得超過免稅額 需代扣 5% 所得稅
+    def salary_tax
+      return 0 unless taxable_income > exemption
+      (taxable_income * rate).round
+    end
+
+    # 獎金所得超過免稅額 需代扣 5% 所得稅
+    def bonus_tax
+      return 0 unless bonus_income > exemption
+      (bonus_income * rate).round
     end
 
     def exemption

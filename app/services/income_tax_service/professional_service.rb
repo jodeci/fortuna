@@ -12,6 +12,7 @@ module IncomeTaxService
 
     # 執行業務所得超過兩萬元 需代扣 10% 所得稅
     def call
+      return 0 if payroll.salary.split?
       return 0 unless taxable?
       (taxable_income * rate).round
     end
