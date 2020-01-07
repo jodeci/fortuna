@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :employees do
     get "inactive", on: :collection
+    get "parttimers", on: :collection
 
     resources :salaries
     get "salaries/recent/:employee_id", to: "salaries#recent", as: :salaries_recent

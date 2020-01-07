@@ -4,13 +4,14 @@ class EmployeesController < ApplicationController
   before_action :store_location, only: [:show]
 
   def index
-    @employees = Employee.active.ordered.page(params[:page])
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: @employees.to_json
-      end
-    end
+    list = Employee.by_roles_during(roles: %w[boss regular contractor])
+    @employees = Kaminari.paginate_array(list).page(params[:page])
+  end
+
+  def parttimers
+    list = Employee.by_roles_during(roles: %w[vendor advisor parttime])
+    @employees = Kaminari.paginate_array(list).page(params[:page])
+    render :index
   end
 
   def inactive

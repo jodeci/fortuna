@@ -17,3 +17,4 @@
         %td
           = link_to "修改明細", edit_payroll_path(payroll), class: "btn btn-xs btn-default"
           = link_to "報表校正", edit_statement_path(payroll.statement), class: "btn btn-xs btn-warning"
+          = link_to "刪除", payroll_path(payroll), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-xs btn-danger"

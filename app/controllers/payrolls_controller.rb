@@ -26,6 +26,9 @@ class PayrollsController < ApplicationController
   end
 
   def destroy
+    @employee = @payroll.employee
+    @payroll.destroy
+    redirect_to employee_path(@employee)
   end
 
   private
