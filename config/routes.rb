@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   end
 
   resources :payrolls, except: [:new, :create, :show]
-  get "payrolls/init/:year/:month", to: "payrolls#init", as: :init_payrolls, constraints: { year: /\d{4}/, month: /\d{1,2}/ }
+  get "payrolls/init_regulars/:year/:month", to: "payrolls#init_regulars", as: :init_regulars, constraints: { year: /\d{4}/, month: /\d{1,2}/ }
+  get "payrolls/parttimers/:year/:month", to: "payrolls#parttimers", as: :parttimers, constraints: { year: /\d{4}/, month: /\d{1,2}/ }
+  post "payrolls/parttimers/:year/:month", to: "payrolls#init_parttimers", constraints: { year: /\d{4}/, month: /\d{1,2}/ }
 
   resources :statements, only: [:index, :show, :edit, :update]
 

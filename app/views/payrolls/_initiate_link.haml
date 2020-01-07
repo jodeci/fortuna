@@ -1,2 +1,4 @@
+%h3= init_button_text
 .initiate_link
-  = link_to init_button_text, init_payrolls_path(year: init_year, month: init_month), class: "btn btn-ms btn-primary"
+  = link_to "月薪制", init_regulars_path(year: init_year, month: init_month), class: "btn btn-ms btn-primary"
+  = link_to "兼職外包", parttimers_path(year: init_year, month: init_month), class: "btn btn-ms btn-primary"

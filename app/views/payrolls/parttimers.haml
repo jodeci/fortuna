@@ -1,0 +1,17 @@
+%h1 薪資單產生器
+
+= form_for :parttimers do |f|
+  %table.table
+    %tr
+      %th.col-sm-1 #
+      %th.col-sm-1 姓名
+      %th.col-sm-1 選取
+      %th{width: "100%"} 身份
+    - @employees.each do |employee|
+      %tr
+        %td= employee.id
+        %td= employee.name
+        %td
+          %input{type: "checkbox", name: "employees[]", value: employee.id}
+        %td= employee.role
+  %p= f.submit

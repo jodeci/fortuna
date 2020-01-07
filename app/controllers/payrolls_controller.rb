@@ -8,8 +8,23 @@ class PayrollsController < ApplicationController
     @payrolls = @query.result(distinct: true).page(params[:page])
   end
 
-  def init
-    PayrollsInitService.call(year, month)
+  def parttimers
+    @employees = Employee.by_roles_during(
+      cycle_start: Date.new(year.to_i, month.to_i, 1),
+      cycle_end: Date.new(year.to_i, month.to_i, -1),
+      roles: %w[vendor advisor parttime]
+    )
+  end
+
+  def init_regulars
+    PayrollInitRegularsService.call(year, month)
+    redirect_to_date
+  end
+
+  def init_parttimers
+    params[:employees].each do |employee_id|
+      PayrollInitService.call(Employee.find(employee_id), year, month)
+    end
     redirect_to_date
   end
 

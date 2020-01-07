@@ -6,8 +6,8 @@ class PayrollInitService
 
   def initialize(employee, year, month)
     @employee = employee
-    @year = year
-    @month = month
+    @year = year.to_i
+    @month = month.to_i
   end
 
   def call

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class PayrollsInitService
+class PayrollInitRegularsService
   include Callable
 
   attr_reader :year, :month
@@ -20,6 +20,10 @@ class PayrollsInitService
   end
 
   def employees_on_payroll
-    Employee.on_payroll(Date.new(year, month, 1), Date.new(year, month, -1))
+    Employee.by_roles_during(
+      cycle_start: Date.new(year, month, 1),
+      cycle_end: Date.new(year, month, -1),
+      roles: %w[boss regular contractor]
+    )
   end
 end
