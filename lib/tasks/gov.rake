@@ -33,9 +33,9 @@ namespace :gov do
       end
     end
 
-    puts "所得稅公司代扣（151 薪資所得）: #{tax_a}"
-    puts "所得稅公司代扣（151 兼職/獎金所得）: #{tax_b}"
-    puts "所得稅公司代扣（156 執行專業所得）: #{tax_c}"
+    puts "所得稅公司代扣 (151 薪資所得): #{tax_a}"
+    puts "所得稅公司代扣 (151 兼職/獎金所得): #{tax_b}"
+    puts "所得稅公司代扣 (156 執行專業所得): #{tax_c}"
 
     health61 = HealthInsuranceService::CompanyCoverage.call(ENV["year"], ENV["month"])
     puts "二代健保公司負擔(61): #{health61}"

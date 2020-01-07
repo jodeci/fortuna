@@ -12,6 +12,7 @@ module HealthInsuranceService
     end
 
     def call
+      return 0 if payroll.salary.split?
       return 0 unless eligible?
       premium
     end
