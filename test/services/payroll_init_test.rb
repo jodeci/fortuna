@@ -9,6 +9,6 @@ class PayrollInitTest < ActiveSupport::TestCase
     SalaryService::Finder.any_instance.expects(:call).returns(salary)
     StatementService::Builder.any_instance.expects(:call).returns(true)
 
-    PayrollInitService.call(employee, 2018, 1)
+    assert PayrollInitService.call(employee, 2018, 1)
   end
 end

@@ -33,13 +33,6 @@ class EmployeeTest < ActiveSupport::TestCase
     end
   end
 
-  def test_scope_active
-    Timecop.freeze(Date.new(2018, 1, 20)) do
-      Employee.expects(:on_payroll).with(Date.new(2018, 1, 1), Date.new(2018, 1, -1)).returns(true)
-      assert Employee.active
-    end
-  end
-
   def test_email
     Timecop.freeze(Date.new(2018, 2, 19)) do
       assert_equal "jack@5xruby.tw", jack.email

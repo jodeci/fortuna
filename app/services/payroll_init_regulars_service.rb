@@ -10,16 +10,16 @@ class PayrollInitRegularsService
   end
 
   def call
-    init_payroll_for_employees
+    init_payroll_for_regulars
   end
 
   private
 
-  def init_payroll_for_employees
-    employees_on_payroll.map { |employee| PayrollInitService.call(employee, year, month) }
+  def init_payroll_for_regulars
+    regulars.map { |employee| PayrollInitService.call(employee, year, month) }
   end
 
-  def employees_on_payroll
+  def regulars
     Employee.by_roles_during(
       cycle_start: Date.new(year, month, 1),
       cycle_end: Date.new(year, month, -1),

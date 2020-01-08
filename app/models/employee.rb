@@ -12,8 +12,7 @@ class Employee < ApplicationRecord
   BANK_TRANSFER_TYPE = { "薪資轉帳": "salary", "台幣轉帳": "normal", "ATM/臨櫃": "atm" }.freeze
 
   scope :ordered, -> { order(id: :desc) }
-  scope :active, -> { on_payroll(Date.today.at_beginning_of_month, Date.today.end_of_month) }
-  scope :inactive, -> { where.not(id: active.pluck(:id)) }
+  scope :inactive, -> { where.not(id: on_payroll(Date.today.at_beginning_of_month, Date.today.end_of_month).pluck(:id)) }
 
   scope :on_payroll, ->(cycle_start, cycle_end) {
     joins(:terms)
