@@ -2,12 +2,24 @@
 require "test_helper"
 
 class PayrollInitRegularsTest < ActiveSupport::TestCase
-  # TODO: should have better stub for :by_roles_during
-  def test_initiate_regulars
-    3.times { build(:employee) }
-    Employee.expects(:by_roles_during).returns(Employee.all)
-    PayrollInitService.any_instance.stubs(:call).returns(true)
+  def test_call
+    6.times { prepare_subject(role: "regular") }
+    5.times { prepare_subject(role: "contractor") }
+    4.times { prepare_subject(role: "boss") }
+    3.times { prepare_subject(role: "advisor") }
+    2.times { prepare_subject(role: "vendor") }
+    1.times { prepare_subject(role: "parttime") }
 
+    PayrollInitService.expects(:call).times(15)
     assert PayrollInitRegularsService.call(2018, 1)
+  end
+
+  private
+
+  def prepare_subject(role:)
+    create(:employee) do |employee|
+      create(:salary, effective_date: "2018-01-01", role: role, employee: employee)
+      create(:term, start_date: "2018-01-01", employee: employee)
+    end 
   end
 end

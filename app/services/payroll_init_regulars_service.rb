@@ -10,14 +10,10 @@ class PayrollInitRegularsService
   end
 
   def call
-    init_payroll_for_regulars
+    regulars.map { |employee| PayrollInitService.call(employee, year, month) }
   end
 
   private
-
-  def init_payroll_for_regulars
-    regulars.map { |employee| PayrollInitService.call(employee, year, month) }
-  end
 
   def regulars
     Employee.by_roles_during(
