@@ -38,11 +38,14 @@ module FormatService
     end
 
     def contractor
-      { "#{salary_label}": monthly_wage }.merge(extra_gain)
+      {
+        "#{salary_label}": monthly_wage,
+        加班費: overtime,
+      }.merge(extra_gain)
     end
 
     def vendor
-      contractor
+      { "#{salary_label}": monthly_wage }.merge(extra_gain)
     end
 
     def parttime

@@ -27,11 +27,11 @@ module CalculationService
     end
 
     def contractor
-      monthly_wage + extra_income
+      monthly_wage + overtime + extra_income
     end
 
     def vendor
-      contractor
+      monthly_wage + extra_income
     end
 
     def parttime
