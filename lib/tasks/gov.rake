@@ -14,6 +14,7 @@ namespace :gov do
     tax_a = 0
     tax_b = 0
     tax_c = 0
+    health63 = 0
     health65 = 0
 
     Payroll.where(year: ENV["year"], month: ENV["month"]).map do |payroll|
@@ -21,15 +22,13 @@ namespace :gov do
 
       if payroll.salary.professional_service?
         tax_c += IncomeTaxService::ProfessionalService.call(payroll)
+        health65 += HealthInsuranceService::ProfessionalService.call(payroll) unless payroll.salary.split?
       elsif payroll.salary.parttime_income_uninsured_for_labor?
         tax_b += IncomeTaxService::UninsurancedSalary.call(payroll)
+        health63 += HealthInsuranceService::ParttimeIncome.call(payroll) unless payroll.salary.split?
       else
         tax_a += IncomeTaxService::InsurancedSalary.call(payroll)
         tax_b += IncomeTaxService::IrregularIncome.call(payroll)
-      end
-
-      if payroll.salary.professional_service? && !payroll.salary.split?
-        health65 += HealthInsuranceService::ProfessionalService.call(payroll)
       end
     end
 
@@ -43,6 +42,7 @@ namespace :gov do
     health62 = HealthInsuranceService::CompanyWithholdBonus.call(ENV["year"], ENV["month"])
     puts "二代健保公司代扣(62): #{health62}"
 
+    puts "二代健保公司代扣(63): #{health63}"
     puts "二代健保公司代扣(65): #{health65}"
   end
 end
