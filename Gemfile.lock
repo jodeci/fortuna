@@ -150,7 +150,7 @@ GEM
     pg (1.1.4)
     powerpack (0.1.2)
     public_suffix (3.1.1)
-    puma (3.12.2)
+    puma (3.12.3)
     rack (2.0.8)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -295,7 +295,7 @@ DEPENDENCIES
   mocha
   pdf-toolkit
   pg
-  puma (~> 3.7)
+  puma (~> 3.12)
   rails (~> 5.2.1)
   ransack
   rb-readline
