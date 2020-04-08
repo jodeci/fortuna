@@ -9,7 +9,7 @@ module StatementService
     def initialize(payroll)
       @payroll = payroll
       @salary = payroll.salary
-      @statement = Statement.find_or_initialize_by(payroll_id: payroll.id)
+      @statement = Statement.find_or_create_by(payroll_id: payroll.id)
     end
 
     def call
