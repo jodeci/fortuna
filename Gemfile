@@ -31,6 +31,8 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary', '0.12.3.1' # 0.12.4.0 shrinks text
 gem 'pdf-toolkit'
 
+gem 'rack', '>= 2.2.3'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
