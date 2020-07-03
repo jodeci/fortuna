@@ -57,6 +57,5 @@ module StatementService
         loss: FormatService::Deductions.call(payroll),
       }
     end
-
   end
 end
