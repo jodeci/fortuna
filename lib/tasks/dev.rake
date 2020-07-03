@@ -28,4 +28,11 @@ namespace :dev do
       Term.create(start_date: employee.start_date, end_date: employee.end_date, employee_id: employee.id)
     end
   end
+
+  desc "statement force update"
+  task update_statements: :environment do
+    Payroll.ordered.map do |payroll|
+      StatementService::Builder.call(payroll)
+    end
+  end
 end
