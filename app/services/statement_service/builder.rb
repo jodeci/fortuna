@@ -39,6 +39,8 @@ module StatementService
         splits: nil,
         subsidy_income: subsidy_income,
         excess_income: excess_income,
+        gain: FormatService::Income.call(payroll),
+        loss: FormatService::Deductions.call(payroll),
       }
     end
 
@@ -50,7 +52,11 @@ module StatementService
         splits: splits,
         subsidy_income: subsidy_income,
         excess_income: 0,
+        # TODO: gain, loss 要保留 payroll 的原始項目
+        gain: FormatService::Income.call(payroll),
+        loss: FormatService::Deductions.call(payroll),
       }
     end
+
   end
 end

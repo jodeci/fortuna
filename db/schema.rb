@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_03_074054) do
+ActiveRecord::Schema.define(version: 2020_07_03_065915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,8 @@ ActiveRecord::Schema.define(version: 2020_01_03_074054) do
     t.datetime "updated_at", null: false
     t.integer "subsidy_income", default: 0
     t.integer "excess_income", default: 0
+    t.jsonb "gain"
+    t.jsonb "loss"
     t.index ["payroll_id"], name: "index_statements_on_payroll_id"
   end
 
