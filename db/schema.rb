@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_03_065915) do
+ActiveRecord::Schema.define(version: 2020_07_03_080637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,28 +155,6 @@ ActiveRecord::Schema.define(version: 2020_07_03_065915) do
   end
 
 
-  create_view "reports", sql_definition: <<-SQL
-      SELECT DISTINCT employees.id AS employee_id,
-      payrolls.id AS payroll_id,
-      employees.name,
-      employees.id_number,
-      employees.residence_address,
-      payrolls.year,
-      payrolls.month,
-      salaries.tax_code,
-      statements.amount,
-      statements.subsidy_income,
-      payrolls.festival_bonus,
-      payrolls.festival_type,
-      sum(corrections.amount) AS correction
-     FROM ((((employees
-       JOIN payrolls ON ((employees.id = payrolls.employee_id)))
-       JOIN salaries ON ((salaries.id = payrolls.salary_id)))
-       JOIN statements ON ((payrolls.id = statements.payroll_id)))
-       LEFT JOIN corrections ON ((statements.id = corrections.statement_id)))
-    WHERE (employees.b2b = false)
-    GROUP BY employees.id, payrolls.id, statements.id, salaries.tax_code;
-  SQL
   create_view "payroll_details", sql_definition: <<-SQL
       SELECT DISTINCT employees.id AS employee_id,
       payrolls.id AS payroll_id,
@@ -195,5 +173,29 @@ ActiveRecord::Schema.define(version: 2020_07_03_065915) do
        JOIN salaries ON ((salaries.id = payrolls.salary_id)))
        JOIN statements ON ((payrolls.id = statements.payroll_id)))
     WHERE (employees.b2b = false);
+  SQL
+  create_view "reports", sql_definition: <<-SQL
+      SELECT DISTINCT employees.id AS employee_id,
+      payrolls.id AS payroll_id,
+      employees.name,
+      employees.id_number,
+      employees.residence_address,
+      payrolls.year,
+      payrolls.month,
+      salaries.tax_code,
+      statements.amount,
+      statements.subsidy_income,
+      statements.gain,
+      statements.loss,
+      payrolls.festival_bonus,
+      payrolls.festival_type,
+      sum(corrections.amount) AS correction
+     FROM ((((employees
+       JOIN payrolls ON ((employees.id = payrolls.employee_id)))
+       JOIN salaries ON ((salaries.id = payrolls.salary_id)))
+       JOIN statements ON ((payrolls.id = statements.payroll_id)))
+       LEFT JOIN corrections ON ((statements.id = corrections.statement_id)))
+    WHERE (employees.b2b = false)
+    GROUP BY employees.id, payrolls.id, statements.id, salaries.tax_code;
   SQL
 end
