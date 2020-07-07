@@ -1,0 +1,24 @@
+%h3 #{params[:year]}-#{sprintf('%02d', params[:month])} #{t(action_name, scope: :reports)}
+%p= link_to "匯出 CSV", monthly_reports_path(params[:year], params[:month], format: :csv), class: "btn btn-m btn-primary"
+
+- if @report.any?
+  %table.table
+    %tr
+      %th 姓名
+      - @report[:gain_keys].each do |key|
+        %th= key
+      - @report[:loss_keys].each do |key|
+        %th= key
+    - @report[:data].each do |row|
+      %tr
+        %td= row[:name]
+        - row[:gain].each do |gain|
+          %td= number_with_delimiter(gain[1])
+        - row[:loss].each do |loss|
+          %td= number_with_delimiter(loss[1])
+    %tr
+      %th 小計
+      - @report[:gain_sum].each do |sum|
+        %th= number_with_delimiter(sum[1])
+      - @report[:loss_sum].each do |sum|
+        %th= number_with_delimiter(sum[1])

@@ -23,6 +23,11 @@ class ReportsController < ApplicationController
     render_report
   end
 
+  def monthly
+    @report = ReportService::MonthlyStatements.call(year, month)
+    render_report
+  end
+
   private
 
   def report_type
@@ -31,6 +36,10 @@ class ReportsController < ApplicationController
 
   def year
     params[:year]
+  end
+
+  def month
+    params[:month]
   end
 
   def render_report
@@ -43,7 +52,7 @@ class ReportsController < ApplicationController
   def generate_csv_data
     data_table.css("tr").map do |row|
       row.css("td, th").map(&:text).to_csv
-    end.join.encode("big5", undef: :replace, replace: "")
+    end.join.encode("utf-8", undef: :replace, replace: "")
   end
 
   def data_table
@@ -53,6 +62,10 @@ class ReportsController < ApplicationController
   end
 
   def filename
-    "#{params[:year]}_#{t(action_name, scope: :reports)}.csv"
+    if month
+      "#{params[:year]}_#{sprintf('%02d', params[:month])}_#{t(action_name, scope: :reports)}.csv"
+    else
+      "#{params[:year]}_#{t(action_name, scope: :reports)}.csv"
+    end
   end
 end

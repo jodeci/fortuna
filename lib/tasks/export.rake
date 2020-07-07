@@ -102,17 +102,4 @@ namespace :export do
       StatementMailer.notify_email(statement).deliver
     end
   end
-
-  desc "summed statement details by month"
-  task sum: :environment do
-    unless ENV["year"] && ENV["month"]
-      abort "usage: rake report:monthly year=2018 month=2"
-    end
-
-    gain = Report.column_by_month(ENV["year"], ENV["month"], :gain)
-    loss = Report.column_by_month(ENV["year"], ENV["month"], :loss)
-
-    puts gain.inject { |a, b| a.merge(b) { |_, x, y| x + y } }
-    puts loss.inject { |a, b| a.merge(b) { |_, x, y| x + y } }
-  end
 end

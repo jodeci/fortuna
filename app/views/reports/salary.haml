@@ -10,7 +10,7 @@
       %th.hide 身份證字號
       %th.hide 戶籍地址
       - 1.upto(12) do |month|
-        %th= "#{month} 月"
+        %th= link_to "#{month} 月", monthly_reports_path(params[:year], month)
       %th 端午
       %th 中秋
       %th 年終

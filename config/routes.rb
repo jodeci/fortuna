@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get "salary/:year", to: "reports#salary", as: :salary, constraints: { year: /\d{4}/ }
       get "service/:year", to: "reports#service", as: :service, constraints: { year: /\d{4}/ }
       get "irregular/:year", to: "reports#irregular", as: :irregular, constraints: { year: /\d{4}/ }
+      get "monthly/:year/:month", to: "reports#monthly", as: :monthly, constraints: { year: /\d{4}/, month: /\d{1,2}/ }
     end
   end
 
