@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_03_080637) do
+ActiveRecord::Schema.define(version: 2020_07_14_082821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 2020_07_03_080637) do
     t.decimal "monthly_wage_adjustment", default: "1.0"
     t.integer "fixed_income_tax", default: 0
     t.boolean "split", default: false
+    t.integer "term_id"
     t.index ["effective_date"], name: "index_salaries_on_effective_date"
     t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end

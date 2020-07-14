@@ -1,16 +1,18 @@
 %table.table
   %tr
     %th.col-xs-1 #
-    %th.col-xs-2 生效日期
-    %th.col-xs-2 薪資
+    %th.col-xs-1 生效日期
+    %th.col-xs-1 薪資
     %th.col-xs-1 身份
+    %th.col-xs-2 合作期間
     %th.col-xs-6 操作
-  - salaries.each_with_index do |salary|
+  - salaries.each do |salary|
     %tr
       %td= salary.id
       %td= salary.effective_date
       %td= "#{salary.wage_type} #{salary.wage} 元"
       %td= salary.given_role
+      %td= "#{salary.term.start_date} ~ #{salary.term.end_date}"
       %td
         = link_to "檢視", employee_salary_path(employee_id: salary.employee.id, id: salary.id), class: "btn btn-xs btn-default"
         = link_to "修改", edit_employee_salary_path(employee_id: salary.employee.id, id: salary.id), class: "btn btn-xs btn-default"

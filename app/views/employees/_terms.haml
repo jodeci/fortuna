@@ -4,12 +4,12 @@
     %th.col-xs-2 起始日期
     %th.col-xs-2 結束日期
     %th.col-xs-6 操作
-  - terms.each_with_index do |term|
+  - terms.each do |term|
     %tr
       %td= term.id
       %td= term.start_date
       %td= term.end_date
       %td
-        = link_to "檢視", employee_term_path(employee_id: term.employee.id, id: term.id), class: "btn btn-xs btn-default"
+        = link_to "新增薪資", new_employee_salary_path(employee_id: term.employee.id, term_id: term.id), class: "btn btn-xs btn-primary"
         = link_to "修改", edit_employee_term_path(employee_id: term.employee.id, id: term.id), class: "btn btn-xs btn-default"
         = link_to "刪除", employee_term_path(employee_id: term.employee.id, id: term.id), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-xs btn-danger"

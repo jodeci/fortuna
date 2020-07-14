@@ -7,6 +7,7 @@ class SalariesController < ApplicationController
   end
 
   def new
+    (@term = Term.find_by(id: params[:term_id])) || not_found
     @salary = @employee.salaries.build
   end
 
@@ -49,7 +50,7 @@ class SalariesController < ApplicationController
       :role, :tax_code, :effective_date, :monthly_wage, :hourly_wage, :cycle,
       :equipment_subsidy, :commuting_subsidy, :supervisor_allowance,
       :labor_insurance, :health_insurance, :insured_for_labor, :insured_for_health,
-      :monthly_wage_adjustment, :fixed_income_tax, :split
+      :monthly_wage_adjustment, :fixed_income_tax, :split, :term_id
     )
   end
 

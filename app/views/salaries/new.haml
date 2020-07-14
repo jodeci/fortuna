@@ -2,7 +2,8 @@
 
 = simple_form_for @salary, url: employee_salaries_path, method: :post do |f|
   = render "/employees/info", employee: @employee
-  = render "form", f: f, employee: @employee
+  = render "/terms/info", term: @term
+  = render "form", f: f, employee: @employee, term: @term
 
   .text-center
     = f.submit "送出"

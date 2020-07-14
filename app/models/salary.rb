@@ -4,6 +4,7 @@ class Salary < ApplicationRecord
   include CollectionTranslatable
 
   belongs_to :employee
+  belongs_to :term
 
   ROLE = {
     "老闆": "boss",
@@ -17,7 +18,7 @@ class Salary < ApplicationRecord
   TAX_CODE = { "薪資": "50", "執行專業所得": "9a" }.freeze
   CYCLE = { "一般": "normal", "工作天": "business" }.freeze
 
-  scope :ordered, -> { order(effective_date: :desc) }
+  scope :ordered, -> { order(effective_date: :desc).includes(:term) }
   scope :recent_for, ->(employee) { where(employee_id: employee.id).ordered.take }
   scope :effective_by, ->(cycle_end) { where("effective_date < ?", cycle_end).ordered.take }
 

@@ -35,4 +35,14 @@ namespace :dev do
       StatementService::Builder.call(payroll)
     end
   end
+
+  # 修補 salary/term 的關連資料
+  desc "fix salary/term relationship"
+  task salary_term: :environment do
+    Salary.all.map do |salary|
+      term = SalaryService::Term.call(salary)
+      salary.term_id = term.id
+      salary.save
+    end
+  end
 end
