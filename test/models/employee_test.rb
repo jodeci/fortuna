@@ -7,10 +7,6 @@ class EmployeeTest < ActiveSupport::TestCase
       assert Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? john
       assert Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? jack
       assert_not Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? jane
-
-      assert_not Employee.inactive.include? john
-      assert_not Employee.inactive.include? jack
-      assert Employee.inactive.include? jane
     end
   end
 
@@ -19,17 +15,12 @@ class EmployeeTest < ActiveSupport::TestCase
       assert Employee.on_payroll(Date.new(2018, 5, 1), Date.new(2018, 5, -1)).include? john
       assert_not Employee.on_payroll(Date.new(2018, 5, 1), Date.new(2018, 5, -1)).include? jack
       assert Employee.on_payroll(Date.new(2018, 5, 1), Date.new(2018, 5, -1)).include? jane
-
-      assert_not Employee.inactive.include? john
-      assert Employee.inactive.include? jack
-      assert_not Employee.inactive.include? jane
     end
   end
 
   def test_scope_on_payroll_201812
     Timecop.freeze(Date.new(2018, 12, 3)) do
       assert Employee.on_payroll(Date.new(2018, 12, 1), Date.new(2018, 12, -1)).include? jack
-      assert_not Employee.inactive.include? jack
     end
   end
 

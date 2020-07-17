@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_082821) do
+ActiveRecord::Schema.define(version: 2020_07_16_024001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,5 +198,19 @@ ActiveRecord::Schema.define(version: 2020_07_14_082821) do
        LEFT JOIN corrections ON ((statements.id = corrections.statement_id)))
     WHERE (employees.b2b = false)
     GROUP BY employees.id, payrolls.id, statements.id, salaries.tax_code;
+  SQL
+  create_view "salary_trackers", sql_definition: <<-SQL
+      SELECT employees.id AS employee_id,
+      terms.id AS term_id,
+      salaries.id AS salary_id,
+      employees.name,
+      terms.start_date AS term_start,
+      terms.end_date AS term_end,
+      salaries.role,
+      salaries.effective_date AS salary_start
+     FROM ((employees
+       JOIN terms ON ((employees.id = terms.employee_id)))
+       JOIN salaries ON ((employees.id = salaries.employee_id)))
+    WHERE (salaries.term_id = terms.id);
   SQL
 end

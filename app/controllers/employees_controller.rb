@@ -4,18 +4,18 @@ class EmployeesController < ApplicationController
   before_action :store_location, only: [:show]
 
   def index
-    list = Employee.by_roles_during(roles: %w[boss regular contractor])
-    @employees = Kaminari.paginate_array(list).page(params[:page])
+    list = SalaryTracker.on_payroll.by_role(role: %w[boss regular contractor])
+    @result = Kaminari.paginate_array(list).page(params[:page])
   end
 
   def parttimers
-    list = Employee.by_roles_during(roles: %w[vendor advisor parttime])
-    @employees = Kaminari.paginate_array(list).page(params[:page])
+    list = SalaryTracker.on_payroll.by_role(role: %w[vendor advisor parttime])
+    @result = Kaminari.paginate_array(list).page(params[:page])
     render :index
   end
 
   def inactive
-    @employees = Employee.inactive.ordered.page(params[:page])
+    @result = SalaryTracker.inactive.page(params[:page])
     render :index
   end
 

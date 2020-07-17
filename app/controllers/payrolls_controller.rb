@@ -9,11 +9,7 @@ class PayrollsController < ApplicationController
   end
 
   def parttimers
-    @employees = Employee.by_roles_during(
-      cycle_start: Date.new(year.to_i, month.to_i, 1),
-      cycle_end: Date.new(year.to_i, month.to_i, -1),
-      roles: %w[vendor advisor parttime]
-    )
+    @result = SalaryTracker.on_payroll(year: year, month: month).by_role(role: %w[vendor advisor parttime])
   end
 
   def init_regulars
@@ -66,10 +62,10 @@ class PayrollsController < ApplicationController
   end
 
   def year
-    params[:year]
+    params[:year].to_i
   end
 
   def month
-    params[:month]
+    params[:month].to_i
   end
 end
