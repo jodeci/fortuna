@@ -10,7 +10,7 @@ class EmployeeDecoratorTest < ActiveSupport::TestCase
 
   def decorated_subject
     ActiveDecorator::Decorator.instance.decorate(
-      build(:employee) { |employee| create(:salary, role: "regular", employee: employee) }
+      build(:employee) { |employee| create(:salary, role: "regular", employee: employee, term: build(:term)) }
     )
   end
 end

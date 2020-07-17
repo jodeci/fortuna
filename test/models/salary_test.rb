@@ -4,8 +4,8 @@ require "test_helper"
 class SalaryTest < ActiveSupport::TestCase
   def test_scope_recent_for
     employee = create(:employee)
-    create(:salary, effective_date: "2018-01-01", employee: employee)
-    create(:salary, effective_date: "2018-03-01", employee: employee)
+    create(:salary, effective_date: "2018-01-01", employee: employee, term: build(:term))
+    create(:salary, effective_date: "2018-03-01", employee: employee, term: build(:term))
     assert_equal Date.new(2018, 3, 1), Salary.recent_for(employee).effective_date
   end
 

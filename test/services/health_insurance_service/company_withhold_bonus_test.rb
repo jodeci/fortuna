@@ -17,7 +17,7 @@ module HealthInsuranceService
         :payroll,
         year: 2016,
         month: 1,
-        salary: build(:salary, insured_for_health: insured, tax_code: "50", employee: employee),
+        salary: build(:salary, insured_for_health: insured, tax_code: "50", employee: employee, term: build(:term)),
         employee: employee
       ) { |payroll| create(:statement, excess_income: excess, payroll: payroll) }
     end

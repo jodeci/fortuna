@@ -18,7 +18,7 @@ class PayrollDecoratorTest < ActiveSupport::TestCase
         :payroll,
         year: 2018,
         month: 9,
-        salary: create(:salary, role: "regular", employee: build(:employee)),
+        salary: create(:salary, role: "regular", employee: build(:employee), term: build(:term)),
         employee: build(:employee)
       )
     )

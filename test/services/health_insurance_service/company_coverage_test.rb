@@ -19,7 +19,7 @@ module HealthInsuranceService
         :payroll,
         year: 2016,
         month: 1,
-        salary: build(:salary, tax_code: "50", employee: employee),
+        salary: build(:salary, tax_code: "50", employee: employee, term: build(:term)),
         employee: employee
       ) { |payroll| create(:statement, excess_income: excess, payroll: payroll) }
     end
@@ -30,7 +30,7 @@ module HealthInsuranceService
         :payroll,
         year: 2016,
         month: 1,
-        salary: build(:salary, employee: owner),
+        salary: build(:salary, employee: owner, term: build(:term)),
         employee: owner
       ) { |payroll| create(:statement, amount: amount, payroll: payroll) }
     end

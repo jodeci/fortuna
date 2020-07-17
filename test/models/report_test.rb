@@ -81,7 +81,7 @@ class ReportTest < ActiveSupport::TestCase
       year: year,
       month: month,
       festival_bonus: 1000,
-      salary: build(:salary, tax_code: tax_code, employee: build(:employee)),
+      salary: build(:salary, tax_code: tax_code, employee: build(:employee), term: build(:term)),
       employee: build(:employee)
     ) do |payroll|
       create(:statement, payroll: payroll, amount: 30000) do |statement|
@@ -94,7 +94,7 @@ class ReportTest < ActiveSupport::TestCase
     create(
       :payroll,
       festival_bonus: 10000,
-      salary: build(:salary, employee: build(:employee)),
+      salary: build(:salary, employee: build(:employee), term: build(:term)),
       employee: build(:employee)
     ) do |payroll|
       create(:statement, payroll: payroll, amount: 30000, subsidy_income: 500) do |statement|
@@ -113,7 +113,7 @@ class ReportTest < ActiveSupport::TestCase
       year: 2018,
       month: month,
       festival_bonus: 1000,
-      salary: build(:salary, tax_code: tax_code, employee: employee),
+      salary: build(:salary, tax_code: tax_code, employee: employee, term: build(:term)),
       employee: employee
     ) do |payroll|
       create(:statement, payroll: payroll, amount: 30000) do |statement|
@@ -129,7 +129,7 @@ class ReportTest < ActiveSupport::TestCase
       month: month,
       festival_bonus: amount,
       festival_type: festival,
-      salary: build(:salary, employee: build(:employee)),
+      salary: build(:salary, employee: build(:employee), term: build(:term)),
       employee: build(:employee)
     ) do |payroll|
       create(:statement, payroll: payroll, amount: 30000) do |statement|

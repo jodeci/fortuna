@@ -18,8 +18,13 @@ class PayrollInitRegularsTest < ActiveSupport::TestCase
 
   def prepare_subject(role:)
     create(:employee) do |employee|
-      create(:salary, effective_date: "2018-01-01", role: role, employee: employee)
-      create(:term, start_date: "2018-01-01", employee: employee)
+      create(
+        :salary,
+        effective_date: "2018-01-01",
+        role: role,
+        employee: employee,
+        term: create(:term, start_date: "2018-01-01", employee: employee)
+      )
     end 
   end
 end
