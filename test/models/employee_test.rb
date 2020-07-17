@@ -2,28 +2,6 @@
 require "test_helper"
 
 class EmployeeTest < ActiveSupport::TestCase
-  def test_scope_on_payroll_201802
-    Timecop.freeze(Date.new(2018, 2, 19)) do
-      assert Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? john
-      assert Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? jack
-      assert_not Employee.on_payroll(Date.new(2018, 2, 1), Date.new(2018, 2, -1)).include? jane
-    end
-  end
-
-  def test_scope_on_payroll_201805
-    Timecop.freeze(Date.new(2018, 5, 20)) do
-      assert Employee.on_payroll(Date.new(2018, 5, 1), Date.new(2018, 5, -1)).include? john
-      assert_not Employee.on_payroll(Date.new(2018, 5, 1), Date.new(2018, 5, -1)).include? jack
-      assert Employee.on_payroll(Date.new(2018, 5, 1), Date.new(2018, 5, -1)).include? jane
-    end
-  end
-
-  def test_scope_on_payroll_201812
-    Timecop.freeze(Date.new(2018, 12, 3)) do
-      assert Employee.on_payroll(Date.new(2018, 12, 1), Date.new(2018, 12, -1)).include? jack
-    end
-  end
-
   def test_email
     Timecop.freeze(Date.new(2018, 2, 19)) do
       assert_equal "jack@5xruby.tw", jack.email

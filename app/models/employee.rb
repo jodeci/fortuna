@@ -13,12 +13,6 @@ class Employee < ApplicationRecord
 
   scope :ordered, -> { order(id: :desc) }
 
-  scope :on_payroll, ->(cycle_start, cycle_end) {
-    joins(:terms)
-      .where("terms.start_date <= ?", cycle_end)
-      .where("(terms.end_date >= ? OR terms.end_date IS NULL)", cycle_start)
-  }
-
   def term(cycle_start, cycle_end)
     terms.find_by("start_date <= ? AND (end_date >= ? OR end_date IS NULL)", cycle_end, cycle_start)
   end
