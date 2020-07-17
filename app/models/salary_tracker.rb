@@ -20,6 +20,17 @@ class SalaryTracker < ApplicationRecord
         .order(employee_id: :desc)
     end
 
+    def salary_by_payroll(payroll:)
+      where(employee_id: payroll.employee_id)
+        .where("term_start <= ?", Date.new(payroll.year, payroll.month, 1))
+        .where("salary_start <= ?", Date.new(payroll.year, payroll.month, -1))
+        .order(salary_start: :desc)
+        .pluck(:salary_id)
+        .first
+    end
+
+    private
+
     def active_terms
       select(:employee_id).distinct.where(term_end: nil)
     end

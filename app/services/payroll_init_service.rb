@@ -2,28 +2,29 @@
 class PayrollInitService
   include Callable
 
-  attr_reader :employee, :year, :month
+  attr_reader :year, :month, :employee_id, :salary_id
 
-  def initialize(employee, year, month)
-    @employee = employee
+  def initialize(year, month, employee_id, salary_id)
     @year = year.to_i
     @month = month.to_i
+    @employee_id = employee_id
+    @salary_id = salary_id
   end
 
   def call
-    generate_payroll
+    payroll
     sync_statement
   end
 
   private
 
   def payroll
-    @payroll ||= Payroll.find_or_initialize_by(year: year, month: month, employee: employee)
-  end
-
-  def generate_payroll
-    payroll.salary = SalaryService::Finder.call(employee, Date.new(year, month, 1), Date.new(year, month, -1))
-    payroll.save
+    @payroll ||= Payroll.find_or_initialize_by(
+      year: year,
+      month: month,
+      employee_id: employee_id,
+      salary_id: salary_id
+    )
   end
 
   def sync_statement

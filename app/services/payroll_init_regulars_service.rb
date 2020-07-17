@@ -10,7 +10,7 @@ class PayrollInitRegularsService
   end
 
   def call
-    regulars.map { |row| PayrollInitService.call(Employee.find(row.employee_id), year, month) }
+    regulars.map { |tracker| PayrollInitService.call(year, month, tracker.employee_id, tracker.salary_id) }
   end
 
   private

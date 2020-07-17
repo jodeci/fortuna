@@ -18,8 +18,9 @@ class PayrollsController < ApplicationController
   end
 
   def init_parttimers
-    params[:employees].each do |employee_id|
-      PayrollInitService.call(Employee.find(employee_id), year, month)
+    params[:parttimers].each do |row|
+      values = row.split(",")
+      PayrollInitService.call(year, month, values[0], values[1])
     end
     redirect_to_date
   end

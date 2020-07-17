@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "test_helper"
 
-class PayrollInitRegularsTest < ActiveSupport::TestCase
+class PayrollInitRegularsServiceTest < ActiveSupport::TestCase
   def test_call
     6.times { prepare_subject(role: "regular") }
     5.times { prepare_subject(role: "contractor") }
