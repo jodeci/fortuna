@@ -21,13 +21,15 @@ module IncomeTaxService
     private
 
     def prepare_subject(monthly_wage:, festival_bonus: 0, split:)
+      employee = build(:employee)
+      term = build(:term, start_date: "2018-01-01", employee: employee)
       build(
         :payroll,
         year: 2018,
         month: 1,
         festival_bonus: festival_bonus,
-        salary: build(:salary, monthly_wage: monthly_wage, split: split),
-        employee: build(:employee) { |employee| create(:term, start_date: "2018-01-01", employee: employee) }
+        salary: build(:salary, monthly_wage: monthly_wage, split: split, term: term),
+        employee: employee,
       )
     end
   end

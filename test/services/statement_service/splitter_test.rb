@@ -27,6 +27,8 @@ module StatementService
     private
 
     def prepare_subject(tax_code: 50, insured: 0, wage:, split: false)
+      employee = build(:employee)
+      term = build(:term, start_date: "2018-01-01", employee: employee)
       build(
         :payroll,
         year: 2018,
@@ -37,9 +39,10 @@ module StatementService
           tax_code: tax_code,
           insured_for_health: insured,
           insured_for_labor: insured,
-          split: split
+          split: split,
+          term: term,
         ),
-        employee: build(:employee) { |employee| create(:term, start_date: "2018-01-01", employee: employee) }
+        employee: employee,
       )
     end
   end

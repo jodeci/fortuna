@@ -29,6 +29,10 @@ class SalaryTracker < ApplicationRecord
         .first
     end
 
+    def term_by_salary(salary_id:)
+      select(:term_start, :term_end).find_by(salary_id: salary_id)
+    end
+
     private
 
     def active_terms

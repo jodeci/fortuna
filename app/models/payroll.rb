@@ -29,18 +29,6 @@ class Payroll < ApplicationRecord
       .where("vacation_refund_hours > 0 and year = ?", year)
   }
 
-  def employee_term
-    employee.term(Date.new(year, month, 1), Date.new(year, month, -1))
-  end
-
-  def employee_term_start
-    employee_term.try(:start_date)
-  end
-
-  def employee_term_end
-    employee_term.try(:end_date)
-  end
-
   def extra_income_of(income_type)
     extra_entries
       .where("income_type = ? AND amount > 0", income_type)

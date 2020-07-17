@@ -47,11 +47,11 @@ module PayrollPeriodCountable
   end
 
   def employee_start
-    payroll.employee_term_start
+    salary.term.start_date
   end
 
   def employee_end
-    payroll.employee_term_end
+    salary.term.end_date
   end
 
   def default_end_point
