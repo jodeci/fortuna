@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module SalaryService
-  class Term
+  class TermFinder
     include Callable
 
     attr_reader :salary, :terms

@@ -40,7 +40,7 @@ namespace :dev do
   desc "fix salary/term relationship"
   task salary_term: :environment do
     Salary.all.map do |salary|
-      term = SalaryService::Term.call(salary)
+      term = SalaryService::TermFinder.call(salary)
       salary.term_id = term.id
       salary.save
     end
