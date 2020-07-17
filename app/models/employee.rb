@@ -19,14 +19,6 @@ class Employee < ApplicationRecord
       .where("(terms.end_date >= ? OR terms.end_date IS NULL)", cycle_start)
   }
 
-  class << self
-    def by_roles_during(cycle_start: Date.today.at_beginning_of_month, cycle_end: Date.today.end_of_month, roles:)
-      on_payroll(cycle_start, cycle_end).ordered.select do |employee|
-        roles.include? SalaryService::Finder.call(employee, cycle_start, cycle_end).role
-      end
-    end
-  end
-
   def term(cycle_start, cycle_end)
     terms.find_by("start_date <= ? AND (end_date >= ? OR end_date IS NULL)", cycle_end, cycle_start)
   end
