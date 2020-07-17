@@ -7,11 +7,11 @@
       %th.col-sm-1 姓名
       %th.col-sm-1 選取
       %th{width: "100%"} 身份
-    - @employees.each do |employee|
+    - @result.each do |row|
       %tr
-        %td= employee.id
-        %td= employee.name
+        %td= row.employee_id
+        %td= row.name
         %td
-          %input{type: "checkbox", name: "employees[]", value: employee.id}
-        %td= employee.role
+          %input{type: "checkbox", name: "employees[]", value: row.employee_id}
+        %td= row.role # TODO
   %p= f.submit

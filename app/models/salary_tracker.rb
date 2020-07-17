@@ -1,0 +1,27 @@
+# frozen_string_literal: true
+class SalaryTracker < ApplicationRecord
+  class << self
+    def on_payroll(year: Date.today.year, month: Date.today.month)
+      select("DISTINCT ON (employee_id) *")
+        .where("term_start <= ?", Date.new(year, month, 1))
+        .where("(term_end >= ? OR term_end IS NULL)", Date.new(year, month, -1))
+        .where("salary_start <= ?", Date.new(year, month, -1))
+        .order(employee_id: :desc, salary_start: :desc)
+    end
+
+    def by_role(role:)
+      where(role: role)
+    end
+
+    def inactive(year: Date.today.year, month: Date.today.month)
+      select("DISTINCT ON (employee_id) *")
+        .where.not(employee_id: active_terms)
+        .where("term_end <= ?", Date.new(year, month, -1))
+        .order(employee_id: :desc)
+    end
+
+    def active_terms
+      select(:employee_id).distinct.where(term_end: nil)
+    end
+  end
+end

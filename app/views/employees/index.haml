@@ -13,15 +13,15 @@
     %th 身份
     %th 到職日期
     %th 操作
-  - @employees.each do |employee|
+  - @result.each do |row|
     %tr
-      %td= employee.id
-      %td= employee.name
-      %td= employee.role
-      %td= employee.recent_term.start_date
+      %td= row.employee_id
+      %td= row.name
+      %td= row.role # TODO
+      %td= row.term_start
       %td
-        = link_to "檢視", employee_path(employee), class: "btn btn-xs btn-default"
-        = link_to "修改", edit_employee_path(employee), class: "btn btn-xs btn-default"
-        = link_to "刪除", employee_path(employee), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-xs btn-danger"
+        = link_to "檢視", employee_path(row.employee_id), class: "btn btn-xs btn-default"
+        = link_to "修改", edit_employee_path(row.employee_id), class: "btn btn-xs btn-default"
+        = link_to "刪除", employee_path(row.employee_id), method: :delete, data: { confirm: "確定刪除？" }, class: "btn btn-xs btn-danger"
 
-= paginate @employees
+= paginate @result

@@ -10,16 +10,20 @@ class PayrollInitRegularsService
   end
 
   def call
-    regulars.map { |employee| PayrollInitService.call(employee, year, month) }
+    regulars.map { |row| PayrollInitService.call(Employee.find(row.employee_id), year, month) }
   end
 
   private
 
-  def regulars
+  def regulars_bk
     Employee.by_roles_during(
       cycle_start: Date.new(year, month, 1),
       cycle_end: Date.new(year, month, -1),
       roles: %w[boss regular contractor]
     )
+  end
+
+  def regulars
+    SalaryTracker.on_payroll(year: year, month: month).by_role(role: %w[boss regular contractor])
   end
 end
