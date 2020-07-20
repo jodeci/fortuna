@@ -3,8 +3,8 @@ class SalaryTracker < ApplicationRecord
   class << self
     def on_payroll(year: Date.today.year, month: Date.today.month)
       select("DISTINCT ON (employee_id) *")
-        .where("term_start <= ?", Date.new(year, month, 1))
-        .where("(term_end >= ? OR term_end IS NULL)", Date.new(year, month, -1))
+        .where("term_start <= ?", Date.new(year, month, -1))
+        .where("(term_end >= ? OR term_end IS NULL)", Date.new(year, month, 1))
         .where("salary_start <= ?", Date.new(year, month, -1))
         .order(employee_id: :desc, salary_start: :desc)
     end
@@ -22,7 +22,7 @@ class SalaryTracker < ApplicationRecord
 
     def salary_by_payroll(payroll:)
       where(employee_id: payroll.employee_id)
-        .where("term_start <= ?", Date.new(payroll.year, payroll.month, 1))
+        .where("term_start <= ?", Date.new(payroll.year, payroll.month, -1))
         .where("salary_start <= ?", Date.new(payroll.year, payroll.month, -1))
         .order(salary_start: :desc)
         .pluck(:salary_id)
