@@ -21,7 +21,7 @@ class Payroll < ApplicationRecord
 
   scope :ordered, -> { order(year: :desc, month: :desc) }
   scope :search_result, -> { includes(:employee, :salary, :statement).order(employee_id: :desc) }
-  scope :personal_history, -> { includes(:salary, :statement, statement: :corrections) }
+  scope :personal_history, -> { includes(:salary, :statement) }
   scope :details, -> { includes(:salary, :extra_entries, :overtimes) }
 
   scope :yearly_vacation_refunds, ->(year) {

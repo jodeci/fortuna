@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_024001) do
+ActiveRecord::Schema.define(version: 2020_07_21_093758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_024001) do
     t.integer "excess_income", default: 0
     t.jsonb "gain"
     t.jsonb "loss"
+    t.integer "correction", default: 0
     t.index ["payroll_id"], name: "index_statements_on_payroll_id"
   end
 
@@ -175,30 +176,6 @@ ActiveRecord::Schema.define(version: 2020_07_16_024001) do
        JOIN statements ON ((payrolls.id = statements.payroll_id)))
     WHERE (employees.b2b = false);
   SQL
-  create_view "reports", sql_definition: <<-SQL
-      SELECT DISTINCT employees.id AS employee_id,
-      payrolls.id AS payroll_id,
-      employees.name,
-      employees.id_number,
-      employees.residence_address,
-      payrolls.year,
-      payrolls.month,
-      salaries.tax_code,
-      statements.amount,
-      statements.subsidy_income,
-      statements.gain,
-      statements.loss,
-      payrolls.festival_bonus,
-      payrolls.festival_type,
-      sum(corrections.amount) AS correction
-     FROM ((((employees
-       JOIN payrolls ON ((employees.id = payrolls.employee_id)))
-       JOIN salaries ON ((salaries.id = payrolls.salary_id)))
-       JOIN statements ON ((payrolls.id = statements.payroll_id)))
-       LEFT JOIN corrections ON ((statements.id = corrections.statement_id)))
-    WHERE (employees.b2b = false)
-    GROUP BY employees.id, payrolls.id, statements.id, salaries.tax_code;
-  SQL
   create_view "salary_trackers", sql_definition: <<-SQL
       SELECT employees.id AS employee_id,
       terms.id AS term_id,
@@ -212,5 +189,29 @@ ActiveRecord::Schema.define(version: 2020_07_16_024001) do
        JOIN terms ON ((employees.id = terms.employee_id)))
        JOIN salaries ON ((employees.id = salaries.employee_id)))
     WHERE (salaries.term_id = terms.id);
+  SQL
+  create_view "reports", sql_definition: <<-SQL
+      SELECT DISTINCT employees.id AS employee_id,
+      payrolls.id AS payroll_id,
+      employees.name,
+      employees.id_number,
+      employees.residence_address,
+      payrolls.year,
+      payrolls.month,
+      salaries.tax_code,
+      statements.amount,
+      statements.subsidy_income,
+      statements.gain,
+      statements.loss,
+      statements.correction,
+      payrolls.festival_bonus,
+      payrolls.festival_type
+     FROM ((((employees
+       JOIN payrolls ON ((employees.id = payrolls.employee_id)))
+       JOIN salaries ON ((salaries.id = payrolls.salary_id)))
+       JOIN statements ON ((payrolls.id = statements.payroll_id)))
+       LEFT JOIN corrections ON ((statements.id = corrections.statement_id)))
+    WHERE (employees.b2b = false)
+    GROUP BY employees.id, payrolls.id, statements.id, salaries.tax_code;
   SQL
 end

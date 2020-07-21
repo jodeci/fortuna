@@ -41,4 +41,15 @@ namespace :dev do
       salary.save
     end
   end
+
+  # 計算 correction
+  desc "update correction"
+  task correction: :environment do
+    Statement.all.map do |statement|
+      if statement.corrections.any?
+        statement.correction = statement.corrections.inject(0) { |sum, row| sum + row.amount }
+        statement.save
+      end
+    end
+  end
 end

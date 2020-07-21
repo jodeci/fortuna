@@ -15,12 +15,4 @@ class Statement < ApplicationRecord
     includes(:payroll, :employee, :corrections, payroll: [:salary, :employee])
       .order("payrolls.employee_id DESC")
   }
-
-  def corrections?
-    corrections.any?
-  end
-
-  def correct_by
-    corrections.sum(:amount)
-  end
 end

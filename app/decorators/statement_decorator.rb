@@ -5,7 +5,7 @@ module StatementDecorator
   include ActionView::Context
 
   def declared_income
-    amount - subsidy_income + correct_by
+    amount - subsidy_income + correction
   end
 
   def declared_income_cell
@@ -15,7 +15,7 @@ module StatementDecorator
   end
 
   def paid_amount
-    amount + correct_by
+    amount + correction
   end
 
   def paid_amount_cell
@@ -31,6 +31,6 @@ module StatementDecorator
   end
 
   def paid_amount_style
-    corrections? ? "highlight" : nil
+    correction.zero? ? nil : "highlight"
   end
 end

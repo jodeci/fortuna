@@ -66,7 +66,7 @@ module FormatService
     end
 
     def correction
-      statement.correct_by
+      statement.correction
     end
 
     def total

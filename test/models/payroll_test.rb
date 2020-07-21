@@ -31,7 +31,6 @@ class PayrollTest < ActiveSupport::TestCase
 
     assert subject.first.association(:salary).loaded?
     assert subject.first.association(:statement).loaded?
-    assert subject.first.statement.association(:corrections).loaded?
   end
 
   def test_scope_details

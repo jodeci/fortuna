@@ -22,8 +22,9 @@ class StatementDecoratorTest < ActiveSupport::TestCase
         :statement,
         amount: amount,
         subsidy_income: subsidy,
+        correction: correction,
         payroll: build(:payroll)
-      ) { |statement| create(:correction, amount: correction, statement: statement) }
+      ) { |statement| create(:correction, statement: statement) }
     )
   end
 end

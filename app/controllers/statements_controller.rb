@@ -16,7 +16,7 @@ class StatementsController < ApplicationController
   end
 
   def update
-    if @statement.update(statement_params)
+    if StatementService::Update.call(@statement, statement_params)
       redirect_to session.delete(:return_to)
     else
       render :edit

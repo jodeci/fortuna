@@ -97,9 +97,7 @@ class ReportTest < ActiveSupport::TestCase
       salary: build(:salary, employee: build(:employee), term: build(:term)),
       employee: build(:employee)
     ) do |payroll|
-      create(:statement, payroll: payroll, amount: 30000, subsidy_income: 500) do |statement|
-        create(:correction, statement: statement, amount: 10)
-      end
+      create(:statement, payroll: payroll, amount: 30000, subsidy_income: 500, correction: 10)
     end
   end
 

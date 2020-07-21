@@ -26,26 +26,9 @@ class StatementTest < ActiveSupport::TestCase
     end
   end
 
-  def test_corrections
-    with = prepare_corrected_statement(amount: 10)
-    without = prepare_corrected_statement(amount: 0)
-
-    assert with.corrections?
-    assert with.correct_by, 10
-
-    assert_not without.corrections?
-    assert without.correct_by, 0
-  end
-
   private
 
   def prepare_statement(year:, month:, amount: 100)
     create(:statement, amount: amount, year: year, month: month, payroll: build(:payroll))
-  end
-
-  def prepare_corrected_statement(amount:)
-    statement = build(:statement, payroll: build(:payroll))
-    create(:correction, statement: statement, amount: amount) if amount.positive?
-    statement
   end
 end
