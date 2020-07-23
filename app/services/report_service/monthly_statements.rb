@@ -17,7 +17,7 @@ module ReportService
     private
 
     def income_data
-      Report.salary_income_by_month(year, month).ordered.group_by(&:employee_id)
+      @income_data ||= Report.salary_income_by_month(year, month).ordered.group_by(&:employee_id)
     end
 
     def generate_report
