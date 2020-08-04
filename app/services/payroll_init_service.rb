@@ -19,7 +19,7 @@ class PayrollInitService
   private
 
   def payroll
-    @payroll ||= Payroll.find_or_initialize_by(
+    @payroll ||= Payroll.find_or_create_by(
       year: year,
       month: month,
       employee_id: employee_id,
