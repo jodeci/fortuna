@@ -9,8 +9,13 @@ class SalaryTracker < ApplicationRecord
         .order(employee_id: :desc, salary_start: :desc)
     end
 
+    # 主要和 #on_payroll 組合使用。直接下 query 的話會抓到不該有的 edge case 所以另外篩選
     def by_role(role:)
-      where(role: role)
+      if role.is_a? Array
+        select { |row| role.include? row.role }
+      else
+        select { |row| row.role == role }
+      end
     end
 
     def inactive(year: Date.today.year, month: Date.today.month)
