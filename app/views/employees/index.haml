@@ -17,7 +17,7 @@
     %tr
       %td= row.employee_id
       %td= row.name
-      %td= row.role # TODO
+      %td= row.given_role
       %td= row.term_start
       %td
         = link_to "檢視", employee_path(row.employee_id), class: "btn btn-xs btn-default"

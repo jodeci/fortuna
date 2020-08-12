@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 class SalaryTracker < ApplicationRecord
+  include CollectionTranslatable
+
+  ROLE = Salary::ROLE
+
   class << self
     def on_payroll(year: Date.today.year, month: Date.today.month)
       select("DISTINCT ON (employee_id) *")

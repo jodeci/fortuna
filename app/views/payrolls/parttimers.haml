@@ -13,5 +13,5 @@
         %td= row.name
         %td
           %input{type: "checkbox", name: "parttimers[]", value: "#{row.employee_id}, #{row.salary_id}"}
-        %td= row.role # TODO
+        %td= row.given_role
   %p= f.submit
