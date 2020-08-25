@@ -46,11 +46,11 @@ module FormatService
     end
 
     def gain
-      FormatService::Income.call(payroll)
+      statement.gain
     end
 
     def loss
-      FormatService::Deductions.call(payroll)
+      statement.loss
     end
 
     def notes
@@ -58,11 +58,11 @@ module FormatService
     end
 
     def sum_gain
-      CalculationService::TotalIncome.call(payroll)
+      statement.gain.values.sum
     end
 
     def sum_loss
-      CalculationService::TotalDeduction.call(payroll)
+      statement.loss.values.sum
     end
 
     def correction
