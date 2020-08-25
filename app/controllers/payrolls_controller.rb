@@ -5,7 +5,7 @@ class PayrollsController < ApplicationController
 
   def index
     @query = Payroll.search_result.ransack(params[:query])
-    @payrolls = @query.result(distinct: true).page(params[:page])
+    @result = @query.result(distinct: true).page(params[:page])
   end
 
   def parttimers
@@ -38,9 +38,9 @@ class PayrollsController < ApplicationController
   end
 
   def destroy
-    @employee = @payroll.employee
+    employee = @payroll.employee
     @payroll.destroy
-    redirect_to employee_path(@employee)
+    redirect_to employee_path(employee)
   end
 
   private
