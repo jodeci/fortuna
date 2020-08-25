@@ -2,16 +2,20 @@
 module Calculatable
   include PayrollPeriodCountable
 
-  delegate :extra_income, :health_insurance, to: :payroll
+  delegate :health_insurance, to: :payroll
 
   # 進項的加總
   def total_income
-    CalculationService::TotalIncome.call(payroll)
+    @total_income ||= CalculationService::TotalIncome.call(payroll)
   end
 
   # 銷項的加總
   def total_deduction
-    CalculationService::TotalDeduction.call(payroll)
+    @total_deduction ||= CalculationService::TotalDeduction.call(payroll)
+  end
+
+  def extra_income
+    @extra_income ||= payroll.extra_income
   end
 
   # 扣除代扣所得稅、二代健保之前的淨所得（非約聘）
@@ -44,7 +48,7 @@ module Calculatable
 
   # 補助費用（不屬薪資所得）
   def subsidy_income
-    overtime + vacation_refund + payroll.extra_income_of(:subsidy)
+    @subsidy_income ||= overtime + vacation_refund + payroll.extra_income_of(:subsidy)
   end
 
   def monthly_wage
@@ -74,11 +78,11 @@ module Calculatable
   end
 
   def supplement_premium
-    HealthInsuranceService::Dispatcher.call(payroll)
+    @supplement_premium ||= HealthInsuranceService::Dispatcher.call(payroll)
   end
 
   def income_tax
-    IncomeTaxService::Dispatcher.call(payroll)
+    @income_tax ||= IncomeTaxService::Dispatcher.call(payroll)
   end
 
   def labor_insurance
