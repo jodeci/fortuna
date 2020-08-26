@@ -28,7 +28,7 @@ module StatementService
     end
 
     def splits
-      StatementService::Splitter.call(payroll)
+      @splits ||= StatementService::Splitter.call(payroll)
     end
 
     def unsplit_params

@@ -18,6 +18,10 @@ module Calculatable
     @extra_income ||= payroll.extra_income
   end
 
+  def extra_deductions
+    @extra_deductions ||= payroll.extra_deductions
+  end
+
   # 扣除代扣所得稅、二代健保之前的淨所得（非約聘）
   # 已代扣所得稅的淨所得（約聘）
   def paid_amount
@@ -104,7 +108,7 @@ module Calculatable
   end
 
   def basic_deductions
-    leavetime + sicktime + payroll.extra_deductions
+    leavetime + sicktime + extra_deductions
   end
 
   def income_before_withholdings
