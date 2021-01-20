@@ -33,7 +33,7 @@ module HealthInsuranceService
     end
 
     def rate
-      0.0191
+      HealthInsuranceService::SupplementPremiumRate.call(year, month)
     end
   end
 end
