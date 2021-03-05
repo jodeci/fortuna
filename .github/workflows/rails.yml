@@ -1,0 +1,53 @@
+name: Rails
+on: push
+
+jobs:
+  verify:
+    name: Build
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:11@sha256:85d79cba2d4942dad7c99f84ec389a5b9cc84fb07a3dcd3aff0fb06948cdc03b
+        env:
+          PG_USER: postgres
+          PG_DATABASE: rails_github_actions_test
+          PG_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+      - name: Install dependencies
+        run: |
+          sudo apt-get -yqq install libpq-dev build-essential libcurl4-openssl-dev
+          gem install bundler:1.17.3
+          bundle install --jobs 4 --retry 3
+      - name: Setup test database
+        env:
+          RAILS_ENV: test
+          PG_HOST: localhost
+          PG_DATABASE: rails_github_actions_test
+          PG_USER: postgres
+          PG_PASSWORD: postgres
+        run: |
+          cp config/database.yml.sample config/database.yml
+          rake db:create db:migrate
+      - name: Run tests
+        env:
+          PG_HOST: localhost
+          PG_DATABASE: rails_github_actions_test
+          PG_USER: postgres
+          PG_PASSWORD: postgres
+          PG_PORT: ${{ job.services.postgres.ports[5432] }}
+          RAILS_ENV: test
+        run: bundle exec rake
