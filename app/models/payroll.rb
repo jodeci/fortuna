@@ -6,7 +6,7 @@ class Payroll < ApplicationRecord
   delegate :name, to: :employee, prefix: true
 
   belongs_to :salary # 間接關聯，詳見 SalaryService
-  delegate :monthly_wage, :hourly_wage, :labor_insurance, :health_insurance, :equipment_subsidy, :supervisor_allowance, :insured_for_health, to: :salary
+  delegate :monthly_wage, :hourly_wage, :labor_insurance, :health_insurance, :equipment_subsidy, :supervisor_allowance, :commuting_subsidy, :insured_for_health, to: :salary
 
   has_many :overtimes, dependent: :destroy
   accepts_nested_attributes_for :overtimes, allow_destroy: true

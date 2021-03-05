@@ -5,7 +5,7 @@ module CalculationService
   class TotalIncomeTest < ActiveSupport::TestCase
     def test_regular_role
       subject = prepare_subject(role: "regular")
-      assert_equal 47780, CalculationService::TotalIncome.call(subject)
+      assert_equal 48080, CalculationService::TotalIncome.call(subject)
     end
 
     def test_parttime_role
@@ -48,6 +48,7 @@ module CalculationService
       CalculationService::TotalIncome.any_instance.stubs(:extra_income).returns(480)
       CalculationService::TotalIncome.any_instance.stubs(:equipment_subsidy).returns(800)
       CalculationService::TotalIncome.any_instance.stubs(:supervisor_allowance).returns(5000)
+      CalculationService::TotalIncome.any_instance.stubs(:commuting_subsidy).returns(300)
       CalculationService::TotalIncome.any_instance.stubs(:overtime).returns(4000)
     end
   end

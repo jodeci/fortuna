@@ -31,6 +31,7 @@ module FormatService
         伙食費: scale_for_cycle(taxfree_lunch),
         設備津貼: equipment_subsidy,
         主管加給: supervisor_allowance,
+        交通津貼: salary.commuting_subsidy,
         加班費: overtime,
         特休折現: vacation_refund,
       }.merge(festival_bonus)

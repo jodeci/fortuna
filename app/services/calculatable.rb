@@ -101,6 +101,10 @@ module Calculatable
     scale_for_cycle(payroll.supervisor_allowance)
   end
 
+  def commuting_subsidy
+    scale_for_cycle(payroll.commuting_subsidy)
+  end
+
   private
 
   def withholdings

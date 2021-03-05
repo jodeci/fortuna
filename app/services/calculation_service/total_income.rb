@@ -22,7 +22,7 @@ module CalculationService
     end
 
     def regular
-      monthly_wage + equipment_subsidy + supervisor_allowance +
+      monthly_wage + equipment_subsidy + supervisor_allowance + commuting_subsidy +
       overtime + vacation_refund + extra_income + payroll.festival_bonus
     end
 
