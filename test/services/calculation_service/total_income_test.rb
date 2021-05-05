@@ -20,7 +20,7 @@ module CalculationService
 
     def test_contractor_role
       subject = prepare_subject(role: "contractor")
-      assert_equal 40480, CalculationService::TotalIncome.call(subject)
+      assert_equal 41280, CalculationService::TotalIncome.call(subject)
     end
 
     def test_vendor_role

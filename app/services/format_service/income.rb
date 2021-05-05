@@ -41,6 +41,7 @@ module FormatService
     def contractor
       {
         "#{salary_label}": monthly_wage,
+        設備津貼: equipment_subsidy,
         加班費: overtime,
       }.merge(extra_gain)
     end

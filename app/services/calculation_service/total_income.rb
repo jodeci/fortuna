@@ -27,7 +27,7 @@ module CalculationService
     end
 
     def contractor
-      monthly_wage + overtime + extra_income
+      monthly_wage + overtime + extra_income + equipment_subsidy
     end
 
     def vendor
