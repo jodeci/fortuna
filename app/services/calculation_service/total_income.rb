@@ -27,7 +27,7 @@ module CalculationService
     end
 
     def contractor
-      monthly_wage + overtime + extra_income + equipment_subsidy
+      monthly_wage + overtime + extra_income + equipment_subsidy + payroll.festival_bonus
     end
 
     def vendor
@@ -35,7 +35,7 @@ module CalculationService
     end
 
     def parttime
-      total_wage + salary.commuting_subsidy + extra_income
+      total_wage + salary.commuting_subsidy + extra_income + payroll.festival_bonus
     end
 
     def advisor

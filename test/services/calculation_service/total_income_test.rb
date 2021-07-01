@@ -10,7 +10,7 @@ module CalculationService
 
     def test_parttime_role
       subject = prepare_subject(role: "parttime")
-      assert_equal 27480, CalculationService::TotalIncome.call(subject)
+      assert_equal 28980, CalculationService::TotalIncome.call(subject)
     end
 
     def test_boss_role
@@ -20,7 +20,7 @@ module CalculationService
 
     def test_contractor_role
       subject = prepare_subject(role: "contractor")
-      assert_equal 41280, CalculationService::TotalIncome.call(subject)
+      assert_equal 42780, CalculationService::TotalIncome.call(subject)
     end
 
     def test_vendor_role

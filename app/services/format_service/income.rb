@@ -43,7 +43,8 @@ module FormatService
         "#{salary_label}": monthly_wage,
         設備津貼: equipment_subsidy,
         加班費: overtime,
-      }.merge(extra_gain)
+      }.merge(festival_bonus)
+        .merge(extra_gain)
     end
 
     def vendor
@@ -54,7 +55,8 @@ module FormatService
       {
         薪資: total_wage,
         交通津貼: salary.commuting_subsidy,
-      }.merge(extra_gain)
+      }.merge(festival_bonus)
+        .merge(extra_gain)
     end
 
     def advisor
