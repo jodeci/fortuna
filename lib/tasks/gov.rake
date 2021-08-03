@@ -20,15 +20,16 @@ namespace :gov do
     Payroll.where(year: ENV["year"], month: ENV["month"]).map do |payroll|
       next if payroll.employee.b2b?
 
-      if payroll.salary.professional_service?
-        tax_c += IncomeTaxService::ProfessionalService.call(payroll)
-        health65 += HealthInsuranceService::ProfessionalService.call(payroll) unless payroll.salary.split?
-      elsif payroll.salary.parttime_income_uninsured_for_labor?
-        tax_b += IncomeTaxService::UninsurancedSalary.call(payroll)
-        health63 += HealthInsuranceService::ParttimeIncome.call(payroll) unless payroll.salary.split?
-      else
+      if payroll.salary.regular_income?
         tax_a += IncomeTaxService::InsurancedSalary.call(payroll)
         tax_b += IncomeTaxService::IrregularIncome.call(payroll)
+      elsif payroll.salary.professional_service?
+        tax_c += IncomeTaxService::ProfessionalService.call(payroll)
+        health65 += HealthInsuranceService::ProfessionalService.call(payroll) unless payroll.salary.split?
+      else
+        next if payroll.salary.split?
+        tax_b += IncomeTaxService::UninsurancedSalary.call(payroll) if payroll.salary.parttime_income_uninsured_for_labor?
+        health63 += HealthInsuranceService::ParttimeIncome.call(payroll) if payroll.salary.parttime_income_uninsured_for_health?
       end
     end
 
