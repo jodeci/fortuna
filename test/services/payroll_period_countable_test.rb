@@ -22,15 +22,70 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
     assert_not subject.final_month?
   end
 
-  def test_payment_period_in_first_month
+  def test_payment_period_in_first_month_feb_day1
+    subject = DummyObject.new(
+      year: 2015,
+      month: 2,
+      start_date: "2015-02-01",
+      end_date: "2017-10-20",
+      effective_date: "2015-02-01"
+    )
+    assert_equal 30, subject.period_length
+  end
+
+  def test_payment_period_in_first_month_feb_midway
+    subject = DummyObject.new(
+      year: 2015,
+      month: 2,
+      start_date: "2015-02-20",
+      end_date: "2017-10-20",
+      effective_date: "2015-02-20"
+    )
+    assert_equal 9, subject.period_length
+  end
+
+  def test_payment_period_in_first_month_30_day1
+    subject = DummyObject.new(
+      year: 2015,
+      month: 4,
+      start_date: "2015-04-01",
+      end_date: "2017-10-20",
+      effective_date: "2015-04-01"
+    )
+    assert_equal 30, subject.period_length
+  end
+
+  def test_payment_period_in_first_month_30_midway
+    subject = DummyObject.new(
+      year: 2015,
+      month: 4,
+      start_date: "2015-04-20",
+      end_date: "2017-10-20",
+      effective_date: "2015-04-20"
+    )
+    assert_equal 11, subject.period_length
+  end
+
+  def test_payment_period_in_first_month_31_day1
+    subject = DummyObject.new(
+      year: 2015,
+      month: 5,
+      start_date: "2015-05-01",
+      end_date: "2017-10-20",
+      effective_date: "2015-05-01"
+    )
+    assert_equal 30, subject.period_length
+  end
+
+  def test_payment_period_in_first_month_31_midway
     subject = DummyObject.new(
       year: 2015,
       month: 5,
       start_date: "2015-05-13",
       end_date: "2017-10-20",
-      effective_date: "2018-05-13"
+      effective_date: "2015-05-13"
     )
-    assert_equal 18, subject.period_length
+    assert_equal 19, subject.period_length
   end
 
   def test_employee_on_payroll_in_normal_month
@@ -39,20 +94,42 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
       month: 7,
       start_date: "2015-05-13",
       end_date: "2017-10-20",
-      effective_date: "2018-05-13"
+      effective_date: "2015-05-13"
     )
     assert_equal 30, subject.period_length
   end
 
-  def test_payment_period_in_final_month
+  def test_payment_period_in_final_month_feb_lastday
+    subject = DummyObject.new(
+      year: 2017,
+      month: 2,
+      start_date: "2015-05-13",
+      end_date: "2017-02-28",
+      effective_date: "2015-05-13"
+    )
+    assert_equal 30, subject.period_length
+  end
+
+  def test_payment_period_in_final_month_31_midway
     subject = DummyObject.new(
       year: 2017,
       month: 10,
       start_date: "2015-05-13",
       end_date: "2017-10-20",
-      effective_date: "2018-05-13"
+      effective_date: "2015-05-13"
     )
     assert_equal 20, subject.period_length
+  end
+
+  def test_payment_period_in_final_month_31_lastday
+    subject = DummyObject.new(
+      year: 2017,
+      month: 10,
+      start_date: "2015-05-13",
+      end_date: "2017-10-31",
+      effective_date: "2015-05-13"
+    )
+    assert_equal 30, subject.period_length
   end
 
   def test_payment_period_in_final_month_business
@@ -73,7 +150,7 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
       month: 4,
       start_date: "2015-05-13",
       end_date: "2017-10-20",
-      effective_date: "2018-05-13"
+      effective_date: "2015-05-13"
     )
     assert_equal 0, subject.period_length
   end
@@ -84,7 +161,7 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
       month: 11,
       start_date: "2015-05-13",
       end_date: "2017-10-20",
-      effective_date: "2018-05-13"
+      effective_date: "2015-05-13"
     )
     assert_equal 0, subject.period_length
   end
@@ -95,7 +172,7 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
       month: 9,
       start_date: "2015-05-13",
       end_date: "2017-10-20",
-      effective_date: "2018-05-13",
+      effective_date: "2015-05-13",
       cycle: "business"
     )
     assert_equal 22, subject.period_length
@@ -128,7 +205,7 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
       month: 2,
       start_date: "2015-05-13",
       end_date: "2016-02-29",
-      effective_date: "2018-05-13"
+      effective_date: "2015-05-13"
     )
     assert_equal 30, subject.period_length
   end
@@ -139,7 +216,7 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
       month: 7,
       start_date: "2015-05-13",
       end_date: "2016-07-31",
-      effective_date: "2018-05-13"
+      effective_date: "2015-05-13"
     )
     assert_equal 30, subject.period_length
   end

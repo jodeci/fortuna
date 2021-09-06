@@ -66,8 +66,22 @@ module PayrollPeriodCountable
     first_month? ? employee_start.day : 1
   end
 
-  def period_end
-    final_month? ? period_end_day : 30
+  def period_by_30_days
+    if first_month?
+      period_start_day
+    elsif final_month?
+      period_end_day
+    else
+      30
+    end
+  end
+
+  def period_start_day
+    if employee_start.day == 1
+      30
+    else
+      employee_start.end_of_month.day - employee_start.day + 1
+    end
   end
 
   def period_end_day
@@ -76,10 +90,6 @@ module PayrollPeriodCountable
     else
       employee_end.day
     end
-  end
-
-  def period_by_30_days
-    period_end - period_start + 1
   end
 
   def period_by_business_days
