@@ -6,8 +6,8 @@
 這只是個普通的 Rails app，用普通的 Rails app 安裝方式就可以了
 
 - Ruby 2.6.3
-- Rails 5.2.4.5
-- PostgreSQL 9.4.4
+- Rails 5.2.6
+- PostgreSQL 12.7
 
 ### 使用方法
 - 先到 http://localhost:3000/employees/ 建員工資料和薪資資料
