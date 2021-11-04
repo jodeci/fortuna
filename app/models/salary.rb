@@ -11,7 +11,7 @@ class Salary < ApplicationRecord
     "正職": "regular",
     "約聘": "contractor",
     "外包": "vendor",
-    "實習/工讀": "parttime",
+    "時薪兼職": "parttime",
     "顧問/講師": "advisor",
   }.freeze
 
