@@ -10,7 +10,9 @@ class MinimumWageService
 
   # rubocop:disable AbcSize, PerceivedComplexity
   def call
-    if date >= Date.new(2021, 1, 1)
+    if date >= Date.new(2022, 1, 1)
+      25250
+    elsif date >= Date.new(2021, 1, 1)
       24000
     elsif date >= Date.new(2020, 1, 1)
       23800
