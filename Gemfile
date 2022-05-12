@@ -5,9 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.2.6'
+gem 'rails', '~> 5.2.6.2'
 gem 'pg'
-gem 'puma', '>= 5.5.1'
+gem 'puma', '>= 5.6.4'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'bootsnap'
@@ -32,7 +32,7 @@ gem 'wkhtmltopdf-binary', '0.12.3.1' # 0.12.4.0 shrinks text
 gem 'pdf-toolkit'
 
 gem 'rack', '>= 2.2.3'
-gem 'nokogiri', '~> 1.12.5'
+gem 'nokogiri', '~> 1.13.4'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
