@@ -31,7 +31,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary', '0.12.3.1' # 0.12.4.0 shrinks text
 gem 'pdf-toolkit'
 
-gem 'rack', '>= 2.2.3'
+gem 'rack', '>= 2.2.3.1'
 gem 'nokogiri', '~> 1.13.4'
 
 group :development, :test do
