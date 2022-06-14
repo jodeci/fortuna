@@ -8,7 +8,7 @@ class MinimumWageService
     @date = Date.new(year, month, 1)
   end
 
-  # rubocop:disable AbcSize, PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
   def call
     if date >= Date.new(2022, 1, 1)
       25250
@@ -32,5 +32,5 @@ class MinimumWageService
       18780 # 再往下寫沒意義
     end
   end
-  # rubocop:enable AbcSize, PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 end

@@ -34,8 +34,7 @@ class SalaryTracker < ApplicationRecord
         .where("term_start <= ?", Date.new(payroll.year, payroll.month, -1))
         .where("salary_start <= ?", Date.new(payroll.year, payroll.month, -1))
         .order(salary_start: :desc)
-        .pluck(:salary_id)
-        .first
+        .pick(:salary_id)
     end
 
     def term_by_salary(salary_id:)

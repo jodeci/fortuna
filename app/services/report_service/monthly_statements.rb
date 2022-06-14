@@ -39,9 +39,7 @@ module ReportService
     end
 
     def column_base(column)
-      base_keys(column).each_with_object({}) do |key, hash|
-        hash[key] = 0
-      end
+      base_keys(column).index_with { |key| 0 }
     end
 
     def base_keys(column)

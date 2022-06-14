@@ -5,16 +5,16 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.2.7.1'
+gem 'rails', '~> 6.0'
 gem 'pg'
-gem 'puma', '>= 5.6.4'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'puma'
+gem 'sass-rails'
+gem 'uglifier'
 gem 'bootsnap'
 
-gem 'coffee-rails', '~> 4.2'
-gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+gem 'coffee-rails'
+gem 'turbolinks'
+gem 'jbuilder'
 gem 'haml'
 gem 'bootstrap-sass'
 gem 'simple_form'
@@ -31,8 +31,8 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary', '0.12.3.1' # 0.12.4.0 shrinks text
 gem 'pdf-toolkit'
 
-gem 'rack', '>= 2.2.3.1'
-gem 'nokogiri', '~> 1.13.4'
+gem 'rack'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -41,7 +41,7 @@ group :development, :test do
   gem 'taiwanese_id_validator'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'faker'
-  gem 'rubocop', '~> 0.60.0'
+  gem 'rubocop-rails'
   gem 'time_difference'
   gem 'timecop'
   gem 'mocha'
