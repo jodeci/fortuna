@@ -68,7 +68,7 @@ class StatementPDFBuilder
   def html_content
     renderer.render(
       layout: "pdf.pdf",
-      file: details[:template],
+      template: details[:template],
       assigns: { details: details }
     )
   end

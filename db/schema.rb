@@ -2,11 +2,11 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
@@ -48,15 +48,6 @@ ActiveRecord::Schema.define(version: 2020_07_21_093758) do
     t.datetime "updated_at", null: false
     t.string "income_type", default: "salary"
     t.index ["payroll_id"], name: "index_extra_entries_on_payroll_id"
-  end
-
-  create_table "lunar_years", force: :cascade do |t|
-    t.integer "year"
-    t.date "last_working_day"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.date "paydate"
-    t.index ["year"], name: "index_lunar_years_on_year", unique: true
   end
 
   create_table "overtimes", force: :cascade do |t|
@@ -138,22 +129,6 @@ ActiveRecord::Schema.define(version: 2020_07_21_093758) do
     t.index ["employee_id"], name: "index_terms_on_employee_id"
     t.index ["end_date"], name: "index_terms_on_end_date"
     t.index ["start_date"], name: "index_terms_on_start_date"
-  end
-
-  create_table "yearend_bonuses", force: :cascade do |t|
-    t.integer "average_wage", default: 0
-    t.decimal "multiplier", default: "0.0"
-    t.integer "salary_based_bonus", default: 0
-    t.integer "fixed_amount", default: 0
-    t.integer "cash_benefit", default: 0
-    t.integer "employee_id"
-    t.integer "lunar_year_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "income_tax", default: 0
-    t.integer "health_insurance", default: 0
-    t.integer "total", default: 0
-    t.decimal "seniority_factor", default: "1.0"
   end
 
 
