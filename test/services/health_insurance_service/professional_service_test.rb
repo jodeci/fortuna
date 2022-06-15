@@ -28,7 +28,7 @@ module HealthInsuranceService
         year: 2018,
         month: 1,
         salary: build(:salary, monthly_wage: monthly_wage, split: split, term: term),
-        employee: employee,
+        employee: employee
       )
     end
   end

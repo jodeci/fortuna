@@ -8,7 +8,7 @@ class PayrollInitRegularsServiceTest < ActiveSupport::TestCase
     4.times { prepare_subject(role: "boss") }
     3.times { prepare_subject(role: "advisor") }
     2.times { prepare_subject(role: "vendor") }
-    1.times { prepare_subject(role: "parttime") }
+    prepare_subject(role: "parttime")
 
     PayrollInitService.expects(:call).times(15)
     assert PayrollInitRegularsService.call(2018, 1)
@@ -25,6 +25,6 @@ class PayrollInitRegularsServiceTest < ActiveSupport::TestCase
         employee: employee,
         term: create(:term, start_date: "2018-01-01", employee: employee)
       )
-    end 
+    end
   end
 end

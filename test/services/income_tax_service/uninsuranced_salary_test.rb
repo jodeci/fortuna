@@ -29,7 +29,7 @@ module IncomeTaxService
         month: 1,
         festival_bonus: festival_bonus,
         salary: build(:salary, monthly_wage: monthly_wage, split: split, term: term),
-        employee: employee,
+        employee: employee
       )
     end
   end

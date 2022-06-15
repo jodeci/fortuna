@@ -10,7 +10,7 @@ module CalculationService
 
     def test_weekday_additional_rate
       subject = prepare_subject(hours: 3, rate: :weekday)
-      assert_equal (200 * 2 + 250), CalculationService::Overtime.call(subject)
+      assert_equal ((200 * 2) + 250), CalculationService::Overtime.call(subject)
     end
 
     def test_weekend_initial_rate
@@ -20,12 +20,12 @@ module CalculationService
 
     def test_weekend_additional_rate
       subject = prepare_subject(hours: 3, rate: :weekend)
-      assert_equal (200 * 2 + 250), CalculationService::Overtime.call(subject)
+      assert_equal ((200 * 2) + 250), CalculationService::Overtime.call(subject)
     end
 
     def test_weekend_final_rate
       subject = prepare_subject(hours: 10, rate: :weekend)
-      assert_equal (200 * 2 + 250 * 6 + 400 * 2), CalculationService::Overtime.call(subject)
+      assert_equal ((200 * 2) + (250 * 6) + (400 * 2)), CalculationService::Overtime.call(subject)
     end
 
     def test_holiday_rate

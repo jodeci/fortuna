@@ -8,6 +8,6 @@ class ExtraEntry < ApplicationRecord
     includes(:payroll, payroll: :employee)
       .where("amount > 0 AND income_type = ?", :subsidy)
       .joins(:payroll)
-      .where("payrolls.year = ?", year)
+      .where(payrolls: { year: year })
   }
 end

@@ -278,7 +278,7 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
         :term,
         start_date: options.fetch(:start_date, nil),
         end_date: options.fetch(:end_date, nil),
-        employee: prepare_employee,
+        employee: prepare_employee
       )
     end
 
@@ -288,7 +288,7 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
         year: options.fetch(:year, nil),
         month: options.fetch(:month, nil),
         employee: prepare_employee,
-        salary: prepare_salary,
+        salary: prepare_salary
       )
     end
 
@@ -297,7 +297,7 @@ class PayrollPeriodCountableTest < ActiveSupport::TestCase
         :salary,
         effective_date: options.fetch(:effective_date, nil),
         cycle: options.fetch(:cycle, "normal"),
-        term: prepare_term,
+        term: prepare_term
       )
     end
   end

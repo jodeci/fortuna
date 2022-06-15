@@ -147,6 +147,7 @@ class CalculatableTest < ActiveSupport::TestCase
 
   class DummyObject
     attr_reader :payroll
+
     include Calculatable
 
     def initialize(payroll = FactoryBot.build(:payroll))
@@ -154,8 +155,8 @@ class CalculatableTest < ActiveSupport::TestCase
     end
   end
 
-  private 
-  
+  private
+
   def prepare_subject(tax_code:, insured_for_health:, insured_for_labor:)
     DummyObject.new(
       build(

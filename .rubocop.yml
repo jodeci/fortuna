@@ -2,7 +2,8 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
+  NewCops: enable
   Exclude:
     - ./Rakefile
     - ./config.ru
@@ -10,91 +11,92 @@ AllCops:
     - bin/**/*
     - db/**/*
     - config/**/*
-    - test/**/* # FIXME
     - vendor/bundle/ruby/**/*
 
 Rails:
   Enabled: true
 
 # Use &&/|| instead of and/or.
-AndOr:
+Style/AndOr:
   Enabled: true
 
 # Use only ascii symbols in identifiers.
-AsciiComments:
+Style/AsciiComments:
   Enabled: false
 
 # Document classes and non-namespace modules.
-Documentation:
+Style/Documentation:
   Enabled: false
 
 # Use the lambda method for multi-line lambdas.
-Lambda:
+Style/Lambda:
   Enabled: false
 
 # Limit lines to 79 characters.
-LineLength:
+Layout/LineLength:
   Max: 79
   Enabled: false
 
-MethodLength:
+Metrics/MethodLength:
   Max: 30
   Enabled: true
 
 # Don't use self where it's not needed.
-RedundantSelf:
+Style/RedundantSelf:
   Enabled: false
 
 # Checks for proper usage of fail and raise.
-SignalException:
+Style/SignalException:
   Enabled: false
 
 # Prefer ' strings when you don't need string interpolation or special symbols.
-StringLiterals:
+Style/StringLiterals:
   EnforcedStyle: double_quotes
   SupportedStyles:
     - single_quotes
     - double_quotes
 
 # Align block ends correctly.
-BlockAlignment:
+Layout/BlockAlignment:
   Enabled: false
 
 # Avoid the use of attr. Use attr_reader and attr_accessor instead.
-Attr:
+Style/Attr:
   Enabled: false
 
-ClassAndModuleChildren:
+Style/ClassAndModuleChildren:
   Enabled: false
 
-UnusedBlockArgument:
+Lint/UnusedBlockArgument:
   Enabled: false
 
-UnusedMethodArgument:
+Lint/UnusedMethodArgument:
   Enabled: false
 
-MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   Enabled: false
 
-AbcSize:
+Metrics/AbcSize:
   Max: 20
+  Exclude:
+      - "test/**/*"
 
-CyclomaticComplexity:
+Metrics/CyclomaticComplexity:
   Max: 30
 
-RescueModifier:
+Style/RescueModifier:
   Severity: warning
   AutoCorrect: false
 
 # node(:id) { |m| m.file_id }
-SymbolProc:
+Style/SymbolProc:
   Severity: warning
   AutoCorrect: false
 
-MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-ConditionalAssignment:
+Style/ConditionalAssignment:
   Enabled: false
 
 Style/EmptyMethod:
@@ -158,3 +160,13 @@ Metrics/BlockLength:
 # turned off because this app doesn't care about timezone
 Rails/Date:
   Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Style/KeywordParametersOrder:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Exclude:
+    - "test/factories/*.rb"

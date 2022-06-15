@@ -22,7 +22,7 @@ module CalculationService
       if hours <= 2
         (initial_rate * hours).to_i
       else
-        (initial_rate * 2 + additional_rate * (hours - 2)).to_i
+        ((initial_rate * 2) + (additional_rate * (hours - 2))).to_i
       end
     end
 
@@ -31,7 +31,7 @@ module CalculationService
       if hours <= 8
         weekday
       else
-        (initial_rate * 2 + additional_rate * 6 + final_rate * (hours - 8)).to_i
+        ((initial_rate * 2) + (additional_rate * 6) + (final_rate * (hours - 8))).to_i
       end
     end
 

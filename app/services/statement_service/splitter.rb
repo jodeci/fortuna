@@ -33,7 +33,7 @@ module StatementService
 
     def splits
       ratio.times { array << split_interval }
-      array << paid_amount - ratio * split_interval
+      array << (paid_amount - (ratio * split_interval))
       array.delete 0
       array
     end

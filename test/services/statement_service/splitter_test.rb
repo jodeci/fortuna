@@ -40,9 +40,9 @@ module StatementService
           insured_for_health: insured,
           insured_for_labor: insured,
           split: split,
-          term: term,
+          term: term
         ),
-        employee: employee,
+        employee: employee
       )
     end
   end

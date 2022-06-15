@@ -43,7 +43,7 @@ module HealthInsuranceService
           insured_for_health: insured,
           insured_for_labor: insured,
           employee: employee,
-          term: build(:term),
+          term: build(:term)
         ),
         employee: employee
       ) { |payroll| create(:statement, excess_income: bonus, payroll: payroll) }
