@@ -54,7 +54,7 @@ class EsunBankCSVRowBuilder
   def to_salary(amount: statement.amount)
     row = []
     row.push(
-      ENV.fetch("company_bank_account"), payment_date, employee.bank_account.slice(4, 16),
+      ENV.fetch("company_bank_account", nil), payment_date, employee.bank_account.slice(4, 16),
       employee.name, amount, 2, employee.email
     )
     11.times { row.push nil }
@@ -69,7 +69,7 @@ class EsunBankCSVRowBuilder
   def to_normal(amount: statement.amount)
     row = []
     row.push(
-      ENV.fetch("company_bank_account"), payment_date, employee.bank_account.slice(0, 3),
+      ENV.fetch("company_bank_account", nil), payment_date, employee.bank_account.slice(0, 3),
       employee.bank_account.slice(4, 16), employee.name, amount, 0, 2, employee.email
     )
     7.times { row.push nil }
