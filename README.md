@@ -5,7 +5,7 @@
 ## 安裝
 這只是個普通的 Rails app，用普通的 Rails app 安裝方式就可以了
 
-- Ruby 2.7.5
+- Ruby 2.7.6
 - Rails 6.1.6
 - PostgreSQL 14.3
 
