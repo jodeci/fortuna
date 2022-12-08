@@ -39,7 +39,7 @@ jobs:
           PG_PASSWORD: postgres
         run: |
           cp config/database.yml.sample config/database.yml
-          rake db:create db:migrate
+          bundle exec rake db:create db:migrate
       - name: Run tests
         env:
           PG_HOST: localhost
