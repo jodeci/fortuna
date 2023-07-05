@@ -2,6 +2,14 @@
 require "test_helper"
 
 class MinimumWageServiceTest < ActiveSupport::TestCase
+  def test_after_202301
+    assert_equal 26400, MinimumWageService.call(2023, 1)
+  end
+
+  def test_after_202201
+    assert_equal 25250, MinimumWageService.call(2022, 1)
+  end
+
   def test_after_202101
     assert_equal 24000, MinimumWageService.call(2021, 1)
   end

@@ -2,37 +2,40 @@
 class MinimumWageService
   include Callable
 
-  attr_reader :date
+  attr_reader :date, :brackets
 
   def initialize(year, month)
     @date = Date.new(year, month, 1)
+    @brackets = []
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
   def call
-    if date >= Date.new(2023, 1, 1)
-      26400
-    elsif date >= Date.new(2022, 1, 1)
-      25250
-    elsif date >= Date.new(2021, 1, 1)
-      24000
-    elsif date >= Date.new(2020, 1, 1)
-      23800
-    elsif date >= Date.new(2019, 1, 1)
-      23100
-    elsif date >= Date.new(2018, 1, 1)
-      22000
-    elsif date >= Date.new(2017, 1, 1)
-      21009
-    elsif date >= Date.new(2016, 10, 1)
-      20008
-    elsif date >= Date.new(2014, 7, 1)
-      19273
-    elsif date >= Date.new(2014, 1, 1)
-      19047
-    else
-      18780 # 再往下寫沒意義
+    parse_yml_data_to_brackets
+
+    brackets.each do |bracket|
+      return bracket[:minimum_wage] if bracket[:range].cover?(date)
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
+
+  private
+
+  def parse_yml_data_to_brackets
+    yml_data.each do |row|
+      d1 = Date.parse(row["start"])
+      d2 = end_date_infinity_check(row["end"])
+      brackets << { range: d1..d2, minimum_wage: row["value"] }
+    end
+  end
+
+  def end_date_infinity_check(end_date)
+    if end_date == "infinity"
+      Date::Infinity.new
+    else
+      Date.parse(end_date)
+    end
+  end
+
+  def yml_data
+    YAML.load_file("#{Rails.root}/config/minimum_wage.yml")
+  end
 end
