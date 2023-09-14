@@ -6,8 +6,14 @@ class TermsController < ApplicationController
   def index
   end
 
+  def show
+  end
+
   def new
     @term = @employee.terms.build
+  end
+
+  def edit
   end
 
   def create
@@ -17,12 +23,6 @@ class TermsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def show
-  end
-
-  def edit
   end
 
   def update

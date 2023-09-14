@@ -48,13 +48,11 @@ class Payroll < ApplicationRecord
       .abs
   end
 
-  private
-
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "employee_id", "festival_bonus", "festival_type", "id", "leavetime_hours", "month", "parttime_hours", "salary_id", "sicktime_hours", "updated_at", "vacation_refund_hours", "year"]
+    %w[created_at employee_id festival_bonus festival_type id leavetime_hours month parttime_hours salary_id sicktime_hours updated_at vacation_refund_hours year]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["employee", "extra_entries", "overtimes", "salary", "statement"]
+    %w[employee extra_entries overtimes salary statement]
   end
 end

@@ -31,7 +31,7 @@ class Employee < ApplicationRecord
   # 離職當月仍算是在職
   def resigned?
     return true if current_term.blank?
-    return unless current_term.end_date
+    return false unless current_term.end_date
     current_term.end_date < Date.today.beginning_of_month
   end
 

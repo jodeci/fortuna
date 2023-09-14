@@ -6,9 +6,15 @@ class SalariesController < ApplicationController
   def index
   end
 
+  def show
+  end
+
   def new
     (@term = Term.find_by(id: params[:term_id])) || not_found
     @salary = @employee.salaries.build
+  end
+
+  def edit
   end
 
   def create
@@ -18,12 +24,6 @@ class SalariesController < ApplicationController
     else
       render :new
     end
-  end
-
-  def show
-  end
-
-  def edit
   end
 
   def update

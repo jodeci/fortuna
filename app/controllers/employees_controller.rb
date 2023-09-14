@@ -19,8 +19,15 @@ class EmployeesController < ApplicationController
     render :index
   end
 
+  def show
+    @payrolls = @employee.payrolls.personal_history
+  end
+
   def new
     @employee = Employee.new
+  end
+
+  def edit
   end
 
   def create
@@ -30,13 +37,6 @@ class EmployeesController < ApplicationController
     else
       render :new
     end
-  end
-
-  def show
-    @payrolls = @employee.payrolls.personal_history
-  end
-
-  def edit
   end
 
   def update

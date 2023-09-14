@@ -16,13 +16,11 @@ class Statement < ApplicationRecord
       .order("payrolls.employee_id DESC")
   }
 
-  private
-
   def self.ransackable_attributes(auth_object = nil)
-    ["amount", "correction", "created_at", "excess_income", "gain", "id", "loss", "month", "payroll_id", "splits", "subsidy_income", "updated_at", "year"]
+    %w[amount correction created_at excess_income gain id loss month payroll_id splits subsidy_income updated_at year]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["corrections", "employee", "payroll"]
+    %w[corrections employee payroll]
   end
 end
