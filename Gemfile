@@ -7,7 +7,7 @@ end
 
 gem 'rails', '~> 6.1.7.4'
 gem 'pg'
-gem 'puma'
+gem 'puma', '>= 6.3.1'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'bootsnap'
