@@ -1,5 +1,5 @@
 %tr.nested-fields
   %td= f.input_field :date, default: Date.new(@payroll.year, @payroll.month, 1)
   %td= f.input_field :hours
-  %td= f.input_field :rate, collection: Overtime::RATE
+  %td= f.input_field :rate, collection: Overtime::RATE, default: "weekday"
   %td= link_to_remove_association "移除", f, class: "btn btn-xs btn-danger"
