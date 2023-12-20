@@ -60,7 +60,7 @@ module Calculatable
   end
 
   def total_wage
-    (payroll.parttime_hours * payroll.hourly_wage).round
+    (payroll.parttime_hours * payroll.hourly_wage).ceil
   end
 
   def overtime
@@ -90,7 +90,7 @@ module Calculatable
   end
 
   def labor_insurance
-    scale_for_30_days(payroll.labor_insurance).round
+    scale_for_30_days(payroll.labor_insurance).ceil
   end
 
   def equipment_subsidy

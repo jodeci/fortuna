@@ -20,7 +20,7 @@ module HealthInsuranceService
     private
 
     def premium
-      (premium_base * rate).round
+      (premium_base * rate).ceil
     end
 
     def rate

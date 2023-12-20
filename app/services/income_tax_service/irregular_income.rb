@@ -13,7 +13,7 @@ module IncomeTaxService
     # 非經常性給予超過免稅額 需代扣 5% 所得稅
     def call
       return 0 unless taxable?
-      (irregular_income * rate).round
+      (irregular_income * rate).ceil
     end
 
     private

@@ -18,7 +18,7 @@ module CalculationService
     private
 
     def hourly_rate
-      (salary.income_with_subsidies / days_in_month / 8.0).round
+      (salary.income_with_subsidies / days_in_month / 8.0).ceil
     end
 
     def days_in_month

@@ -17,7 +17,7 @@ module CalculationService
     private
 
     def hourly_rate
-      (salary.income_with_subsidies / 30 / 8.0).round
+      (salary.income_with_subsidies / 30 / 8.0).ceil
     end
   end
 end
