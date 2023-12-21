@@ -6,7 +6,7 @@ class Overtime < ApplicationRecord
   has_one :employee, through: :payroll
   delegate :id, :name, to: :employee, prefix: true
 
-  RATE = { "平日": "weekday", "週末": "weekend", "假日": "holiday" }.freeze
+  RATE = { "平日": "weekday", "休息日": "weekend", "休假日": "holiday", "例假日": "offday" }.freeze
 
   scope :yearly_report, ->(year) {
     includes(:payroll, :employee, payroll: :salary)
