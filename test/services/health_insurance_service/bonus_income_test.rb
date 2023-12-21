@@ -13,7 +13,7 @@ module HealthInsuranceService
       # 全年累計 100000, 扣除額 96000, 獎投差額 4000, 當月獎金 100000
       # 計費基準為 4000
       subject = prepare_subject(month: 2, insured: 24000, bonus: 100000)
-      assert_equal 76, HealthInsuranceService::BonusIncome.call(subject)
+      assert_equal 77, HealthInsuranceService::BonusIncome.call(subject)
 
       # 全年累計 120000, 扣除額 100800, 獎投差額 19200, 當月獎金 20000
       # 計費基準為 19200

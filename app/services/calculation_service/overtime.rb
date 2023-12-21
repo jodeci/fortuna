@@ -17,43 +17,62 @@ module CalculationService
 
     private
 
-    # 一例一休 平日加班
+    # 平日加班
     def weekday
       if hours <= 2
-        (initial_rate * hours).to_i
+        initial_rate * hours
       else
-        ((initial_rate * 2) + (additional_rate * (hours - 2))).to_i
+        (initial_rate * 2) + (additional_rate * (hours - 2))
       end
     end
 
-    # 一例一休 週末加班
+    # 休息日加班（週六）
     def weekend
       if hours <= 8
         weekday
       else
-        ((initial_rate * 2) + (additional_rate * 6) + (final_rate * (hours - 8))).to_i
+        (initial_rate * 2) + (additional_rate * 6) + (final_rate * 4)
       end
     end
 
-    # 一例一休 假日加班
+    # 例假日加班（國定假日）
     def holiday
-      (hourly_rate * 8 * 2).to_i
+      if hours <= 8
+        holiday_rate
+      elsif hours <= 10
+        holiday_rate + (initial_rate * (hours - 8))
+      else
+        holiday_rate + (initial_rate * 2) + (additional_rate * (hours - 10))
+      end
+    end
+
+    # 休假日加班（週日）
+    def offday
+      if hours <= 8
+        holiday_rate
+      else
+        holiday_rate + (hourly_rate * 4 * 2)
+      end
     end
 
     def hourly_rate
-      (salary.income_with_subsidies / 30 / 8.0).round
+      (salary.income_with_subsidies / 30 / 8.0).ceil.to_i
     end
 
     def initial_rate
-      hourly_rate * 4 / 3
+      (hourly_rate * 4 / 3.0).ceil.to_i
     end
 
     def additional_rate
-      hourly_rate * 5 / 3
+      (hourly_rate * 5 / 3.0).ceil.to_i
     end
 
     def final_rate
-      additional_rate + hourly_rate
+      (hourly_rate * 8 / 3.0).ceil.to_i
+    end
+
+    def holiday_rate
+      hourly_rate * 8
     end
   end
 end

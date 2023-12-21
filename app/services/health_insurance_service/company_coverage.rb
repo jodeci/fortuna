@@ -11,7 +11,7 @@ module HealthInsuranceService
     end
 
     def call
-      (premium_base * rate).round
+      (premium_base * rate).ceil
     end
 
     private

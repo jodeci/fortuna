@@ -21,13 +21,13 @@ module IncomeTaxService
     # 兼職所得超過免稅額 需代扣 5% 所得稅
     def salary_tax
       return 0 unless taxable_income > exemption
-      (taxable_income * rate).round
+      (taxable_income * rate).ceil
     end
 
     # 獎金所得超過免稅額 需代扣 5% 所得稅
     def bonus_tax
       return 0 unless bonus_income > exemption
-      (bonus_income * rate).round
+      (bonus_income * rate).ceil
     end
 
     def exemption

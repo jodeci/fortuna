@@ -14,7 +14,7 @@ module IncomeTaxService
     def call
       return 0 if payroll.salary.split?
       return 0 unless taxable?
-      (taxable_income * rate).round
+      (taxable_income * rate).ceil
     end
 
     private
