@@ -29,5 +29,8 @@
   end: "2022-12-31"
   value: 25250
 - start: "2023-01-01"
-  end: "infinity"
+  end: "2023-12-31"
   value: 26400
+- start: "2024-01-01"
+  end: "infinity"
+  value: 27470
