@@ -72,7 +72,13 @@ module FormatService
     end
 
     def taxfree_lunch
-      payroll.year >= 2015 ? 2400 : 1800
+      if payroll.year >= 2024
+        3000
+      elsif payroll.year >= 2015
+        2400
+      else
+        1800
+      end
     end
 
     def extra_gain
