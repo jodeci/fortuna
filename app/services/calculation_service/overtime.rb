@@ -12,7 +12,8 @@ module CalculationService
     end
 
     def call
-      send(rate)
+      # 避免 statement.gain 寫入資料庫時被轉成字串，統一 to_i
+      send(rate).to_i
     end
 
     private
@@ -56,19 +57,19 @@ module CalculationService
     end
 
     def hourly_rate
-      (salary.income_with_subsidies / 30 / 8.0).ceil.to_i
+      (salary.income_with_subsidies / 30 / 8.0).ceil
     end
 
     def initial_rate
-      (hourly_rate * 4 / 3.0).ceil.to_i
+      (hourly_rate * 4 / 3.0).ceil
     end
 
     def additional_rate
-      (hourly_rate * 5 / 3.0).ceil.to_i
+      (hourly_rate * 5 / 3.0).ceil
     end
 
     def final_rate
-      (hourly_rate * 8 / 3.0).ceil.to_i
+      (hourly_rate * 8 / 3.0).ceil
     end
 
     def holiday_rate
