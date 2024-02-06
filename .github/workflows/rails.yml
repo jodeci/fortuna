@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get -yqq install libpq-dev build-essential libcurl4-openssl-dev
-          gem install bundler:2.1.4
+          gem install bundler:2.3.6
           bundle lock --add-platform x86_64-linux
           bundle install --jobs 4 --retry 3
       - name: Setup test database
