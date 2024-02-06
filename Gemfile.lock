@@ -118,6 +118,10 @@ GEM
       tilt
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    io-console (0.6.0)
+    irb (1.9.0)
+      rdoc
+      reline (>= 0.3.8)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -178,6 +182,8 @@ GEM
       racc
     pdf-toolkit (1.1.0)
     pg (1.5.4)
+    psych (5.1.1.1)
+      stringio
     public_suffix (5.0.3)
     puma (6.3.1)
       nio4r (~> 2.0)
@@ -223,7 +229,11 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rb-readline (0.5.5)
+    rdoc (6.6.0)
+      psych (>= 4.0.0)
     regexp_parser (2.8.2)
+    reline (0.4.1)
+      io-console (~> 0.5)
     rexml (3.2.6)
     rubocop (1.54.1)
       json (~> 2.3)
@@ -283,6 +293,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stringio (3.0.9)
     taiwanese_id_validator (0.0.2)
       activemodel
     temple (0.10.2)
@@ -335,6 +346,7 @@ DEPENDENCIES
   faker
   figaro
   haml
+  irb
   jbuilder
   jquery-rails
   kaminari
