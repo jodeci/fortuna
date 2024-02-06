@@ -41,6 +41,7 @@ group :development, :test do
   gem 'taiwanese_id_validator'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'faker'
+  gem 'net-http'
   gem 'rubocop-rails'
   gem 'time_difference'
   gem 'timecop'
