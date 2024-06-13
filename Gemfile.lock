@@ -162,6 +162,8 @@ GEM
     mocha (2.0.4)
       ruby2_keywords (>= 0.0.5)
     msgpack (1.7.2)
+    net-http (0.4.1)
+      uri
     net-imap (0.4.4)
       date
       net-protocol
@@ -312,6 +314,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unicode-display_width (2.5.0)
     uniform_notifier (1.16.0)
+    uri (0.13.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -352,6 +355,7 @@ DEPENDENCIES
   kaminari
   listen (>= 3.0.5, < 3.2)
   mocha
+  net-http
   nokogiri
   pdf-toolkit
   pg

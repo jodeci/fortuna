@@ -33,6 +33,7 @@ gem 'pdf-toolkit'
 
 gem 'rack'
 gem 'nokogiri'
+gem 'net-http'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

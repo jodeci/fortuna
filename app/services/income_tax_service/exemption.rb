@@ -17,7 +17,11 @@ module IncomeTaxService
     private
 
     def exemption_by_date
-      if date >= Date.new(2018, 1, 1)
+      if date >= Date.new(2024, 1, 1)
+        88500
+      elsif date >= Date.new(2022, 1, 1)
+        86000
+      elsif date >= Date.new(2018, 1, 1)
         84500
       elsif date >= Date.new(2017, 1, 1)
         73500
